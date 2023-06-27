@@ -1,0 +1,136 @@
+div.equipement {
+    section.window-content {
+        background:$fond;
+        color:$color;
+        font-family: Sriracha;
+        font-weight: bold;
+
+        form {
+            min-width: min-content;
+
+            >input {
+                width:100%;
+                border-width: 2px;
+                border-radius: 15px 15px 0px 0px;
+                background:$imgbg $blue;
+                background-blend-mode: overlay, multiply;
+                background-size:500px;
+                background-repeat:no-repeat;
+                font-size: 4rem;
+                height: 4rem;
+                color: $fond;
+                text-shadow: 2px 2px 0px $orange, 1px 1px 0px $color;
+                font-family: "Bangers";
+                text-align: center;
+
+                &::placeholder {
+                    color:$fond;                    
+                }
+            }
+        }
+    }
+
+    section.body {
+        display:grid;
+        grid-template-columns: 250px 1fr;
+        grid-template-rows: max-content;
+        grid-gap:5px;
+        align-items: flex-start;
+        align-content: flex-start;
+        margin-top:5px;
+
+        border: 1px solid $grey;
+        border-top-color: $black;
+        padding: 5px;
+
+        div {
+            &.details {
+                display:grid;
+                grid-template-columns: 100%;
+                align-items: flex-start;
+                align-content: flex-start;
+                row-gap:5px;
+                
+                div {             
+                    &.cout {
+                        display:grid;
+                        grid-template-columns: 1fr 1fr;
+                        align-items: flex-start;
+                        align-content: flex-start;
+                        border:2px solid $black;
+                        padding:5px;
+                        grid-gap:5px;
+
+                        label {
+                            grid-column-start: 1;
+                            grid-column-end: 3;
+
+                            display:grid;
+                            grid-template-columns: 1fr 45px;
+
+                            span {
+                                display:grid;
+                                width:100%;
+                                justify-content: center;
+                                align-items: center;
+                            }
+
+                            input {
+                                width:100%;
+                                padding-right: 0px;
+                                padding-left: 0px;
+                                text-align: center;
+                                font-family: Sriracha;
+                                height:100%;
+                                background:transparent;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.description {
+                display:grid;
+                grid-template-columns: 100%;
+                grid-template-rows: max-content 1fr;
+                align-items: flex-start;
+                align-content: flex-start;
+                border:2px solid $black;
+                padding:0px 0px 5px;
+                min-height:100px;
+
+                span.label {
+                    display:grid;
+                    font-variant: small-caps;
+                    width:100%;
+                    align-items: center;
+                    padding-left:15px;
+                    font-size: 15px;
+                }
+
+                div.editor {
+                    min-height:100%;
+                    border-top:1px solid;
+                    border-top-color: $color;
+
+                    a.editor-edit {
+                        height: 30px;
+                        width: 30px;
+                        text-align: center;
+                    }
+
+                    div {
+                        &.editor-content {
+                            padding-left: 5px;
+                            padding-right: 5px;
+                        }
+
+                        &.tox-tinymce {
+                            min-height:300px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

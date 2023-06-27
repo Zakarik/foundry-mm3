@@ -1,0 +1,61 @@
+<div class="dice-roll mm3-roll">    
+    <div class="dice-result">
+        {{#if flavor}}
+        <h4 class="dice-total flavor">{{flavor}}</h4>
+        {{/if}}
+        <h4 class="dice-total formula">{{formula}}</h4>
+        {{{tooltip}}}
+        <h4 class="dice-total result">
+            {{result}}
+        </h4>
+        {{#if isCritique}}
+        <h4 class="dice-total result critique">
+            {{localize "MM3.ROLL.Critique"}}
+        </h4>
+        {{/if}}
+        {{#if isCombat}}
+        <h4 class="dice-total attack">
+            {{#if isSuccess}} 
+                {{localize "MM3.ROLL.AttSuccess"}}
+            {{else}}
+                {{localize "MM3.ROLL.AttFail"}}
+            {{/if}}
+        </h4>
+        <div class="dice-tooltip dataAttack toHide">
+            <div class="inner">
+                <span>{{type}} : {{defense}}</span>
+            </div>            
+        </div>
+            {{#if isSuccess}} 
+            <div class="btn">
+                <button class="btnRoll" data-target="{{btn.target}}" data-savetype="{{btn.saveType}}" data-vs="{{btn.vs}}">
+                    {{translate 'jetdefenses' btn.saveType}}
+                </button>
+            </div>
+            {{/if}}
+        {{/if}}
+        {{#if vs}}
+            <h4 class="dice-total attack">
+                {{#if (isHigherOrEqual result vs)}} 
+                    {{localize "MM3.ROLL.Success"}}
+                {{else}}
+                    {{localize "MM3.ROLL.Fail"}}
+                {{/if}}
+            </h4>
+            <div class="dice-tooltip dataAttack toHide">
+                <div class="inner">
+                    <span>{{localize "MM3.ROLL.DD"}} : {{vs}}</span>
+                </div>
+            </div> 
+            {{#if hasMarge}}
+            <h4 class="dice-total attack">
+                {{localize "MM3.ROLL.DegreEchec"}} : {{resultMarge}}
+            </h4>
+            {{/if}}
+        {{/if}}
+        {{#if text}}
+            <span class="text">{{text}}</span>
+        {{/if}}
+        <h4 class="bottom"></h4>
+    </div>
+</div>

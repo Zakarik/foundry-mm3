@@ -1,0 +1,20 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <input name="name" type="text" value="{{data.name}}" placeholder="{{localize "MM3.Nom"}}" />
+
+    <section class="body">
+        <div class="details">
+            <div class="cout">
+                <label>
+                    <span>{{localize "MM3.Cout"}}</span>
+
+                    <input type="number" name="system.cout" value="{{systemData.cout}}" min="0"/>
+                </label>
+            </div>
+        </div>
+
+        <div class="description">
+            <span class="label">{{localize "MM3.Description"}}</span>
+            {{editor systemData.description target="system.description" button=true owner=owner editable=editable}}
+        </div>
+    </section>
+</form>

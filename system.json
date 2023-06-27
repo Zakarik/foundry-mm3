@@ -1,0 +1,46 @@
+{
+  "id": "mutants-and-masterminds-3e",
+  "title": "Mutants and Masterminds 3E",
+  "description": "Fiche non officielle Mutants & Masterminds 3E",
+  "version": "1.0",
+  "esmodules": [
+    "module/mm.mjs"
+  ],
+  "styles": [
+    "styles/mm.css"
+  ],
+  "languages": [
+    {
+      "lang": "fr",
+      "name": "French",
+      "path": "lang/fr.json",
+      "flags": {}
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/fr.json",
+      "flags": {}
+    }
+  ],
+  "authors": [
+    {
+      "name": "Zakarik",
+      "url": "https://fr.tipeee.com/zakarik",
+      "discord": "Zakarik#9006",
+      "flags": {}
+    }
+  ],
+  "compatibility": {
+    "minimum": "10",
+    "verified": "11"
+  },
+  "gridDistance": 5,
+  "gridUnits": "m",
+  "primaryTokenAttribute": "blessure",
+  "url": "https://github.com/Zakarik/foundry-mm3",
+  "manifest": "https://raw.githubusercontent.com/Zakarik/foundry-mm3/main/system.json",
+  "download": "https://github.com/Zakarik/foundry-mm3/archive/1.0.0.zip",
+  "readme": "https://raw.githubusercontent.com/Zakarik/foundry-mm3/main/readme.md",
+  "changelog": "https://raw.githubusercontent.com/Zakarik/foundry-mm3/main/changelog.md"
+}

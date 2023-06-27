@@ -1,0 +1,269 @@
+<div class="tab caracteristiques" data-group="primary" data-tab="caracteristiques">
+    <div class="inner">
+        <div class="col">
+            <div class="carac">
+                <span class="header">{{localize "MM3.Nom"}}</span>
+                <span class="header">{{localize "MM3.Total"}}</span>
+                <span class="header">{{localize "MM3.Base"}}</span>
+                <span class="header">{{localize "MM3.Divers"}}</span>
+
+                {{#each systemData.caracteristique as | key carac |}}
+                    <a class="roll" data-type="caracteristique" data-name="{{translate 'caracteristiques' carac}}" data-total="{{key.total}}">
+                        {{translate 'caracteristiques' carac}}
+                    </a>
+                    <span class="score">{{key.total}}</span>
+                    <input type="number" name="system.caracteristique.{{carac}}.base" value="{{key.base}}" />
+                    <input type="number" name="system.caracteristique.{{carac}}.divers" value="{{key.divers}}" />
+                {{/each}}
+            </div>
+
+            <div class="points">
+                <div>
+                    <span>{{localize "MM3.PP.Depart"}}</span>
+                    <span>{{localize "MM3.PP.Gagner"}}</span>
+                    <input type="number" name="system.pp.base" value="{{systemData.pp.base}}" min="0" />
+                    <input type="number" name="system.pp.gain" value="{{systemData.pp.gain}}" min="0" />
+                </div>
+                
+                <div>
+                    <span>{{localize "MM3.Heroisme"}}</span>
+                    <span>{{localize "MM3.Blessures"}}</span>
+                    <input type="number" name="system.heroisme" value="{{systemData.heroisme}}" min="0" />
+                    <input type="number" name="system.blessure" value="{{systemData.blessure}}" min="0" />
+                </div>
+            </div>
+
+            <div class="defense">
+                <div class="line">
+                    <span>{{localize "MM3.DEFENSE.DDEsquive"}}</span>
+                    <span class="score">{{systemData.ddesquive}}</span>
+                    <span></span>
+                    <span>{{localize "MM3.DEFENSE.DDParade"}}</span>
+                    <span class="score">{{systemData.ddparade}}</span>
+                </div>
+
+                <span class="header">{{localize "MM3.Nom"}}</span>
+                <span class="header"></span>
+
+                <span class="header">{{localize "MM3.Total"}}</span>
+                <span class="header">=</span>
+
+                <span class="header">{{localize "MM3.Points"}}</span>
+                <span class="header">+</span>
+
+                <span class="header">{{localize "MM3.Carac"}}</span>
+                <span class="header">+</span>
+
+                <span class="header">{{localize "MM3.Divers"}}</span>
+
+                {{#each systemData.defense as | key def |}}
+                    <a class="roll" data-type="defense" data-name="{{translate 'defenses' def}}" data-total="{{key.total}}">
+                        {{translate 'defenses' def}}
+                    </a>
+                    <span class="carac">{{translate 'caracteristiquesshort' key.car}}</span>
+                    <span class="score total">{{key.total}}</span>
+                    <span class="carac">=</span>
+                    <input type="number" name="system.defense.{{def}}.base" value="{{key.base}}" />
+                    <span class="carac">+</span>
+                    <span class="score">{{key.carac}}</span>
+                    <span class="carac">+</span>
+                    <input type="number" name="system.defense.{{def}}.divers" value="{{key.divers}}" />
+                {{/each}}
+            </div>
+
+            <div class="attaque">
+                <span class="header">{{localize "MM3.ATTAQUE.Label"}}</span>
+
+                <div class="line">
+                    <span></span>
+                    <span class="label">
+                        {{localize "MM3.ATTAQUE.Initiative"}}
+                    </span>
+                    <span class="score total">{{systemData.initiative.total}}</span>
+                    <span class="carac">=</span>
+                    <input type="number" name="system.initiative.base" value="{{systemData.initiative.base}}" />
+                    <span class="carac">+</span>
+                    <span class="score">{{systemData.initiative.carac}}</span>
+                    <span></span>
+                </div>
+
+                {{#each systemData.attaque as | key att |}}
+                    <a class="roll" 
+                    data-type="attaque" 
+                    data-name="{{getAtt @root key.type key.id 'label'}}" 
+                    data-total="{{key.attaque}}" 
+                    data-id="{{att}}"
+                    data-strattaque="{{@root/systemData/strategie/total/attaque}}"
+                    data-streffet="{{@root/systemData/strategie/total/effet}}">
+                        {{getAtt @root key.type key.id 'label'}}
+                    </a>
+                    <span class="score">{{getAtt @root key.type key.id 'total'}}</span>
+                    <input type="number" name="system.attaque.{{att}}.critique" value="{{key.critique}}" min="0" />
+                    <input type="number" name="system.attaque.{{att}}.effet" value="{{key.effet}}" min="0" />
+                    <select name="system.attaque.{{att}}.save">
+                        {{#select key.save}}
+                            <option value="esquive">{{translate 'defenses' 'esquive'}}</option>
+                            <option value="parade">{{translate 'defenses' 'parade'}}</option>
+                            <option value="vigueur">{{translate 'defenses' 'vigueur'}}</option>
+                            <option value="robustesse">{{translate 'defenses' 'robustesse'}}</option>
+                            <option value="volonte">{{translate 'defenses' 'volonte'}}</option>
+                        {{/select}}
+                    </select>
+                    <textarea name="system.attaque.{{att}}.text">{{key.text}}</textarea>
+                {{/each}}
+            </div>
+            
+            <div class="strategie">
+                <span class="header">{{localize "MM3.Nom"}}</span>
+                <span class="header">{{localize "MM3.ATTAQUE.Label"}}</span>
+                <span class="header">{{localize "MM3.DEFENSE.Label"}}</span>
+                <span class="header">{{localize "MM3.EFFET.Label"}}</span>
+
+                <span class="label">
+                    {{localize "MM3.STRATEGIE.Attaqueoutrance"}}
+                </span>
+                <input 
+                    data-type="attaqueoutrance" data-value="attaque" 
+                    type="number" name="system.strategie.attaqueoutrance.attaque" value="{{systemData.strategie.attaqueoutrance.attaque}}"
+                    title="{{localize "MM3.BONUS.Attaque"}}"
+                />
+                <input 
+                    data-type="attaqueoutrance" data-value="defense" 
+                    type="number" name="system.strategie.attaqueoutrance.defense" value="{{systemData.strategie.attaqueoutrance.defense}}"
+                    title="{{localize "MM3.MALUS.Defense"}}"
+                />
+                <span></span>
+                
+                <span class="label">
+                    {{localize "MM3.STRATEGIE.Attaquedefensive"}}
+                </span>
+                <input 
+                    data-type="attaquedefensive" data-value="attaque"
+                    type="number" name="system.strategie.attaquedefensive.attaque" value="{{systemData.strategie.attaquedefensive.attaque}}"
+                    title="{{localize "MM3.MALUS.Attaque"}}"
+                />
+                <input 
+                    data-type="attaquedefensive" data-value="defense"
+                    type="number" name="system.strategie.attaquedefensive.defense" value="{{systemData.strategie.attaquedefensive.defense}}"
+                    title="{{localize "MM3.BONUS.Defense"}}"
+                />
+                <span></span>
+
+                <span class="label">
+                    {{localize "MM3.STRATEGIE.Attaqueprecision"}}
+                </span>
+                <input 
+                    data-type="attaqueprecision" data-value="attaque" 
+                    type="number" name="system.strategie.attaqueprecision.attaque" value="{{systemData.strategie.attaqueprecision.attaque}}"
+                    title="{{localize "MM3.BONUS.Attaque"}}"
+                />
+                <span></span>
+                <input 
+                    data-type="attaqueprecision" data-value="effet" 
+                    type="number" name="system.strategie.attaqueprecision.effet" value="{{systemData.strategie.attaqueprecision.effet}}"
+                    title="{{localize "MM3.MALUS.Effet"}}"
+                />
+
+                <span class="label">
+                    {{localize "MM3.STRATEGIE.Attaquepuissance"}}
+                </span>
+                <input 
+                    data-type="attaquepuissance" data-value="attaque" 
+                    type="number" name="system.strategie.attaquepuissance.attaque" value="{{systemData.strategie.attaquepuissance.attaque}}"
+                    title="{{localize "MM3.MALUS.Attaque"}}"
+                />
+                <span></span>
+                <input 
+                    data-type="attaquepuissance" data-value="effet" 
+                    type="number" name="system.strategie.attaquepuissance.effet" value="{{systemData.strategie.attaquepuissance.effet}}"
+                    title="{{localize "MM3.BONUS.Effet"}}"
+                />     
+
+                <span class="label">
+                    {{localize "MM3.STRATEGIE.Etats"}}
+                </span>
+                <input 
+                    data-type="etats" data-value="attaque" 
+                    type="number" name="system.strategie.etats.attaque" value="{{systemData.strategie.etats.attaque}}"
+                    title="{{localize "MM3.MOD.Attaque"}}"
+                />
+                <span></span>
+                <input 
+                    data-type="etats" data-value="effet" 
+                    type="number" name="system.strategie.etats.effet" value="{{systemData.strategie.etats.effet}}"
+                    title="{{localize "MM3.MOD.Effet"}}"
+                />             
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="comp">
+                <span class="header htwo">{{localize "MM3.Nom"}}</span>
+                <span></span>
+                <span class="header">{{localize "MM3.Total"}}</span>
+                <span class="header">{{localize "MM3.Carac"}}</span>
+                <span class="header">{{localize "MM3.Rang"}}</span>
+                <span class="header">{{localize "MM3.Autre"}}</span>
+
+                {{#each systemData.competence.list as | key comp |}}
+                    {{#if key.canAdd}}
+                        <span class="label">{{key.label}}</span>
+                        <span class="carac">{{translate 'caracteristiquesshort' key.car}}</span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                        {{#each key.list as | kscomp subcomp |}}
+                            <a class="roll oneRoll" data-type="competence" data-name="{{kscomp.label}}" data-total="{{kscomp.total}}">
+                                <i class="fa-solid fa-dice-d20"></i>
+                            </a>
+                            <input type="text" name="system.competence.{{comp}}.list.{{subcomp}}.label" value="{{kscomp.label}}" />
+                            {{#if carCanChange}}
+                            <select name="system.competence.{{comp}}.list.{{subcomp}}.car">
+                                {{#select kscomp.car}}
+                                    <option value="for">{{translate 'caracteristiquesshort' 'for'}}</option>
+                                    <option value="agi">{{translate 'caracteristiquesshort' 'agi'}}</option>
+                                    <option value="cbt">{{translate 'caracteristiquesshort' 'cbt'}}</option>
+                                    <option value="sns">{{translate 'caracteristiquesshort' 'sns'}}</option>
+                                    <option value="end">{{translate 'caracteristiquesshort' 'end'}}</option>
+                                    <option value="dex">{{translate 'caracteristiquesshort' 'dex'}}</option>
+                                    <option value="int">{{translate 'caracteristiquesshort' 'int'}}</option>
+                                    <option value="prs">{{translate 'caracteristiquesshort' 'prs'}}</option>
+                                {{/select}}
+                            </select>
+                            {{else}}
+                            <span class="carac"></span>
+                            {{/if}}
+                            <span class="score total">{{kscomp.total}}</span>
+                            <span class="score">{{kscomp.carac}}</span>
+                            <input type="number" name="system.competence.{{comp}}.list.{{subcomp}}.rang" value="{{kscomp.rang}}" />
+                            <input type="number" name="system.competence.{{comp}}.list.{{subcomp}}.autre" value="{{kscomp.autre}}" />
+                            <i class="fa-solid fa-trash-xmark delete" data-id="{{subcomp}}" data-type="competence" data-what="{{comp}}"></i>
+                        {{/each}}
+
+                        <a class="add" data-type="competence" data-what="{{comp}}">
+                            {{localize "MM3.BTN.Add"}}
+                        </a>
+                    {{else}}
+                        <a class="roll twoRoll" data-type="competence" data-name="{{key.label}}" data-total="{{key.total}}">
+                            {{key.label}}
+                        </a>
+                        <span class="carac">{{translate 'caracteristiquesshort' key.car}}</span>
+                        <span class="score total">{{key.total}}</span>
+                        <span class="score">{{key.carac}}</span>
+                        <input type="number" name="system.competence.{{comp}}.rang" value="{{key.rang}}" />
+                        <input type="number" name="system.competence.{{comp}}.autre" value="{{key.autre}}" />
+                        <span></span>
+                    {{/if}}
+                {{/each}}
+            </div>
+
+            <div class="etats">
+                <span>{{localize "MM3.Etats"}}</span>
+                <textarea name="system.etats">{{systemData.etats}}</textarea>
+            </div>
+        </div>
+    </div>    
+</div>

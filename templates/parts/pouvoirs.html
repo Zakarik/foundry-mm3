@@ -1,0 +1,53 @@
+<div class="tab pouvoirs" data-group="primary" data-tab="pouvoirs">
+    <div class="submenu">
+        <a class="filtre {{#if (isValue systemData.filtre 'tous')}}selected{{/if}}" data-type="tous">{{localize "MM3.FILTRE.Tous"}}</a>
+        <a class="filtre {{#if (isValue systemData.filtre 'pouvoirs')}}selected{{/if}}" data-type="pouvoirs">{{localize "MM3.FILTRE.Pouvoirs"}}</a>
+        <a class="filtre {{#if (isValue systemData.filtre 'talents')}}selected{{/if}}" data-type="talents">{{localize "MM3.FILTRE.Talents"}}</a>
+        <a class="filtre {{#if (isValue systemData.filtre 'equipements')}}selected{{/if}}" data-type="equipements">{{localize "MM3.FILTRE.Equipements"}}</a>
+    </div>    
+
+    <div class="lPouvoirs {{#if (isValue systemData.filtre 'tous')}}show{{/if}}  {{#if (isValue systemData.filtre 'pouvoirs')}}show{{/if}}">
+        {{> systems/mutants-and-masterminds-3e/templates/parts/listPouvoirs.html}}
+    </div>
+
+    <div class="lTalents {{#if (isValue systemData.filtre 'tous')}}show{{/if}}  {{#if (isValue systemData.filtre 'talents')}}show{{/if}}">
+        <span class="title">{{localize "MM3.Talents"}}</span>
+        {{#each actor.talents as | key pwr |}}
+        <div class="talent summary" data-item-id="{{key._id}}">
+            <header>
+                <span class="cout">{{key.system.rang}}</span>
+                <span class="header">{{key.name}}
+                <i class="fa-solid fa-pen-to-square item-edit"></i>
+                <i class="fa-solid fa-trash-xmark item-delete"></i>
+                </span>
+            </header>
+            <span class="text">
+                {{{key.system.description}}}
+            </span>
+        </div>
+        {{/each}}
+
+        <a class="item-create" data-type="talent">{{localize "MM3.BTN.AddTl"}}</a>
+    </div>
+
+    <div class="lEquipements {{#if (isValue systemData.filtre 'tous')}}show{{/if}}  {{#if (isValue systemData.filtre 'equipements')}}show{{/if}}">
+        <span class="title">{{localize "MM3.Equipements"}}</span>
+        <span class="score {{#if (isHigherThan systemData.ptsEquipements.use systemData.ptsEquipements.max)}}red{{/if}}">{{localize "MM3.Pointsequipementsused"}} : {{systemData.ptsEquipements.use}} / {{systemData.ptsEquipements.max}}</span>
+        {{#each actor.equipements as | key pwr |}}
+        <div class="talent summary" data-item-id="{{key._id}}">
+            <header>
+                <span class="cout">{{key.system.cout}}</span>
+                <span class="header">{{key.name}}
+                <i class="fa-solid fa-pen-to-square item-edit"></i>
+                <i class="fa-solid fa-trash-xmark item-delete"></i>
+                </span>
+            </header>
+            <span class="text">
+                {{{key.system.description}}}
+            </span>
+        </div>
+        {{/each}}
+
+        <a class="item-create" data-type="equipement">{{localize "MM3.BTN.AddEq"}}</a>
+    </div>
+</div>

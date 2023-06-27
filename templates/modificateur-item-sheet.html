@@ -1,0 +1,38 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <input name="name" type="text" value="{{data.name}}" placeholder="{{localize "MM3.Nom"}}" />
+
+    <section class="body">
+        <div class="details">
+            <label class="type">
+                <span>{{localize "MM3.Type"}}</span>
+                <select name="system.type">
+                    {{#select systemData.type}}
+                        <option value="extra">{{localize "MM3.Extra"}}</option>
+                        <option value="defaut">{{localize "MM3.Defaut"}}</option>
+                    {{/select}}
+                </select>
+            </label>
+
+            <div class="cout">
+                <label>
+                    <span>{{localize "MM3.Cout"}}</span>
+
+                    <input type="number" name="system.cout.value" value="{{systemData.cout.value}}" />
+                </label>
+
+                <a class="btn {{#if systemData.cout.rang}}selected{{/if}}" data-type="rang" data-value="{{systemData.cout.rang}}">
+                    {{localize "MM3.Parrang"}}
+                </a>
+
+                <a class="btn {{#if systemData.cout.fixe}}selected{{/if}}" data-type="fixe" data-value="{{systemData.cout.fixe}}">
+                    {{localize "MM3.Fixe"}}
+                </a>
+            </div>
+        </div>
+
+        <div class="description">
+            <span class="label">{{localize "MM3.Description"}}</span>
+            {{editor systemData.description target="system.description" button=true owner=owner editable=editable}}
+        </div>
+    </section>
+</form>

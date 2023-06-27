@@ -1,0 +1,4122 @@
+@import url("https://fonts.googleapis.com/css?family=Bangers&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Sriracha&display=swap");
+div.personnage section.window-content {
+  background: #EBEBEB;
+  color: #363B44;
+  font-family: Sriracha;
+  font-weight: bold;
+}
+div.personnage section.window-content form {
+  min-width: min-content;
+}
+div.personnage header.sheet-header {
+  display: grid;
+  grid-template-columns: 1fr 240px 85px;
+  grid-gap: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 15px 15px 0px 0px;
+  background: url("../assets/fond.webp") #E0AC00;
+  background-blend-mode: overlay, multiply, multiply;
+}
+div.personnage header.sheet-header > input {
+  grid-column: 1;
+}
+div.personnage header.sheet-header > input[type=number] {
+  grid-column: 3;
+  background: url("../assets/fond2.webp");
+  width: 80px;
+  height: calc(100% - 20px);
+  text-align: center;
+  border: 2px solid #363B44;
+  font-size: 48px;
+  margin-right: 5px;
+  font-family: Sriracha;
+}
+div.personnage header.sheet-header > input.identite {
+  background: linear-gradient(60deg, #363B44 60%, rgba(0, 0, 0, 0) 90%);
+  color: #EBEBEB;
+  border-radius: 10px 0px 0px 0px;
+  border: none;
+  border-bottom: 1px solid #333;
+  font-family: "Bangers";
+  text-align: center;
+  font-size: 20px;
+}
+div.personnage header.sheet-header > input.identite::placeholder {
+  color: #EBEBEB;
+}
+div.personnage header.sheet-header > input.hero {
+  font-size: 4rem;
+  height: 4rem;
+  border: none;
+  background: none;
+  color: #EBEBEB;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  font-family: "Bangers";
+  text-align: center;
+}
+div.personnage header.sheet-header > input.hero::placeholder {
+  color: #EBEBEB;
+}
+div.personnage header.sheet-header > img {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  border: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+div.personnage header.sheet-header div.block {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, min-content);
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background: rgba(255, 255, 255, 0.5);
+  grid-gap: 5px;
+  padding: 10px;
+  margin: 10px;
+  width: min-content;
+}
+div.personnage header.sheet-header div.block > span {
+  grid-column: 1;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  width: min-content;
+  padding: 5px 20px;
+  border: none;
+  border-bottom: 1px solid #333;
+  border-radius: 10px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  margin-right: 20px;
+}
+div.personnage header.sheet-header div.block label {
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-gap: 5px;
+  justify-content: space-between;
+}
+div.personnage header.sheet-header div.block label input {
+  min-width: 100px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #333;
+  border-radius: 10px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.5);
+}
+div.personnage div.totalpp {
+  display: grid;
+  grid-template-columns: min-content;
+  width: 100%;
+  background: #363B44;
+  color: #EBEBEB;
+  padding: 5px;
+}
+div.personnage div.totalpp details {
+  width: max-content;
+}
+div.personnage div.totalpp details span {
+  display: grid;
+  align-self: center;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+div.personnage div.totalpp details span.score, div.personnage div.totalpp details span.max {
+  color: #363B44;
+}
+div.personnage div.totalpp details span.red {
+  color: #fe1611;
+}
+div.personnage div.totalpp details summary {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 25px 1fr 45px 8px 45px;
+  grid-gap: 2px;
+  cursor: pointer;
+}
+div.personnage div.totalpp details summary::before {
+  content: "+";
+  border: 1px solid white;
+  font-size: 13px;
+  border-radius: 30px;
+  width: 100%;
+  text-align: center;
+}
+div.personnage div.totalpp details summary span.label {
+  padding-left: 5px;
+}
+div.personnage div.totalpp details summary span.label, div.personnage div.totalpp details summary span.separation {
+  font-weight: normal;
+}
+div.personnage div.totalpp details summary span.score, div.personnage div.totalpp details summary span.max {
+  border: none;
+  border-bottom: 1px solid #333;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+div.personnage div.totalpp details div.line {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 25px 1fr 45px 8px 45px;
+  grid-gap: 2px;
+  margin-top: 2px;
+}
+div.personnage div.totalpp details div.line span.label {
+  grid-column: 2;
+  text-align: right;
+  font-weight: normal;
+}
+div.personnage div.totalpp details div.line span.score {
+  grid-column: 3;
+  border: none;
+  border-bottom: 1px solid #333;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+div.personnage div.totalpp details div.line input {
+  width: 100%;
+  grid-column: 3;
+  border: none;
+  border-bottom: 1px solid #333;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+div.personnage div.totalpp details[open] summary {
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+  padding-bottom: 5px;
+  margin-bottom: 3px;
+}
+div.personnage div.totalpp details[open] summary::before {
+  content: "-";
+}
+div.personnage section.sheet-body nav.tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0px, auto));
+  grid-gap: 5px;
+  border: 0px;
+  justify-content: left;
+}
+div.personnage section.sheet-body nav.tabs a {
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+}
+div.personnage section.sheet-body nav.tabs a:hover, div.personnage section.sheet-body nav.tabs a.active {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.informations {
+  border: 1px solid #a8a8a8;
+  border-top-color: black;
+  padding: 5px;
+}
+div.personnage section.sheet-body div.informations img.profile-img {
+  object-fit: contain;
+}
+div.personnage section.sheet-body div.informations div.inner {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.informations div.block, div.personnage section.sheet-body div.informations div.complications {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+}
+div.personnage section.sheet-body div.informations div.block > span, div.personnage section.sheet-body div.informations div.complications > span {
+  font-variant: small-caps;
+  font-size: 15px;
+  padding-left: 15px;
+}
+div.personnage section.sheet-body div.informations div.block div.editor, div.personnage section.sheet-body div.informations div.complications div.editor {
+  min-height: 50px;
+  border-top: 1px solid;
+  border-top-color: #363B44;
+}
+div.personnage section.sheet-body div.informations div.block div.editor a.editor-edit, div.personnage section.sheet-body div.informations div.complications div.editor a.editor-edit {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+div.personnage section.sheet-body div.informations div.block div.editor div.editor-content, div.personnage section.sheet-body div.informations div.complications div.editor div.editor-content {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.personnage section.sheet-body div.informations div.block div.editor div.tox-tinymce, div.personnage section.sheet-body div.informations div.complications div.editor div.tox-tinymce {
+  min-height: 300px;
+}
+div.personnage section.sheet-body div.informations div.complications input {
+  border-radius: 0px;
+  border: 0px;
+  padding-left: 5px;
+  font-variant: small-caps;
+  font-size: 17px;
+  font-weight: bold;
+  color: #363B44;
+}
+div.personnage section.sheet-body div.informations div.complications div.header {
+  width: 100%;
+  position: relative;
+}
+div.personnage section.sheet-body div.informations div.complications div.header i {
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: 6px;
+}
+div.personnage section.sheet-body div.informations div.complications div.header i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.personnage section.sheet-body div.informations div.complications div.header:first-of-type {
+  border-top: 1px solid;
+  border-top-color: #363B44;
+}
+div.personnage section.sheet-body div.informations div.complications div.editor {
+  border-top-style: dashed;
+}
+div.personnage section.sheet-body div.informations div.complications div.editor:last-of-type {
+  border-bottom: 1px solid;
+  border-bottom-color: #363B44;
+}
+div.personnage section.sheet-body div.informations div.complications a.add {
+  width: max-content;
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin-top: 2px;
+  margin-left: 2px;
+  margin-bottom: 2px;
+}
+div.personnage section.sheet-body div.informations div.complications a.add:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.informations div.twoBlock {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.personnage section.sheet-body div.caracteristiques {
+  border: 1px solid #a8a8a8;
+  border-top-color: black;
+  padding: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.col {
+  display: grid;
+  row-gap: 10px;
+  align-items: flex-start;
+  align-content: flex-start;
+  grid-template-rows: max-content;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.carac {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.carac a.roll {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.carac a.roll:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.carac span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.carac span.score {
+  display: grid;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.carac input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp {
+  display: grid;
+  grid-template-columns: 29px 1fr repeat(5, 42.55px) 12.25px;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp a.roll {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp a.roll:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp a.oneRoll {
+  align-items: center;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp a.twoRoll {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp span.htwo {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp span.label {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp span.carac {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  text-transform: uppercase;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp span.score {
+  display: grid;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp span.total {
+  font-weight: bold;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp a.add {
+  width: max-content;
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin-top: 2px;
+  margin-left: 2px;
+  margin-bottom: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp a.add:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  text-align: center;
+  background: transparent;
+  text-transform: uppercase;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  color: #363B44;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp i {
+  cursor: pointer;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.etats {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.etats span {
+  width: 100%;
+  padding-left: 15px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.etats textarea {
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 0px;
+  border-top-style: dashed;
+  border-radius: 0px;
+  min-height: 100px;
+  font-family: Sriracha;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.etats textarea:last-of-type {
+  border-bottom: 1px solid;
+  border-bottom-color: #363B44;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.points {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.points span {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  text-align: center;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.points input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.points div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: max-content;
+  align-content: flex-end;
+  grid-gap: 5px;
+  padding: 0px 5px 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.points div:last-of-type {
+  padding-left: 5px;
+  padding-right: 5px;
+  border-left: 2px solid black;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.defense {
+  display: grid;
+  grid-template-columns: 1fr 45px repeat(3, 45px 5px) 45px;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.defense a.roll {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.defense a.roll:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.defense div.line {
+  grid-column-start: 1;
+  grid-column-end: 10;
+  display: grid;
+  grid-template-columns: max-content 45px 1fr max-content 45px;
+  grid-gap: 5px;
+  margin-top: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.defense div.line span {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.defense div.line span.score {
+  padding-right: 0px;
+  padding-left: 0px;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.defense > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.defense > span.carac {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  text-transform: uppercase;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.defense > span.score {
+  display: grid;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.defense > span.total {
+  font-weight: bold;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.defense input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px) 1fr;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.roll {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.roll:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: grid;
+  grid-template-columns: 1fr max-content repeat(2, 45px 5px) 45px 1fr;
+  grid-gap: 5px;
+  margin-top: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line span {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line span.score {
+  padding-right: 0px;
+  padding-left: 0px;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line span.total {
+  font-weight: bold;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.header {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  height: 18px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.carac {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  text-transform: uppercase;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.score {
+  display: grid;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque textarea {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  resize: vertical;
+  width: 100%;
+  max-width: 100%;
+  min-height: 40px;
+  font-family: Sriracha;
+  font-size: 0.8em;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie > span.label {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.personnage section.sheet-body div.pouvoirs {
+  border: 1px solid #a8a8a8;
+  border-top-color: black;
+  padding: 5px;
+}
+div.personnage section.sheet-body div.pouvoirs div.submenu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0px, auto));
+  justify-content: left;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.pouvoirs div.submenu a.filtre {
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+}
+div.personnage section.sheet-body div.pouvoirs div.submenu a.filtre:hover, div.personnage section.sheet-body div.pouvoirs div.submenu a.filtre.selected {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  padding-top: 5px;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs a.item-create {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs a.item-create:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs a.item-create {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs.show {
+  display: grid;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 15px 15px 0px 0px;
+  background-blend-mode: overlay, multiply;
+  background-size: 500px;
+  background-repeat: no-repeat;
+  display: grid;
+  grid-template-columns: 1fr;
+  font-size: 2rem;
+  height: 2rem;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  font-family: "Bangers";
+  text-align: center;
+  color: #EBEBEB;
+  letter-spacing: 2px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header i {
+  position: absolute;
+  font-size: 1rem;
+  color: #EBEBEB;
+  top: 8px;
+  cursor: pointer;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header i.item-edit {
+  right: 25px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header i.item-delete {
+  right: 5px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header.blue {
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header.red {
+  background: url("../assets/fond.webp") #DA3A2F;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header.violet {
+  background: url("../assets/fond.webp") #7E627F;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  position: relative;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header::before {
+  content: "";
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header span.deploy {
+  position: absolute;
+  top: 3px;
+  left: 10px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header span.deploy i {
+  cursor: pointer;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header span.deploy i::before {
+  border: 2px solid #EBEBEB;
+  font-size: 13px;
+  border-radius: 30px;
+  position: absolute;
+  width: 23px;
+  text-align: center;
+  color: #EBEBEB;
+  height: 23px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header span.deploy i.plus::before {
+  content: "+";
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header span.deploy i.minus::before {
+  content: "-";
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.blue span.header {
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.blue::after {
+  content: "";
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.red span.header {
+  background: url("../assets/fond.webp") #DA3A2F;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.red::after {
+  content: "";
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+  background: url("../assets/fond.webp") #DA3A2F;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.violet span.header {
+  background: url("../assets/fond.webp") #7E627F;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.violet::after {
+  content: "";
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+  background: url("../assets/fond.webp") #7E627F;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.bottom {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.bottom.col2 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.bottom.blue {
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.bottom.red {
+  background: url("../assets/fond.webp") #DA3A2F;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.bottom.violet {
+  background: url("../assets/fond.webp") #7E627F;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.allData {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.data {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: repeat(3, max-content) 29px;
+  grid-gap: 5px;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 5px;
+  border-left: 1px solid #363B44;
+  border-right: 1px solid #363B44;
+  min-height: 29px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.data span {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.data span.col4 {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  justify-content: right;
+  padding-right: 5px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.data span.col4L {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  justify-content: left;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.data.black {
+  background: #363B44;
+  border-left: 0px;
+  border-right: 0px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.data.black span {
+  color: #EBEBEB;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.data a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-right: 1px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.data a:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.dataSpecial {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 45px max-content;
+  grid-gap: 5px;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top: 1px solid var(--color-border-light-tertiary);
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.dataSpecial span {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.dataSpecial span:first-of-type {
+  justify-content: right;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.dataSpecial input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+  border-top: 0px;
+  border-bottom: 0px;
+  border-radius: 0px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.dataSpecial.black {
+  background: #363B44;
+  border-left: 0px;
+  border-right: 0px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.dataSpecial.black span {
+  color: #EBEBEB;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.dataSpecial.black input {
+  color: #EBEBEB;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.dataSpecial a {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-right: 1px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.dataSpecial a:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div select.link {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  width: 100%;
+  color: #EBEBEB;
+  font-family: "Bangers";
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-light-tertiary);
+  background: #363B44;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-radius: 0px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div select.link option {
+  background: #363B44;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.details {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border-left: 1px solid #363B44;
+  border-right: 1px solid #363B44;
+  border-top: 1px solid var(--color-border-light-primary);
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.details span.label {
+  display: grid;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  min-height: 0.8rem;
+  padding-top: 2px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.details span.text {
+  display: grid;
+  width: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: left;
+  text-align: left;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.mod {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border-top: 1px solid var(--color-border-light-primary);
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.mod span.label {
+  display: grid;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  min-height: 0.8rem;
+  padding-top: 2px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.mod span.text {
+  position: relative;
+  display: grid;
+  width: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: left;
+  text-align: left;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  min-height: 19px;
+  line-height: 14px;
+  border-top: 1px dashed var(--color-border-light-primary);
+  color: #363B44;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.mod span.text i {
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  cursor: pointer;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.mod span.text i div.infoExt {
+  display: none;
+  position: absolute;
+  width: 175px;
+  min-height: 20px;
+  padding: 5px;
+  text-align: justify;
+  border: 1px solid #363B44;
+  border-radius: 5px;
+  background: #4E7FC8;
+  color: #EBEBEB;
+  font-family: Sriracha;
+  line-height: 12px;
+  text-shadow: none;
+  font-weight: normal;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.mod span.text i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.mod.borderLeft {
+  border-left: 1px solid #363B44;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.mod.borderRight {
+  border-right: 1px solid #363B44;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.mod.borderLightLeft {
+  border-left: 1px solid var(--color-border-light-primary);
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.mod.borderLightRight {
+  border-right: 1px solid var(--color-border-light-primary);
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.descripteurs {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  border-left: 1px solid #363B44;
+  border-right: 1px solid #363B44;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 0.8rem;
+  text-align: justify;
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents {
+  display: none;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  padding-top: 5px;
+  grid-gap: 5px;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  margin-top: 5px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents a.item-create {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents a.item-create:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents.show {
+  display: grid;
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents span.title {
+  width: 100%;
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents div.talent header {
+  display: grid;
+  grid-template-columns: 45px 1fr;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents div.talent header span.cout {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 29px;
+  background: transparent;
+  border: 1px solid black;
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents div.talent header span.header {
+  position: relative;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: left;
+  font-family: Sriracha;
+  height: 29px;
+  background: transparent;
+  border-bottom: 1px solid black;
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents div.talent header span.header i.item-delete {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents div.talent header span.header i.item-delete:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents div.talent header span.header i.item-edit {
+  position: absolute;
+  right: 20px;
+  top: 5px;
+  cursor: pointer;
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents div.talent header span.header i.item-edit:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents div.talent span.text {
+  text-align: justify;
+  word-break: break-all;
+}
+div.personnage section.sheet-body div.pouvoirs div.lTalents div.talent:not(:first-of-type) {
+  border-top: 1px solid black;
+  padding-top: 5px;
+  margin-top: 5px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  padding-top: 5px;
+  grid-gap: 5px;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  margin-top: 5px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements a.item-create {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements a.item-create:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements a.item-create {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements.show {
+  display: grid;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements span.title {
+  display: block;
+  width: 100%;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements span.score {
+  display: block;
+  width: 100%;
+  text-align: right;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements span.score.red {
+  color: #fe1611;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent header {
+  display: grid;
+  grid-template-columns: 45px 1fr;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent header span.cout {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 29px;
+  background: transparent;
+  border: 1px solid black;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent header span.header {
+  position: relative;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: left;
+  font-family: Sriracha;
+  height: 29px;
+  background: transparent;
+  border-bottom: 1px solid black;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent header span.header i.item-delete {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent header span.header i.item-delete:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent header span.header i.item-edit {
+  position: absolute;
+  right: 20px;
+  top: 5px;
+  cursor: pointer;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent header span.header i.item-edit:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent span.text {
+  text-align: justify;
+  word-break: break-all;
+}
+div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent:not(:first-of-type) {
+  border-top: 1px solid black;
+  padding-top: 5px;
+  margin-top: 5px;
+}
+
+div.modificateur section.window-content {
+  background: #EBEBEB;
+  color: #363B44;
+  font-family: Sriracha;
+  font-weight: bold;
+}
+div.modificateur section.window-content form {
+  min-width: min-content;
+}
+div.modificateur section.window-content form > input {
+  width: 100%;
+  border-width: 2px;
+  border-radius: 15px 15px 0px 0px;
+  background: url("../assets/fond.webp") #4E7FC8;
+  background-blend-mode: overlay, multiply;
+  background-size: 500px;
+  background-repeat: no-repeat;
+  font-size: 4rem;
+  height: 4rem;
+  color: #EBEBEB;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  font-family: "Bangers";
+  text-align: center;
+}
+div.modificateur section.window-content form > input::placeholder {
+  color: #EBEBEB;
+}
+div.modificateur section.body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: max-content;
+  grid-gap: 5px;
+  align-items: flex-start;
+  align-content: flex-start;
+  margin-top: 5px;
+  border: 1px solid #a8a8a8;
+  border-top-color: black;
+  padding: 5px;
+}
+div.modificateur section.body div.details {
+  display: grid;
+  grid-template-columns: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
+  row-gap: 5px;
+}
+div.modificateur section.body div.details a.btn {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.modificateur section.body div.details a.btn:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.modificateur section.body div.details label.type,
+div.modificateur section.body div.details div.type {
+  display: grid;
+  grid-template-columns: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+}
+div.modificateur section.body div.details label.type span,
+div.modificateur section.body div.details div.type span {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.modificateur section.body div.details label.type select,
+div.modificateur section.body div.details div.type select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  text-align: center;
+  background: transparent;
+  text-transform: uppercase;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  color: #363B44;
+}
+div.modificateur section.body div.details label.cout,
+div.modificateur section.body div.details div.cout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border: 2px solid black;
+  padding: 5px;
+  grid-gap: 5px;
+}
+div.modificateur section.body div.details label.cout a.btn.selected,
+div.modificateur section.body div.details div.cout a.btn.selected {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.modificateur section.body div.details label.cout label,
+div.modificateur section.body div.details div.cout label {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 45px;
+}
+div.modificateur section.body div.details label.cout label span,
+div.modificateur section.body div.details div.cout label span {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+div.modificateur section.body div.details label.cout label input,
+div.modificateur section.body div.details div.cout label input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.modificateur section.body div.description {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border: 2px solid black;
+  padding: 0px 0px 5px;
+  min-height: 100%;
+}
+div.modificateur section.body div.description span.label {
+  display: grid;
+  font-variant: small-caps;
+  width: 100%;
+  align-items: center;
+  padding-left: 15px;
+  font-size: 15px;
+}
+div.modificateur section.body div.description div.editor {
+  min-height: 100%;
+  border-top: 1px solid;
+  border-top-color: #363B44;
+}
+div.modificateur section.body div.description div.editor a.editor-edit {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+div.modificateur section.body div.description div.editor div.editor-content {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.modificateur section.body div.description div.editor div.tox-tinymce {
+  min-height: 300px;
+}
+
+div.pouvoir section.window-content {
+  background: #EBEBEB;
+  color: #363B44;
+  font-family: Sriracha;
+  font-weight: bold;
+}
+div.pouvoir section.window-content form {
+  min-width: min-content;
+}
+div.pouvoir section.header {
+  width: 100%;
+  border-width: 2px;
+  border-radius: 15px 15px 0px 0px;
+  background-blend-mode: overlay, multiply;
+  background-size: 500px;
+  background-repeat: no-repeat;
+  display: grid;
+  grid-template-columns: 1fr 200px;
+}
+div.pouvoir section.header.blue {
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+div.pouvoir section.header.red {
+  background: url("../assets/fond.webp") #DA3A2F;
+}
+div.pouvoir section.header.violet {
+  background: url("../assets/fond.webp") #7E627F;
+}
+div.pouvoir section.header input {
+  font-size: 4rem;
+  height: 4rem;
+  color: #EBEBEB;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  font-family: "Bangers";
+  text-align: center;
+  border: 0px;
+}
+div.pouvoir section.header input::placeholder {
+  color: #EBEBEB;
+}
+div.pouvoir section.header select {
+  font-size: 2rem;
+  height: 4rem;
+  color: #EBEBEB;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  font-family: "Bangers";
+  text-align: center;
+  border: 0px;
+  border-left: 2px solid #363B44;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+div.pouvoir section.header select::placeholder {
+  color: #EBEBEB;
+}
+div.pouvoir section.header select option {
+  background: #4E7FC8;
+}
+div.pouvoir section.body {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  grid-template-rows: max-content;
+  grid-gap: 5px;
+  align-items: flex-start;
+  align-content: flex-start;
+  margin-top: 5px;
+  border: 1px solid #a8a8a8;
+  border-top-color: black;
+  padding: 5px;
+}
+div.pouvoir section.body div.details {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-gap: 5px;
+}
+div.pouvoir section.body div.infos {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: min-content 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  grid-gap: 5px;
+  min-height: 100%;
+}
+div.pouvoir section.body div.special {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  grid-gap: 5px;
+  border: 2px solid black;
+  padding: 5px;
+}
+div.pouvoir section.body div.special a.special {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.pouvoir section.body div.special a.special:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.pouvoir section.body div.special a.selected {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.pouvoir section.body div.data {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  grid-gap: 5px;
+  border: 2px solid black;
+  padding: 5px;
+}
+div.pouvoir section.body div.data span {
+  display: grid;
+  width: 100%;
+  justify-content: left;
+  align-items: center;
+}
+div.pouvoir section.body div.data select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  text-align: center;
+  background: transparent;
+  text-transform: uppercase;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  color: #363B44;
+}
+div.pouvoir section.body div.cout {
+  display: grid;
+  grid-template-columns: 1fr 45px;
+  align-items: flex-start;
+  align-content: flex-start;
+  grid-gap: 5px;
+  border: 2px solid black;
+  padding: 5px;
+}
+div.pouvoir section.body div.cout span.header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.pouvoir section.body div.cout span.label {
+  display: grid;
+  width: 100%;
+  justify-content: left;
+  align-items: center;
+}
+div.pouvoir section.body div.cout span.score {
+  display: grid;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.pouvoir section.body div.cout span.total {
+  font-weight: bold;
+}
+div.pouvoir section.body div.cout input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.pouvoir section.body div.cout details {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: calc(100% + 10px);
+  margin-left: -5px;
+}
+div.pouvoir section.body div.cout details summary {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 25px 1fr 45px;
+  grid-gap: 2px;
+  cursor: pointer;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.pouvoir section.body div.cout details summary::before {
+  content: "+";
+  border: 1px solid #363B44;
+  font-size: 13px;
+  border-radius: 30px;
+  width: 23px;
+  text-align: center;
+}
+div.pouvoir section.body div.cout details div {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 45px;
+  grid-gap: 2px;
+  margin-top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.pouvoir section.body div.cout details[open] {
+  border-top: 1px solid var(--color-border-light-primary);
+  border-bottom: 1px solid var(--color-border-light-primary);
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+div.pouvoir section.body div.cout details[open] summary::before {
+  content: "-";
+}
+div.pouvoir section.body div.cout hr {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: calc(100% + 10px);
+  margin-left: -5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+div.pouvoir section.body div.descripteurs {
+  display: grid;
+  grid-template-columns: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
+  grid-gap: 5px;
+  border: 2px solid black;
+  padding: 5px;
+}
+div.pouvoir section.body div.descripteurs > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 150px);
+  grid-gap: 5px;
+  justify-content: left;
+}
+div.pouvoir section.body div.descripteurs > div div {
+  display: grid;
+  grid-template-columns: 1fr 12.25px;
+  grid-gap: 2px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+div.pouvoir section.body div.descripteurs input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: #4E7FC8;
+  color: #EBEBEB;
+  border-radius: 5px;
+  border: 0px;
+}
+div.pouvoir section.body div.descripteurs span {
+  display: grid;
+  width: 100%;
+  justify-content: left;
+  align-items: center;
+}
+div.pouvoir section.body div.descripteurs a.add {
+  width: max-content;
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin-top: 2px;
+  margin-left: 2px;
+  margin-bottom: 2px;
+}
+div.pouvoir section.body div.descripteurs a.add:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.pouvoir section.body div.descripteurs i {
+  cursor: pointer;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+div.pouvoir section.body div.descripteurs i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.pouvoir section.body div.description {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border: 2px solid black;
+  padding: 0px 0px 5px;
+  min-height: 100%;
+}
+div.pouvoir section.body div.description span.label {
+  display: grid;
+  font-variant: small-caps;
+  width: 100%;
+  align-items: center;
+  padding-left: 15px;
+  font-size: 15px;
+}
+div.pouvoir section.body div.description div.editor {
+  min-height: 100%;
+  border-top: 1px solid;
+  border-top-color: #363B44;
+}
+div.pouvoir section.body div.description div.editor a.editor-edit {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+div.pouvoir section.body div.description div.editor div.editor-content {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.pouvoir section.body div.description div.editor div.tox-tinymce {
+  min-height: 300px;
+}
+div.pouvoir section.body div.modificateurs {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content;
+  align-items: flex-start;
+  align-content: flex-start;
+  grid-gap: 5px;
+}
+div.pouvoir section.body div.modificateurs div.extras, div.pouvoir section.body div.modificateurs div.defauts {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  grid-gap: 5px;
+  border: 2px solid black;
+  padding: 5px;
+}
+div.pouvoir section.body div.modificateurs div.extras > span.header, div.pouvoir section.body div.modificateurs div.defauts > span.header {
+  position: relative;
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.pouvoir section.body div.modificateurs div.extras > span.header i, div.pouvoir section.body div.modificateurs div.defauts > span.header i {
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+div.pouvoir section.body div.modificateurs div.extras > span.header i:hover, div.pouvoir section.body div.modificateurs div.defauts > span.header i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.pouvoir section.body div.modificateurs div.extras > details, div.pouvoir section.body div.modificateurs div.defauts > details {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+div.pouvoir section.body div.modificateurs div.extras > details summary, div.pouvoir section.body div.modificateurs div.defauts > details summary {
+  position: relative;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  cursor: pointer;
+}
+div.pouvoir section.body div.modificateurs div.extras > details summary > input, div.pouvoir section.body div.modificateurs div.defauts > details summary > input {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 15px 15px 0px 0px;
+  background: url("../assets/fond.webp") #4E7FC8;
+  background-blend-mode: overlay, multiply;
+  background-size: 500px;
+  background-repeat: no-repeat;
+  font-size: 1.5rem;
+  height: 2rem;
+  color: #EBEBEB;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  font-family: "Bangers";
+  text-align: center;
+}
+div.pouvoir section.body div.modificateurs div.extras > details summary > input::placeholder, div.pouvoir section.body div.modificateurs div.defauts > details summary > input::placeholder {
+  color: #EBEBEB;
+}
+div.pouvoir section.body div.modificateurs div.extras > details summary i, div.pouvoir section.body div.modificateurs div.defauts > details summary i {
+  position: absolute;
+  right: 10px;
+  top: 9px;
+  color: #EBEBEB;
+}
+div.pouvoir section.body div.modificateurs div.extras > details summary i:hover, div.pouvoir section.body div.modificateurs div.defauts > details summary i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.pouvoir section.body div.modificateurs div.extras > details summary div.before, div.pouvoir section.body div.modificateurs div.defauts > details summary div.before {
+  position: absolute;
+  top: 3px;
+  left: 10px;
+}
+div.pouvoir section.body div.modificateurs div.extras > details summary div.before::before, div.pouvoir section.body div.modificateurs div.defauts > details summary div.before::before {
+  content: "+";
+  border: 2px solid #EBEBEB;
+  font-size: 13px;
+  border-radius: 30px;
+  position: absolute;
+  width: 23px;
+  text-align: center;
+  color: #EBEBEB;
+  height: 23px;
+}
+div.pouvoir section.body div.modificateurs div.extras > details summary div.before::before:hover, div.pouvoir section.body div.modificateurs div.defauts > details summary div.before::before:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.pouvoir section.body div.modificateurs div.extras > details summary::before, div.pouvoir section.body div.modificateurs div.defauts > details summary::before {
+  content: "";
+}
+div.pouvoir section.body div.modificateurs div.extras > details[open] summary div.before::before, div.pouvoir section.body div.modificateurs div.defauts > details[open] summary div.before::before {
+  content: "-";
+}
+div.pouvoir section.body div.modificateurs div.extras > details section, div.pouvoir section.body div.modificateurs div.defauts > details section {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border-left: 1px solid var(--color-border-light-tertiary);
+  border-right: 1px solid var(--color-border-light-tertiary);
+  border-bottom: 1px solid var(--color-border-light-tertiary);
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails, div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails {
+  display: grid;
+  grid-template-columns: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
+  row-gap: 5px;
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails a.btn, div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails a.btn {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails a.btn:hover, div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails a.btn:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails label.extcout,
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails div.extcout, div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails label.extcout,
+div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails div.extcout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  padding: 5px;
+  grid-gap: 5px;
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails label.extcout a.btn,
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails div.extcout a.btn, div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails label.extcout a.btn,
+div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails div.extcout a.btn {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails label.extcout a.btn.selected,
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails div.extcout a.btn.selected, div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails label.extcout a.btn.selected,
+div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails div.extcout a.btn.selected {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails label.extcout label,
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails div.extcout label, div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails label.extcout label,
+div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails div.extcout label {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 45px;
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails label.extcout label span,
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails div.extcout label span, div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails label.extcout label span,
+div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails div.extcout label span {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails label.extcout label input,
+div.pouvoir section.body div.modificateurs div.extras > details section div.extDetails div.extcout label input, div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails label.extcout label input,
+div.pouvoir section.body div.modificateurs div.defauts > details section div.extDetails div.extcout label input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extdescription, div.pouvoir section.body div.modificateurs div.defauts > details section div.extdescription {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border-left: 1px solid var(--color-border-light-tertiary);
+  padding: 0px 0px 5px;
+  min-height: 100%;
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extdescription span.label, div.pouvoir section.body div.modificateurs div.defauts > details section div.extdescription span.label {
+  display: grid;
+  font-variant: small-caps;
+  width: 100%;
+  align-items: center;
+  padding-left: 15px;
+  font-size: 15px;
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extdescription div.editor, div.pouvoir section.body div.modificateurs div.defauts > details section div.extdescription div.editor {
+  min-height: 100%;
+  border-top: 1px solid;
+  border-top-color: #363B44;
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extdescription div.editor a.editor-edit, div.pouvoir section.body div.modificateurs div.defauts > details section div.extdescription div.editor a.editor-edit {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extdescription div.editor div.editor-content, div.pouvoir section.body div.modificateurs div.defauts > details section div.extdescription div.editor div.editor-content {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.pouvoir section.body div.modificateurs div.extras > details section div.extdescription div.editor div.tox-tinymce, div.pouvoir section.body div.modificateurs div.defauts > details section div.extdescription div.editor div.tox-tinymce {
+  min-height: 300px;
+}
+
+div.talent section.window-content {
+  background: #EBEBEB;
+  color: #363B44;
+  font-family: Sriracha;
+  font-weight: bold;
+}
+div.talent section.window-content form {
+  min-width: min-content;
+}
+div.talent section.window-content form > input {
+  width: 100%;
+  border-width: 2px;
+  border-radius: 15px 15px 0px 0px;
+  background: url("../assets/fond.webp") #4E7FC8;
+  background-blend-mode: overlay, multiply;
+  background-size: 500px;
+  background-repeat: no-repeat;
+  font-size: 4rem;
+  height: 4rem;
+  color: #EBEBEB;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  font-family: "Bangers";
+  text-align: center;
+}
+div.talent section.window-content form > input::placeholder {
+  color: #EBEBEB;
+}
+div.talent section.body {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: max-content;
+  grid-gap: 5px;
+  align-items: flex-start;
+  align-content: flex-start;
+  margin-top: 5px;
+  border: 1px solid #a8a8a8;
+  border-top-color: black;
+  padding: 5px;
+}
+div.talent section.body div.details {
+  display: grid;
+  grid-template-columns: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
+  row-gap: 5px;
+}
+div.talent section.body div.details a.btn {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.talent section.body div.details a.btn:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.talent section.body div.details a.btn {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.talent section.body div.details a.btn.selected {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.talent section.body div.details div.cout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border: 2px solid black;
+  padding: 5px;
+  grid-gap: 5px;
+}
+div.talent section.body div.details div.cout label {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 45px;
+}
+div.talent section.body div.details div.cout label span {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+div.talent section.body div.details div.cout label input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.talent section.body div.description {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border: 2px solid black;
+  padding: 0px 0px 5px;
+  min-height: 100px;
+}
+div.talent section.body div.description span.label {
+  display: grid;
+  font-variant: small-caps;
+  width: 100%;
+  align-items: center;
+  padding-left: 15px;
+  font-size: 15px;
+}
+div.talent section.body div.description div.editor {
+  min-height: 100%;
+  border-top: 1px solid;
+  border-top-color: #363B44;
+}
+div.talent section.body div.description div.editor a.editor-edit {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+div.talent section.body div.description div.editor div.editor-content {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.talent section.body div.description div.editor div.tox-tinymce {
+  min-height: 300px;
+}
+
+div.equipement section.window-content {
+  background: #EBEBEB;
+  color: #363B44;
+  font-family: Sriracha;
+  font-weight: bold;
+}
+div.equipement section.window-content form {
+  min-width: min-content;
+}
+div.equipement section.window-content form > input {
+  width: 100%;
+  border-width: 2px;
+  border-radius: 15px 15px 0px 0px;
+  background: url("../assets/fond.webp") #4E7FC8;
+  background-blend-mode: overlay, multiply;
+  background-size: 500px;
+  background-repeat: no-repeat;
+  font-size: 4rem;
+  height: 4rem;
+  color: #EBEBEB;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  font-family: "Bangers";
+  text-align: center;
+}
+div.equipement section.window-content form > input::placeholder {
+  color: #EBEBEB;
+}
+div.equipement section.body {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: max-content;
+  grid-gap: 5px;
+  align-items: flex-start;
+  align-content: flex-start;
+  margin-top: 5px;
+  border: 1px solid #a8a8a8;
+  border-top-color: black;
+  padding: 5px;
+}
+div.equipement section.body div.details {
+  display: grid;
+  grid-template-columns: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
+  row-gap: 5px;
+}
+div.equipement section.body div.details div.cout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border: 2px solid black;
+  padding: 5px;
+  grid-gap: 5px;
+}
+div.equipement section.body div.details div.cout label {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 45px;
+}
+div.equipement section.body div.details div.cout label span {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+div.equipement section.body div.details div.cout label input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.equipement section.body div.description {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border: 2px solid black;
+  padding: 0px 0px 5px;
+  min-height: 100px;
+}
+div.equipement section.body div.description span.label {
+  display: grid;
+  font-variant: small-caps;
+  width: 100%;
+  align-items: center;
+  padding-left: 15px;
+  font-size: 15px;
+}
+div.equipement section.body div.description div.editor {
+  min-height: 100%;
+  border-top: 1px solid;
+  border-top-color: #363B44;
+}
+div.equipement section.body div.description div.editor a.editor-edit {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+div.equipement section.body div.description div.editor div.editor-content {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.equipement section.body div.description div.editor div.tox-tinymce {
+  min-height: 300px;
+}
+
+div.vehicule section.window-content {
+  background: #EBEBEB;
+  color: #363B44;
+  font-family: Sriracha;
+  font-weight: bold;
+}
+div.vehicule section.window-content form {
+  min-width: min-content;
+}
+div.vehicule header.sheet-header {
+  display: grid;
+  grid-template-columns: 1fr 240px 85px;
+  grid-gap: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 15px 15px 0px 0px;
+  background: url("../assets/fond.webp") #E0AC00;
+  background-blend-mode: overlay, multiply, multiply;
+}
+div.vehicule header.sheet-header > input {
+  grid-column: 1;
+  font-size: 4rem;
+  height: 4rem;
+  border: none;
+  background: none;
+  color: #EBEBEB;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  font-family: "Bangers";
+  text-align: center;
+}
+div.vehicule header.sheet-header > input::placeholder {
+  color: #EBEBEB;
+}
+div.vehicule header.sheet-header > img {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  border: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+div.vehicule div.totalpp {
+  display: grid;
+  grid-template-columns: min-content;
+  width: 100%;
+  background: #363B44;
+  color: #EBEBEB;
+  padding: 5px;
+}
+div.vehicule div.totalpp details {
+  width: max-content;
+}
+div.vehicule div.totalpp details span {
+  display: grid;
+  align-self: center;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+div.vehicule div.totalpp details span.score, div.vehicule div.totalpp details span.max {
+  color: #363B44;
+}
+div.vehicule div.totalpp details span.red {
+  color: #fe1611;
+}
+div.vehicule div.totalpp details summary {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 25px 1fr 45px 8px 45px;
+  grid-gap: 2px;
+  cursor: pointer;
+}
+div.vehicule div.totalpp details summary::before {
+  content: "+";
+  border: 1px solid white;
+  font-size: 13px;
+  border-radius: 30px;
+  width: 100%;
+  text-align: center;
+}
+div.vehicule div.totalpp details summary span.label {
+  padding-left: 5px;
+  min-width: 100px;
+  text-align: right;
+}
+div.vehicule div.totalpp details summary span.label, div.vehicule div.totalpp details summary span.separation {
+  font-weight: normal;
+}
+div.vehicule div.totalpp details summary span.score, div.vehicule div.totalpp details summary span.max {
+  border: none;
+  border-bottom: 1px solid #333;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+div.vehicule div.totalpp details div.line {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 25px 1fr 45px 8px 45px;
+  grid-gap: 2px;
+  margin-top: 2px;
+}
+div.vehicule div.totalpp details div.line span.label {
+  grid-column: 2;
+  text-align: right;
+  font-weight: normal;
+}
+div.vehicule div.totalpp details div.line span.score {
+  grid-column: 3;
+  border: none;
+  border-bottom: 1px solid #333;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+div.vehicule div.totalpp details div.line input {
+  width: 100%;
+  grid-column: 3;
+  border: none;
+  border-bottom: 1px solid #333;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+div.vehicule div.totalpp details[open] summary {
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+  padding-bottom: 5px;
+  margin-bottom: 3px;
+}
+div.vehicule div.totalpp details[open] summary::before {
+  content: "-";
+}
+div.vehicule section.sheet-body nav.tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0px, auto));
+  grid-gap: 5px;
+  border: 0px;
+  justify-content: left;
+}
+div.vehicule section.sheet-body nav.tabs a {
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+}
+div.vehicule section.sheet-body nav.tabs a:hover, div.vehicule section.sheet-body nav.tabs a.active {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.vehicule section.sheet-body div.informations {
+  border: 1px solid #a8a8a8;
+  border-top-color: black;
+  padding: 5px;
+}
+div.vehicule section.sheet-body div.informations img.profile-img {
+  object-fit: contain;
+}
+div.vehicule section.sheet-body div.informations div.inner {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-gap: 5px;
+}
+div.vehicule section.sheet-body div.informations div.block {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+}
+div.vehicule section.sheet-body div.informations div.block > span {
+  font-variant: small-caps;
+  font-size: 15px;
+  padding-left: 15px;
+}
+div.vehicule section.sheet-body div.informations div.block div.editor {
+  min-height: 50px;
+  border-top: 1px solid;
+  border-top-color: #363B44;
+}
+div.vehicule section.sheet-body div.informations div.block div.editor a.editor-edit {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+div.vehicule section.sheet-body div.informations div.block div.editor div.editor-content {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.vehicule section.sheet-body div.informations div.block div.editor div.tox-tinymce {
+  min-height: 300px;
+}
+div.vehicule section.sheet-body div.col {
+  display: grid;
+  grid-gap: 5px;
+  width: 100%;
+  height: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+div.vehicule section.sheet-body div.details div.inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5px;
+  border: 1px solid #a8a8a8;
+  border-top-color: black;
+  padding: 5px;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+div.vehicule section.sheet-body div.carac {
+  display: grid;
+  grid-template-columns: 1fr repeat(4, 45px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.vehicule section.sheet-body div.carac a.roll {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.vehicule section.sheet-body div.carac a.roll:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.vehicule section.sheet-body div.carac span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.vehicule section.sheet-body div.carac span.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  padding: 2px 5px;
+  text-transform: uppercase;
+  font-family: "Bangers";
+}
+div.vehicule section.sheet-body div.carac span.score {
+  display: grid;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.vehicule section.sheet-body div.carac input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.vehicule section.sheet-body div.taille {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 5px;
+  grid-gap: 5px;
+}
+div.vehicule section.sheet-body div.taille span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  height: 20px;
+}
+div.vehicule section.sheet-body div.taille select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  text-align: center;
+  background: transparent;
+  text-transform: uppercase;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  color: #363B44;
+}
+div.vehicule section.sheet-body div.vitesse {
+  display: grid;
+  grid-template-columns: 1fr 45px;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 5px;
+  grid-gap: 5px;
+}
+div.vehicule section.sheet-body div.vitesse span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+}
+div.vehicule section.sheet-body div.vitesse input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.vehicule section.sheet-body div.particularite {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr 45px;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+}
+div.vehicule section.sheet-body div.particularite span.header {
+  font-variant: small-caps;
+  font-size: 15px;
+  padding-left: 15px;
+}
+div.vehicule section.sheet-body div.particularite span.label {
+  display: flex;
+  justify-content: right;
+  font-size: 0.8em;
+  text-align: right;
+  padding-right: 5px;
+  align-items: center;
+  align-content: center;
+}
+div.vehicule section.sheet-body div.particularite input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+  border-top: 0px;
+  border-right: 0px;
+  border-bottom: 0px;
+}
+div.vehicule section.sheet-body div.particularite div.editor {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  min-height: 50px;
+  border-top: 1px solid;
+  border-top-color: #363B44;
+}
+div.vehicule section.sheet-body div.particularite div.editor a.editor-edit {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+div.vehicule section.sheet-body div.particularite div.editor div.editor-content {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.vehicule section.sheet-body div.particularite div.editor div.tox-tinymce {
+  min-height: 300px;
+}
+div.vehicule section.sheet-body div.pouvoirs {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  padding-top: 5px;
+  grid-gap: 5px;
+}
+div.vehicule section.sheet-body div.pouvoirs a.item-create {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.vehicule section.sheet-body div.pouvoirs a.item-create:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.vehicule section.sheet-body div.pouvoirs a.item-create {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.vehicule section.sheet-body div.pouvoirs.show {
+  display: grid;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr span.header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 15px 15px 0px 0px;
+  background-blend-mode: overlay, multiply;
+  background-size: 500px;
+  background-repeat: no-repeat;
+  display: grid;
+  grid-template-columns: 1fr;
+  font-size: 2rem;
+  height: 2rem;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  font-family: "Bangers";
+  text-align: center;
+  color: #EBEBEB;
+  letter-spacing: 2px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr span.header i {
+  position: absolute;
+  font-size: 1rem;
+  color: #EBEBEB;
+  top: 8px;
+  cursor: pointer;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr span.header i.item-edit {
+  right: 25px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr span.header i.item-delete {
+  right: 5px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr span.header i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr span.header.blue {
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr span.header.red {
+  background: url("../assets/fond.webp") #DA3A2F;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr span.header.violet {
+  background: url("../assets/fond.webp") #7E627F;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  position: relative;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr header::before {
+  content: "";
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy {
+  position: absolute;
+  top: 3px;
+  left: 10px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy i {
+  cursor: pointer;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy i::before {
+  border: 2px solid #EBEBEB;
+  font-size: 13px;
+  border-radius: 30px;
+  position: absolute;
+  width: 23px;
+  text-align: center;
+  color: #EBEBEB;
+  height: 23px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy i.plus::before {
+  content: "+";
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy i.minus::before {
+  content: "-";
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr.blue span.header {
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr.blue::after {
+  content: "";
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr.red span.header {
+  background: url("../assets/fond.webp") #DA3A2F;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr.red::after {
+  content: "";
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+  background: url("../assets/fond.webp") #DA3A2F;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr.violet span.header {
+  background: url("../assets/fond.webp") #7E627F;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr.violet::after {
+  content: "";
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+  background: url("../assets/fond.webp") #7E627F;
+}
+div.vehicule section.sheet-body div.pouvoirs div.bottom {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+}
+div.vehicule section.sheet-body div.pouvoirs div.bottom.col2 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.vehicule section.sheet-body div.pouvoirs div.bottom.blue {
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+div.vehicule section.sheet-body div.pouvoirs div.bottom.red {
+  background: url("../assets/fond.webp") #DA3A2F;
+}
+div.vehicule section.sheet-body div.pouvoirs div.bottom.violet {
+  background: url("../assets/fond.webp") #7E627F;
+}
+div.vehicule section.sheet-body div.pouvoirs div.allData {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+div.vehicule section.sheet-body div.pouvoirs div.data {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: repeat(3, max-content) 29px;
+  grid-gap: 5px;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 5px;
+  border-left: 1px solid #363B44;
+  border-right: 1px solid #363B44;
+  min-height: 29px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.data span {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+div.vehicule section.sheet-body div.pouvoirs div.data span.col4 {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  justify-content: right;
+  padding-right: 5px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.data span.col4L {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  justify-content: left;
+}
+div.vehicule section.sheet-body div.pouvoirs div.data.black {
+  background: #363B44;
+  border-left: 0px;
+  border-right: 0px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.data.black span {
+  color: #EBEBEB;
+}
+div.vehicule section.sheet-body div.pouvoirs div.data a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-right: 1px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.data a:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.vehicule section.sheet-body div.pouvoirs div.dataSpecial {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 45px max-content;
+  grid-gap: 5px;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top: 1px solid var(--color-border-light-tertiary);
+}
+div.vehicule section.sheet-body div.pouvoirs div.dataSpecial span {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+div.vehicule section.sheet-body div.pouvoirs div.dataSpecial span:first-of-type {
+  justify-content: right;
+}
+div.vehicule section.sheet-body div.pouvoirs div.dataSpecial input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+  border-top: 0px;
+  border-bottom: 0px;
+  border-radius: 0px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.dataSpecial.black {
+  background: #363B44;
+  border-left: 0px;
+  border-right: 0px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.dataSpecial.black span {
+  color: #EBEBEB;
+}
+div.vehicule section.sheet-body div.pouvoirs div.dataSpecial.black input {
+  color: #EBEBEB;
+}
+div.vehicule section.sheet-body div.pouvoirs div.dataSpecial a {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-right: 1px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.dataSpecial a:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.vehicule section.sheet-body div.pouvoirs div select.link {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  width: 100%;
+  color: #EBEBEB;
+  font-family: "Bangers";
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-light-tertiary);
+  background: #363B44;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-radius: 0px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+div.vehicule section.sheet-body div.pouvoirs div select.link option {
+  background: #363B44;
+}
+div.vehicule section.sheet-body div.pouvoirs div.details {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border-left: 1px solid #363B44;
+  border-right: 1px solid #363B44;
+  border-top: 1px solid var(--color-border-light-primary);
+}
+div.vehicule section.sheet-body div.pouvoirs div.details span.label {
+  display: grid;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  min-height: 0.8rem;
+  padding-top: 2px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.details span.text {
+  display: grid;
+  width: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: left;
+  text-align: left;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.mod {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border-top: 1px solid var(--color-border-light-primary);
+}
+div.vehicule section.sheet-body div.pouvoirs div.mod span.label {
+  display: grid;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  min-height: 0.8rem;
+  padding-top: 2px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.mod span.text {
+  position: relative;
+  display: grid;
+  width: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: left;
+  text-align: left;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  min-height: 19px;
+  line-height: 14px;
+  border-top: 1px dashed var(--color-border-light-primary);
+  color: #363B44;
+}
+div.vehicule section.sheet-body div.pouvoirs div.mod span.text i {
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  cursor: pointer;
+}
+div.vehicule section.sheet-body div.pouvoirs div.mod span.text i div.infoExt {
+  display: none;
+  position: absolute;
+  width: 175px;
+  min-height: 20px;
+  padding: 5px;
+  text-align: justify;
+  border: 1px solid #363B44;
+  border-radius: 5px;
+  background: #4E7FC8;
+  color: #EBEBEB;
+  font-family: Sriracha;
+  line-height: 12px;
+  text-shadow: none;
+  font-weight: normal;
+}
+div.vehicule section.sheet-body div.pouvoirs div.mod span.text i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.vehicule section.sheet-body div.pouvoirs div.mod.borderLeft {
+  border-left: 1px solid #363B44;
+}
+div.vehicule section.sheet-body div.pouvoirs div.mod.borderRight {
+  border-right: 1px solid #363B44;
+}
+div.vehicule section.sheet-body div.pouvoirs div.mod.borderLightLeft {
+  border-left: 1px solid var(--color-border-light-primary);
+}
+div.vehicule section.sheet-body div.pouvoirs div.mod.borderLightRight {
+  border-right: 1px solid var(--color-border-light-primary);
+}
+div.vehicule section.sheet-body div.pouvoirs div.descripteurs {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  border-left: 1px solid #363B44;
+  border-right: 1px solid #363B44;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 0.8rem;
+  text-align: justify;
+}
+
+div.qg section.window-content {
+  background: #EBEBEB;
+  color: #363B44;
+  font-family: Sriracha;
+  font-weight: bold;
+}
+div.qg section.window-content form {
+  min-width: min-content;
+}
+div.qg header.sheet-header {
+  display: grid;
+  grid-template-columns: 1fr 240px 85px;
+  grid-gap: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 15px 15px 0px 0px;
+  background: url("../assets/fond.webp") #E0AC00;
+  background-blend-mode: overlay, multiply, multiply;
+}
+div.qg header.sheet-header > input {
+  grid-column: 1;
+  font-size: 4rem;
+  height: 4rem;
+  border: none;
+  background: none;
+  color: #EBEBEB;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  font-family: "Bangers";
+  text-align: center;
+}
+div.qg header.sheet-header > input::placeholder {
+  color: #EBEBEB;
+}
+div.qg header.sheet-header > img {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  border: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+div.qg div.totalpp {
+  display: grid;
+  grid-template-columns: min-content;
+  width: 100%;
+  background: #363B44;
+  color: #EBEBEB;
+  padding: 5px;
+}
+div.qg div.totalpp details {
+  width: max-content;
+}
+div.qg div.totalpp details span {
+  display: grid;
+  align-self: center;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+div.qg div.totalpp details span.score, div.qg div.totalpp details span.max {
+  color: #363B44;
+}
+div.qg div.totalpp details span.red {
+  color: #fe1611;
+}
+div.qg div.totalpp details summary {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 25px 1fr 45px 8px 45px;
+  grid-gap: 2px;
+  cursor: pointer;
+}
+div.qg div.totalpp details summary::before {
+  content: "+";
+  border: 1px solid white;
+  font-size: 13px;
+  border-radius: 30px;
+  width: 100%;
+  text-align: center;
+}
+div.qg div.totalpp details summary span.label {
+  padding-left: 5px;
+  min-width: 100px;
+  text-align: right;
+}
+div.qg div.totalpp details summary span.label, div.qg div.totalpp details summary span.separation {
+  font-weight: normal;
+}
+div.qg div.totalpp details summary span.score, div.qg div.totalpp details summary span.max {
+  border: none;
+  border-bottom: 1px solid #333;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+div.qg div.totalpp details div.line {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 25px 1fr 45px 8px 45px;
+  grid-gap: 2px;
+  margin-top: 2px;
+}
+div.qg div.totalpp details div.line span.label {
+  grid-column: 2;
+  text-align: right;
+  font-weight: normal;
+}
+div.qg div.totalpp details div.line span.score {
+  grid-column: 3;
+  border: none;
+  border-bottom: 1px solid #333;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+div.qg div.totalpp details div.line input {
+  width: 100%;
+  grid-column: 3;
+  border: none;
+  border-bottom: 1px solid #333;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+div.qg div.totalpp details[open] summary {
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+  padding-bottom: 5px;
+  margin-bottom: 3px;
+}
+div.qg div.totalpp details[open] summary::before {
+  content: "-";
+}
+div.qg section.sheet-body nav.tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0px, auto));
+  grid-gap: 5px;
+  border: 0px;
+  justify-content: left;
+}
+div.qg section.sheet-body nav.tabs a {
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+}
+div.qg section.sheet-body nav.tabs a:hover, div.qg section.sheet-body nav.tabs a.active {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.qg section.sheet-body div.informations {
+  border: 1px solid #a8a8a8;
+  border-top-color: black;
+  padding: 5px;
+}
+div.qg section.sheet-body div.informations img.profile-img {
+  object-fit: contain;
+}
+div.qg section.sheet-body div.informations div.inner {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-gap: 5px;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+div.qg section.sheet-body div.informations div.block {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+}
+div.qg section.sheet-body div.informations div.block > span {
+  font-variant: small-caps;
+  font-size: 15px;
+  padding-left: 15px;
+}
+div.qg section.sheet-body div.informations div.block div.editor {
+  min-height: 50px;
+  border-top: 1px solid;
+  border-top-color: #363B44;
+}
+div.qg section.sheet-body div.informations div.block div.editor a.editor-edit {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+div.qg section.sheet-body div.informations div.block div.editor div.editor-content {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.qg section.sheet-body div.informations div.block div.editor div.tox-tinymce {
+  min-height: 300px;
+}
+div.qg section.sheet-body div.details div.inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5px;
+  border: 1px solid #a8a8a8;
+  border-top-color: black;
+  padding: 5px;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+div.qg section.sheet-body div.taille {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 5px;
+  grid-gap: 5px;
+}
+div.qg section.sheet-body div.taille span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  height: 20px;
+}
+div.qg section.sheet-body div.taille select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  text-align: center;
+  background: transparent;
+  text-transform: uppercase;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  color: #363B44;
+}
+div.qg section.sheet-body div.robustesse {
+  display: grid;
+  grid-template-columns: 1fr 45px;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 5px;
+  grid-gap: 5px;
+}
+div.qg section.sheet-body div.robustesse span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+}
+div.qg section.sheet-body div.robustesse input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.qg section.sheet-body div.particularite {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr 45px;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+}
+div.qg section.sheet-body div.particularite span.header {
+  font-variant: small-caps;
+  font-size: 15px;
+  padding-left: 15px;
+}
+div.qg section.sheet-body div.particularite span.label {
+  display: flex;
+  justify-content: right;
+  font-size: 0.8em;
+  text-align: right;
+  padding-right: 5px;
+  align-items: center;
+  align-content: center;
+}
+div.qg section.sheet-body div.particularite input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+  border-top: 0px;
+  border-right: 0px;
+  border-bottom: 0px;
+}
+div.qg section.sheet-body div.particularite div.editor {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  min-height: 50px;
+  border-top: 1px solid;
+  border-top-color: #363B44;
+}
+div.qg section.sheet-body div.particularite div.editor a.editor-edit {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+div.qg section.sheet-body div.particularite div.editor div.editor-content {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.qg section.sheet-body div.particularite div.editor div.tox-tinymce {
+  min-height: 300px;
+}
+
+.mm3-roll {
+  cursor: pointer;
+  background: #EBEBEB;
+}
+.mm3-roll h4.flavor {
+  box-shadow: none;
+  background: url("../assets/fond.webp") #4E7FC8;
+  font-family: "Sriracha";
+  text-align: center;
+  line-height: 36px;
+  background-blend-mode: overlay, multiply;
+  background-size: 500px;
+  background-repeat: no-repeat;
+  color: #EBEBEB;
+  font-size: 18px;
+  padding-left: 2px;
+  padding-right: 2px;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  border: 0px;
+  border-radius: 15px 15px 0px 0px;
+  letter-spacing: 1px;
+}
+.mm3-roll h4.formula {
+  box-shadow: none;
+  font-family: "Sriracha";
+  font-size: 1em;
+  border: 0px;
+  border-radius: 0px;
+  background: #363B44;
+  color: #EBEBEB;
+  letter-spacing: 1px;
+}
+.mm3-roll h4.result {
+  box-shadow: none;
+  font-family: "Sriracha";
+  font-size: 1em;
+  border: 0px;
+  border-radius: 0px;
+  background: transparent;
+  color: #363B44;
+  font-weight: bold;
+  border-radius: 0px;
+  border: 0px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+.mm3-roll h4.attack {
+  box-shadow: none;
+  font-family: "Sriracha";
+  font-size: 1em;
+  border: 0px;
+  border-radius: 0px;
+  background: transparent;
+  color: #363B44;
+  font-weight: bold;
+  border-radius: 0px;
+  border: 0px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+.mm3-roll h4.bottom::after {
+  content: "";
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+.mm3-roll h4.critique {
+  border-top: 1px solid black;
+  color: #0fb002;
+}
+.mm3-roll div.dice-tooltip {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+.mm3-roll div.dice-tooltip header {
+  padding-left: 5px;
+}
+.mm3-roll div.dice-tooltip ol {
+  margin-bottom: 0px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  border-bottom: 1px solid var(--color-border-light-primary);
+}
+.mm3-roll div.dice-tooltip span.part-total {
+  border-right: 0px;
+  border-top: 0px;
+  border-bottom: 0px;
+}
+.mm3-roll div.dataAttack div.inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.mm3-roll div.dataAttack div.inner span {
+  box-shadow: none;
+  font-family: "Sriracha";
+  font-size: 0.8em;
+  border: 0px;
+  border-radius: 0px;
+  background: transparent;
+  color: #363B44;
+  letter-spacing: 1px;
+}
+.mm3-roll div.btn {
+  box-shadow: none;
+  font-family: "Sriracha";
+  font-size: 1em;
+  border: 0px;
+  border-radius: 0px;
+  background: transparent;
+  color: #363B44;
+  font-weight: bold;
+  border-radius: 0px;
+  border: 0px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  text-align: center;
+}
+.mm3-roll div.btn button {
+  box-shadow: none;
+  width: max-content;
+  border: 0px;
+  background: #4E7FC8;
+  font-weight: bold;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  font-variant: small-caps;
+  font-size: 1em;
+  font-family: "Sriracha";
+  color: #EBEBEB;
+  letter-spacing: 1px;
+  background: url("../assets/fond.webp") #4E7FC8;
+  background-blend-mode: overlay, multiply;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  background-size: 500px;
+}
+.mm3-roll span.text {
+  display: block;
+  text-align: justify;
+  width: 100%;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-family: "Sriracha";
+  border-top: 1px solid black;
+}
+
+.mm3-rollpwr {
+  cursor: pointer;
+  background: #EBEBEB;
+}
+.mm3-rollpwr h4.flavor {
+  box-shadow: none;
+  background: url("../assets/fond.webp") #4E7FC8;
+  font-family: "Sriracha";
+  text-align: center;
+  line-height: 36px;
+  background-blend-mode: overlay, multiply;
+  background-size: 500px;
+  background-repeat: no-repeat;
+  color: #EBEBEB;
+  font-size: 18px;
+  padding-left: 2px;
+  padding-right: 2px;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  border: 0px;
+  border-radius: 15px 15px 0px 0px;
+  letter-spacing: 1px;
+}
+.mm3-rollpwr h4.formula {
+  box-shadow: none;
+  font-family: "Sriracha";
+  font-size: 1em;
+  border: 0px;
+  border-radius: 0px;
+  background: #363B44;
+  color: #EBEBEB;
+  letter-spacing: 1px;
+}
+.mm3-rollpwr h4.result {
+  box-shadow: none;
+  font-family: "Sriracha";
+  font-size: 1em;
+  border: 0px;
+  border-radius: 0px;
+  background: transparent;
+  color: #363B44;
+  font-weight: bold;
+  border-radius: 0px;
+  border: 0px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+.mm3-rollpwr h4.header {
+  box-shadow: none;
+  font-family: "Sriracha";
+  font-size: 1.2em;
+  border: 0px;
+  border-radius: 0px;
+  background: transparent;
+  color: #363B44;
+  font-weight: bold;
+  border-radius: 0px;
+  border: 0px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0px;
+}
+.mm3-rollpwr h4.bottom::after {
+  content: "";
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+.mm3-rollpwr h4.critique {
+  border-top: 1px solid black;
+  color: #0fb002;
+}
+.mm3-rollpwr div.dice-tooltip {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+.mm3-rollpwr div.dice-tooltip header {
+  padding-left: 5px;
+}
+.mm3-rollpwr div.dice-tooltip ol {
+  margin-bottom: 0px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  border-bottom: 1px solid var(--color-border-light-primary);
+}
+.mm3-rollpwr div.dice-tooltip span.part-total {
+  border-right: 0px;
+  border-top: 0px;
+  border-bottom: 0px;
+}
+.mm3-rollpwr div.data {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 100%;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  grid-gap: 2px;
+}
+.mm3-rollpwr div.data span {
+  font-family: "Sriracha";
+}
+.mm3-rollpwr div.data span:first-of-type {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  text-align: center;
+}
+.mm3-rollpwr div.descripteurs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 100%;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  grid-gap: 2px;
+  min-height: 10px;
+}
+.mm3-rollpwr div.descripteurs span {
+  font-family: "Sriracha";
+}
+.mm3-rollpwr span.text {
+  display: block;
+  text-align: justify;
+  width: 100%;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-family: "Sriracha";
+  border-top: 1px solid black;
+  min-height: 10px;
+}

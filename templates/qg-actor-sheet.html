@@ -1,0 +1,76 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <input name="name" type="text" value="{{data.name}}" placeholder="{{localize "MM3.Hero"}}" />
+
+        <img class="logo-img" src="systems/mutants-and-masterminds-3e/assets/logo.webp" />
+    </header>
+    <div class="totalpp">
+        <details {{#if systemData.cout.opened}}open{{/if}}>
+            <summary data-value="{{systemData.cout.opened}}">
+                <span class="label">{{localize "MM3.Couttotal"}}:</span>
+                <span class="max">{{systemData.cout.total}}</span>
+            </summary>
+            <div class="line">
+                <span class="label">{{localize "MM3.Taille"}}</span>
+                <span class="score">{{systemData.cout.taille}}</span>
+            </div>
+            <div class="line">
+                <span class="label">+ {{localize "MM3.DEFENSE.Robustesse"}}</span>
+                <span class="score">{{systemData.cout.robustesse}}</span>
+            </div>
+            <div class="line">
+                <span class="label">+ {{localize "MM3.Particularites"}}</span>
+                <span class="score">{{systemData.cout.particularite}}</span>
+            </div>
+            <div class="line">
+                <span class="label">+ {{localize "MM3.Divers"}}</span>
+                <input type="number" name="system.cout.divers" value="{{systemData.cout.divers}}" min="0"/>
+            </div>
+        </details>
+    </div>
+
+    <section class="sheet-body">
+        {{!-- Sheet Tab Navigation --}}
+         <nav class="sheet-tabs tabs" data-group="primary">
+            <a class="item" data-tab="informations">{{localize "MM3.TABS.Informations"}}</a>
+            <a class="item" data-tab="details">{{localize "MM3.Details"}}</a>
+        </nav>
+
+        <div class="tab informations" data-group="primary" data-tab="informations">
+            <div class="inner">
+                <img class="profile-img" src="{{data.img}}" data-edit="img" title="{{data.name}}" />
+
+                <div class="block">
+                    <span>{{localize "MM3.Description"}}</span>
+                    {{editor systemData.description target="system.description" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab details" data-group="primary" data-tab="details">
+            <div class="inner">
+                <div class="robustesse">
+                    <span class="header">{{localize "MM3.DEFENSE.Robustesse"}}</span>
+                    <input type="number" name="system.robustesse" value="{{systemData.robustesse}}" min="0" />
+                </div>
+                <div class="taille">
+                    <span class="header">{{localize "MM3.Taille"}}</span>
+                    <select name="system.taille">
+                        {{#select systemData.taille}}
+                            {{#each systemData.listQGTailles as | key taille |}}
+                                <option value="{{taille}}">{{key}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                </div>
+            </div>
+
+            <div class="particularite">
+                <span class="header">{{localize "MM3.Particularites"}}</span>
+                <span class="label">{{localize "MM3.Cout"}} :</span>
+                <input type="number" name="system.cout.particularite" value="{{systemData.cout.particularite}}" min="0" />
+                {{editor systemData.particularite target="system.particularite" button=true owner=owner editable=editable}}
+            </div>      
+        </div>        
+    </section>
+</form>

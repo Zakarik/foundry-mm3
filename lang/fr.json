@@ -1,0 +1,253 @@
+{
+  "ACTOR":{
+    "TypePersonnage":"Personnage",
+    "TypeVehicule":"Véhicule",
+    "TypeQg":"QG"
+  },
+  "ITEM":{
+    "TypePouvoir":"Pouvoir",
+    "TypeModificateur":"Modificateur",
+    "TypeTalent":"Talent",
+    "TypeEquipement":"Équipement"
+  },
+  "MM3":{
+    "TYPEIDENTITE":{
+      "Secrete":"Identité Secrète",
+      "Publique":"Identité Publique",
+      "CliquePublique":"Cliquez pour passer en identité publique",
+      "CliqueSecrete":"Cliquez pour passer en identité secrète"
+    },
+    "TABS":{
+      "Informations":"Informations",
+      "CaracComp":"Caractéristiques & Compétences",
+      "PouvoirsTalentsEquipements":"Pouvoirs, Talents & Équipements"
+    },
+    "BTN":{
+      "Add":"Ajouter",
+      "AddPwr":"Ajouter un pouvoir",
+      "AddTl":"Ajouter un talent",
+      "AddEq":"Ajouter un équipement"
+    },
+    "CARACTERISTIQUES":{
+      "Force":"Force",
+      "Force-short":"For",
+      "Agilite":"Agilité",
+      "Agilite-short":"Agi",
+      "Combativite":"Combativité",
+      "Combativite-short":"Cbt",
+      "Sensibilite":"Sensibilité",
+      "Sensibilite-short":"Sns",
+      "Endurance":"Endurance",
+      "Endurance-short":"End",
+      "Dexterite":"Dextérité",
+      "Dexterite-short":"Dex",
+      "Intelligence":"Intelligence",
+      "Intelligence-short":"Int",
+      "Presence":"Présence",
+      "Presence-short":"Prs"
+    },
+    "COMPETENCES":{
+      "Acrobaties":"Acrobaties",
+      "Athletisme":"Athlétisme",
+      "Duperie":"Duperie",
+      "Perspicacite":"Perspicacité",
+      "Intimidation":"Intimidation",
+      "Investigation":"Investigation",
+      "Perception":"Perception",
+      "Persuasion":"Persuasion",
+      "Habilete":"Habileté",
+      "Discretion":"Discrétion",
+      "Technologie":"Technologie",
+      "Soins":"Soins médicaux",
+      "Combatcontact":"Combat au contact",
+      "Combatdistance":"Combat à distance",
+      "Expertise":"Expertise",
+      "Vehicules":"Véhicules"
+    },
+    "PP":{
+      "Total":"Total de points de pouvoir",
+      "Depart":"Points de pouvoir de départ",
+      "Gagner":"Points de pouvoir gagnés"
+    },
+    "DEFENSE":{
+      "Label":"Défense",
+      "DDEsquive":"DD d'Esquive",
+      "DDParade":"DD de Parade",
+      "Esquive":"Esquive",
+      "Parade":"Parade",
+      "Vigueur":"Vigueur",
+      "Robustesse":"Robustesse",
+      "Volonte":"Volonté"
+    },
+    "ATTAQUE":{
+      "Label":"Attaque",
+      "Initiative":"Initiative"
+    },
+    "STRATEGIE":{
+      "Attaqueprecision":"Attaque de précision",
+      "Attaqueoutrance":"Attaque à outrance",
+      "Attaquedefensive":"Attaque défensive",
+      "Attaquepuissance":"Attaque en puissance",
+      "Etats":"États"
+    },
+    "BONUS":{
+      "Attaque":"Bonus d'attaque",
+      "Defense":"Bonus de défense",
+      "Effet":"Bonus aux effets"
+    },
+    "MALUS":{
+      "Attaque":"Malus d'attaque",
+      "Defense":"Malus de défense",
+      "Effet":"Malus aux effets"
+    },
+    "EFFET":{
+      "Label":"Effet"
+    },
+    "MOD":{
+      "Label-short":"Mod.",
+      "Attaque":"Modificateur d'attaque",
+      "Defense":"Modificateur de défense",
+      "Effet":"Modificateur d'effets"
+    },
+    "POUVOIR":{
+      "Descripteurs":"Descripteurs",
+      "Standard":"Effet standard",
+      "Alternatif":"Effet alternatif",
+      "Dynamique":"Effet dynamique",
+      "Principal":"Pouvoir principal",
+      "TYPE":{
+        "Attaque":"Attaque",
+        "Controle":"Contrôle",
+        "Defense":"Défense",
+        "Generaux":"Généraux",
+        "Mouvement":"Mouvement",
+        "Sensoriels":"Sensoriels"
+      },
+      "ACTION":{
+        "Label":"Action",
+        "Simple":"Simple",
+        "Mouvement":"Mouvement",
+        "Libre":"Libre",
+        "Reaction":"Réaction",
+        "Aucune":"Aucune",
+        "FSimple":"Action simple",
+        "FMouvement":"Action de mouvement",
+        "FLibre":"Action libre",
+        "FReaction":"Action de réaction",
+        "FAucune":"Aucune action"
+      },
+      "PORTEE":{
+        "Label":"Portee",
+        "Personnelle":"Personnelle",
+        "Contact":"Contact",
+        "Distance":"Distance",
+        "Perception":"Perception",
+        "Rang":"Rang"
+      },
+      "DUREE":{
+        "Label":"Durée",
+        "Instantane":"Instantané",
+        "Concentration":"Concentration",
+        "Prolonge":"Prolongé",
+        "Continu":"Continu",
+        "Permanent":"Permanent"
+      }
+    },
+    "FILTRE":{
+      "Tous":"Tous",
+      "Pouvoirs":"Pouvoirs & Gadgets",
+      "Talents":"Talents",
+      "Equipements":"Equipements"
+    },
+    "TALENT":{
+      "Equipement":"Donne des points d'équipements"
+    },
+    "TAILLE":{
+      "Insignifiante":"Insignifiante",
+      "Infime":"Infime",
+      "Minuscule":"Minuscule",
+      "Minime":"Minime",
+      "Petite":"Petite",
+      "Intermediaire":"Intermédiaire",
+      "Grand":"Grand",
+      "Enorme":"Énorme",
+      "Gigantesque":"Gigantesque",
+      "Colossal":"Colossal",
+      "Titanesque":"Titanesque"
+    },
+    "SETTING":{
+      "Typejet":"Type de jets de dé",
+      "Standard1d20":"Standard 1D20",
+      "Guide3d20":"3D20 Guide du MJ",
+      "3d6":"Somme de 3D6"
+    },
+    "ROLL":{
+      "AttSuccess":"L'Attaque touche !",
+      "AttFail":"L'Attaque échoue !",
+      "Success":"Le jet réussi !",
+      "Fail":"Le jet échoue !",
+      "DegreEchec":"Degré d'échec",
+      "DD":"DD",
+      "Critique":"Critique !",
+      "Testeffet":"Test d'effet",
+      "DEFENSE":{
+        "Esquive":"Jet d'esquive",
+        "Parade":"Jet de parade",
+        "Vigueur":"Jet de vigueur",
+        "Robustesse":"Jet de robustesse",
+        "Volonte":"Jet de volonté"
+      }
+    },
+    "Nom":"Nom",
+    "Identite":"Identite",
+    "Hero":"Héro",
+    "Genre":"Genre",
+    "Taille":"Taille",
+    "Poids":"Poids",
+    "Age":"Àge",
+    "Yeux":"Yeux",
+    "Cheveux":"Cheveux",
+    "Puissance":"Niveau de puissance",
+    "Caracteristiques":"Caractéristiques",
+    "Pouvoirs":"Pouvoirs",
+    "Talents":"Talents",
+    "Equipements":"Équipements",
+    "Competences":"Compétences",
+    "Defenses":"Défenses",
+    "Description":"Description",
+    "Historique":"Historique",
+    "Complications":"Motivations & Complications",
+    "Total":"Total",
+    "Carac":"Carac.",
+    "Base":"Base",
+    "Points":"Points",
+    "Rang":"Rang",
+    "Divers":"Divers",
+    "Autre":"Autre",
+    "Etats":"Notes & États",
+    "Heroisme":"Points d'héroisme",
+    "Blessures":"Blessures",
+    "Type":"Type",
+    "Extra":"Extra",
+    "Extras":"Extras",
+    "Defaut":"Défaut",
+    "Defauts":"Défauts",
+    "Fixe":"Fixe",
+    "Parrang":"Par rang",
+    "PPParrang":"PP/Rang",
+    "Cout":"Coût",
+    "Coutactuel":"Coût actuel",
+    "Couttotal":"Coût total",
+    "Couttotalsiprincipal":"Coût total (principal)",
+    "Couttotalsisecondaire":"Coût total (secondaire)",
+    "Couttotaltheorique":"Coût total théorique",
+    "Couttotalfinal":"Coût total final",
+    "Details":"Détails",
+    "Choisir":"Choisir",
+    "Max-short":"Max",
+    "Pointsequipementsused":"Points d'équipements utilisés",
+    "Coutvitesse":"Cout de l'effet mouvement de base",
+    "Vitesse":"Vitesse",
+    "Particularites":"Particularités"
+  }
+}
