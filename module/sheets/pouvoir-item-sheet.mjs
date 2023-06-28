@@ -31,9 +31,7 @@ export class PouvoirItemSheet extends ItemSheet {
      * @override
      */
    get template() {
-    if (!game.user.isGM && this.item.limited) {
-      return "systems/mutants-and-masterminds/templates/limited-sheet.html";
-    }
+
     return this.options.template;
   }
 

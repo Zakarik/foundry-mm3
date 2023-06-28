@@ -42,7 +42,7 @@ export class PersonnageActorSheet extends ActorSheet {
      */
    get template() {
     if (!game.user.isGM && this.actor.limited) {
-      return "systems/mutants-and-masterminds/templates/limited-sheet.html";
+      return "systems/mutants-and-masterminds-3e/templates/limited-personnage-sheet.html";
     }
     return this.options.template;
   }

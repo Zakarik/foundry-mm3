@@ -118,11 +118,13 @@ export class MM3Actor extends Actor {
         const cList = comp.list;
         for(let list in cList) {
           const listData = cList[list];
+          const listCompRang = listData.rang;
 
           if(listData.carCanChange) listData.carac = getCarac[getFullCarac(listData.car)].total;
           else listData.carac = getCarac[getFullCarac(comp.car)].total;
           
-          listData.total = listData.carac+listData.rang+listData.autre;
+          listData.total = listData.carac+listCompRang+listData.autre;
+          ppComp += listCompRang/2;
         }      
       } else {
         const compRang = comp.rang;

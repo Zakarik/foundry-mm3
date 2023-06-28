@@ -1,3 +1,10 @@
+## Version 1.2
+### Bugfix
+- Correction d'un bug sur le décompte des PP des compétences.
+
+### Améliorations
+- Ajout des fiches limitées pour les QG, Véhicules et Personnages.
+
 ## Version 1.1
 ### Bugfix
 - Correction d'un bug sur l'initiative

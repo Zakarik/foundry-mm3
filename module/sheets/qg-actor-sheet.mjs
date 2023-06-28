@@ -12,7 +12,7 @@ export class QGActorSheet extends ActorSheet {
       classes: ["mm3", "sheet", "actor", "qg"],
       template: "systems/mutants-and-masterminds-3e/templates/qg-actor-sheet.html",
       width: 850,
-      height: 600,
+      height: 500,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "informations"}],
       dragDrop: [{dragSelector: ".draggable", dropSelector: null}],
     });
@@ -37,7 +37,7 @@ export class QGActorSheet extends ActorSheet {
      */
    get template() {
     if (!game.user.isGM && this.actor.limited) {
-      return "systems/mutants-and-masterminds/templates/limited-sheet.html";
+      return "systems/mutants-and-masterminds-3e/templates/limited-qg-sheet.html";
     }
     return this.options.template;
   }
