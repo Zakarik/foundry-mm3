@@ -1,4 +1,8 @@
 div.talent {
+    img.profile-img {
+        object-fit: contain;
+    }
+
     section.window-content {
         background:$fond;
         color:$color;
@@ -112,6 +116,7 @@ div.talent {
                 border:2px solid $black;
                 padding:0px 0px 5px;
                 min-height:100px;
+                height: 100%;
 
                 span.label {
                     display:grid;

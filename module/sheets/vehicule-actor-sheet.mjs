@@ -16,7 +16,7 @@ export class VehiculeActorSheet extends ActorSheet {
       classes: ["mm3", "sheet", "actor", "vehicule"],
       template: "systems/mutants-and-masterminds-3e/templates/vehicule-actor-sheet.html",
       width: 850,
-      height: 600,
+      height: 450,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "informations"}],
       dragDrop: [{dragSelector: ".draggable", dropSelector: null}],
     });
@@ -213,9 +213,12 @@ export class VehiculeActorSheet extends ActorSheet {
       type: type,
       data: data,
       img: {
-        "distance": "systems/nautilus/assets/icons/distance.svg",
-        "melee": "systems/nautilus/assets/icons/melee.svg",
-        "equipement": "systems/nautilus/assets/icons/equipement.svg",
+        "equipement": "systems/mutants-and-masterminds-3e/assets/icons/equipment.svg",
+        "modificateur": "systems/mutants-and-masterminds-3e/assets/icons/modificateur.svg",
+        "pouvoir": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+        "qg": "systems/mutants-and-masterminds-3e/assets/icons/qg.svg",
+        "talent": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+        "vehicule": "systems/mutants-and-masterminds-3e/assets/icons/vehicule.svg",
       }[type]
     };
 

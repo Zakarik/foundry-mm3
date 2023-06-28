@@ -9,7 +9,7 @@ export class PouvoirItemSheet extends ItemSheet {
       classes: ["mm3", "sheet", "item", "pouvoir"],
       template: "systems/mutants-and-masterminds-3e/templates/pouvoir-item-sheet.html",
       width: 850,
-      height: 600,
+      height: 840,
       dragDrop: [{dragSelector: ".draggable", dropSelector: null}],
     });
   }

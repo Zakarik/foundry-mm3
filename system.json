@@ -2,7 +2,7 @@
   "id": "mutants-and-masterminds-3e",
   "title": "Mutants and Masterminds 3E",
   "description": "Fiche non officielle Mutants & Masterminds 3E",
-  "version": "1.0",
+  "version": "1.1.0",
   "esmodules": [
     "module/mm.mjs"
   ],
@@ -40,7 +40,7 @@
   "primaryTokenAttribute": "blessure",
   "url": "https://github.com/Zakarik/foundry-mm3",
   "manifest": "https://raw.githubusercontent.com/Zakarik/foundry-mm3/main/system.json",
-  "download": "https://github.com/Zakarik/foundry-mm3/archive/1.0.0.zip",
+  "download": "https://github.com/Zakarik/foundry-mm3/archive/1.1.0.zip",
   "readme": "https://raw.githubusercontent.com/Zakarik/foundry-mm3/main/readme.md",
   "changelog": "https://raw.githubusercontent.com/Zakarik/foundry-mm3/main/changelog.md"
 }

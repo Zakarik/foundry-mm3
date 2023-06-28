@@ -9,7 +9,7 @@ export class EquipementItemSheet extends ItemSheet {
       classes: ["mm3", "sheet", "item", "talent"],
       template: "systems/mutants-and-masterminds-3e/templates/equipement-item-sheet.html",
       width: 850,
-      height: 300,
+      height: 480,
       dragDrop: [{dragSelector: ".draggable", dropSelector: null}],
     });
   }

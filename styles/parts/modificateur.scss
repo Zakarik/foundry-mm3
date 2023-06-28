@@ -1,4 +1,8 @@
 div.modificateur {
+    img.profile-img {
+        object-fit: contain;
+    }
+    
     section.window-content {
         background:$fond;
         color:$color;

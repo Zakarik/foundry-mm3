@@ -50,12 +50,155 @@ Hooks.once('init', async function() {
    */
   RegisterSettings();
 
-  const dices = game.settings.get("mutants-and-masterminds-3e", "typeroll");
+  const optDices = game.settings.get("mutants-and-masterminds-3e", "typeroll");
+  let dices = optDices;
+
+  if(optDices === '3D20') dices = "3D20dldh";
 
   CONFIG.Combat.initiative = {
     formula: dices+"+@initiative.total",
     decimals: 2
   };
+
+  CONFIG.statusEffects = [{
+    id:'dead',
+    label:'EFFECT.StatusDead',
+    icon:'icons/svg/skull.svg'
+  },
+  {
+    id:'downgrade',
+    label:'EFFECT.StatusDowngrade',
+    icon:"icons/svg/downgrade.svg"
+  },
+  {
+    id:'controlled',
+    label:'MM3.STATUS.Controlled',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/controlled.svg"
+  },
+  {
+    id:'decreased',
+    label:'MM3.STATUS.Decreased',
+    icon:"icons/svg/degen.svg"
+  },
+  {
+    id:'tired',
+    label:'MM3.STATUS.Tired',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/tired.svg"
+  },
+  {
+    id:'stun',
+    label:'MM3.STATUS.Dazed',
+    icon:"icons/svg/daze.svg"
+  },
+  {
+    id:'stuck',
+    label:'MM3.STATUS.Stuck',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/stuck.svg"
+  },
+  {
+    id:'eye',
+    label:'MM3.STATUS.Influenced',
+    icon:"icons/svg/eye.svg"
+  },
+  {
+    id:'insensitive',
+    label:'MM3.STATUS.Insensitive',
+    icon:"icons/svg/invisible.svg"
+  },
+  {
+    id:'invalid',
+    label:'MM3.STATUS.Invalid',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/invalid.svg"
+  },
+  {
+    id:'slow',
+    label:'MM3.STATUS.Slow',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/slow.svg"
+  },
+  {
+    id:'defenseless',
+    label:'MM3.STATUS.Defenseless',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/defenseless.svg"
+  },
+  {
+    id:'transformed',
+    label:'MM3.STATUS.Transformed',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/transformed.svg"
+  },
+  {
+    id:'vulnerability',
+    label:'MM3.STATUS.Vulnerability',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/vulnerability.svg"
+  },
+  {
+    id:'prone',
+    label:'EFFECT.StatusProne',
+    icon:"icons/svg/falling.svg"
+  },
+  {
+    id:'blind',
+    label:'EFFECT.StatusBlind',
+    icon:"icons/svg/blind.svg"
+  },
+  {
+    id:'chanceling',
+    label:'MM3.STATUS.Chanceling',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/chanceling.svg"
+  },
+  {
+    id:'sleep',
+    label:'EFFECT.StatusASleep',
+    icon:"icons/svg/sleep.svg"
+  },
+  {
+    id:'restrain',
+    label:'EFFECT.StatusRestrained',
+    icon:"icons/svg/net.svg"
+  },
+  {
+    id:'enthralled',
+    label:'MM3.STATUS.Enthralled',
+    icon:"icons/svg/sun.svg"
+  },
+  {
+    id:'exhausted',
+    label:'MM3.STATUS.Exhausted',
+    icon:"icons/svg/unconscious.svg"
+  },
+  {
+    id:'tied',
+    label:'MM3.STATUS.Tied',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/tied.svg"
+  },
+  {
+    id:'dying',
+    label:'MM3.STATUS.Dying',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/dying.svg"
+  },
+  {
+    id:'neutralized',
+    label:'MM3.STATUS.Neutralized',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/neutralized.svg"
+  },
+  {
+    id:'paralysis',
+    label:'EFFECT.StatusParalysis',
+    icon:"icons/svg/paralysis.svg"
+  },
+  {
+    id:'deaf',
+    label:'EFFECT.StatusDeaf',
+    icon:"icons/svg/deaf.svg"
+  },
+  {
+    id:'surprised',
+    label:'MM3.STATUS.Surprised',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/surprised.svg"
+  },
+  ];
+
+  /**/
+
   // Define custom Document classes
   CONFIG.Actor.documentClass = MM3Actor;
   CONFIG.Item.documentClass = MM3Item;
@@ -163,6 +306,7 @@ Hooks.on('deleteItem', doc => toggler.clearForId(doc.id));
 Hooks.on('deleteActor', doc => toggler.clearForId(doc.id));
 
 Hooks.on('renderChatMessage', (message, html, data) => {
+  const isInitiative = message?.flags?.core?.initiativeRoll ?? false;
   const toHide = $(html.find('div.toHide'));
   const btn = $(html.find('button.btnRoll'));
   const isExist = btn.length > 0 ? true : false;
@@ -234,6 +378,27 @@ Hooks.on('renderChatMessage', (message, html, data) => {
         rollMode:rMode
       });
   });
+
+  if(isInitiative) {
+    $(html.find('span.flavor-text')).remove();
+    $(html.find('div.dice-roll')).addClass('mm3-roll');
+    $(html.find('div.dice-roll h4:last-of-type')).addClass('result');
+
+    const diceFormula = $(html.find('div.dice-roll div.dice-formula'));
+    const diceTotal = $(`<h4 class="dice-total flavor">${game.i18n.localize("MM3.ROLL.Initiative")} !</h4>`);
+    const diceTotalFormula = $(`<h4 class="dice-total formula">${diceFormula.text().toUpperCase()}</h4>`);
+    const diceResult = $(html.find('div.dice-roll h4.dice-total.result'));
+    const diceBottom = $(`<h4 class="bottom"></h4>`);
+
+    if(diceTotalFormula.text().toLowerCase().includes("3d20dldh")) {
+      diceTotalFormula.text(diceTotalFormula.text().replace("3D20DLDH", "3D20"));
+    }
+
+    diceFormula.after(diceTotal);
+    diceTotal.after(diceTotalFormula);
+    diceResult.after(diceBottom);
+    diceFormula.remove();
+  }
 });
 
 /*Hooks.once("ready", NautilusHooks.ready);

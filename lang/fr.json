@@ -10,7 +10,41 @@
     "TypeTalent":"Talent",
     "TypeEquipement":"Équipement"
   },
+  "TYPES":{
+    "Actor":{
+      "personnage":"Personnage",
+      "vehicule":"Véhicule",
+      "qg":"QG"
+    },
+    "Item":{
+      "pouvoir":"Pouvoir",
+      "modificateur": "Modificateur",
+      "talent": "Talent",
+      "equipement": "Équipement"
+    }
+  },
   "MM3":{
+    "STATUS":{
+      "Controlled":"Contrôlé",
+      "Decreased":"Diminué",
+      "Tired":"Fatigué",
+      "Disabled":"Handicapé",
+      "Dazed":"Étourdi",
+      "Stuck":"Immobilisé",
+      "Insensitive":"Insensible",
+      "Invalid":"Invalide",
+      "Slow":"Ralenti",
+      "Defenseless":"Sans défense",
+      "Transformed":"Transformé",
+      "Vulnerability":"Vulnérable",
+      "Chanceling":"Chancelant",
+      "Enthralled":"Envouté",
+      "Exhausted":"Épuisé",
+      "Tied":"Ligoté",
+      "Dying":"Mourant",
+      "Neutralized":"Neutralisé",
+      "Surprised":"Surpris"
+    },
     "TYPEIDENTITE":{
       "Secrete":"Identité Secrète",
       "Publique":"Identité Publique",
@@ -190,6 +224,7 @@
       "DD":"DD",
       "Critique":"Critique !",
       "Testeffet":"Test d'effet",
+      "Initiative":"Initiative",
       "DEFENSE":{
         "Esquive":"Jet d'esquive",
         "Parade":"Jet de parade",

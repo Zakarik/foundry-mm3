@@ -8,28 +8,28 @@ export class MM3Item extends Item {
         if (data.img === undefined) {
 
             switch(data.type) {
-                case "distance":
-                    data.img = "systems/nautilus/assets/icons/distance.svg";
-                    break;
-
-                case "melee":
-                    data.img = "systems/nautilus/assets/icons/melee.svg";
-                    break;
-
                 case "equipement":
-                    data.img = "systems/nautilus/assets/icons/equipement.svg";
+                    data.img = "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg";
                     break;
 
-                case "amelioration":
-                    data.img = "systems/nautilus/assets/icons/amelioration.svg";
+                case "modificateur":
+                    data.img = "systems/mutants-and-masterminds-3e/assets/icons/modificateur.svg";
                     break;
 
-                case "avarie":
-                    data.img = "systems/nautilus/assets/icons/avarie.svg";
+                case "pouvoir":
+                    data.img = "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg";
                     break;
 
-                case "armement":
-                    data.img = "systems/nautilus/assets/icons/armement.svg";
+                case "qg":
+                    data.img = "systems/mutants-and-masterminds-3e/assets/icons/qg.svg";
+                    break;
+
+                case "talent":
+                    data.img = "systems/mutants-and-masterminds-3e/assets/icons/talent.svg";
+                    break;
+
+                case "vehicule":
+                    data.img = "systems/mutants-and-masterminds-3e/assets/icons/vehicule.svg";
                     break;
             }
         }

@@ -125,9 +125,12 @@ export class QGActorSheet extends ActorSheet {
       type: type,
       data: data,
       img: {
-        "distance": "systems/nautilus/assets/icons/distance.svg",
-        "melee": "systems/nautilus/assets/icons/melee.svg",
-        "equipement": "systems/nautilus/assets/icons/equipement.svg",
+        "equipement": "systems/mutants-and-masterminds-3e/assets/icons/equipment.svg",
+        "modificateur": "systems/mutants-and-masterminds-3e/assets/icons/modificateur.svg",
+        "pouvoir": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
+        "qg": "systems/mutants-and-masterminds-3e/assets/icons/qg.svg",
+        "talent": "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+        "vehicule": "systems/mutants-and-masterminds-3e/assets/icons/vehicule.svg",
       }[type]
     };
 

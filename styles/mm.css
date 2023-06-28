@@ -1579,6 +1579,9 @@ div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent:not(:
   margin-top: 5px;
 }
 
+div.modificateur img.profile-img {
+  object-fit: contain;
+}
 div.modificateur section.window-content {
   background: #EBEBEB;
   color: #363B44;
@@ -1762,6 +1765,9 @@ div.modificateur section.body div.description div.editor div.tox-tinymce {
   min-height: 300px;
 }
 
+div.pouvoir img.profile-img {
+  object-fit: contain;
+}
 div.pouvoir section.window-content {
   background: #EBEBEB;
   color: #363B44;
@@ -2364,6 +2370,9 @@ div.pouvoir section.body div.modificateurs div.extras > details section div.extd
   min-height: 300px;
 }
 
+div.talent img.profile-img {
+  object-fit: contain;
+}
 div.talent section.window-content {
   background: #EBEBEB;
   color: #363B44;
@@ -2487,6 +2496,7 @@ div.talent section.body div.description {
   border: 2px solid black;
   padding: 0px 0px 5px;
   min-height: 100px;
+  height: 100%;
 }
 div.talent section.body div.description span.label {
   display: grid;
@@ -2552,6 +2562,9 @@ div.equipement section.body {
   border: 1px solid #a8a8a8;
   border-top-color: black;
   padding: 5px;
+}
+div.equipement section.body img.profile-img {
+  object-fit: contain;
 }
 div.equipement section.body div.details {
   display: grid;
@@ -4119,4 +4132,8 @@ div.qg section.sheet-body div.particularite div.editor div.tox-tinymce {
   font-family: "Sriracha";
   border-top: 1px solid black;
   min-height: 10px;
+}
+
+.chat-message {
+  background: #EBEBEB;
 }

@@ -9,7 +9,7 @@ export class ModificateurItemSheet extends ItemSheet {
       classes: ["mm3", "sheet", "item", "modificateur"],
       template: "systems/mutants-and-masterminds-3e/templates/modificateur-item-sheet.html",
       width: 850,
-      height: 300,
+      height: 500,
       dragDrop: [{dragSelector: ".draggable", dropSelector: null}],
     });
   }

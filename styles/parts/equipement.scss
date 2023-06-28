@@ -43,6 +43,10 @@ div.equipement {
         border-top-color: $black;
         padding: 5px;
 
+        img.profile-img {
+            object-fit: contain;
+        }
+
         div {
             &.details {
                 display:grid;
