@@ -33,6 +33,8 @@ export class PersonnageActorSheet extends ActorSheet {
     context.systemData = context.data.system;
     this._prepareCompetences(context);
 
+    console.warn(context);
+
     return context;
   }
 
@@ -270,12 +272,19 @@ export class PersonnageActorSheet extends ActorSheet {
   _prepareCharacterItems(context) {
     const actor = context.actor;
     const items = context.items;
+    const pouvoirs = items.filter(item => item.type === 'pouvoir');
     const pwr = [];
-    const pwrAlternatif = {};
-    const pwrDynamique = {};
-    const pwrStandard = {};
+    
     const talent = [];
     const equipement = [];
+    const pwrStandard = {};
+    const pwrAlternatif = {};
+    const pwrDynamique = {};
+
+    for(let p of pouvoirs) {
+      pwrAlternatif[p._id] = [];
+      pwrDynamique[p._id] = [];
+    }
 
     for(let i of items) {
       const type = i.type;
@@ -286,22 +295,9 @@ export class PersonnageActorSheet extends ActorSheet {
           if(data.special === 'standard' || 
           (data.special === 'alternatif' && data.link === "") || 
           (data.special === 'dynamique' && data.link === "")) pwr.push(i);
-          else if((data.special === 'alternatif' && data.link !== "")) {
-            if(!data.link in pwrAlternatif) pwrAlternatif[data.link].push(i);
-            else {
-              pwrAlternatif[data.link] = [];
-              pwrAlternatif[data.link].push(i);
-            }
-          }
-          else if((data.special === 'dynamique' && data.link !== "")) {
-            if(!data.link in pwrDynamique) pwrDynamique[data.link].push(i);
-            else {
-              pwrDynamique[data.link] = [];
-              pwrDynamique[data.link].push(i);
-            }
-          }
-
-          if(data.special === 'standard' || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
+          else if((data.special === 'alternatif' && data.link !== "")) pwrAlternatif[data.link].push(i);
+          else if((data.special === 'dynamique' && data.link !== "")) pwrDynamique[data.link].push(i);
+          else if(data.special === 'standard' || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
           break;
 
         case 'talent':
