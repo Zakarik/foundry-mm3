@@ -1,3 +1,7 @@
+## Version 1.2.1
+### Bugfix
+- Correction d'un bug sur le glisser - déposé des modificateurs.
+
 ## Version 1.2
 ### Bugfix
 - Correction d'un bug sur le décompte des PP des compétences.

@@ -162,10 +162,10 @@ export class PouvoirItemSheet extends ItemSheet {
     if(type === 'modificateur') {
       const getType = document.system.type;
       const dataMod = Object.keys(getData[`${getType}s`]);
-      const maxKeysMod = dataMod.length ? Math.max(...dataMod) : 0;      
+      const maxKeysMod = dataMod.length ? Math.max(...dataMod) : 0;    
 
       const update = {};
-      update[`system.${getType}s.${maxKeysMod}`] = {
+      update[`system.${getType}s.${maxKeysMod+1}`] = {
         name:document.name,
         data:document.system
       };
