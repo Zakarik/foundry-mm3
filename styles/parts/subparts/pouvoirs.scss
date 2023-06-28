@@ -59,28 +59,23 @@ div {
 
                 div {
                     &.pwr {
-                        span {
-                            &.header {
+                        div {
+                            &.pwrheader {
                                 grid-column-start: 1;
                                 grid-column-end: 3;
 
+                                position:relative;
                                 width:100%;
+
+                                text-shadow: 2px 2px 0px $orange, 1px 1px 0px $color;
+                                font-family: "Bangers";
+
                                 border-width: 2px;
                                 border-radius: 15px 15px 0px 0px;
                                 
                                 background-blend-mode: overlay, multiply;
                                 background-size:500px;
                                 background-repeat:no-repeat;
-
-                                display:grid;
-                                grid-template-columns: 1fr;
-                                font-size: 2rem;
-                                height: 2rem;
-                                text-shadow: 2px 2px 0px $orange, 1px 1px 0px $color;
-                                font-family: "Bangers";
-                                text-align: center;
-                                color:$fond;
-                                letter-spacing: 2px;
 
                                 i {
                                     position:absolute;
@@ -116,6 +111,26 @@ div {
                             }
                         }
 
+                        span {
+                            &.header {
+                                width: calc(100% - 95px);
+                                display: grid;
+                                grid-template-columns: 1fr;
+                                font-size: 1.5rem;
+                                height: 2rem;
+                                text-align: center;
+                                color: $fond;
+                                letter-spacing: 2px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                margin-left: 45px;
+                                margin-right: 50px;
+                                white-space: nowrap;
+                                align-items: center;
+                                align-content: center;                                
+                            }
+                        }
+
                         header {
                             grid-column-start: 1;
                             grid-column-end: 3;
@@ -134,6 +149,7 @@ div {
                                     position: absolute;
                                     top: 3px;
                                     left: 10px;
+                                    z-index: 999;
 
                                     i {
                                         cursor:pointer;
@@ -165,7 +181,7 @@ div {
                         }
 
                         &.blue {
-                            span.header {
+                            div.pwrheader {
                                 background:$imgbg $blue;
                             }
 
@@ -183,7 +199,7 @@ div {
                         }
 
                         &.red {
-                            span.header {
+                            div.pwrheader {
                                 background:$imgbg $orange;
                             }
 
@@ -201,7 +217,7 @@ div {
                         }
 
                         &.violet {
-                            span.header {
+                            div.pwrheader {
                                 background:$imgbg $violet;
                             }
 

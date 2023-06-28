@@ -1,3 +1,9 @@
+## Version 1.2.4
+### Bugfix
+- Correction de l'affichage des noms de pouvoirs trop long.
+Ils seront à présent coupé pour éviter tout débordement.
+Leur taille a également été réduite pour améliorer ça.
+
 ## Version 1.2.3
 ### Bugfix
 - Correction d'un bug sur les pouvoirs alternatifs/dynamiques empêchant de choisir un pouvoir principal.

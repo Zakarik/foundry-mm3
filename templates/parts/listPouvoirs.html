@@ -6,10 +6,13 @@
     " data-item-id="{{key._id}}">
         <header class="js-toggler" >
             <span class="deploy "><i class="minus"></i></span>
-            <span class="header">{{key.name}}
-            <i class="fa-solid fa-pen-to-square item-edit"></i>
-            <i class="fa-solid fa-trash-xmark item-delete"></i>
-            </span>
+            <div class="pwrheader">
+                <span class="header">{{key.name}}</span>
+                
+                <i class="fa-solid fa-pen-to-square item-edit"></i>
+                <i class="fa-solid fa-trash-xmark item-delete"></i>
+            </div>
+            
             {{#if (isValue key.system.special 'alternatif')}}
                 <select class="link" data-cout="{{key.system.cout.totalTheorique}}">
                     {{#select key.system.link}}

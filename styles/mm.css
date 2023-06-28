@@ -942,49 +942,60 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs a.item-create {
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs.show {
   display: grid;
 }
-div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header {
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr div.pwrheader {
   grid-column-start: 1;
   grid-column-end: 3;
+  position: relative;
   width: 100%;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  font-family: "Bangers";
   border-width: 2px;
   border-radius: 15px 15px 0px 0px;
   background-blend-mode: overlay, multiply;
   background-size: 500px;
   background-repeat: no-repeat;
-  display: grid;
-  grid-template-columns: 1fr;
-  font-size: 2rem;
-  height: 2rem;
-  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
-  font-family: "Bangers";
-  text-align: center;
-  color: #EBEBEB;
-  letter-spacing: 2px;
 }
-div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header i {
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr div.pwrheader i {
   position: absolute;
   font-size: 1rem;
   color: #EBEBEB;
   top: 8px;
   cursor: pointer;
 }
-div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header i.item-edit {
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr div.pwrheader i.item-edit {
   right: 25px;
 }
-div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header i.item-delete {
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr div.pwrheader i.item-delete {
   right: 5px;
 }
-div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header i:hover {
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr div.pwrheader i:hover {
   text-shadow: 0px 0px 3px;
 }
-div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header.blue {
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr div.pwrheader.blue {
   background: url("../assets/fond.webp") #4E7FC8;
 }
-div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header.red {
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr div.pwrheader.red {
   background: url("../assets/fond.webp") #DA3A2F;
 }
-div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header.violet {
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr div.pwrheader.violet {
   background: url("../assets/fond.webp") #7E627F;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr span.header {
+  width: calc(100% - 95px);
+  display: grid;
+  grid-template-columns: 1fr;
+  font-size: 1.5rem;
+  height: 2rem;
+  text-align: center;
+  color: #EBEBEB;
+  letter-spacing: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 45px;
+  margin-right: 50px;
+  white-space: nowrap;
+  align-items: center;
+  align-content: center;
 }
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header {
   grid-column-start: 1;
@@ -1001,6 +1012,7 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header span
   position: absolute;
   top: 3px;
   left: 10px;
+  z-index: 999;
 }
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header span.deploy i {
   cursor: pointer;
@@ -1021,7 +1033,7 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header span
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header span.deploy i.minus::before {
   content: "-";
 }
-div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.blue span.header {
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.blue div.pwrheader {
   background: url("../assets/fond.webp") #4E7FC8;
 }
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.blue::after {
@@ -1035,7 +1047,7 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.blue::after
   background-blend-mode: overlay, multiply;
   background: url("../assets/fond.webp") #4E7FC8;
 }
-div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.red span.header {
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.red div.pwrheader {
   background: url("../assets/fond.webp") #DA3A2F;
 }
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.red::after {
@@ -1049,7 +1061,7 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.red::after 
   background-blend-mode: overlay, multiply;
   background: url("../assets/fond.webp") #DA3A2F;
 }
-div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.violet span.header {
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.violet div.pwrheader {
   background: url("../assets/fond.webp") #7E627F;
 }
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.violet::after {
@@ -3089,7 +3101,7 @@ div.vehicule section.sheet-body div.pouvoirs a.item-create {
 div.vehicule section.sheet-body div.pouvoirs.show {
   display: grid;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr span.header {
+div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader {
   grid-column-start: 1;
   grid-column-end: 3;
   width: 100%;
@@ -3098,40 +3110,50 @@ div.vehicule section.sheet-body div.pouvoirs div.pwr span.header {
   background-blend-mode: overlay, multiply;
   background-size: 500px;
   background-repeat: no-repeat;
-  display: grid;
-  grid-template-columns: 1fr;
-  font-size: 2rem;
-  height: 2rem;
   text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
   font-family: "Bangers";
-  text-align: center;
-  color: #EBEBEB;
-  letter-spacing: 2px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr span.header i {
+div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader i {
   position: absolute;
   font-size: 1rem;
   color: #EBEBEB;
   top: 8px;
   cursor: pointer;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr span.header i.item-edit {
+div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader i.item-edit {
   right: 25px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr span.header i.item-delete {
+div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader i.item-delete {
   right: 5px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr span.header i:hover {
+div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader i:hover {
   text-shadow: 0px 0px 3px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr span.header.blue {
+div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader.blue {
   background: url("../assets/fond.webp") #4E7FC8;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr span.header.red {
+div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader.red {
   background: url("../assets/fond.webp") #DA3A2F;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr span.header.violet {
+div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader.violet {
   background: url("../assets/fond.webp") #7E627F;
+}
+div.vehicule section.sheet-body div.pouvoirs div.pwr span.header {
+  width: calc(100% - 95px);
+  display: grid;
+  grid-template-columns: 1fr;
+  font-size: 1.5rem;
+  height: 2rem;
+  text-align: center;
+  color: #EBEBEB;
+  letter-spacing: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 45px;
+  margin-right: 50px;
+  white-space: nowrap;
+  align-items: center;
+  align-content: center;
 }
 div.vehicule section.sheet-body div.pouvoirs div.pwr header {
   grid-column-start: 1;
@@ -3148,6 +3170,7 @@ div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy {
   position: absolute;
   top: 3px;
   left: 10px;
+  z-index: 999;
 }
 div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy i {
   cursor: pointer;
@@ -3168,7 +3191,7 @@ div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy i.plus::
 div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy i.minus::before {
   content: "-";
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr.blue span.header {
+div.vehicule section.sheet-body div.pouvoirs div.pwr.blue div.pwrheader {
   background: url("../assets/fond.webp") #4E7FC8;
 }
 div.vehicule section.sheet-body div.pouvoirs div.pwr.blue::after {
@@ -3182,7 +3205,7 @@ div.vehicule section.sheet-body div.pouvoirs div.pwr.blue::after {
   background-blend-mode: overlay, multiply;
   background: url("../assets/fond.webp") #4E7FC8;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr.red span.header {
+div.vehicule section.sheet-body div.pouvoirs div.pwr.red div.pwrheader {
   background: url("../assets/fond.webp") #DA3A2F;
 }
 div.vehicule section.sheet-body div.pouvoirs div.pwr.red::after {
@@ -3196,7 +3219,7 @@ div.vehicule section.sheet-body div.pouvoirs div.pwr.red::after {
   background-blend-mode: overlay, multiply;
   background: url("../assets/fond.webp") #DA3A2F;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr.violet span.header {
+div.vehicule section.sheet-body div.pouvoirs div.pwr.violet div.pwrheader {
   background: url("../assets/fond.webp") #7E627F;
 }
 div.vehicule section.sheet-body div.pouvoirs div.pwr.violet::after {
