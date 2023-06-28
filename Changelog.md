@@ -1,3 +1,8 @@
+## Version 1.2.5
+### Bugfix
+- Correction d'un problème de mise en page dans les pouvoirs.
+- Correction d'un bug dans le comptage du total des scores d'attaques..
+
 ## Version 1.2.4
 ### Bugfix
 - Correction de l'affichage des noms de pouvoirs trop long.

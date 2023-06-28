@@ -1351,6 +1351,7 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.mod span.text i
   line-height: 12px;
   text-shadow: none;
   font-weight: normal;
+  z-index: 999;
 }
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.mod span.text i:hover {
   text-shadow: 0px 0px 3px;
@@ -3509,6 +3510,7 @@ div.vehicule section.sheet-body div.pouvoirs div.mod span.text i div.infoExt {
   line-height: 12px;
   text-shadow: none;
   font-weight: normal;
+  z-index: 999;
 }
 div.vehicule section.sheet-body div.pouvoirs div.mod span.text i:hover {
   text-shadow: 0px 0px 3px;

@@ -126,10 +126,12 @@
     " data-item-id="{{kPA._id}}">
         <header class="js-toggler" >
             <span class="deploy "><i class="minus"></i></span>
-            <span class="header">{{kPA.name}}
-            <i class="fa-solid fa-pen-to-square item-edit"></i>
-            <i class="fa-solid fa-trash-xmark item-delete"></i>
-            </span>
+            <div class="pwrheader">
+                <span class="header">{{kPA.name}}</span>
+                
+                <i class="fa-solid fa-pen-to-square item-edit"></i>
+                <i class="fa-solid fa-trash-xmark item-delete"></i>
+            </div>
             {{#if (isValue kPA.system.special 'alternatif')}}
                 <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}">
                     {{#select kPA.system.link}}
@@ -225,10 +227,12 @@
     " data-item-id="{{kPA._id}}">
         <header class="js-toggler" >
             <span class="deploy "><i class="minus"></i></span>
-            <span class="header">{{kPA.name}}
-            <i class="fa-solid fa-pen-to-square item-edit"></i>
-            <i class="fa-solid fa-trash-xmark item-delete"></i>
-            </span>
+            <div class="pwrheader">
+                <span class="header">{{kPA.name}}</span>
+                
+                <i class="fa-solid fa-pen-to-square item-edit"></i>
+                <i class="fa-solid fa-trash-xmark item-delete"></i>
+            </div>
             {{#if (isValue kPA.system.special 'alternatif')}}
                 <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}">
                     {{#select kPA.system.link}}

@@ -91,7 +91,7 @@
                     <a class="roll" 
                     data-type="attaque" 
                     data-name="{{getAtt @root key.type key.id 'label'}}" 
-                    data-total="{{key.attaque}}" 
+                    data-total="{{getAtt @root key.type key.id 'total'}}" 
                     data-id="{{att}}"
                     data-strattaque="{{@root/systemData/strategie/total/attaque}}"
                     data-streffet="{{@root/systemData/strategie/total/effet}}">
