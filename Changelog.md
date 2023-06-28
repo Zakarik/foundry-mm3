@@ -1,3 +1,7 @@
+## Version 1.2.3
+### Bugfix
+- Correction d'un bug sur les pouvoirs alternatifs/dynamiques empêchant de choisir un pouvoir principal.
+
 ## Version 1.2.2
 ### Bugfix
 - Correction d'un bug sur les pouvoirs alternatifs.

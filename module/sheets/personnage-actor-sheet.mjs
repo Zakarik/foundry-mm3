@@ -273,8 +273,7 @@ export class PersonnageActorSheet extends ActorSheet {
     const actor = context.actor;
     const items = context.items;
     const pouvoirs = items.filter(item => item.type === 'pouvoir');
-    const pwr = [];
-    
+    const pwr = [];    
     const talent = [];
     const equipement = [];
     const pwrStandard = {};
@@ -297,7 +296,8 @@ export class PersonnageActorSheet extends ActorSheet {
           (data.special === 'dynamique' && data.link === "")) pwr.push(i);
           else if((data.special === 'alternatif' && data.link !== "")) pwrAlternatif[data.link].push(i);
           else if((data.special === 'dynamique' && data.link !== "")) pwrDynamique[data.link].push(i);
-          else if(data.special === 'standard' || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
+          
+          if(data.special === 'standard' || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
           break;
 
         case 'talent':
