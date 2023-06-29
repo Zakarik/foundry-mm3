@@ -4162,3 +4162,9 @@ div.qg section.sheet-body div.particularite div.editor div.tox-tinymce {
 .chat-message {
   background: #EBEBEB;
 }
+
+img#logo {
+  content: url("../assets/logo.webp");
+  width: 115px;
+  height: 39px;
+}

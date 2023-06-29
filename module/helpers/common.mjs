@@ -48,6 +48,7 @@ export async function rollStd(actor, name, score, data=undefined) {
   if(optDices === '3D20') dices = '3D20dldh';
   else if(optDices === '3D6') dices = '3D6';
 
+  // GESTION D'UN JET D'ATTAQUE
   if(data !== undefined && target !== undefined) {
     const dataCbt = data.attaque;
     const dataStr = data.strategie;
@@ -67,8 +68,8 @@ export async function rollStd(actor, name, score, data=undefined) {
     const traType = dataCbt.type === 'combatcontact' ? game.i18n.localize("MM3.DEFENSE.DDParade") : game.i18n.localize("MM3.DEFENSE.DDEsquive");
     
     const saveType = dataCbt.save;
-  
-    if((roll.total >= ddDefense && resultDie !== 1) || resultDie === dataCbt.critique) {
+    
+    if((roll.total >= ddDefense && resultDie !== 1) || resultDie >= dataCbt.critique) {
       pRoll = {
         flavor:`${name}`,
         tooltip:await roll.getTooltip(),
@@ -156,7 +157,7 @@ export async function rollStd(actor, name, score, data=undefined) {
       tooltip:await roll.getTooltip(),
       formula:optDices === '3D20' ? `3D20 + ${score}` : formula,
       result:roll.total,
-      isCritique:resultDie === dataCbt.critique ? true : false,
+      isCritique:resultDie >= dataCbt.critique ? true : false,
       text:dataCbt.text
     };
 
@@ -180,6 +181,7 @@ export async function rollStd(actor, name, score, data=undefined) {
       rollMode:rMode
     });
   } else {
+    // GESTION DES AUTRES JETS
     const formula = `${dices} + ${score}`;      
     const roll = new Roll(formula);
     roll.evaluate({async:false});
@@ -191,7 +193,7 @@ export async function rollStd(actor, name, score, data=undefined) {
       tooltip:await roll.getTooltip(),
       formula:optDices === '3D20' ? `3D20 + ${score}` : formula,
       result:roll.total,
-      isCritique:resultDie === baseCrit ? true : false,
+      isCritique:resultDie >= baseCrit ? true : false,
     };
 
     const rollMsgData = {

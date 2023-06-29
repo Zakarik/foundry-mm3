@@ -1,3 +1,10 @@
+## Version 1.3.0
+### Bugfix
+- Correction encore de quelques critiques non pris en compte.
+
+### Améliorations
+- Ajout du logo de Mutants & Masterminds en haut à gauche, à la place de celui de Foundry.
+
 ## Version 1.2.6
 ### Bugfix
 - Correction de critiques qui n'étaient pas pris en compte.

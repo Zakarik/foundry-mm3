@@ -9,3 +9,9 @@
 @import "parts/vehicule";
 @import "parts/qg";
 @import "parts/roll";
+
+img#logo {
+    content: url("../assets/logo.webp");
+    width:115px;
+    height:39px;
+}
