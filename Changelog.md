@@ -1,5 +1,9 @@
 ## Version 1.3.0
 ### Bugfix
+- Correction d'un problème de traduction dans les status.
+
+## Version 1.3.0
+### Bugfix
 - Correction encore de quelques critiques non pris en compte.
 
 ### Améliorations
