@@ -77,7 +77,7 @@ export async function rollStd(actor, name, score, data=undefined) {
         isCombat:true,
         isSuccess:true,
         defense:ddDefense,
-        isCritique:resultDie === dataCbt.critique ? true : false,
+        isCritique:resultDie >= dataCbt.critique ? true : false,
         type:traType,
         text:dataCbt.text,
         btn:{
@@ -238,7 +238,7 @@ export async function rollPwr(actor, id) {
     tooltip:await roll.getTooltip(),
     formula:optDices === '3D20' ? `3D20 + ${rang}` : formula,
     result:roll.total,
-    isCritique:resultDie === baseCrit ? true : false,
+    isCritique:resultDie >= baseCrit ? true : false,
     action:pwr.system.action,
     portee:pwr.system.portee,
     duree:pwr.system.duree,

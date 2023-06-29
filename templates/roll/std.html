@@ -36,7 +36,7 @@
         {{/if}}
         {{#if vs}}
             <h4 class="dice-total attack">
-                {{#if (isHigherOrEqual result vs)}} 
+                {{#if isSuccess}} 
                     {{localize "MM3.ROLL.Success"}}
                 {{else}}
                     {{localize "MM3.ROLL.Fail"}}

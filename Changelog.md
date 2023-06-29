@@ -1,7 +1,11 @@
+## Version 1.2.6
+### Bugfix
+- Correction de critiques qui n'étaient pas pris en compte.
+
 ## Version 1.2.5
 ### Bugfix
 - Correction d'un problème de mise en page dans les pouvoirs.
-- Correction d'un bug dans le comptage du total des scores d'attaques..
+- Correction d'un bug dans le comptage du total des scores d'attaques.
 
 ## Version 1.2.4
 ### Bugfix

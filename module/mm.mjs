@@ -337,7 +337,8 @@ Hooks.on('renderChatMessage', (message, html, data) => {
 
       if(token.actor.ownership[game.user.id] !== 3 && token.actor.ownership.default !== 3) return;
 
-      const dices = game.settings.get("mutants-and-masterminds-3e", "typeroll");      
+      const dices = game.settings.get("mutants-and-masterminds-3e", "typeroll");
+      const critique = dices === '3D6' ? 18 : 20;
       const tokenData = token.actor.system;
       const saveScore = tokenData.defense[savetype].total;
       const formulaSave = `${dices} + ${saveScore}`;
@@ -345,9 +346,17 @@ Hooks.on('renderChatMessage', (message, html, data) => {
       save.evaluate({async:false});
 
       const saveTotal = Number(save.total);
+      const saveDices = saveTotal-saveScore;
+      const isCritique = saveDices === critique ? true : false;
       const margeBrut = vs-saveTotal;
-      const hasMarge = margeBrut >= 0 ? true : false;
-      const marge = margeBrut >= 0 ? Math.floor(margeBrut / 5)+1 : false;
+      const hasMarge = margeBrut >= 0 && !isCritique ? true : false;
+      const marge = margeBrut >= 0 && !isCritique ? Math.floor(margeBrut / 5)+1 : false;
+      let isSuccess = false;
+
+      if(isCritique) isSuccess = true;
+      else if(margeBrut < 0) isSuccess = true;
+
+      console.warn(isSuccess, isCritique, margeBrut)
 
       const pRollSave = {
         flavor:`${game.i18n.localize(CONFIG.MM3.defenses[savetype])}`,
@@ -356,6 +365,8 @@ Hooks.on('renderChatMessage', (message, html, data) => {
         result:save.total,
         isGM:game.user.isGM,
         vs:vs,
+        isCritique:isCritique,
+        isSuccess:isSuccess,
         hasMarge:hasMarge,
         resultMarge:marge
       };
