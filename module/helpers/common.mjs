@@ -164,9 +164,20 @@ export async function rollAtkTgt(actor, name, score, data, tgt) {
 
   const parade = Number(tokenData.ddparade);
   const esquive = Number(tokenData.ddesquive);
-  const ddDefense = dataCbt.type === 'combatcontact' ? parade : esquive;
-  const traType = dataCbt.type === 'combatcontact' ? game.i18n.localize("MM3.DEFENSE.DDParade") : game.i18n.localize("MM3.DEFENSE.DDEsquive");
-  
+
+  let ddDefense = 0;
+  let traType = "";
+
+  if(dataCbt.type === 'other') {
+    const defpassive = dataCbt?.defpassive ?? 'parade';
+
+    ddDefense = defpassive === 'parade' ? parade : esquive;
+    traType = defpassive === 'parade' ? game.i18n.localize("MM3.DEFENSE.DDParade") : game.i18n.localize("MM3.DEFENSE.DDEsquive");
+  } else {
+    ddDefense = dataCbt.type === 'combatcontact' ? parade : esquive;
+    traType = dataCbt.type === 'combatcontact' ? game.i18n.localize("MM3.DEFENSE.DDParade") : game.i18n.localize("MM3.DEFENSE.DDEsquive");
+  }
+
   const saveType = dataCbt.save;
 
   let pRoll = {};

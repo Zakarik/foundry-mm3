@@ -91,6 +91,14 @@
                     <div class="specialline {{#unless key.edit}}hide{{/unless}}">
                         {{#if (isValue key.type 'other')}}
                             <input class="label" type="text" name="system.attaque.{{att}}.label" value="{{key.label}}" />
+
+                            <span class="labelDefense {{#if key.noAtk}}hide{{/if}}">{{localize "MM3.DEFENSE.Jetattaquevs"}} :</span>
+                            <select class="selectDefense {{#if key.noAtk}}hide{{/if}}" name="system.attaque.{{att}}.defpassive">
+                                {{#select key.defpassive}}
+                                    <option value="parade">{{localize "MM3.DEFENSE.DDParade"}}</option>
+                                    <option value="esquive">{{localize "MM3.DEFENSE.DDEsquive"}}</option>
+                                {{/select}}
+                            </select>
                         {{/if}}
                         <a class="noAtk {{#if key.noAtk}}selected{{/if}}" data-id="{{att}}" data-value="{{key.noAtk}}">
                             {{localize "MM3.ROLL.Pasattaque"}}

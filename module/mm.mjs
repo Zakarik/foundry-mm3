@@ -402,8 +402,6 @@ Hooks.on('renderChatMessage', (message, html, data) => {
 
 async function createMacro(bar, data, slot) {
   // Create the macro command
-
-
   const type = data.type;
   const label = data.label;
   const actorId = data.actorId;

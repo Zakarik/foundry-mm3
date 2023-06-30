@@ -871,6 +871,22 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   align-items: center;
   font-family: Sriracha;
 }
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline span.labelDefense {
+  grid-column-start: 1;
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: right;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline span.labelDefense.hide {
+  display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline select.selectDefense {
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
 div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline input.label {
   grid-column-start: 1;
   grid-column-end: 4;

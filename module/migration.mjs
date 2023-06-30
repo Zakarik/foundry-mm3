@@ -1,5 +1,5 @@
 export class MigrationMM3 {
-    static NEEDED_VERSION = "1.4.0";
+    static NEEDED_VERSION = "1.4.1";
 
     static needUpdate(version) {
         const currentVersion = game.settings.get("mutants-and-masterminds-3e", "systemVersion");
@@ -85,6 +85,14 @@ export class MigrationMM3 {
                         update[`system.attaque.${a}.basedef`] = 10;
                         break;
                 }
+            }
+        }
+
+        if (options?.force || MigrationMM3.needUpdate("1.4.1")) {
+            const attaque = data.attaque;
+
+            for(let a in attaque) {
+                update[`system.attaque.${a}.defpassive`] = 'parade';
             }
         }
 

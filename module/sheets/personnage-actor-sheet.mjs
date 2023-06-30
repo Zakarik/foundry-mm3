@@ -37,8 +37,6 @@ export class PersonnageActorSheet extends ActorSheet {
     context.systemData = context.data.system;
     this._prepareCompetences(context);
 
-    console.warn(context);
-
     return context;
   }
 
@@ -260,8 +258,6 @@ export class PersonnageActorSheet extends ActorSheet {
       if(value === 'robustesse') newValue = 15;
 
       $(html.find(`div.attaque div.specialline input.basedef${id}`)).val(newValue);
-
-      //this.actor.update({[`system.attaque.${id}.basedef`]:newValue});
     });
 
     html.find('a.rollPwr').click(async ev => {

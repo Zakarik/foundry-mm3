@@ -106,6 +106,7 @@
     },
     "DEFENSE":{
       "Label":"Défense",
+      "Jetattaquevs":"Jet d'attaque vs",
       "DDDefense":"DD de défense",
       "DDEsquive":"DD d'Esquive",
       "DDParade":"DD de Parade",

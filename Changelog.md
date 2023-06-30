@@ -1,3 +1,7 @@
+## Version 1.4.1
+### Bugfix
+- Correction d'un oubli suite à la dernière mise à jour permettant aussi de sélectionner la défense passive contre laquelle le jet d'attaque est opposé !
+
 ## Version 1.4.0
 ### Améliorations
 - Âjout d'un bouton sur la droite des attaques permettant d'entrer dans les paramètres avances.

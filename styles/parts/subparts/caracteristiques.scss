@@ -476,6 +476,28 @@ div {
                                         align-items: center;
                                         font-family: Sriracha;
                                     }
+
+                                    &.labelDefense {
+                                        grid-column-start: 1;
+
+                                        display: grid;
+                                        width: 100%;
+                                        font-weight: bold;
+                                        justify-content: right;
+                                        align-items: center;
+                                        font-family: Sriracha;
+
+                                        &.hide {
+                                            display:none;
+                                        }
+                                    }
+                                }
+
+                                select {
+                                    &.selectDefense {
+                                        grid-column-start: 2;
+                                        grid-column-end: 4;
+                                    }
                                 }
 
                                 input.label {
