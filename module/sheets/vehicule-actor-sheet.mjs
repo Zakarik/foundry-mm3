@@ -1,6 +1,8 @@
 
 import toggler from '../helpers/toggler.js';
 import {
+  rollAtkTgt,
+  rollAtk,
   rollStd,
   rollPwr,
 } from "../helpers/common.mjs";
@@ -109,10 +111,11 @@ export class VehiculeActorSheet extends ActorSheet {
       const id = target.data('id');
       const strattaque = target.data('strattaque');
       const streffet = target.data('streffet');
+      const tgt = game.user.targets.ids[0];
 
-      if(type === 'attaque') {
-        rollStd(this.actor, name, total, {attaque:this.actor.system.attaque[id], strategie:{attaque:strattaque, effet:streffet}});
-      } else rollStd(this.actor, name, total);
+      if(type === 'attaque' && tgt !== undefined) rollAtkTgt(this.actor, name, total, {attaque:this.actor.system.attaque[id], strategie:{attaque:strattaque, effet:streffet}}, tgt);
+      else if(type === 'attaque') rollAtk(this.actor, name, total, {attaque:this.actor.system.attaque[id], strategie:{attaque:strattaque, effet:streffet}});
+      else rollStd(this.actor, name, total);
     });
 
     html.find('a.rollPwr').click(async ev => {
@@ -239,5 +242,32 @@ export class VehiculeActorSheet extends ActorSheet {
     }
 
     return toCreate;
+  }
+
+  _onDragStart(event) {
+    const li = event.currentTarget;
+
+    if ( event.target.classList.contains("content-link") ) return;
+
+    const label = $(li)?.data("name") || "";
+    const type = $(li)?.data("type");
+    const what = $(li)?.data("what");
+    const id = $(li)?.data("id");
+    const author = $(li)?.data("author");
+
+    // Create drag data
+    const dragData = {
+      actorId: this.actor.id,
+      sceneId: this.actor.isToken ? canvas.scene?.id : null,
+      tokenId: this.actor.isToken ? this.actor.token.id : null,
+      label:label,
+      type:type,
+      what:what,
+      id:id,
+      author:author
+    };
+
+    // Set data transfer
+    event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
   }
 }

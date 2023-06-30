@@ -106,6 +106,7 @@
     },
     "DEFENSE":{
       "Label":"Défense",
+      "DDDefense":"DD de défense",
       "DDEsquive":"DD d'Esquive",
       "DDParade":"DD de Parade",
       "Esquive":"Esquive",
@@ -223,10 +224,12 @@
       "Fail":"Le jet échoue !",
       "DegreEchec":"Degré d'échec",
       "DD":"DD",
-      "Critique":"Critique !",
+      "Critique":"Critique",
       "Testeffet":"Test d'effet",
       "Initiative":"Initiative",
+      "Pasattaque":"Aucun jet d'attaque",
       "DEFENSE":{
+        "Basedefense":"Base du jet de défense",
         "Esquive":"Jet d'esquive",
         "Parade":"Jet de parade",
         "Vigueur":"Jet de vigueur",
@@ -284,6 +287,8 @@
     "Pointsequipementsused":"Points d'équipements utilisés",
     "Coutvitesse":"Cout de l'effet mouvement de base",
     "Vitesse":"Vitesse",
-    "Particularites":"Particularités"
+    "Particularites":"Particularités",
+    "Editadvanced":"Editer les paramètres avancés",
+    "Adefinir":"A définir"
   }
 }

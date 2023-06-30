@@ -139,7 +139,10 @@ div {
                         }
 
                         a.add {
-                            width:max-content;
+                            grid-column-start: 1;
+                            grid-column-end: 9;
+                            text-align: center;
+                            width:100%;
                             border-bottom: 2px solid #666;
                             border-color: #aaa;
                             border-radius: 5px;
@@ -362,18 +365,69 @@ div {
 
                     &.attaque {
                         display:grid;
-                        grid-template-columns: 1fr repeat(3, 45px) 1fr;
+                        grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
                         grid-template-rows: max-content;
                         border:2px solid $black;
                         padding:0px 5px 5px;
                         grid-gap: 5px;
 
                         @include fakebutton('roll');
+                        @include fakebutton('noAtk');
+
+                        a {
+                            &.noAtk {
+                                &.selected {
+                                    color: $lightOrange;
+                                    border-color:$red;
+                                    letter-spacing: 1px;
+                                    text-shadow:none;
+                                }
+                            }
+
+                            &.roll.large {
+                                grid-column-start: 1;
+                                grid-column-end: 3;
+                            }
+
+                            &.hide {
+                                display:none;
+                            }
+
+                            &.add {
+                                grid-column-start: 1;
+                                grid-column-end: 7;
+                                text-align: center;
+                                width:100%;
+                                border-bottom: 2px solid #666;
+                                border-color: #aaa;
+                                border-radius: 5px;
+                                border-right: 3px solid #999;
+                                border-style: outset;
+                                font-family: "Bangers";
+                                font-size: 13px;
+                                font-weight: normal;
+                                line-height: 18px;
+                                cursor: pointer;
+                                color: $color;
+                                text-transform: uppercase;
+                                padding: 2px 5px;
+                                margin-top: 2px;
+                                margin-left:2px;
+                                margin-bottom:2px;
+            
+                                &:hover {
+                                    color: $lightOrange;
+                                    border-color:$red;
+                                    letter-spacing: 1px;
+                                    text-shadow:none;
+                                }
+                            }
+                        }
 
                         div {
                             &.line {
                                 grid-column-start: 1;
-                                grid-column-end: 6;
+                                grid-column-end: 7;
 
                                 display:grid;
                                 grid-template-columns: 1fr max-content repeat(2, 45px 5px) 45px 1fr;
@@ -402,6 +456,36 @@ div {
                                         font-weight:bold;
                                     }
                                 }
+                            }
+
+                            &.specialline {
+                                grid-column-start: 1;
+                                grid-column-end: 6;
+
+                                display:grid;
+                                grid-template-columns: 1fr 1fr 45px;
+                                grid-template-rows: max-content;
+                                grid-gap: 5px;
+
+                                span {
+                                    &.labelBase {
+                                        display: grid;
+                                        width: 100%;
+                                        font-weight: bold;
+                                        justify-content: right;
+                                        align-items: center;
+                                        font-family: Sriracha;
+                                    }
+                                }
+
+                                input.label {
+                                    grid-column-start: 1;
+                                    grid-column-end: 4;                                  
+                                }
+                            }
+
+                            &.hide {
+                                display:none;
                             }
                         }
 
@@ -442,6 +526,10 @@ div {
                                 border:1px solid #7a7971;
                                 border-radius:2px;
                             }
+
+                            &.hide {
+                                display:none;
+                            }
                         }
 
                         input {
@@ -452,11 +540,15 @@ div {
                             font-family: Sriracha;
                             height:100%;
                             background:transparent;
+
+                            &.hide {
+                                display:none;
+                            }
                         }
 
                         textarea {
                             grid-column-start: 1;
-                            grid-column-end:6;
+                            grid-column-end:7;
 
                             resize:vertical;                            
                             width:100%;
@@ -464,6 +556,32 @@ div {
                             min-height:40px;
                             font-family: Sriracha;
                             font-size: 0.8em;
+
+                            &.hide {
+                                display:none;
+                            }
+
+                            &.short {
+                                grid-column-end:6;
+                            }
+                        }
+
+                        select {
+                            &.hide {
+                                display:none;
+                            }
+                        }
+
+                        i {
+                            cursor:pointer;
+
+                            &:hover {
+                                text-shadow: 0px 0px 3px;
+                            }
+
+                            &.hide {
+                                display:none;
+                            }
                         }
                     }
 

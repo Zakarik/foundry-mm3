@@ -3,29 +3,35 @@
         {{#if flavor}}
         <h4 class="dice-total flavor">{{flavor}}</h4>
         {{/if}}
-        <h4 class="dice-total formula">{{formula}}</h4>
-        {{{tooltip}}}
+        {{#if formula}}
+            <h4 class="dice-total formula">{{formula}}</h4>
+        {{/if}}
+        {{#if tooltip}} {{{tooltip}}} {{/if}}
+        {{#if result}}
         <h4 class="dice-total result">
             {{result}}
         </h4>
+        {{/if}}
         {{#if isCritique}}
         <h4 class="dice-total result critique">
-            {{localize "MM3.ROLL.Critique"}}
+            {{localize "MM3.ROLL.Critique"}} !
         </h4>
         {{/if}}
         {{#if isCombat}}
-        <h4 class="dice-total attack">
-            {{#if isSuccess}} 
-                {{localize "MM3.ROLL.AttSuccess"}}
-            {{else}}
-                {{localize "MM3.ROLL.AttFail"}}
+            {{#if result}}
+            <h4 class="dice-total attack">
+                {{#if isSuccess}} 
+                    {{localize "MM3.ROLL.AttSuccess"}}
+                {{else}}
+                    {{localize "MM3.ROLL.AttFail"}}
+                {{/if}}
+            </h4>
+            <div class="dice-tooltip dataAttack toHide">
+                <div class="inner">
+                    <span>{{type}} : {{defense}}</span>
+                </div>            
+            </div>
             {{/if}}
-        </h4>
-        <div class="dice-tooltip dataAttack toHide">
-            <div class="inner">
-                <span>{{type}} : {{defense}}</span>
-            </div>            
-        </div>
             {{#if isSuccess}} 
             <div class="btn">
                 <button class="btnRoll" data-target="{{btn.target}}" data-savetype="{{btn.saveType}}" data-vs="{{btn.vs}}">
@@ -52,6 +58,11 @@
                 {{localize "MM3.ROLL.DegreEchec"}} : {{resultMarge}}
             </h4>
             {{/if}}
+        {{/if}}
+        {{#if effet}}
+            <h4 class="dice-total attack">
+                {{localize "MM3.DEFENSE.DDDefense"}} : {{effet}}
+            </h4>
         {{/if}}
         {{#if text}}
             <span class="text">{{text}}</span>

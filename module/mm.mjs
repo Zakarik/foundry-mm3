@@ -17,6 +17,18 @@ import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { MM3 } from "./helpers/config.mjs";
 import toggler from './helpers/toggler.js';
 
+import {
+  rollAtkTgt,
+  rollAtk,
+  rollStd,
+  rollPwr,
+  rollTgt,
+  rollWAtk,
+  rollVs,
+} from "./helpers/common.mjs";
+
+import { MigrationMM3 } from "./migration.mjs";
+
 /* -------------------------------------------- */
 /*  Init Hook                                   */
 /* -------------------------------------------- */
@@ -39,6 +51,8 @@ Hooks.once('init', async function() {
       MM3Actor,
       MM3Item,
     },
+    RollMacro,
+    RollMacroPwr
   };
 
   // Add custom constants for configuration.
@@ -197,8 +211,6 @@ Hooks.once('init', async function() {
   },
   ];
 
-  /**/
-
   // Define custom Document classes
   CONFIG.Actor.documentClass = MM3Actor;
   CONFIG.Item.documentClass = MM3Item;
@@ -294,6 +306,14 @@ Hooks.once('init', async function() {
     return result;
   });
 
+  game.settings.register("mutants-and-masterminds-3e", "systemVersion", {
+    name: "Version du Système",
+    scope: "world",
+    config: false,
+    type: String,
+    default: 0,
+  });
+
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
 });
@@ -301,6 +321,20 @@ Hooks.once('init', async function() {
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
+
+Hooks.once('ready', async function () {
+  Object.defineProperty(game.user, "isFirstGM", {
+    get: function () {
+        return game.user.isGM && game.user.id === game.users.find((u) => u.active && u.isGM)?.id;
+    },
+  });
+
+  if (game.user.isFirstGM && MigrationMM3.needUpdate(MigrationMM3.NEEDED_VERSION)) {
+    MigrationMM3.migrateWorld({ force: false }).then();
+  }
+
+  Hooks.on("hotbarDrop", (bar, data, slot) => createMacro(bar, data, slot));
+});
 
 Hooks.on('deleteItem', doc => toggler.clearForId(doc.id));
 Hooks.on('deleteActor', doc => toggler.clearForId(doc.id));
@@ -337,57 +371,11 @@ Hooks.on('renderChatMessage', (message, html, data) => {
 
       if(token.actor.ownership[game.user.id] !== 3 && token.actor.ownership.default !== 3) return;
 
-      const dices = game.settings.get("mutants-and-masterminds-3e", "typeroll");
-      const critique = dices === '3D6' ? 18 : 20;
       const tokenData = token.actor.system;
       const saveScore = tokenData.defense[savetype].total;
-      const formulaSave = `${dices} + ${saveScore}`;
-      const save = new Roll(formulaSave);
-      save.evaluate({async:false});
+      const name = `${game.i18n.localize(CONFIG.MM3.defenses[savetype])}`;
 
-      const saveTotal = Number(save.total);
-      const saveDices = saveTotal-saveScore;
-      const isCritique = saveDices === critique ? true : false;
-      const margeBrut = vs-saveTotal;
-      const hasMarge = margeBrut >= 0 && !isCritique ? true : false;
-      const marge = margeBrut >= 0 && !isCritique ? Math.floor(margeBrut / 5)+1 : false;
-      let isSuccess = false;
-
-      if(isCritique) isSuccess = true;
-      else if(margeBrut < 0) isSuccess = true;
-
-      console.warn(isSuccess, isCritique, margeBrut)
-
-      const pRollSave = {
-        flavor:`${game.i18n.localize(CONFIG.MM3.defenses[savetype])}`,
-        tooltip:await save.getTooltip(),
-        formula:formulaSave,
-        result:save.total,
-        isGM:game.user.isGM,
-        vs:vs,
-        isCritique:isCritique,
-        isSuccess:isSuccess,
-        hasMarge:hasMarge,
-        resultMarge:marge
-      };
-
-      const saveMsgData = {
-        speaker: {
-          actor: token?.actor?.id || null,
-          token: token?.actor?.token?.id || null,
-          alias: token?.actor?.name || null,
-        },
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-        rolls:[save],
-        content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRollSave),
-        sound: CONFIG.sounds.dice
-      };
-      const rMode = game.settings.get("core", "rollMode");
-      const msgDataSave = ChatMessage.applyRollMode(saveMsgData, rMode);
-    
-      await ChatMessage.create(msgDataSave, {
-        rollMode:rMode
-      });
+      rollVs(token.actor, name, saveScore, vs);
   });
 
   if(isInitiative) {
@@ -412,705 +400,83 @@ Hooks.on('renderChatMessage', (message, html, data) => {
   }
 });
 
-/*Hooks.once("ready", NautilusHooks.ready);
-
-Hooks.once("ready", async function() {
-  Hooks.on("hotbarDrop", (bar, data, slot) => createMacro(bar, data, slot));
-});
-
 async function createMacro(bar, data, slot) {
   // Create the macro command
+
 
   const type = data.type;
   const label = data.label;
   const actorId = data.actorId;
-  const wpnId = data.wpn;
-  const aptitude = data.aptitude;
-  const specialite = data.specialite;
-  const command = type === 'vaisseaux' ? `game.nautilus.RollVaisseauxMacro("${actorId}", "${aptitude}", "${specialite}", "${wpnId}");` : `game.nautilus.RollPersonnageMacro("${actorId}", "${aptitude}", "${specialite}", "${wpnId}");`;
+  const sceneId = data.sceneId;
+  const tokenId = data.tokenId;
+  const what = data?.what ?? "";
+  const id = data?.id ?? -1;
+  const author = data?.author ?? 'personnage';
+  const command = type === 'pouvoir' ? `game.mm3.RollMacroPwr("${actorId}", "${sceneId}", "${tokenId}", "${id}", "${author}");` : `game.mm3.RollMacro("${actorId}", "${sceneId}", "${tokenId}", "${type}", "${what}", "${id}", "${author}");`;
 
   let img = "";
-
-  console.log(specialite);
-
-  if(wpnId !== false) img = game.actors.get(actorId).items.get(wpnId).img;
-  else if(specialite !== false) img = "systems/nautilus/assets/icons/dices.svg";
 
   let macro = await Macro.create({
     name: label,
     type: "script",
     img: img,
     command: command,
-    flags: { "nautilus.attributMacro": true }
+    flags: { "mm3.attributMacro": true }
   });
   game.user.assignHotbarMacro(macro, slot);
   return false;
 }
 
-async function RollPersonnageMacro(actorid, aptitude, spe, wpn) {
-  const speaker = ChatMessage.getSpeaker();
+async function RollMacro(actorId, sceneId, tokenId, type, what, id, author) {
+  const actor = tokenId === 'null' ? game.actors.get(actorId) : game.scenes.get(sceneId).tokens.find(token => token.id === tokenId).actor;
+  const data = actor.system;
+  const tgt = game.user.targets.ids[0];
+  const dataStr = data?.strategie?.total ?? {attaque:0, effet:0};
+  const strategie = {attaque:dataStr.attaque, effet:dataStr.effet}
+  
+  const atk = id === '-1' || id === -1 ? {noAtk:false} : actor.system.attaque[id];
+  let name = "";
+  let total = 0;
 
-  let actor;
-  if (speaker.token) actor = game.actors.tokens[speaker.token];
-  if (!actor) actor = game.actors.get(speaker.actor);
-  if (!actor) actor = game.actors.get(actorid);
-
-  const type = actor.type;
-  const getData = actor.system;
-  const getDWpn = wpn === 'false' ? {} : actor.items.get(wpn);
-  const key = aptitude;
-  const data = getData.aptitudes[key];
-  const label = game.i18n.localize(CONFIG.NAUTILUS.aptitudes[key]);
-  const bValue = data.value
-  const specialites = data.specialites;
-  const pression = getData.pression.value;
-  const sante = getData.sante.value;
-  const getVM = getData.valeursmorales;
-  const getNameWpn = wpn === 'false' ? "" : getDWpn.name;
-  const getDataWpn = wpn === 'false' ? false : getDWpn.system;
-  const vm = CONFIG.NAUTILUS.vm;
-  const lvm = [`<option value="" selected></option>`];
-  const tvm = [];
-  const isContact = key === 'sebattre' ? true : false;
-  let bvm = {};
-
-  let specialite = "";
-
-  if(Object.keys(specialites).length > 0) {
-    if(!spe) {
-      specialite = `<label class="spe"><input type="radio" class="specialite" name="specialite" value="aucune" checked /><span>${game.i18n.localize("NAUTILUS.ROLL.ASK.Aucune")}</span></label>`
-    } else {
-      specialite = `<label class="spe"><input type="radio" class="specialite" name="specialite" value="aucune" /><span>${game.i18n.localize("NAUTILUS.ROLL.ASK.Aucune")}</span></label>`
-    }
-  }
-
-
-  for(let key in specialites) {
-    const data = specialites[key];
-    const name = data.name;
-    const value = data.value;
-    const description = data.description;
-
-    if(spe !== false) {
-      if(key === spe) specialite += `<label class="spe" title="${description}"><input type="radio" class="specialite" name="specialite" value="${key}" checked /><span>${name} ${value}R</span></label>`;
-      else specialite += `<label class="spe" title="${description}"><input type="radio" class="specialite" name="specialite" value="${key}" /><span>${name} ${value}R</span></label>`;
-    } else {
-      specialite += `<label class="spe" title="${description}"><input type="radio" class="specialite" name="specialite" value="${key}" /><span>${name} ${value}R</span></label>`;
-    }
-  }
-
-  if(type === 'heritier') {
-    for(let key in vm) {
-      const t = game.i18n.localize(vm[key]);
-      tvm.push(t);
-      bvm[t] = key;
-    }
-
-    tvm.sort();
-
-    for(let i = 0;i < tvm.length;i++) {
-      const translate = tvm[i];
-      const brut = bvm[translate];
-
-      if(+getVM[brut].value > 0) lvm.push(`<option value="${brut}">${translate}</option>`);
-
-      if(brut === getVM.commune) lvm.push(`<option value="${brut}_cm">${translate} (${game.i18n.localize(`NAUTILUS.PERSONNAGE.VALEURSMORALES.Commune`)})</option>`);
-    }
-  }
-
-  const dataAsk = {
-    specialite:specialite,
-    vm:lvm.length > 1 ? lvm.join(' ') : false
-  };
-  const dialogAsk = await renderTemplate("systems/nautilus/templates/ask/roll.html", dataAsk);
-  const askOptions = {
-    classes: ["nautilus-roll-ask"],
-    width: 300,
-  };
-
-  let d = new Dialog({
-    title: `${game.i18n.localize(`NAUTILUS.ROLL.ASK.LabelMS`)}`,
-    content:dialogAsk,
-    buttons: {
-      one: {
-      icon: '<i class="fas fa-check"></i>',
-      label: `${game.i18n.localize(`NAUTILUS.ROLL.ASK.Roll`)}`,
-      callback: async (event) => {
-          const target = $(event);
-          const mod = target?.find('input.mod').val();
-          const speSelected = target?.find('[name="specialite"]:checked').val();
-          const vmSelected = target?.find('select.uvm').val();
-          const vmBonus = vmSelected !== '' && vmSelected !== undefined ? 1 : 0;
-
-          let santeMalus = 0;
-
-          if(type === 'heritier' && sante <= 3) {
-            santeMalus = 1;
-          } else if(type !== 'heritier' && getData.sante.list[`s${sante}`].malus !== 'false') {
-            santeMalus = getData.sante.list[`s${sante}`].malus
-          }
-
-          const value = +bValue + +mod + vmBonus - santeMalus;
-          const firstRoll = await game.nautilus.doRoll(value, pression);
-          const firstTotal = firstRoll.roll.total;
-          let formula = firstRoll.formula;
-
-          if(speSelected !== undefined && speSelected !== 'aucune') {
-            const speName = specialites[speSelected].name;
-            const speValue = specialites[speSelected].value;
-            const speLabel = wpn === 'false' ? `${speName} (${label})` : `${speName} (${label}) - ${getNameWpn}`;
-            let mergeResults;
-
-            if(firstTotal === value) {
-              const explode = await game.nautilus.doRoll(speValue, pression, sante);
-              mergeResults = [...firstRoll.roll.dice[0].results, ...explode.roll.dice[0].results];
-              formula += ` (${game.i18n.localize(`NAUTILUS.ROLL.Base`)}) + ${explode.formula} (${game.i18n.localize(`NAUTILUS.ROLL.Specialite`)})`;
-
-              let r1 = [];
-
-              for(let i = 0;i < mergeResults.length;i++) {
-                const dS = mergeResults[i];
-
-                if(dS.result === 1) r1.push(i);
-              }
-
-              game.nautilus.personnages.createRollMsg(actor, speLabel, mergeResults, formula, firstTotal+explode.roll.total, specialites, r1, getDataWpn, vmSelected, isContact);
-            } else {
-              let toR = value-firstTotal;
-
-              if(speValue < toR) toR = speValue;
-
-              const relance = await game.nautilus.doRoll(toR, pression, sante);
-
-              let r1 = [];
-              let rO = [];
-              let rF = [];
-
-              for(let i = 0;i < firstRoll.roll.dice[0].results.length;i++) {
-                const dS = firstRoll.roll.dice[0].results[i];
-
-                rF.push(dS);
-
-                if(dS.result === 1) r1.push(i);
-                else if(dS.success === false) rO.push(i);
-              }
-
-              for(let i = 0;i < relance.roll.dice[0].results.length;i++) {
-                if(r1.length !== 0) {
-                  rF[r1[0]].active = false;
-                  r1.splice(0, 1);
-                  rF.push(relance.roll.dice[0].results[i]);
-                } else {
-                  rF[rO[0]].active = false;
-                  rO.splice(0, 1);
-                  rF.push(relance.roll.dice[0].results[i]);
-                }
-              }
-
-              game.nautilus.personnages.createRollMsg(actor, speLabel, rF, formula, firstTotal+relance.roll.total, specialites, r1, getDataWpn, vmSelected, isContact);
-            }
-
-          } else {
-            let r1 = [];
-
-            for(let i = 0;i < firstRoll.roll.dice[0].results.length;i++) {
-              const dS = firstRoll.roll.dice[0].results[i];
-
-              if(dS.result === 1) r1.push(i);
-            }
-
-            const baseLabel = wpn === 'false' ? label : `${label} - ${getNameWpn}`;
-
-            game.nautilus.personnages.createRollMsg(actor, baseLabel, firstRoll.roll.dice[0].results, formula, firstTotal, specialites, r1, getDataWpn, vmSelected, isContact);
-          }
-        }
-      },
-      two: {
-      icon: '<i class="fas fa-times"></i>',
-      label: `${game.i18n.localize(`NAUTILUS.ROLL.ASK.Cancel`)}`,
-      callback: () => {}
+  switch(type) {
+    case 'caracteristique':
+      name = author === 'vehicule' ? game.i18n.localize(CONFIG.MM3.vehicule[what]) : game.i18n.localize(CONFIG.MM3.caracteristiques[what]);
+      total = data.caracteristique[what].total;
+      break;
+    
+    case 'competence':
+      if(what === 'combatcontact' || what === 'combatdistance' || what === 'expertise') {
+        name = data[type][what].list[id].label;
+        total = data[type][what].list[id].total;
+      } else {
+        name = game.i18n.localize(CONFIG.MM3.competences[what]);
+        total = data[type][what].total;
       }
-    },
-    default: "two",
-    },
-    askOptions);
-  d.render(true);
-}
+      break;
+    
+    case 'attaque':
+      const typeAtk = atk.type;
+      const idAtk = atk.id;
 
-async function RollVaisseauxMacro(actorid, aptitude, spe, wpn) {
-  const speaker = ChatMessage.getSpeaker();
-
-  let actor;
-  if (speaker.token) actor = game.actors.tokens[speaker.token];
-  if (!actor) actor = game.actors.get(speaker.actor);
-  if (!actor) actor = game.actors.get(actorid);
-  const gData = actor;
-  const getData = gData.system;
-  const listActors = game.actors;
-
-  const lHeritiers = [];
-  const lEquipage = [];
-  const lRoll = {
-    manoeuvre:{
-      value:[0],
-      maniabilite:[0],
-      plonger:[0],
-    },
-    endurance:{
-      value:[0],
-      chasse:[0],
-      coque:[0],
-    },
-    puissance:{
-      value:[0],
-      eperonnage:[0],
-    },
-    detection:{
-      value:[0],
-      fanal:[0]
-    }
-  };
-
-  for(let i of listActors) {
-    const type = i.type;
-
-    switch(type) {
-      case 'heritier':
-        lHeritiers.push({name:i.name, role:i.system.role, id:i._id})
-        break;
-
-      case 'equipage':
-        lEquipage.push({name:i.name, role:i.system.role, id:i._id})
-        break;
-    }
-  }
-
-  for (let i of actor.items) {
-    if (i.type === 'amelioration' && getData.options.isnautilus) {
-      const bRoll = i.system.roll;
-
-      if(bRoll.actif) {
-        if(bRoll.aptitude !== '' && bRoll.specialite === '') lRoll[bRoll.aptitude]['value'].push(bRoll.value);
-        else if(bRoll.aptitude !== '' && bRoll.specialite !== '') lRoll[bRoll.aptitude][bRoll.specialite].push(bRoll.value);
+      if(typeAtk === 'combatcontact' || typeAtk === 'combatdistance') {
+        name = data.competence[typeAtk].list[idAtk].label;
+        total = data.competence[typeAtk].list[idAtk].total;
+      } else if(typeAtk === 'other') {
+        name = atk.label;
+        total = atk.attaque;
       }
-    }
+      break;
   }
 
-  const key = aptitude;
-  const data = getData.aptitudes[key];
-  const label = game.i18n.localize(CONFIG.NAUTILUS.aptitudes[key]);
-  const bValue = data.value
-  const specialites = data.specialites;
-  const pression = getData.pression.value;
-  const sante = getData.sante;
-  const getDWpn = wpn !== 'false' ? actor.items.get(wpn) : {};
-
-  const heritiers = lHeritiers.sort((a, b) => (a.name > b.name ? 1 : -1));
-  const vm = CONFIG.NAUTILUS.vm;
-  const lvm = [`<option value="" selected></option>`];
-  const tvm = [];
-  const lheritier = [`<option value="" selected></option>`];
-  let bvm = {};
-  let getNameWpn = '';
-  let getDataWpn = false;
-
-  if(wpn !== 'false') {
-    getNameWpn = `<br/>${getDWpn.name}`;
-    getDataWpn = getDWpn.type === 'armement' ? getDWpn.system : {degats:getDWpn.system.distance.degats};
-  }
-
-  let specialite = "";
-
-  if(Object.keys(specialites).length > 0) {
-    if(spe !== 'false') specialite = `<label class="spe"><input type="radio" class="specialite" name="specialite" value="aucune" /><span>${game.i18n.localize("NAUTILUS.ROLL.ASK.Aucune")}</span></label>`;
-    else specialite = `<label class="spe"><input type="radio" class="specialite" name="specialite" value="aucune" checked /><span>${game.i18n.localize("NAUTILUS.ROLL.ASK.Aucune")}</span></label>`;
-  }
-
-  for(let key in specialites) {
-    const name = specialites[key].name;
-    const value = specialites[key].value;
-
-    if(key === spe) {
-      specialite += `<label class="spe"><input type="radio" class="specialite" name="specialite" value="${key}" checked/><span>${name} ${value}R</span></label>`;
-    } else {
-      specialite += `<label class="spe"><input type="radio" class="specialite" name="specialite" value="${key}" /><span>${name} ${value}R</span></label>`;
-    }
-  }
-
-  for(let key in vm) {
-    const t = game.i18n.localize(vm[key]);
-    tvm.push(t);
-    bvm[t] = key;
-  }
-
-  tvm.sort();
-
-  for(let i = 0;i < tvm.length;i++) {
-    const translate = tvm[i];
-    const brut = bvm[translate];
-
-    lvm.push(`<option value="${brut}">${translate}</option>`);
-  }
-
-  for(let i = 0;i < heritiers.length;i++) {
-    lheritier.push(`<option value="${heritiers[i].id}">${heritiers[i].name} (${heritiers[i].role})</option>`);
-  }
-
-  const dataAsk = {
-    specialite:specialite,
-    vm:lvm.length > 1 ? lvm.join(' ') : false,
-    heritiers:lheritier.join(' ')
-  };
-  const dialogAsk = await renderTemplate("systems/nautilus/templates/ask/roll-nautilus.html", dataAsk);
-  const askOptions = {
-    classes: ["nautilus-roll-nautilus-ask"],
-    width: 450,
-  };
-
-  let d = new Dialog({
-    title: `${game.i18n.localize(`NAUTILUS.ROLL.ASK.LabelMS`)}`,
-    content:dialogAsk,
-    buttons: {
-      one: {
-      icon: '<i class="fas fa-check"></i>',
-      label: `${game.i18n.localize(`NAUTILUS.ROLL.ASK.Roll`)}`,
-      callback: async (event) => {
-          const target = $(event);
-          const mod = target?.find('input.mod').val();
-          const speSelected = target?.find('[name="specialite"]:checked').val();
-          const heritierSelected = target?.find('select.heritier').val();
-          const vmSelected = target?.find('select.uvm').val();
-          const vmBonus = vmSelected !== '' && heritierSelected !== '' && vmSelected !== undefined ? 1 : 0;
-          const santeMalus = sante.list[`s${sante.value}`].malus === 'false' ? 0 : +sante.list[`s${sante.value}`].malus;
-          const amelioration = speSelected !== undefined && speSelected !== 'aucune' ? lRoll[key][specialites[speSelected].label].reduce((accumulator, currentValue) => accumulator + currentValue, 0) : lRoll[key].value.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-          const value = +bValue + +mod + vmBonus - santeMalus + amelioration;
-          const firstRoll = await game.nautilus.doRoll(value, pression);
-          const firstTotal = firstRoll.roll.total;
-          const getHeritier = heritierSelected === '' ? '' : game.actors.get(heritierSelected);
-          const getHeritierName = getHeritier !== '' ? `<br/>${getHeritier.name}` : '';
-          let formula = firstRoll.formula;
-
-          if(vmBonus === 1) {
-
-            const getVM = getHeritier.system.valeursmorales[vmSelected];
-
-            if(getVM.value > 0) { getHeritier.update({[`system.valeursmorales.${vmSelected}.value`]:+getVM.value-1}); }
-            else {
-              const baseData = {
-                flavor:`${label}${getHeritierName}`,
-                main:{
-                  empty:true,
-                  text:game.i18n.localize('NAUTILUS.ROLL.VMEpuisee')
-                }
-              };
-
-              const msgData = {
-                user: game.user.id,
-                speaker: {
-                  actor: this.actor?.id || null,
-                  token: this.actor?.token?.id || null,
-                  alias: this.actor?.name || null,
-                },
-                type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-                content: await renderTemplate('systems/nautilus/templates/msg/roll.html', baseData),
-                sound: CONFIG.sounds.dice
-              };
-
-              const rMode = game.settings.get("core", "rollMode");
-              const msgTotalData = ChatMessage.applyRollMode(msgData, rMode);
-
-              const msg = await ChatMessage.create(msgTotalData, {
-                rollMode:rMode
-              });
-
-              return;
-            }
-          }
-
-          if(speSelected !== undefined && speSelected !== 'aucune') {
-            const speName = specialites[speSelected].name;
-            const speValue = +specialites[speSelected].value;
-            const speLabel = `${speName} (${label})${getHeritierName}${getNameWpn}`;
-            let mergeResults;
-
-            if(firstTotal === value) {
-              const explode = await game.nautilus.doRoll(speValue, pression);
-              mergeResults = [...firstRoll.roll.dice[0].results, ...explode.roll.dice[0].results];
-              formula += ` (${game.i18n.localize(`NAUTILUS.ROLL.Base`)}) + ${explode.formula} (${game.i18n.localize(`NAUTILUS.ROLL.Specialite`)})`;
-
-              let r1 = [];
-
-              for(let i = 0;i < mergeResults.length;i++) {
-                const dS = mergeResults[i];
-
-                if(dS.result === 1) r1.push(i);
-              }
-
-              game.nautilus.vaisseaux.createRollMsg(actor, speLabel, mergeResults, formula, firstTotal+explode.roll.total, specialites, r1, getDataWpn, vmSelected);
-            } else {
-              let toR = value-firstTotal;
-
-              if(speValue < toR) toR = speValue;
-
-              const relance = await game.nautilus.doRoll(toR, pression);
-
-              let r1 = [];
-              let rO = [];
-              let rF = [];
-
-              for(let i = 0;i < firstRoll.roll.dice[0].results.length;i++) {
-                const dS = firstRoll.roll.dice[0].results[i];
-
-                rF.push(dS);
-
-                if(dS.result === 1) r1.push(i);
-                else if(dS.success === false) rO.push(i);
-              }
-
-              for(let i = 0;i < relance.roll.dice[0].results.length;i++) {
-                if(r1.length !== 0) {
-                  rF[r1[0]].active = false;
-                  r1.splice(0, 1);
-                  rF.push(relance.roll.dice[0].results[i]);
-                } else {
-                  rF[rO[0]].active = false;
-                  rO.splice(0, 1);
-                  rF.push(relance.roll.dice[0].results[i]);
-                }
-              }
-
-              game.nautilus.vaisseaux.createRollMsg(actor, speLabel, rF, formula, firstTotal+relance.roll.total, specialites, r1, getDataWpn, vmSelected);
-            }
-
-          } else {
-            let r1 = [];
-
-            for(let i = 0;i < firstRoll.roll.dice[0].results.length;i++) {
-              const dS = firstRoll.roll.dice[0].results[i];
-
-              if(dS.result === 1) r1.push(i);
-            }
-
-            game.nautilus.vaisseaux.createRollMsg(actor, `${label}${getHeritierName}${getNameWpn}`, firstRoll.roll.dice[0].results, formula, firstTotal, specialites, r1, getDataWpn, vmSelected);
-          }
-        }
-      },
-      two: {
-      icon: '<i class="fas fa-times"></i>',
-      label: `${game.i18n.localize(`NAUTILUS.ROLL.ASK.Cancel`)}`,
-      callback: () => {}
-      }
-    },
-    default: "two",
-    },
-    askOptions);
-  d.render(true);
-}
-
-async function doRoll(value, pression) {
-  let val = value;
-
-  if(val < 0) val = 0;
-
-  const formula = `${val}D10>=${pression}`;
-
-  let r = new Roll(`${val}D10cs>=${pression}`);
-
-  await r.evaluate({async:true});
-
-  return {roll:r, formula:formula};
-}
-
-async function createRollMsgPersonnage(actor, label, lDices, formula, total, specialites, r1, wpn=false, hasVm='', isContact=false) {
-  const type = actor.type;
-  const gForcer = +actor.system.bonus.contact;
-  const gSante = actor.system.sante;
-  const vSante = gSante.value;
-  const lSante = type === 'heritier' ? gSante.list[`s${vSante}`].consequence : `${gSante.list[`s${vSante}`].notes}`;
-
-  let dices = [];
-  let spec = [];
-
-  for (let key in specialites) {
-    spec.push(`${specialites[key].name} ${specialites[key].value}R`);
-  }
-
-  for(let i = 0;i < lDices.length;i++) {
-    const dS = lDices[i];
-
-    if(dS.success) {
-      dices.push(`<li class="roll die d10 success" data-num="${i}">${dS.result}</li>`);
-    } else {
-      if(!dS.active) dices.push(`<li class="roll die d10 discarded" data-num="${i}">${dS.result}</li>`);
-      else dices.push(`<li class="roll die d10" data-num="${i}">${dS.result}</li>`);
-    }
-  }
-
-  const tooltip = `
-  <div class="dice-tooltip">
-    <section class="tooltip-part">
-        <div class="dice">
-            <header class="part-header flexrow">
-                <span class="part-formula">${formula}</span>
-
-                <span class="part-total">${total}</span>
-            </header>
-            <ol class="dice-rolls">
-                ${dices.join(' ')}
-            </ol>
-        </div>
-    </section>
-  </div>`;
-
-  let result;
-
-  if(total >= 5) result = game.i18n.localize(`NAUTILUS.ROLL.ReussiteExceptionnelle`);
-  else if(total >= 2 && total <= 4) result = game.i18n.localize(`NAUTILUS.ROLL.ReussiteTotale`);
-  else if(total == 1) result = game.i18n.localize(`NAUTILUS.ROLL.ReussitePartielle`);
-  else if(total == 0 && r1.length == 0) result = game.i18n.localize(`NAUTILUS.ROLL.Echec`);
-  else if(total == 0 && r1.length == 1) result = game.i18n.localize(`NAUTILUS.ROLL.EchecRetentissant`);
-  else if(total == 0 && r1.length > 1) result = game.i18n.localize(`NAUTILUS.ROLL.EchecCatastrophique`);
-
-  let labelVm = '';
-
-  if(hasVm !== '') {
-    if(hasVm.includes('_cm')) {
-      labelVm = `${game.i18n.localize(`NAUTILUS.PERSONNAGE.VALEURSMORALES.CommuneUse`)} : ${game.i18n.localize(CONFIG.NAUTILUS.vm[hasVm.split('_')[0]])}`;
-    } else {
-      labelVm = `${game.i18n.localize(`NAUTILUS.PERSONNAGE.VALEURSMORALES.ShortUse`)} : ${game.i18n.localize(CONFIG.NAUTILUS.vm[hasVm])}`;
-      actor.update({[`system.valeursmorales.${hasVm}.value`]:+actor.system.valeursmorales[hasVm].value-1});
-    }
-  }
-
-  const dgtsBonus = isContact && type === 'heritier' ? gForcer : 0;
-
-  const baseData = {
-    flavor:`${label}`,
-    main:{
-      total:total,
-      tooltip:tooltip,
-      specialites:spec.join(' / '),
-      result:result,
-      sante:lSante,
-      wpn:!wpn ? false : true,
-      degats:!wpn ? false : Math.max(+wpn.degats + dgtsBonus, 0),
-      description:!wpn ? false : wpn?.description,
-      vm:hasVm === '' ? false : labelVm
-    }
-  };
-
-  console.log(gForcer);
-
-  const msgData = {
-    user: game.user.id,
-    speaker: {
-      actor: actor?.id || null,
-      token: actor?.token?.id || null,
-      alias: actor?.name || null,
-    },
-    type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-    content: await renderTemplate('systems/nautilus/templates/msg/roll.html', baseData),
-    sound: CONFIG.sounds.dice
-  };
-
-  const rMode = game.settings.get("core", "rollMode");
-  const msgTotalData = ChatMessage.applyRollMode(msgData, rMode);
-
-  const msg = await ChatMessage.create(msgTotalData, {
-    rollMode:rMode
-  });
-}
-
-async function createRollMsgVaisseaux(actor, label, lDices, formula, total, specialites, r1, wpn=false, hasVm='') {
-  const vSante = actor.system.sante.value;
-  const sante = actor.system.sante.list[`s${vSante}`].notes;
-
-  let dices = [];
-  let spec = [];
-
-  for (let key in specialites) {
-    const label = specialites[key].name;
-    const value = specialites[key].value;
-    spec.push(`${label} ${value}R`);
-  }
-
-  for(let i = 0;i < lDices.length;i++) {
-    const dS = lDices[i];
-
-    if(dS.success) {
-      dices.push(`<li class="roll die d10 success" data-num="${i}">${dS.result}</li>`);
-    } else {
-      if(!dS.active) dices.push(`<li class="roll die d10 discarded" data-num="${i}">${dS.result}</li>`);
-      else dices.push(`<li class="roll die d10" data-num="${i}">${dS.result}</li>`);
-    }
-  }
-
-  const tooltip = `
-  <div class="dice-tooltip">
-    <section class="tooltip-part">
-        <div class="dice">
-            <header class="part-header flexrow">
-                <span class="part-formula">${formula}</span>
-
-                <span class="part-total">${total}</span>
-            </header>
-            <ol class="dice-rolls">
-                ${dices.join(' ')}
-            </ol>
-        </div>
-    </section>
-  </div>`;
-
-  let result;
-
-  if(total >= 5) result = game.i18n.localize(`NAUTILUS.ROLL.ReussiteExceptionnelle`);
-  else if(total >= 2 && total <= 4) result = game.i18n.localize(`NAUTILUS.ROLL.ReussiteTotale`);
-  else if(total == 1) result = game.i18n.localize(`NAUTILUS.ROLL.ReussitePartielle`);
-  else if(total == 0 && r1.length == 0) result = game.i18n.localize(`NAUTILUS.ROLL.Echec`);
-  else if(total == 0 && r1.length == 1) result = game.i18n.localize(`NAUTILUS.ROLL.EchecRetentissant`);
-  else if(total == 0 && r1.length > 1) result = game.i18n.localize(`NAUTILUS.ROLL.EchecCatastrophique`);
-
-  let labelVm = '';
-
-  if(hasVm !== '') {
-    if(hasVm.includes('_cm')) {
-      labelVm = `${game.i18n.localize(`NAUTILUS.PERSONNAGE.VALEURSMORALES.CommuneUse`)} : ${game.i18n.localize(CONFIG.NAUTILUS.vm[hasVm.split('_')[0]])}`;
-    } else {
-      labelVm = `${game.i18n.localize(`NAUTILUS.PERSONNAGE.VALEURSMORALES.ShortUse`)} : ${game.i18n.localize(CONFIG.NAUTILUS.vm[hasVm])}`;
-    }
-  }
-
-  const baseData = {
-    flavor:`${label}`,
-    main:{
-      total:total,
-      tooltip:tooltip,
-      specialites:spec.join(' / '),
-      result:result,
-      sante:sante,
-      wpn:!wpn ? false : true,
-      degats:!wpn ? false : wpn.degats,
-      description:!wpn ? false : wpn?.description,
-      vm:hasVm === '' ? false : labelVm
-    }
-  };
-
-  const msgData = {
-    user: game.user.id,
-    speaker: {
-      actor: actor?.id || null,
-      token: actor?.token?.id || null,
-      alias: actor?.name || null,
-    },
-    type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-    content: await renderTemplate('systems/nautilus/templates/msg/roll.html', baseData),
-    sound: CONFIG.sounds.dice
-  };
-
-  const rMode = game.settings.get("core", "rollMode");
-  const msgTotalData = ChatMessage.applyRollMode(msgData, rMode);
-
-  const msg = await ChatMessage.create(msgTotalData, {
-    rollMode:rMode
-  });
-}*/
+  if(type === 'attaque' && tgt !== undefined && atk.noAtk) rollTgt(actor, name, {attaque:atk, strategie:strategie}, tgt);
+  else if(type === 'attaque' && tgt !== undefined && !atk.noAtk) rollAtkTgt(actor, name, total, {attaque:atk, strategie:strategie}, tgt);
+  else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(actor, name, total, {attaque:atk, strategie:strategie});
+  else if(type === 'attaque' && atk.noAtk) rollWAtk(actor, name, {attaque:atk, strategie:strategie});
+  else rollStd(actor, name, total);
+};
+
+async function RollMacroPwr(actorId, sceneId, tokenId, id, author) {
+  const actor = tokenId === 'null' ? game.actors.get(actorId) : game.scenes.get(sceneId).tokens.find(token => token.id === tokenId).actor;
+  
+  rollPwr(actor, id);
+};

@@ -77,7 +77,7 @@
                         {{#if (isValue carac 'vitesse')}}
                         <span class="label">{{translate 'vehicule' carac}}</span>
                         {{else}}
-                        <a class="roll" data-type="caracteristique" data-name="{{translate 'vehicule' carac}}" data-total="{{key.total}}">
+                        <a class="roll draggable" data-author="vehicule" data-what="{{carac}}" data-type="caracteristique" data-name="{{translate 'vehicule' carac}}" data-total="{{key.total}}">
                             {{translate 'vehicule' carac}}
                         </a>
                         {{/if}}                        

@@ -483,6 +483,7 @@ div {
 
                             &.text {
                                 display:grid;
+                                word-break: keep-all;
                                 width:100%;
                                 align-items: flex-start;
                                 align-content: flex-start;
@@ -675,7 +676,7 @@ div {
 
                         span.text {
                             text-align: justify;
-                            word-break: break-all;
+                            word-break: keep-all;
                         }
 
                         &:not(:first-of-type) {
@@ -788,7 +789,7 @@ div {
 
                         span.text {
                             text-align: justify;
-                            word-break: break-all;
+                            word-break: keep-all;
                         }
 
                         &:not(:first-of-type) {

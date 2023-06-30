@@ -1,8 +1,12 @@
 
 import toggler from '../helpers/toggler.js';
 import {
+  rollAtkTgt,
+  rollAtk,
   rollStd,
   rollPwr,
+  rollTgt,
+  rollWAtk,
 } from "../helpers/common.mjs";
 
 /**
@@ -134,6 +138,12 @@ export class PersonnageActorSheet extends ActorSheet {
 
           this.actor.update(update);
           break;
+      
+        case 'attaque':
+          update[`system.attaque.-=${id}`] = null;
+
+          this.actor.update(update);
+          break;
       }
     });
 
@@ -171,15 +181,36 @@ export class PersonnageActorSheet extends ActorSheet {
               type:what,
               id:maxKeysComp+1,
               save:'robustesse',
-              label:'',
-              attaque:0,
               effet:0,
               critique:20,
-              text:""
+              text:"",
+              noAtk:false,
+              basedef:15
             };
           }
 
           update[`system.competence.${what}.list.${maxKeysComp+1}`] = modele;
+
+          this.actor.update(update);
+          break;
+        
+        case 'attaque':
+          const attaque = this.actor.system?.attaque || {};
+          const dataAttaque = Object.keys(attaque);
+          const maxKeysAtt = dataAttaque.length > 0 ? Math.max(...dataAttaque) : 0;
+
+          update[`system.attaque.${maxKeysAtt+1}`] = {
+            type:'other',
+            id:-1,
+            save:'robustesse',
+            label:game.i18n.localize('MM3.Adefinir'),
+            attaque:0,
+            effet:0,
+            critique:20,
+            text:"",
+            noAtk:false,
+            basedef:15
+          };
 
           this.actor.update(update);
           break;
@@ -194,10 +225,43 @@ export class PersonnageActorSheet extends ActorSheet {
       const id = target.data('id');
       const strattaque = target.data('strattaque');
       const streffet = target.data('streffet');
+      const tgt = game.user.targets.ids[0];
+      const atk = this.actor.system.attaque[id];
 
-      if(type === 'attaque') {
-        rollStd(this.actor, name, total, {attaque:this.actor.system.attaque[id], strategie:{attaque:strattaque, effet:streffet}});
-      } else rollStd(this.actor, name, total);
+      if(type === 'attaque' && tgt !== undefined && atk.noAtk) rollTgt(this.actor, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, tgt);
+      else if(type === 'attaque' && tgt !== undefined && !atk.noAtk) rollAtkTgt(this.actor, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, tgt);
+      else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(this.actor, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}});
+      else if(type === 'attaque' && atk.noAtk) rollWAtk(this.actor, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}});
+      else rollStd(this.actor, name, total);
+    });
+
+    html.find('div.attaque i.editAtk').click(ev => {
+      const target = $(ev.currentTarget);
+      const id = target.data('id');
+      const value = target.data('value') ? false : true;
+
+      this.actor.update({[`system.attaque.${id}.edit`]:value});
+    });
+
+    html.find('div.attaque .noAtk').click(ev => {
+      const target = $(ev.currentTarget);
+      const id = target.data('id');
+      const value = target.data('value') ? false : true;
+
+      this.actor.update({[`system.attaque.${id}.noAtk`]:value});
+    });
+
+    html.find('div.attaque select.defense').change(async ev => {
+      const target = $(ev.currentTarget);
+      const id = target.data('id');
+      const value = target.val();
+      let newValue = 10;
+
+      if(value === 'robustesse') newValue = 15;
+
+      $(html.find(`div.attaque div.specialline input.basedef${id}`)).val(newValue);
+
+      //this.actor.update({[`system.attaque.${id}.basedef`]:newValue});
     });
 
     html.find('a.rollPwr').click(async ev => {
@@ -405,5 +469,30 @@ export class PersonnageActorSheet extends ActorSheet {
     }
 
     return toCreate;
+  }
+
+  _onDragStart(event) {
+    const li = event.currentTarget;
+
+    if ( event.target.classList.contains("content-link") ) return;
+
+    const label = $(li)?.data("name") || "";
+    const type = $(li)?.data("type");
+    const what = $(li)?.data("what");
+    const id = $(li)?.data("id");
+
+    // Create drag data
+    const dragData = {
+      actorId: this.actor.id,
+      sceneId: this.actor.isToken ? canvas.scene?.id : null,
+      tokenId: this.actor.isToken ? this.actor.token.id : null,
+      label:label,
+      type:type,
+      what:what,
+      id:id
+    };
+
+    // Set data transfer
+    event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
   }
 }

@@ -300,7 +300,8 @@ div.personnage section.sheet-body div.informations div.complications div.editor:
   border-bottom-color: #363B44;
 }
 div.personnage section.sheet-body div.informations div.complications a.add {
-  width: max-content;
+  text-align: center;
+  width: calc(100% - 4px);
   border-bottom: 2px solid #666;
   border-color: #aaa;
   border-radius: 5px;
@@ -501,7 +502,10 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.comp span.t
   font-weight: bold;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.comp a.add {
-  width: max-content;
+  grid-column-start: 1;
+  grid-column-end: 9;
+  text-align: center;
+  width: 100%;
   border-bottom: 2px solid #666;
   border-color: #aaa;
   border-radius: 5px;
@@ -720,7 +724,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.defense inp
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.attaque {
   display: grid;
-  grid-template-columns: 1fr repeat(3, 45px) 1fr;
+  grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
   grid-template-rows: max-content;
   border: 2px solid black;
   padding: 0px 5px 5px;
@@ -754,9 +758,78 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.r
   letter-spacing: 1px;
   text-shadow: none;
 }
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.noAtk {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.noAtk:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.noAtk.selected {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.roll.large {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.hide {
+  display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.add {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  text-align: center;
+  width: 100%;
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin-top: 2px;
+  margin-left: 2px;
+  margin-bottom: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.add:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line {
   grid-column-start: 1;
-  grid-column-end: 6;
+  grid-column-end: 7;
   display: grid;
   grid-template-columns: 1fr max-content repeat(2, 45px 5px) 45px 1fr;
   grid-gap: 5px;
@@ -781,6 +854,29 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line span.total {
   font-weight: bold;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: grid;
+  grid-template-columns: 1fr 1fr 45px;
+  grid-template-rows: max-content;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline span.labelBase {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: right;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline input.label {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.hide {
+  display: none;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.header {
   grid-column-start: 1;
@@ -815,6 +911,9 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > s
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.hide {
+  display: none;
+}
 div.personnage section.sheet-body div.caracteristiques div.inner div.attaque input {
   width: 100%;
   padding-right: 0px;
@@ -824,15 +923,36 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque inp
   height: 100%;
   background: transparent;
 }
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque input.hide {
+  display: none;
+}
 div.personnage section.sheet-body div.caracteristiques div.inner div.attaque textarea {
   grid-column-start: 1;
-  grid-column-end: 6;
+  grid-column-end: 7;
   resize: vertical;
   width: 100%;
   max-width: 100%;
   min-height: 40px;
   font-family: Sriracha;
   font-size: 0.8em;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque textarea.hide {
+  display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque textarea.short {
+  grid-column-end: 6;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque select.hide {
+  display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque i {
+  cursor: pointer;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque i.hide {
+  display: none;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.strategie {
   display: grid;
@@ -1287,6 +1407,7 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.details span.la
 }
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.details span.text {
   display: grid;
+  word-break: keep-all;
   width: 100%;
   align-items: flex-start;
   align-content: flex-start;
@@ -1469,7 +1590,7 @@ div.personnage section.sheet-body div.pouvoirs div.lTalents div.talent header sp
 }
 div.personnage section.sheet-body div.pouvoirs div.lTalents div.talent span.text {
   text-align: justify;
-  word-break: break-all;
+  word-break: keep-all;
 }
 div.personnage section.sheet-body div.pouvoirs div.lTalents div.talent:not(:first-of-type) {
   border-top: 1px solid black;
@@ -1584,7 +1705,7 @@ div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent heade
 }
 div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent span.text {
   text-align: justify;
-  word-break: break-all;
+  word-break: keep-all;
 }
 div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent:not(:first-of-type) {
   border-top: 1px solid black;

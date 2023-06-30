@@ -1,3 +1,20 @@
+## Version 1.4.0
+### Améliorations
+- Âjout d'un bouton sur la droite des attaques permettant d'entrer dans les paramètres avances.
+Ceux-ci permettant de définir qu'une attaque n'a pas de jet d'attaque (par ex. si la portée est "Perception"). Dans ce cas, la fenêtre apparaitra dans le tchat pour indiquer le DD de la défense ou pour afficher le bouton permettant de faire le jet de défense.
+
+Il est aussi possible de définir la base du jet de défense. Pour un jet de défense de Robustesse, le Standard est 15 + rang d'effet et pour les autres, c'est 10 + rang d'effet. Dans de rares cas, cette base peut être modifiée, et c'est ainsi possible grâce à ça. A noter que lorsque vous sélectionnez une autre défense, les modifications faites à cette base sont remise à zéro pour correspondre au standard de la défense sélectionnée.
+
+- Ajout de la possibilité d'ajouter manuellement une attaque.
+En plus des paramètres avancés susmentionnés, il sera possible de définir le nom de cette attaque dans les paramètres avancés.
+Il sera aussi possible de définir son total d'attaque librement.
+
+- Ajout de la possibilité de drag & drop les différents boutons de jets dans la barre de macro.
+- Uniformisation de l'affichage des boutons "Ajouter" sur la fiche.
+
+### Bugfix
+- Correction d'un problème avec les textarea de la fiche, qui ajoutait des indentations dans certains cas.
+
 ## Version 1.3.0
 ### Bugfix
 - Correction d'un problème de traduction dans les status.

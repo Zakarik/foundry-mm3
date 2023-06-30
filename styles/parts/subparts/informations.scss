@@ -96,7 +96,8 @@ div {
                 }
 
                 a.add {
-                    width:max-content;
+                    text-align: center;
+                    width:calc(100% - 4px);
                     border-bottom: 2px solid #666;
                     border-color: #aaa;
                     border-radius: 5px;
