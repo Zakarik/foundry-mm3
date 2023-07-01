@@ -106,7 +106,7 @@ export class MM3Item extends Item {
             let dynCoutPrincipal = 0;
             
             if(getItem !== undefined) {
-                if(coutParRang > 0) cout.rangDynMax = Math.ceil(getItem.system.cout.totalTheorique/(cout.parrangtotal+cout.divers+cout.modfixe-1));
+                if(coutParRang > 0) cout.rangDynMax = Math.floor(getItem.system.cout.totalTheorique/(cout.parrangtotal+cout.divers+cout.modfixe-1));
                 else if(coutParRang === 0) { 
                     dynCoupParRang = 2;
                     dynCoutPrincipal = getItem.system.special === 'dynamique' ? (getItem.system.cout.totalTheorique-1-cout.divers-cout.modfixe+1) : getItem.system.cout.totalTheorique-cout.divers-cout.modfixe+1;

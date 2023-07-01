@@ -124,6 +124,27 @@ export class VehiculeActorSheet extends ActorSheet {
 
       rollPwr(this.actor, id);
     });
+
+    html.find('div.lPouvoirs select.link').change(async ev => {
+      const target = $(ev.currentTarget);
+      const header = target.parents(".summary");
+      const cout = target.data('cout')-1;
+      const val = target.val();
+
+      if(val === '') this.actor.items.get(header.data("item-id")).update({[`system.link`]:val});
+      else {
+        const toLink = this.actor.items.get(val);
+        const isDynamique = toLink.system.special === 'dynamique' ? true : false;
+        const coutTotal = isDynamique ? toLink.system.cout.totalTheorique-1 : toLink.system.cout.total;
+
+        if(val === 'principal') this.actor.items.get(header.data("item-id")).update({[`system.link`]:val});
+        else if(coutTotal >= cout) this.actor.items.get(header.data("item-id")).update({[`system.link`]:val});
+        else {
+          this.actor.items.get(header.data("item-id")).update({[`system.link`]:''});
+          target.val('');
+        }
+      }
+    });
   }
 
   /* -------------------------------------------- */

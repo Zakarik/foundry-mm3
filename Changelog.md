@@ -1,3 +1,8 @@
+## Version 1.4.2
+### Bugfix
+- Quelques corrections de mises en page.
+- Correction dans certains calculs des pouvoirs alternatifs / dynamiques,
+
 ## Version 1.4.1
 ### Bugfix
 - Correction d'un oubli suite à la dernière mise à jour permettant aussi de sélectionner la défense passive contre laquelle le jet d'attaque est opposé !

@@ -14,7 +14,7 @@
             </div>
             
             {{#if (isValue key.system.special 'alternatif')}}
-                <select class="link" data-cout="{{key.system.cout.totalTheorique}}">
+                <select class="link" data-cout="{{key.system.cout.totalTheorique}}" data-type="{{key.system.special}}">
                     {{#select key.system.link}}
                     <option value="">{{localize "MM3.POUVOIR.Principal"}} : {{localize "MM3.Choisir"}}</option>
                         {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
@@ -25,7 +25,7 @@
                     {{/select}}
                 </select>
             {{else}} {{#if (isValue key.system.special 'dynamique')}}
-                <select class="link" data-cout="{{key.system.cout.totalTheorique}}">
+                <select class="link" data-cout="{{key.system.cout.totalTheorique}}" data-type="{{key.system.special}}">
                     {{#select key.system.link}}
                     <option value="">{{localize "MM3.POUVOIR.Principal"}}</option>
                         {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
@@ -133,7 +133,7 @@
                 <i class="fa-solid fa-trash-xmark item-delete"></i>
             </div>
             {{#if (isValue kPA.system.special 'alternatif')}}
-                <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}">
+                <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
                     {{#select kPA.system.link}}
                     <option value="">{{localize "MM3.POUVOIR.Principal"}} : {{localize "MM3.Choisir"}}</option>
                         {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
@@ -144,7 +144,7 @@
                     {{/select}}
                 </select>
             {{else}} {{#if (isValue kPA.system.special 'dynamique')}}
-                <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}">
+                <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
                     {{#select kPA.system.link}}
                     <option value="">{{localize "MM3.POUVOIR.Principal"}} : {{localize "MM3.Choisir"}}</option>
                         {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
@@ -234,7 +234,7 @@
                 <i class="fa-solid fa-trash-xmark item-delete"></i>
             </div>
             {{#if (isValue kPA.system.special 'alternatif')}}
-                <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}">
+                <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
                     {{#select kPA.system.link}}
                     <option value="">{{localize "MM3.POUVOIR.Principal"}}</option>
                         {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
@@ -245,7 +245,7 @@
                     {{/select}}
                 </select>
             {{else}} {{#if (isValue kPA.system.special 'dynamique')}}
-                <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}">
+                <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
                     {{#select kPA.system.link}}
                     <option value="">{{localize "MM3.POUVOIR.Principal"}}</option>
                         {{#each @root/actor/pwrStandard as | kStan pwrStand |}}

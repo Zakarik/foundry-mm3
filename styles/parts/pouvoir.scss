@@ -99,11 +99,10 @@ div.pouvoir {
             &.infos {
                 display:grid;
                 grid-template-columns: 100%;
-                grid-template-rows:min-content 1fr 1fr;
+                grid-template-rows:min-content min-content 1fr;
                 align-items: flex-start;
                 align-content: flex-start;
                 grid-gap: 5px;
-                min-height:100%;
             }
 
             &.special {
@@ -365,7 +364,8 @@ div.pouvoir {
                 align-content: flex-start;
                 border:2px solid $black;
                 padding:0px 0px 5px;
-                min-height:100%;
+                min-height:150px;
+                height: 100%;
 
                 span.label {
                     display:grid;
