@@ -19,17 +19,23 @@
             <span>{{localize "MM3.POUVOIR.DUREE.Label"}} : {{translate 'pouvoirs.durees' duree}}</span>
             <span>{{localize "MM3.POUVOIR.PORTEE.Label"}} : {{translate 'pouvoirs.portees' portee}}</span>
         </div>
+        {{#if descripteurs}}
         <h4 class="header">{{localize "MM3.POUVOIR.Descripteurs"}}</h4>
         <div class="descripteurs">
             {{#each descripteurs as | kDesc desc |}}
                 <span>{{#unless @first}}/{{/unless}} {{kDesc}}</span>
             {{/each}}
         </div>
+        {{/if}}
 
+        {{#if description}}
         <h4 class="header">{{localize "MM3.Description"}}</h4>
-        <span class="text">{{description}}</span>
+        <span class="text">{{{description}}}</span>
+        {{/if}}
+        {{#if effet}}
         <h4 class="header">{{localize "MM3.Details"}}</h4>
-        <span class="text">{{effet}}</span>
+        <span class="text">{{{effet}}}</span>
+        {{/if}}
         <h4 class="bottom"></h4>
     </div>
 </div>

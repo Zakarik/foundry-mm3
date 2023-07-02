@@ -366,6 +366,8 @@ export async function rollPwr(actor, id) {
   roll.evaluate({async:false});
   const resultDie = roll.total-rang;
 
+  console.warn(pwr.system.descripteurs);
+
   const pRoll = {
     flavor:`${name}`,
     tooltip:await roll.getTooltip(),
@@ -375,9 +377,9 @@ export async function rollPwr(actor, id) {
     action:pwr.system.action,
     portee:pwr.system.portee,
     duree:pwr.system.duree,
-    descripteurs:pwr.system.descripteur,
-    description:pwr.system.description,
-    effet:pwr.system.effet
+    descripteurs:Object.keys(pwr.system.descripteurs).length === 0 ? false : pwr.system.descripteurs,
+    description:pwr.system.notes,
+    effet:pwr.system.effets
   };
 
   const rollMsgData = {

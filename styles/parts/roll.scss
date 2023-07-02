@@ -323,7 +323,7 @@
         }
         
         &.descripteurs {
-            display:grid;
+            display:block;
             grid-template-columns: 1fr 1fr;
             padding-left: 5px;
             padding-right: 5px;
@@ -333,6 +333,7 @@
             border-top: 1px solid $black;
             grid-gap: 2px;
             min-height:10px;
+            text-align: justify;
 
             span {
                 font-family: "Sriracha";
@@ -349,6 +350,7 @@
             border-right: 1px solid $black;
             padding-left: 5px;
             padding-right: 5px;
+            padding-bottom: 1px;
             font-family: "Sriracha";
             border-top: 1px solid $black;
             min-height:10px;

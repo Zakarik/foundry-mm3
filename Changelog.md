@@ -1,7 +1,13 @@
+## Version 1.4.3
+### Bugfix
+- Quelques corrections de mises en page.
+- Correction du jet de pouvoir qui n'affichait pas les informations du pouvoir.
+- Correction pour faire en sorte que seul les informations rentrées s'affichent, afin de ne pas surcharger le jet.
+
 ## Version 1.4.2
 ### Bugfix
 - Quelques corrections de mises en page.
-- Correction dans certains calculs des pouvoirs alternatifs / dynamiques,
+- Correction dans certains calculs des pouvoirs alternatifs / dynamiques.
 
 ## Version 1.4.1
 ### Bugfix
