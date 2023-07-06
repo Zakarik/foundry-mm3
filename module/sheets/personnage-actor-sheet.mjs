@@ -437,7 +437,7 @@ export class PersonnageActorSheet extends ActorSheet {
       type: type,
       data: data,
       img: {
-        "equipement": "systems/mutants-and-masterminds-3e/assets/icons/equipment.svg",
+        "equipement": "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg",
         "modificateur": "systems/mutants-and-masterminds-3e/assets/icons/modificateur.svg",
         "pouvoir": "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
         "qg": "systems/mutants-and-masterminds-3e/assets/icons/qg.svg",

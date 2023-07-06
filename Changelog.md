@@ -1,5 +1,12 @@
-## Version 1.5
+## Version 1.6
+### Améliorations
+- Ajout de la traduction portugaise !
+
 ### Bugfix
+- Correction des images dont le lien était cassé lors de la création des objets à même la fiche de personnage.
+
+## Version 1.5
+### Améliorations
 - Ajout de la traduction anglaise !
 
 ## Version 1.4.5
