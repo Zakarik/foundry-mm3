@@ -1,3 +1,8 @@
+## Version 1.4.5
+### Bugfix
+- Correction de typographie.
+- Ajout d'un état manquant.
+
 ## Version 1.4.4
 ### Bugfix
 - Correction de typographie.

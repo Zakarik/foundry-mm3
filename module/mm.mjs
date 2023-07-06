@@ -82,7 +82,7 @@ Hooks.once('init', async function() {
   },
   {
     id:'downgrade',
-    label:'EFFECT.StatusDowngrade',
+    label:'MM3.STATUS.Downgrade',
     icon:"icons/svg/downgrade.svg"
   },
   {
@@ -101,7 +101,7 @@ Hooks.once('init', async function() {
     icon:"systems/mutants-and-masterminds-3e/assets/icons/tired.svg"
   },
   {
-    id:'stun',
+    id:'dazed',
     label:'MM3.STATUS.Dazed',
     icon:"icons/svg/daze.svg"
   },
@@ -147,12 +147,12 @@ Hooks.once('init', async function() {
   },
   {
     id:'prone',
-    label:'EFFECT.StatusProne',
+    label:'MM3.STATUS.Prone',
     icon:"icons/svg/falling.svg"
   },
   {
     id:'blind',
-    label:'EFFECT.StatusBlind',
+    label:'MM3.STATUS.Blind',
     icon:"icons/svg/blind.svg"
   },
   {
@@ -162,12 +162,12 @@ Hooks.once('init', async function() {
   },
   {
     id:'sleep',
-    label:'EFFECT.StatusAsleep',
+    label:'MM3.STATUS.Asleep',
     icon:"icons/svg/sleep.svg"
   },
   {
     id:'restrain',
-    label:'EFFECT.StatusRestrained',
+    label:'MM3.STATUS.Restrained',
     icon:"icons/svg/net.svg"
   },
   {
@@ -197,18 +197,23 @@ Hooks.once('init', async function() {
   },
   {
     id:'paralysis',
-    label:'EFFECT.StatusParalysis',
+    label:'MM3.STATUS.Paralysis',
     icon:"icons/svg/paralysis.svg"
   },
   {
     id:'deaf',
-    label:'EFFECT.StatusDeaf',
+    label:'MM3.STATUS.Deaf',
     icon:"icons/svg/deaf.svg"
   },
   {
     id:'surprised',
     label:'MM3.STATUS.Surprised',
     icon:"systems/mutants-and-masterminds-3e/assets/icons/surprised.svg"
+  },
+  {
+    id:'stun',
+    label:'MM3.STATUS.Stunned',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/stunned.svg"
   },
   ];
 
