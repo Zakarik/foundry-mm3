@@ -1,3 +1,8 @@
+## Version 1.4.4
+### Bugfix
+- Correction de typographie.
+- Ajout du drag & drop des macros de défense qui avait été oublié !
+
 ## Version 1.4.3
 ### Bugfix
 - Quelques corrections de mises en page.

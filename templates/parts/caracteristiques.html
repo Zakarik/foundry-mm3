@@ -57,7 +57,7 @@
                 <span class="header">{{localize "MM3.Divers"}}</span>
 
                 {{#each systemData.defense as | key def |}}
-                    <a class="roll" data-type="defense" data-name="{{translate 'defenses' def}}" data-total="{{key.total}}">
+                    <a class="roll draggable" data-what="{{def}}" data-type="defense" data-name="{{translate 'defenses' def}}" data-total="{{key.total}}">
                         {{translate 'defenses' def}}
                     </a>
                     <span class="carac">{{translate 'caracteristiquesshort' key.car}}</span>

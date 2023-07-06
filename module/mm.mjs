@@ -52,7 +52,8 @@ Hooks.once('init', async function() {
       MM3Item,
     },
     RollMacro,
-    RollMacroPwr
+    RollMacroPwr,
+    config:MM3
   };
 
   // Add custom constants for configuration.
@@ -161,7 +162,7 @@ Hooks.once('init', async function() {
   },
   {
     id:'sleep',
-    label:'EFFECT.StatusASleep',
+    label:'EFFECT.StatusAsleep',
     icon:"icons/svg/sleep.svg"
   },
   {
@@ -440,6 +441,11 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author) {
     case 'caracteristique':
       name = author === 'vehicule' ? game.i18n.localize(CONFIG.MM3.vehicule[what]) : game.i18n.localize(CONFIG.MM3.caracteristiques[what]);
       total = data.caracteristique[what].total;
+      break;
+      
+    case 'defense':
+      name = game.i18n.localize(CONFIG.MM3.defenses[what]);
+      total = data.defense[what].total;
       break;
     
     case 'competence':
