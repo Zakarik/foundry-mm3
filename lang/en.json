@@ -1,0 +1,303 @@
+{
+  "ACTOR":{
+    "TypePersonnage":"Character",
+    "TypeVehicule":"Vehicle",
+    "TypeQg":"HQ"
+  },
+  "ITEM":{
+    "TypePouvoir":"Power",
+    "TypeModificateur":"Modifier",
+    "TypeTalent":"Advantage",
+    "TypeEquipement":"Equipment"
+  },
+  "TYPES":{
+    "Actor":{
+      "personnage":"Character",
+      "vehicule":"Vehicle",
+      "qg":"HQ"
+    },
+    "Item":{
+      "pouvoir":"Power",
+      "modificateur": "Modifier",
+      "talent": "Advantage",
+      "equipement": "Equipment"
+    }
+  },
+  "MM3":{
+    "STATUS":{
+      "Controlled":"Controlled",
+      "Decreased":"Impaired",
+      "Tired":"Fatigued",
+      "Disabled":"Disabled",
+      "Dazed":"Dazed",
+      "Stuck":"Immobile",
+      "Insensitive":"Unaware",
+      "Invalid":"Debilitated",
+      "Slow":"Hindered",
+      "Defenseless":"Defenseless",
+      "Transformed":"Transformed",
+      "Vulnerability":"Vulnerable",
+      "Chanceling":"Staggered",
+      "Enthralled":"Entranced",
+      "Influenced":"Compelled",
+      "Exhausted":"Exhausted",
+      "Tied":"Bound",
+      "Dying":"Dying",
+      "Neutralized":"Incapacitated",
+      "Surprised":"Surprised",
+      "Downgrade":"Weakened",
+      "Prone":"Prone",
+      "Blind":"Blind",    
+      "Asleep":"Asleep",    
+      "Restrained":"Restrained",    
+      "Paralysis":"Paralyzed",    
+      "Deaf":"Deaf",
+      "Stunned":"Stunned"
+    },
+    "TYPEIDENTITE":{
+      "Secrete":"Secret Identity",
+      "Publique":"Public Identity",
+      "CliquePublique":"Click to switch to public identity",
+      "CliqueSecrete":"Click to switch to secret identity"
+    },
+    "TABS":{
+      "Informations":"Information",
+      "CaracComp":"Stats & Skills",
+      "PouvoirsTalentsEquipements":"Powers, Advantages & Equipments"
+    },
+    "BTN":{
+      "Add":"Add",
+      "AddPwr":"Add a power",
+      "AddTl":"Add an advantage",
+      "AddEq":"Add an equipment"
+    },
+    "CARACTERISTIQUES":{
+      "Force":"Strenght",
+      "Force-short":"Str",
+      "Agilite":"Agility",
+      "Agilite-short":"Agi",
+      "Combativite":"Fighting",
+      "Combativite-short":"Fgt",
+      "Sensibilite":"Awareness",
+      "Sensibilite-short":"Awe",
+      "Endurance":"Stamina",
+      "Endurance-short":"Sta",
+      "Dexterite":"Dexterity",
+      "Dexterite-short":"Dex",
+      "Intelligence":"Intellect",
+      "Intelligence-short":"Int",
+      "Presence":"Presence",
+      "Presence-short":"Prs"
+    },
+    "COMPETENCES":{
+      "Acrobaties":"Acrobatics",
+      "Athletisme":"Athletics",
+      "Duperie":"Deception",
+      "Perspicacite":"Insight",
+      "Intimidation":"Intimidation",
+      "Investigation":"Investigation",
+      "Perception":"Perception",
+      "Persuasion":"Persuasion",
+      "Habilete":"Sleight of Hand",
+      "Discretion":"Stealth",
+      "Technologie":"Technology",
+      "Soins":"Treatment",
+      "Combatcontact":"Close Combat",
+      "Combatdistance":"Ranged Combat",
+      "Expertise":"Expertise",
+      "Vehicules":"Vehicles"
+    },
+    "PP":{
+      "Total":"Power Point Totals",
+      "Depart":"Starting Power Points",
+      "Gagner":"Earned Power Points"
+    },
+    "DEFENSE":{
+      "Label":"Defense",
+      "Jetattaquevs":"Attack roll vs.",
+      "DDDefense":"Defense DC",
+      "DDEsquive":"Dodge DC",
+      "DDParade":"Parry DC",
+      "Esquive":"Dodge",
+      "Parade":"Parry",
+      "Vigueur":"Fortitude",
+      "Robustesse":"Toughness",
+      "Volonte":"Will"
+    },
+    "ATTAQUE":{
+      "Label":"Attack",
+      "Initiative":"Initiative"
+    },
+    "STRATEGIE":{
+      "Attaqueprecision":"Accurate Attack",
+      "Attaqueoutrance":"All-out Attack",
+      "Attaquedefensive":"Defensive Attack",
+      "Attaquepuissance":"Power Attack",
+      "Etats":"Conditions"
+    },
+    "BONUS":{
+      "Attaque":"Attack Bonuses",
+      "Defense":"Defense Bonuses",
+      "Effet":"Effect Bonuses"
+    },
+    "MALUS":{
+      "Attaque":"Attack Penalties",
+      "Defense":"Defense Penalties",
+      "Effet":"Effect penalties"
+    },
+    "EFFET":{
+      "Label":"Effect"
+    },
+    "MOD":{
+      "Label-short":"Mod.",
+      "Attaque":"Attack Moddifier",
+      "Defense":"Defense Modifier",
+      "Effet":"Effects Modifier"
+    },
+    "POUVOIR":{
+      "Descripteurs":"Descriptors",
+      "Standard":"Standard Effect",
+      "Alternatif":"Alternate Effect",
+      "Dynamique":"Dynamic Effect",
+      "Principal":"Main Power",
+      "TYPE":{
+        "Attaque":"Attack",
+        "Controle":"Control",
+        "Defense":"Defense",
+        "Generaux":"General",
+        "Mouvement":"Movement",
+        "Sensoriels":"Sensory"
+      },
+      "ACTION":{
+        "Label":"Action",
+        "Simple":"Standard",
+        "Mouvement":"Move",
+        "Libre":"Free",
+        "Reaction":"Reaction",
+        "Aucune":"None",
+        "FSimple":"Standard Action",
+        "FMouvement":"Move Action",
+        "FLibre":"Free Action",
+        "FReaction":"Reaction Action",
+        "FAucune":"No Action"
+      },
+      "PORTEE":{
+        "Label":"Range",
+        "Personnelle":"Personal",
+        "Contact":"Close",
+        "Distance":"Ranged",
+        "Perception":"Perception",
+        "Rang":"Rank"
+      },
+      "DUREE":{
+        "Label":"Duration",
+        "Instantane":"Instant",
+        "Concentration":"Concentration",
+        "Prolonge":"Sustained",
+        "Continu":"Continuous",
+        "Permanent":"Permanent"
+      }
+    },
+    "FILTRE":{
+      "Tous":"All",
+      "Pouvoirs":"Powers & Devices",
+      "Talents":"Advantages",
+      "Equipements":"Equipment"
+    },
+    "TALENT":{
+      "Equipement":"Gives equipment points"
+    },
+    "TAILLE":{
+      "Insignifiante":"Miniscule",
+      "Infime":"Fine",
+      "Minuscule":"Diminutive",
+      "Minime":"Tiny",
+      "Petite":"Small",
+      "Intermediaire":"Medium",
+      "Grand":"Large",
+      "Enorme":"Huge",
+      "Gigantesque":"Gargantuan",
+      "Colossal":"Colossal",
+      "Titanesque":"Awesome"
+    },
+    "SETTING":{
+      "Typejet":"Dice Roll Type",
+      "Standard1d20":"Standard 1D20",
+      "Guide3d20":"3D20 GM Guide",
+      "3d6":"Sum 3D6"
+    },
+    "ROLL":{
+      "AttSuccess":"The attack hits !",
+      "AttFail":"The attack misses  !",
+      "Success":"The roll succeeds !",
+      "Fail":"The roll fails !",
+      "DegreEchec":"Degree of failure",
+      "DD":"DC",
+      "Critique":"Critical",
+      "Testeffet":"Effect roll",
+      "Initiative":"Initiative",
+      "Pasattaque":"No attack roll",
+      "DEFENSE":{
+        "Basedefense":"Base defense roll",
+        "Esquive":"Dodge roll",
+        "Parade":"Parry roll",
+        "Vigueur":"Fortitude roll",
+        "Robustesse":"Toughness roll",
+        "Volonte":"Will roll"
+      }
+    },
+    "Nom":"Name",
+    "Identite":"Identity",
+    "Hero":"Hero",
+    "Genre":"Gender",
+    "Taille":"Height",
+    "Poids":"Weight",
+    "Age":"Age",
+    "Yeux":"Eyes",
+    "Cheveux":"Hair",
+    "Puissance":"Power Level",
+    "Caracteristiques":"Abilities",
+    "Pouvoirs":"Powers",
+    "Talents":"Talents",
+    "Equipements":"Equipments",
+    "Competences":"Skills",
+    "Defenses":"Defenses",
+    "Description":"Description",
+    "Historique":"Background",
+    "Complications":"Motivations & Complications",
+    "Total":"Total",
+    "Carac":"Carac.",
+    "Base":"Base",
+    "Points":"Points",
+    "Rang":"Rank",
+    "Divers":"Various",
+    "Autre":"Other",
+    "Etats":"Notes & Conditions",
+    "Heroisme":"Hero Points",
+    "Blessures":"Injuries",
+    "Type":"Type",
+    "Extra":"Extra",
+    "Extras":"Extras",
+    "Defaut":"Flaw",
+    "Defauts":"Flaws",
+    "Fixe":"Flat",
+    "Parrang":"Per Rank",
+    "PPParrang":"PP/Rank",
+    "Cout":"Cost",
+    "Coutactuel":"Actual cost",
+    "Couttotal":"Total cost",
+    "Couttotalsiprincipal":"Total cost (main)",
+    "Couttotalsisecondaire":"Total cost (secondary)",
+    "Couttotaltheorique":"Theoretical total cost",
+    "Couttotalfinal":"Final total cost",
+    "Details":"Details",
+    "Choisir":"Choose",
+    "Max-short":"Max",
+    "Pointsequipementsused":"Equipment points used",
+    "Coutvitesse":"Base Movement Effect cost",
+    "Vitesse":"Speed",
+    "Particularites":"Features",
+    "Editadvanced":"Edit advanced settings",
+    "Adefinir":"To define"
+  }
+}

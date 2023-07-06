@@ -1,3 +1,7 @@
+## Version 1.5
+### Bugfix
+- Ajout de la traduction anglaise !
+
 ## Version 1.4.5
 ### Bugfix
 - Correction de typographie.
