@@ -1,3 +1,7 @@
+## Version 1.6.1
+### Bugfix
+- Correction de typo / erreurs dans la traduction portugaise.
+
 ## Version 1.6
 ### Améliorations
 - Ajout de la traduction portugaise !
