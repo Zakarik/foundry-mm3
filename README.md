@@ -11,8 +11,8 @@ Pseudo : Zakarik
 
 # Credits
 ## Translations
-English : ᘛ⁐̤ᕐᐷRats We Are Ratsᘛ⁐̤ᕐᐷ
-Portuguese :ᘛ⁐̤ᕐᐷRats We Are Ratsᘛ⁐̤ᕐᐷ
+- English : ᘛ⁐̤ᕐᐷRats We Are Ratsᘛ⁐̤ᕐᐷ
+- Portuguese :ᘛ⁐̤ᕐᐷRats We Are Ratsᘛ⁐̤ᕐᐷ
 
 # Mentions Légales
 Mutants & Masterminds 3 est un jeu de Green Ronin, traduit par Black Book Studios.
