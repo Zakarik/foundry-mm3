@@ -1,3 +1,7 @@
+## Version 1.7.1
+### Bugfix
+- Correction d'une faute d'orthographe.
+
 ## Version 1.7
 ### Améliorations
 - Amélioration de clarification des attaques en ajoutant un nom à chacune des cases.
