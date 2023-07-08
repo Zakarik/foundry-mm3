@@ -1,3 +1,12 @@
+## Version 1.7
+### Améliorations
+- Amélioration de clarification des attaques en ajoutant un nom à chacune des cases.
+- Amélioration de clarification des pouvoirs, en déployant, par défaut, l'ensemble de la colonne "coût".
+Maintenant, il est nécessaire de cliquer pour fermer, et non plus cliquer pour ouvrir.
+
+### Bugfix
+- Correction d'un bug avec le module "Token Magic FX".
+
 ## Version 1.6.1
 ### Bugfix
 - Correction de typo / erreurs dans la traduction portugaise.

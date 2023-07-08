@@ -14,7 +14,7 @@
                     <input type="text" name="system.complications.{{complication}}.label" value="{{key.label}}" />
                     <i class="fa-solid fa-trash-xmark delete" data-id="{{complication}}" data-type="complications"></i>
                 </div>
-                {{editor key.description target=(concat 'system.complications' complication 'description') button=true owner=owner editable=@root/editable}}
+                {{editor key.description target=(mm3concat 'system.complications' complication 'description') button=true owner=owner editable=@root/editable}}
             {{/each}}
 
             <a class="add" data-type="complications">

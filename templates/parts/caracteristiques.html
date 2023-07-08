@@ -107,7 +107,14 @@
                         <input class="basedef{{att}}" type="number" name="system.attaque.{{att}}.basedef" value="{{key.basedef}}" min="0" />
                     </div>
 
-                    {{#if (isValue key.type 'other')}}
+                    <span class="label {{#if key.edit}}hide{{/if}} {{#if key.noAtk}}large{{/if}}"></span>
+                    <span class="label {{#if key.edit}}hide{{/if}} {{#if key.noAtk}}hide{{/if}}">{{localize "MM3.ATTAQUE.Label"}}</span>
+                    <span class="label {{#if key.edit}}hide{{/if}}">{{localize "MM3.ROLL.Critique"}}</span>
+                    <span class="label {{#if key.edit}}hide{{/if}}">{{localize "MM3.EFFET.Label"}}</span>
+                    <span class="label {{#if key.edit}}hide{{/if}}"></span>
+                    <span class="label {{#if key.edit}}hide{{/if}}"></span>
+
+                    {{#if (isValue key.type 'other')}}                        
                         <a class="roll draggable {{#if key.edit}}hide{{/if}} {{#if key.noAtk}}large{{/if}}" 
                         data-type="attaque" 
                         data-name="{{key.label}}" 

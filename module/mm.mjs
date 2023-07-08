@@ -275,7 +275,7 @@ Hooks.once('init', async function() {
     }
   });
   
-  Handlebars.registerHelper('concat', function(base, id, last) {
+  Handlebars.registerHelper('mm3concat', function(base, id, last) {
     return `${base}.${id}.${last}`;
   });
   

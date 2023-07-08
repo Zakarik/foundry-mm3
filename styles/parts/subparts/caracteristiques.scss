@@ -550,6 +550,17 @@ div {
                                 border-radius:2px;
                             }
 
+                            &.label {
+                                font-size: 0.8em;
+                                text-align: center;
+                                line-height: 0.8em;
+
+                                &.large {
+                                    grid-column-start: 1;
+                                    grid-column-end: 3;
+                                }
+                            }
+
                             &.hide {
                                 display:none;
                             }

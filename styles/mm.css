@@ -928,6 +928,15 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > s
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.label {
+  font-size: 0.8em;
+  text-align: center;
+  line-height: 0.8em;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.label.large {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
 div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.hide {
   display: none;
 }

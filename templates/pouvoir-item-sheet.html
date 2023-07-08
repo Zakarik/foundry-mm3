@@ -65,7 +65,7 @@
                 <span class="label">{{localize "MM3.Rang"}}</span>
                 <input type="number" name="system.cout.rang" value="{{systemData.cout.rang}}" />
 
-                <details {{#if systemData.cout.details}}open{{/if}}>
+                <details {{#unless systemData.cout.details}}open{{/unless}}>
                     <div>
                         <span class="label">{{localize "MM3.Base"}}</span>
                         <input type="number" name="system.cout.parrang" value="{{systemData.cout.parrang}}" />
@@ -189,7 +189,7 @@
 
                             <div class="extdescription">
                                 <span class="label">{{localize "MM3.Description"}}</span>
-                                {{editor key.data.description target=(concat 'system.extras' ext 'data.description') button=true owner=owner editable=@root/editable}}
+                                {{editor key.data.description target=(mm3concat 'system.extras' ext 'data.description') button=true owner=owner editable=@root/editable}}
                             </div>
                         </section>
                     </details>
@@ -230,7 +230,7 @@
 
                             <div class="extdescription">
                                 <span class="label">{{localize "MM3.Description"}}</span>
-                                {{editor key.data.description target=(concat 'system.defauts' ext 'data.description') button=true owner=owner editable=@root/editable}}
+                                {{editor key.data.description target=(mm3concat 'system.defauts' ext 'data.description') button=true owner=owner editable=@root/editable}}
                             </div>
                         </section>
                     </details>
