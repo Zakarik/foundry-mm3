@@ -1,3 +1,7 @@
+## Version 1.8.6
+### Bugfix
+- Corrections de traductions.
+
 ## Version 1.8.5
 ### Bugfix
 - Correction d'un bug sur la gestion de la taille des QG.
