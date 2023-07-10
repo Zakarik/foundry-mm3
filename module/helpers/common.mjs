@@ -231,6 +231,22 @@ function processChainedAdvantages(pwr) {
   return listBonusTalent;
 }
 
+function processTraitsMod(pwr) {
+  let traitsMods = [];
+
+  if(pwr?.traitmods?.traitmod ?? null !== null) {
+    if(Array.isArray(pwr.traitmods.traitmod)) {
+      for(let trait of pwr.traitmods.traitmod) {
+        traitsMods.push(`${trait.name} ${trait.bonus}`);
+      }
+    } else {
+      traitsMods.push(`${pwr.traitmods.traitmod.name} ${pwr.traitmods.traitmod.bonus}`);
+    }
+  }
+
+  return `<p>${traitsMods.join(" / ")}</p>`;
+}
+
 function countPwr(objet, type, profondeur = 0) {
   const pwr = type === "otherpowers" ? objet?.otherpowers?.power ?? null : objet?.alternatepowers?.power ?? null;
 
@@ -283,7 +299,9 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
         const descriptors = {};
         const extras = {};
         const defauts = {};
-        let description = `<p>${pwr.description}</p>`;
+        const pwrDescription = pwr.description === null ? "" : pwr.description;
+        let description = pwrDescription !== "" ? `<p>${pwrDescription}</p>` : "";
+        description += processTraitsMod(pwr);
 
         /*if(pwr.otherpowers?.power ?? null !== null) {
           if(Array.isArray(pwr.otherpowers.power)) {
@@ -445,7 +463,9 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
       const descriptors = {};
       const extras = {};
       const defauts = {};
-      let description = `<p>${pwr.description}</p>`;
+      const pwrDescription = pwr.description === null ? "" : pwr.description;
+      let description = pwrDescription !== "" ? `<p>${pwrDescription}</p>` : "";
+      description += processTraitsMod(pwr);
 
       /*if(pwr.otherpowers?.power ?? null !== null) {
         if(Array.isArray(pwr.otherpowers.power)) {

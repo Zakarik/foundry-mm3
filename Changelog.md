@@ -1,10 +1,14 @@
+## Version 1.8.4
+### Bugfix
+- Nouvelle correction de l'importation des pouvoirs, afin d'ajouter dans la description de ceux-ci les modificateurs de traits.
+
 ## Version 1.8.3
 ### Bugfix
-- Nouvelle correction de la gestion des éventails de pouvoirs.
+- Nouvelle correction de l'importation des éventails de pouvoirs.
 
 ## Version 1.8.2
 ### Bugfix
-- Correction de la gestion des éventails de pouvoirs.
+- Correction de la gestion l'importation des éventails de pouvoirs.
 
 ## Version 1.8.1
 ### Bugfix
