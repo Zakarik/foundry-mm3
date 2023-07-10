@@ -300,8 +300,8 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
         const descriptors = {};
         const extras = {};
         const defauts = {};
-        const pwrDescription = pwr.description === null ? "" : pwr.description;
-        let description = pwrDescription !== "" ? `<p>${pwrDescription}</p>` : "";
+        const pwrDescri = pwr.description === null ? "" : pwr.description;
+        let description = pwrDescri !== "" ? `<p>${pwrDescri}</p>` : "";
         description += processTraitsMod(pwr);
 
         if(pwr.descriptors?.descriptor ?? null !== null) {
@@ -443,8 +443,8 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
       const descriptors = {};
       const extras = {};
       const defauts = {};
-      const pwrDescription = pwr.description === null ? "" : pwr.description;
-      let description = pwrDescription !== "" ? `<p>${pwrDescription}</p>` : "";
+      const pwrDescri = pwr.description === null ? "" : pwr.description;
+      let description = pwrDescri !== "" ? `<p>${pwrDescri}</p>` : "";
       description += processTraitsMod(pwr);
 
       if(pwr.descriptors?.descriptor ?? null !== null) {

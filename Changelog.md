@@ -1,3 +1,7 @@
+## Version 1.9.2
+### Bugfix
+- Correction d'un problème empêchant l'importation dans certains cas.
+
 ## Version 1.9.1
 ### Bugfix
 - Diminution de taille de la police d'écriture des boutons de compétences, pour une meilleure compatibilité avec toutes les langues.
