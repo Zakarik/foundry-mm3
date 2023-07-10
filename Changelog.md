@@ -1,3 +1,7 @@
+## Version 1.8.7
+### Bugfix
+- Corrections de traductions Anglais / Portugais.
+
 ## Version 1.8.6
 ### Bugfix
 - Corrections de traductions.

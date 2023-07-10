@@ -64,7 +64,7 @@
       "Informations":"Informações",
       "CaracComp":"Atributos e Habilidades",
       "PouvoirsTalentsEquipements":"Poderes, Vantagens & Equipamentos",
-      "Importations":"Importações"
+      "Importations":"Importar"
     },
     "BTN":{
       "Add":"Adicionar",
@@ -248,7 +248,7 @@
       }
     },
     "IMPORTATIONS":{
-      "Herolab":"Importações do Hero Lab",
+      "Herolab":"Importar do Hero Lab",
       "Warningherolab":"Aviso, se existem outros dados na ficha, eles serão mantidos ou  substituídos, de forma apropriada. O personagem será, então, uma mistura dos dados existentes e dos novos, não tendo forma de prever o que será substituído ou retido."
     },
     "Nom":"Nome",
