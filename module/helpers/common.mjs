@@ -215,7 +215,7 @@ export const xml2json = function (xml, tab) {
   return "{\n" + tab + (tab ? json.replace(/\t/g, tab) : json.replace(/\t|\n/g, "")) + "\n}";
 }
 
-export function processChainedAdvantages(pwr) {
+function processChainedAdvantages(pwr) {
   let listBonusTalent = [];
 
   if(pwr.chainedadvantages?.chainedadvantage ?? null !== null) {
@@ -231,7 +231,32 @@ export function processChainedAdvantages(pwr) {
   return listBonusTalent;
 }
 
-export async function processPowers(actor, pouvoirs, createItm=true) {
+async function processAlternatePower(actor, pwr, itm) {
+  const alternate = pwr?.alternatepowers?.power ?? null;
+  let listTalents = [];
+  let count = 0;
+
+  if(alternate !== null) {
+    if(Array.isArray(alternate)) {
+      for(let aPwr of alternate) {
+        const pPowers = await processPowers(actor, aPwr, true, "alternatif", itm._id);
+        listTalents = listTalents.concat(pPowers.talents);
+        count += 1;
+      }
+    } else {
+      const pPowers = await processPowers(actor, alternate, true, "alternatif", itm._id);
+      listTalents = listTalents.concat(pPowers.talents);
+      count += 1;
+    }
+  }
+
+  return {
+    mod:count,
+    talents:listTalents
+  };
+}
+
+export async function processPowers(actor, pouvoirs, createItm=true, special="standard", link="") {
   let listBonusTalent = [];
   let listPwrName = [];
   let listPwrDetails = {};
@@ -358,23 +383,36 @@ export async function processPowers(actor, pouvoirs, createItm=true) {
         };
 
         if(createItm) {
-          const calc = Math.floor(pwr.cost.value/pwr.ranks);
+          const ranks = pwr.ranks;
+          const cost = pwr.cost.value;
+          const costCalc = costCalculate(ranks, cost);
+          const calc = costCalc.parrang;
+          const mod = costCalc.mod;
+
           let itm = {
             name: pwr.name,
             type: 'pouvoir',
             img: "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
             system:{
+              special:special,
+              link:link,
               descripteurs:descriptors,
               effets:description,
               extras:extras,
               defauts:defauts,
               cout:{
-                rang:pwr.ranks,
+                rang:ranks,
                 parrang:calc,
+                divers:mod
               }
             }
           };
-          await Item.create(itm, {parent: actor});
+          const itemCreate = await Item.create(itm, {parent: actor});
+
+          const aPwr = await processAlternatePower(actor, pwr, itemCreate);
+          listBonusTalent = listBonusTalent.concat(aPwr.talents);
+
+          if(aPwr.mod > 0) itemCreate.update({[`system.cout.divers`]:itemCreate.system.cout.divers-aPwr.mod});
         } else {
           pwrName = pwr.name;
           pwrDescription = description;
@@ -499,23 +537,36 @@ export async function processPowers(actor, pouvoirs, createItm=true) {
       };
 
       if(createItm) {
-        const calc = Math.floor(pwr.cost.value/pwr.ranks);
+        const ranks = pwr.ranks;
+        const cost = pwr.cost.value;
+        const costCalc = costCalculate(ranks, cost);
+        const calc = costCalc.parrang;
+        const mod = costCalc.mod;
+
         let itm = {
           name: pwr.name,
           type: 'pouvoir',
           img: "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
           system:{
+            special:special,
+            link:link,
             descripteurs:descriptors,
             effets:description,
             extras:extras,
             defauts:defauts,
             cout:{
-              rang:pwr.ranks,
+              rang:ranks,
               parrang:calc,
+              divers:mod
             }
           }
         };
-        await Item.create(itm, {parent: this.actor});
+
+        const itemCreate = await Item.create(itm, {parent: actor});
+
+        const aPwr = await processAlternatePower(actor, pwr, itemCreate);
+        listBonusTalent = listBonusTalent.concat(aPwr.talents);
+        if(aPwr.mod > 0) itemCreate.update({[`system.cout.divers`]:itemCreate.system.cout.divers-aPwr.mod});
       } else {
         pwrName = pwr.name;
         pwrDescription = description;
@@ -529,6 +580,16 @@ export async function processPowers(actor, pouvoirs, createItm=true) {
     description:pwrDescription,
     listPwrName:listPwrName,
     listPwrDetails:listPwrDetails,
+  }
+}
+
+export function costCalculate(ranks, cost) {
+  const calc = Math.max(Math.floor(Number(cost)/Number(ranks)), 1);
+  const mod = Number(cost)-(Number(ranks)*calc);
+
+  return {
+    parrang:calc,
+    mod:mod,
   }
 }
 
@@ -899,8 +960,6 @@ export async function rollPwr(actor, id) {
   const roll = new Roll(formula);
   roll.evaluate({async:false});
   const resultDie = roll.total-rang;
-
-  console.warn(pwr.system.descripteurs);
 
   const pRoll = {
     flavor:`${name}`,
