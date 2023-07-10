@@ -231,8 +231,8 @@ function processChainedAdvantages(pwr) {
   return listBonusTalent;
 }
 
-async function processAlternatePower(actor, pwr, itm) {
-  const alternate = pwr?.alternatepowers?.power ?? null;
+async function processAlternatePower(actor, pwr, itm, otherpowers=false) {
+  const alternate = otherpowers ? pwr?.otherpowers?.power ?? null : pwr?.alternatepowers?.power ?? null;
   let listTalents = [];
   let count = 0;
 
@@ -248,7 +248,7 @@ async function processAlternatePower(actor, pwr, itm) {
       listTalents = listTalents.concat(pPowers.talents);
       count += 1;
     }
-  }
+  } 
 
   return {
     mod:count,
@@ -271,7 +271,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
         const defauts = {};
         let description = `<p>${pwr.description}</p>`;
 
-        if(pwr.otherpowers?.power ?? null !== null) {
+        /*if(pwr.otherpowers?.power ?? null !== null) {
           if(Array.isArray(pwr.otherpowers.power)) {
             for(let pdsc of pwr.otherpowers.power) {
               listBonusTalent = listBonusTalent.concat(processChainedAdvantages(pdsc));
@@ -293,7 +293,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
               ranks:pwr.otherpowers.power.ranks
             };
           }
-        }
+        }*/
 
         if(pwr.descriptors?.descriptor ?? null !== null) {
           if(Array.isArray(pwr.descriptors.descriptor)) {
@@ -409,10 +409,15 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
           };
           const itemCreate = await Item.create(itm, {parent: actor});
 
-          const aPwr = await processAlternatePower(actor, pwr, itemCreate);
+          const oPwr = link === "" ? await processAlternatePower(actor, pwr, itemCreate, true) : await processAlternatePower(actor, pwr, {_id:link}, true);
+          const aPwr = link === "" ? await processAlternatePower(actor, pwr, itemCreate) : await processAlternatePower(actor, pwr, {_id:link});
+          listBonusTalent = listBonusTalent.concat(oPwr.talents);
           listBonusTalent = listBonusTalent.concat(aPwr.talents);
 
+          console.warn(itemCreate.name, aPwr.mod, oPwr.mod);
+
           if(aPwr.mod > 0) itemCreate.update({[`system.cout.divers`]:itemCreate.system.cout.divers-aPwr.mod});
+          if(oPwr.mod > 0) itemCreate.update({[`system.cout.divers`]:itemCreate.system.cout.divers-oPwr.mod});
         } else {
           pwrName = pwr.name;
           pwrDescription = description;
@@ -426,7 +431,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
       const defauts = {};
       let description = `<p>${pwr.description}</p>`;
 
-      if(pwr.otherpowers?.power ?? null !== null) {
+      /*if(pwr.otherpowers?.power ?? null !== null) {
         if(Array.isArray(pwr.otherpowers.power)) {
           for(let pdsc of pwr.otherpowers.power) {
             listBonusTalent = listBonusTalent.concat(processChainedAdvantages(pdsc));
@@ -448,7 +453,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
               ranks:pwr.otherpowers.power.ranks
             };
         }
-      }
+      }*/
 
       if(pwr.descriptors?.descriptor ?? null !== null) {
         if(Array.isArray(pwr.descriptors.descriptor)) {
@@ -564,9 +569,15 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
 
         const itemCreate = await Item.create(itm, {parent: actor});
 
-        const aPwr = await processAlternatePower(actor, pwr, itemCreate);
+        const oPwr = link === "" ? await processAlternatePower(actor, pwr, itemCreate, true) : await processAlternatePower(actor, pwr, {_id:link}, true);
+        const aPwr = link === "" ? await processAlternatePower(actor, pwr, itemCreate) : await processAlternatePower(actor, pwr, {_id:link});
+        listBonusTalent = listBonusTalent.concat(oPwr.talents);
         listBonusTalent = listBonusTalent.concat(aPwr.talents);
-        if(aPwr.mod > 0) itemCreate.update({[`system.cout.divers`]:itemCreate.system.cout.divers-aPwr.mod});
+        
+        if(aPwr.mod > 0 && link === "") itemCreate.update({[`system.cout.divers`]:itemCreate.system.cout.divers-aPwr.mod});
+        else if(aPwr.mod > 0) actor.items.get(link).update({[`system.cout.divers`]:actor.items.get(link).system.cout.divers-aPwr.mod});
+        if(oPwr.mod > 0) itemCreate.update({[`system.cout.divers`]:itemCreate.system.cout.divers-oPwr.mod});
+        else if(oPwr.mod > 0) actor.items.get(link).update({[`system.cout.divers`]:actor.items.get(link).system.cout.divers-oPwr.mod});
       } else {
         pwrName = pwr.name;
         pwrDescription = description;

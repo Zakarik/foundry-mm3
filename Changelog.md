@@ -1,3 +1,7 @@
+## Version 1.8.2
+### Bugfix
+- Correction de la gestion des éventails de pouvoirs.
+
 ## Version 1.8.1
 ### Bugfix
 - Correction de problèmes dans le système d'importation.
