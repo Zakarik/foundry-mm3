@@ -1,3 +1,7 @@
+## Version 1.8.3
+### Bugfix
+- Nouvelle correction de la gestion des éventails de pouvoirs.
+
 ## Version 1.8.2
 ### Bugfix
 - Correction de la gestion des éventails de pouvoirs.
