@@ -1738,6 +1738,28 @@ div.personnage section.sheet-body div.pouvoirs div.lEquipements div.talent:not(:
   padding-top: 5px;
   margin-top: 5px;
 }
+div.personnage section.sheet-body div.importations div.encart {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.importations div.encart span.label {
+  font-variant: small-caps;
+  font-size: 15px;
+  text-align: center;
+}
+div.personnage section.sheet-body div.importations div.encart span.warning {
+  letter-spacing: 1px;
+  text-align: justify;
+  color: #DA3A2F;
+}
+div.personnage section.sheet-body div.importations div.encart input[type=file] {
+  margin-left: auto;
+  margin-right: auto;
+}
 
 div.modificateur img.profile-img {
   object-fit: contain;

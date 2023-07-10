@@ -1,3 +1,7 @@
+## Version 1.8
+### Améliorations
+- Ajout d'un onglet pour gérer l'importation de personnages depuis Hero Lab. Certains détails ne sont pas totalement importés, ou pas totalement optimisé, dus aux limitations du format de Hero Lab. Veuillez vous référer au wiki nouvellement créé sur le Github pour plus d'informations.
+
 ## Version 1.7.1
 ### Bugfix
 - Correction d'une faute d'orthographe.

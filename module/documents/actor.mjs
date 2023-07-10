@@ -179,7 +179,7 @@ export class MM3Actor extends Actor {
     pp.caracteristiques = ppCarac;
     pp.pouvoirs = ppPouvoir;
     pp.talents = ppTalent;
-    pp.competences = ppComp;
+    pp.competences = Math.ceil(ppComp);
     pp.defenses = ppDef;
     pp.used = pp.caracteristiques+pp.pouvoirs+pp.talents+pp.competences+pp.defenses+pp.divers;
 

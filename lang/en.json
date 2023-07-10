@@ -63,7 +63,8 @@
     "TABS":{
       "Informations":"Information",
       "CaracComp":"Stats & Skills",
-      "PouvoirsTalentsEquipements":"Powers, Advantages & Equipments"
+      "PouvoirsTalentsEquipements":"Powers, Advantages & Equipments",
+      "Importations":"Imports"
     },
     "BTN":{
       "Add":"Add",
@@ -245,6 +246,10 @@
         "Robustesse":"Toughness roll",
         "Volonte":"Will roll"
       }
+    },
+    "IMPORTATIONS":{
+      "Herolab":"Imports from Hero Lab",
+      "Warningherolab":"Warning, if there is other data on the sheet, it will be kept or replaced as appropriate. The character will thus be a mix of existing and new data, without the possibility of predicting what will be replaced or retained."
     },
     "Nom":"Name",
     "Identite":"Identity",

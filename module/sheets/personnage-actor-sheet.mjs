@@ -1,12 +1,15 @@
 
 import toggler from '../helpers/toggler.js';
 import {
+  xml2json,
+  parseXML,
   rollAtkTgt,
   rollAtk,
   rollStd,
   rollPwr,
   rollTgt,
   rollWAtk,
+  processPowers
 } from "../helpers/common.mjs";
 
 /**
@@ -36,8 +39,6 @@ export class PersonnageActorSheet extends ActorSheet {
 
     context.systemData = context.data.system;
     this._prepareCompetences(context);
-
-    console.warn(context);
 
     return context;
   }
@@ -81,6 +82,356 @@ export class PersonnageActorSheet extends ActorSheet {
 
     // Everything below here is only needed if the sheet is editable
     if ( !this.isEditable ) return;
+
+    html.find('.import').change(async ev => {
+      const target = ev.target.files[0];
+      const file = await readTextFromFile(target);
+      let temp = file.replace(/&quot;/g, '#quot;');
+      if (temp[0] == "\"") { // remove the wrapping doublequotes
+        temp = temp.substr(1, temp.length - 2);
+      }
+
+      const json = JSON.parse(xml2json(parseXML(temp), "\t"));
+      const data = json.document.public.character;
+      const attributes = data.attributes.attribute;
+      const attacks = data.attacks?.attack ?? null;
+      const skills = data.skills.skill;
+      const defenses = data.defenses.defense;
+      const talents = data.advantages.advantage;
+      const pouvoirs = data.powers?.power ?? null;
+      const complications = data.complications?.complication ?? null;
+      const equipements = data.gear?.item ?? null;
+      const langues = data.languages?.language ?? null;
+      const update = {};
+      const attributsTRA = {
+        "Strength":"force",
+        "Stamina":"endurance",
+        "Agility":"agilite",
+        "Dexterity":"dexterite",
+        "Fighting":"combativite",
+        "Awareness":"sensibilite",
+        "Presence":"presence",
+        "Intellect":"intelligence",
+      };
+      const skillsTRA = {
+        "Acrobaties":"acrobaties",
+        "Acrobatics":"acrobaties",
+        "Athlétisme":"athletisme",
+        "Athletics":"athletisme",
+        "Discrétion":"discretion",
+        "Stealth":"discretion",
+        "Duperie":"duperie",
+        "Deception":"duperie",
+        "Habileté":"habilete",
+        "Sleight of Hand":"habilete",
+        "Intimidation":"intimidation",
+        "Intimidation":"intimidation",
+        "Investigation":"investigation",
+        "Investigation":"investigation",
+        "Perception":"perception",
+        "Perception":"perception",
+        "Perspicacité":"perspicacite",
+        "Insight":"perspicacite",
+        "Persuasion":"persuasion",
+        "Persuasion":"persuasion",
+        "Soins médicaux":"soins",
+        "Treatment":"soins",
+        "Technologie":"technologie",
+        "Technology":"technologie",
+        "Véhicules":"vehicule",
+        "Vehicles":"vehicules",
+        "Expertise":"expertise",
+        "Expertise":"expertise",
+        "Combat au contact":"combatcontact",
+        "Close Combat":"combatcontact",
+        "Combat à distance":"combatdistance",
+        "Ranged Combat":"combatdistance",
+      };
+      const defensesTRA = {
+        "Dodge":"esquive",
+        "Parry":"parade",
+        "Fortitude":"vigueur",
+        "Toughness":"robustesse",
+        "Will":"volonte"
+      };
+      let listBonusTalent = [];
+      let listSkill = {
+        combatcontact:{},
+        combatdistance:{},
+        expertise:{}
+      }
+      let alreadyAddAttack = [];
+      let listAttack = {};
+      let listCpc = {}
+      let DCAttacks = {};
+      let powerNames = [];
+      let powerDetails = {};
+      let listLangues = [];
+      let endurance = 0;
+      let combativite = 0;
+      let sensibilite = 0;
+      let agilite = 0;
+      let totalAttrDef = {};
+      
+      for(let attr of attributes) {
+        if(attributsTRA[attr.name] === 'agilite') agilite = Number(attr.modified);
+        if(attributsTRA[attr.name] === 'endurance') endurance = Number(attr.modified);
+        if(attributsTRA[attr.name] === 'combativite') combativite = Number(attr.modified);
+        if(attributsTRA[attr.name] === 'sensibilite') sensibilite = Number(attr.modified);
+        update[`system.caracteristique.${attributsTRA[attr.name]}.base`] = Math.max(Number(attr.base), -5);
+        update[`system.caracteristique.${attributsTRA[attr.name]}.divers`] = attr.text === '-' ? 0 : Number(attr.modified)-Number(attr.base);
+      }
+
+      totalAttrDef['Dodge'] = agilite;
+      totalAttrDef['Parry'] = combativite;
+      totalAttrDef['Fort'] = endurance;
+      totalAttrDef['Tou'] = endurance;
+      totalAttrDef['Will'] = sensibilite;
+
+      for(let def of defenses) {
+        update[`system.defense.${defensesTRA[def.name]}.base`] = Number(def.cost.value);
+        update[`system.defense.${defensesTRA[def.name]}.divers`] = Math.max(Number(def.modified)-(Number(def.cost.value)+totalAttrDef[def.abbr]), 0);
+      }
+
+      const prcPwrs = await processPowers(this.actor, pouvoirs, true);
+      listBonusTalent = listBonusTalent.concat(prcPwrs.talents);
+      powerNames = powerNames.concat(prcPwrs.listPwrName);
+      powerDetails = foundry.utils.mergeObject(powerDetails, prcPwrs.listPwrDetails);
+      
+      if(langues !== null) {
+        if(Array.isArray(langues)) {
+          for(let lang of langues) {
+            listLangues.push(lang.name);
+          }
+        }
+      }
+
+      if(complications !== null) {
+        if(Array.isArray(complications)) {
+          for(let cpc of complications) {
+            const length = Object.keys(listCpc).length;
+
+            listCpc[length] = {
+              label:cpc.name,
+              description:cpc.description,
+            }
+          }
+        } else {
+          const length = Object.keys(listCpc).length;
+
+          listCpc[length] = {
+            label:complications.name,
+            description:complications.description,
+          }
+        }
+      }
+
+      if(equipements !== null) {        
+        if(Array.isArray(equipements)) {
+          for(let eqp of equipements) {
+            if(!eqp.name.includes('Dropped to Ground') && !eqp.name.includes('Grab') && !eqp.name.includes('Unarmed') && !eqp.name.includes('Throw')) {
+              let eqpDdescription = `<p>${eqp.description}</p>`
+              const eqpArray = eqp?.componentitems?.item ?? null;
+
+              if(eqpArray !== null) {
+                if(Array.isArray(eqpArray)) {
+                  for(let eArray of eqpArray) {
+                    const eqpPwr = eArray?.componentpowers?.power ?? null;
+                    const prcEqpPwr = await processPowers(this.actor, eqpPwr, false);
+                    const prcEqpPwrName = prcEqpPwr.name;
+                    const prcEqpPwrDesc = prcEqpPwr.description;
+                    powerNames = powerNames.concat(prcEqpPwr.listPwrName);
+                    powerDetails = foundry.utils.mergeObject(powerDetails, prcEqpPwr.listPwrDetails);
+
+                    eqpDdescription += `<h2>${prcEqpPwrName === '' ? eArray.name : prcEqpPwrName}</h2><p>${prcEqpPwrDesc == '' ? eArray.description : prcEqpPwrDesc}</p>`;
+                    listBonusTalent = listBonusTalent.concat(prcEqpPwr.talents);
+                  }
+                }
+                else {
+                  const eqpPwr = eqpArray?.componentpowers?.power ?? null;
+                  const prcEqpPwr = await processPowers(this.actor, eqpPwr, false);
+                  const prcEqpPwrName = prcEqpPwr.name;
+                  const prcEqpPwrDesc = prcEqpPwr.description;
+                  powerNames = powerNames.concat(prcEqpPwr.listPwrName);
+                  powerDetails = foundry.utils.mergeObject(powerDetails, prcEqpPwr.listPwrDetails);
+
+                  eqpDdescription += `<h2>${prcEqpPwrName === '' ? eqpArray.name : prcEqpPwrName}</h2><p>${prcEqpPwrDesc == '' ? eqpArray.description : prcEqpPwrDesc}</p>`;
+                  listBonusTalent = listBonusTalent.concat(prcEqpPwr.talents);
+                }
+              } 
+                              
+              
+              let itm = {
+                name: eqp.name,
+                type: 'equipement',
+                img: "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg",
+                system:{
+                  description:eqpDdescription,
+                  cout:Number(eqp.cost.value)
+                }
+              };
+    
+              await Item.create(itm, {parent: this.actor});            
+            }
+          }
+        } else {
+          if(!equipements.name.includes('Dropped to Ground') && !equipements.name.includes('Grab') && !equipements.name.includes('Unarmed') && !equipements.name.includes('Throw')) {
+            let eqpDdescription = `<p>${equipements.description}</p>`
+            const eqpArray = equipements?.componentitems?.item ?? null;
+            if(eqpArray !== null) {
+              if(Array.isArray(eqpArray)) {
+                for(let eArray of eqpArray) {
+                  const eqpPwr = eArray?.componentpowers?.power ?? null;
+                  const prcEqpPwr = await processPowers(this.actor, eqpPwr, false);
+                  const prcEqpPwrName = prcEqpPwr.name;
+                  const prcEqpPwrDesc = prcEqpPwr.description;
+                  powerNames = powerNames.concat(prcEqpPwr.listPwrName);
+                  powerDetails = foundry.utils.mergeObject(powerDetails, prcEqpPwr.listPwrDetails);
+
+                  eqpDdescription += `<h2>${prcEqpPwrName === '' ? eArray.name : prcEqpPwrName}</h2><p>${prcEqpPwrDesc == '' ? eArray.description : prcEqpPwrDesc}</p>`;
+                  listBonusTalent = listBonusTalent.concat(prcEqpPwr.talents);
+                }
+              }
+              else {
+                const eqpPwr = eqpArray?.componentpowers?.power ?? null;
+                const prcEqpPwr = await processPowers(this.actor, eqpPwr, false);
+                const prcEqpPwrName = prcEqpPwr.name;
+                const prcEqpPwrDesc = prcEqpPwr.description;
+                powerNames = powerNames.concat(prcEqpPwr.listPwrName);
+                powerDetails = foundry.utils.mergeObject(powerDetails, prcEqpPwr.listPwrDetails);
+
+                eqpDdescription += `<h2>${prcEqpPwrName === '' ? eqpArray.name : prcEqpPwrName}</h2><p>${prcEqpPwrDesc == '' ? eqpArray.description : prcEqpPwrDesc}</p>`;
+                listBonusTalent = listBonusTalent.concat(prcEqpPwr.talents);
+              }
+            } 
+            
+            let itm = {
+              name: equipements.name,
+              type: 'equipement',
+              img: "systems/mutants-and-masterminds-3e/assets/icons/equipement.svg",
+              system:{
+                description:eqpDdescription,
+                cout:Number(equipements.cost.value)
+              }
+            };
+  
+            await Item.create(itm, {parent: this.actor});            
+          }
+        }
+      }
+
+      if(Array.isArray(talents)) {
+        for(let tl of talents) {
+          let itm = {
+            name: tl.name.includes("Languages") !== false ? `${tl.name} (${listLangues.join(" / ")})` : tl.name,
+            type: 'talent',
+            img: "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+            system:{
+              description:tl.description,
+              rang:listBonusTalent.includes(tl.name) ? 0 : Number(tl.cost.value),
+              equipement: tl.name.match("Équipement|Equipment|équipement|equipment/i") ? true : false
+            }
+          };
+
+          await Item.create(itm, {parent: this.actor});
+        }
+      }
+
+      if(attacks !== null) {
+        for(let att of attacks) {
+          DCAttacks[att.name.split(":")[0]] = Number(att.dc)-15;
+        }
+      }
+
+      for(let skill of skills) {
+        const label = skillsTRA[skill.name.split(':')[0]];
+
+        if(label.includes('expertise') || label.includes('combatcontact') || label.includes('combatdistance')) {
+          const length = Object.keys(listSkill[label]).length;
+          let lastLabel = skill.name.replace(`${skill.name.split(":")[0]}: `, '');
+          if(label.includes('expertise')) {
+            listSkill[label][length] = {
+              "label":lastLabel,
+              "total":0,
+              "carac":0,
+              "rang":Number(skill.cost.value)*2,
+              "autre":0,
+              "carCanChange":true,
+              "car":"int",
+            }
+          } else {
+            const lengthAttack = Object.keys(listAttack).length;
+
+            listSkill[label][length] = {
+              "label":lastLabel,
+              "total":0,
+              "carac":0,
+              "rang":Number(skill.cost.value)*2,
+              "autre":0
+            }
+
+            listAttack[lengthAttack] = {
+              type:label,
+              id:length,
+              save:'robustesse',
+              effet:DCAttacks?.[lastLabel] ?? undefined !== undefined ? DCAttacks[lastLabel] : 0,
+              critique:20,
+              text:"",
+              noAtk:false,
+              basedef:15
+            }
+
+            alreadyAddAttack.push(lastLabel);
+          }          
+        } else {
+          update[`system.competence.${label}.rang`] = Number(skill.cost.value)*2;
+        }        
+      }
+
+      if(attacks !== null) {
+        for(let att of attacks) {
+          if(powerNames.includes(att.name)){
+            const firstName = att.name.split(":")[0];
+            const lastname = att.name.replace(`${firstName}: `, '');
+
+            if(!alreadyAddAttack.includes(firstName)) {
+              const lengthAttack = Object.keys(listAttack).length;
+              listAttack[lengthAttack] = {
+                type:'other',
+                id:-1,
+                save:'robustesse',
+                label:firstName,
+                attaque:Number(att.attack),
+                effet:Number(powerDetails[att.name]?.ranks) ?? 0,
+                critique:Number(att.crit),
+                text:lastname,
+                noAtk:false,
+                basedef:15
+              }
+            }
+          }
+        }
+      }
+
+      update[`system.competence.combatcontact.list`] = listSkill.combatcontact;
+      update[`system.competence.combatdistance.list`] = listSkill.combatdistance;
+      update[`system.competence.expertise.list`] = listSkill.expertise;
+      update[`system.complications`] = listCpc;
+      update[`system.attaque`] = listAttack;
+      update['name'] = data.name;
+      update[`system.age`] = data.personal.age;
+      update[`system.genre`] = data.personal.gender;
+      update[`system.taille`] = data.personal.charheight.text;
+      update[`system.poids`] = data.personal.charweight.text;
+      update[`system.historique`] = data.personal.description;
+      update[`system.yeux`] = data.personal.eyes;
+      update[`system.cheveux`] = data.personal.hair;
+      update[`system.pp.base`] = Number(data.resources.startingpp);
+      update[`system.puissance`] = Number(data.resources.currentpl);
+      update[`system.initiative.base`] = Number(data.initiative.total)-agilite;
+
+      this.actor.update(update);
+    });
 
     html.find('.item-create').click(this._onItemCreate.bind(this));
 
