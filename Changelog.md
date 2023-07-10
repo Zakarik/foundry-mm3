@@ -1,3 +1,7 @@
+## Version 1.11.0
+### Améliorations
+- Amélioration de la description des pouvoirs importés via Hero Lab.
+
 ## Version 1.10.0
 ### Améliorations
 - Ajout d'une possibilité de définir le DD de défense (Esquive ou Parade) contre lequel l'attaque est opposé, quel que soit le type d'attaque.
