@@ -1,3 +1,7 @@
+## Version 1.10.0
+### Améliorations
+- Ajout d'une possibilité de définir le DD de défense (Esquive ou Parade) contre lequel l'attaque est opposé, quel que soit le type d'attaque.
+
 ## Version 1.9.2
 ### Bugfix
 - Correction d'un problème empêchant l'importation dans certains cas.

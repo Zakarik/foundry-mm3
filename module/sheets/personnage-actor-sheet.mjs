@@ -559,7 +559,8 @@ export class PersonnageActorSheet extends ActorSheet {
               critique:20,
               text:"",
               noAtk:false,
-              basedef:15
+              basedef:15,
+              defpassive:what === 'combatcontact' ? 'parade' : 'esquive',
             };
           }
 
@@ -583,7 +584,8 @@ export class PersonnageActorSheet extends ActorSheet {
             critique:20,
             text:"",
             noAtk:false,
-            basedef:15
+            basedef:15,
+            defpassive:'parade',
           };
 
           this.actor.update(update);
