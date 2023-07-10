@@ -290,6 +290,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
   let listBonusTalent = [];
   let listPwrName = [];
   let listPwrDetails = {};
+  let listPwrWhoCanLostCost = [];
   let pwrName = '';
   let pwrDescription = '';
 
@@ -302,30 +303,6 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
         const pwrDescription = pwr.description === null ? "" : pwr.description;
         let description = pwrDescription !== "" ? `<p>${pwrDescription}</p>` : "";
         description += processTraitsMod(pwr);
-
-        /*if(pwr.otherpowers?.power ?? null !== null) {
-          if(Array.isArray(pwr.otherpowers.power)) {
-            for(let pdsc of pwr.otherpowers.power) {
-              listBonusTalent = listBonusTalent.concat(processChainedAdvantages(pdsc));
-              description += `<h2>${pdsc.name}</h2>`;
-              description += pdsc?.summary ?? null !== null ? `<p>${pdsc.summary}</p>` : '';
-              description += `<p>${pdsc.description}</p>`;
-              listPwrName.push(pdsc.name);
-              listPwrDetails[pdsc.name] = {
-                ranks:pdsc.ranks
-              };
-            }
-          } else {
-            listBonusTalent = listBonusTalent.concat(processChainedAdvantages(pwr.otherpowers.power));
-            description += `<h2>${pwr.otherpowers.power.name}</h2>`;
-            description += pwr.otherpowers.power?.summary ?? null !== null ? `<p>${pwr.otherpowers.power?.summary}</p>` : '';
-            description += `<p>${pwr.otherpowers.power.description}</p>`;
-            listPwrName.push(pwr.otherpowers.power.name);
-            listPwrDetails[pwr.otherpowers.power.name] = {
-              ranks:pwr.otherpowers.power.ranks
-            };
-          }
-        }*/
 
         if(pwr.descriptors?.descriptor ?? null !== null) {
           if(Array.isArray(pwr.descriptors.descriptor)) {
@@ -450,8 +427,11 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
           const modPwrA = countPwr(pwr, "alternatepowers");
           const totalMod = modPwrO+modPwrA;
 
-          if(totalMod > 0 && !costNull) itemCreate.update({[`system.cout.divers`]:itemCreate.system.cout.divers-totalMod});
-        else if(totalMod > 0 && link !== "") actor.items.get(link).update({[`system.cout.divers`]:actor.items.get(link).system.cout.divers-totalMod});
+          if(totalMod > 0 && !costNull) await itemCreate.update({[`system.cout.divers`]:itemCreate.system.cout.divers-totalMod}); 
+          else if(totalMod > 0 && link !== "") await actor.items.get(link).update({[`system.cout.divers`]:actor.items.get(link).system.cout.divers-totalMod});
+          
+          const total = itemCreate.system.cout.total;
+          if(total > 5 && (pwr?.alternatepowers?.power ?? null) == null) listPwrWhoCanLostCost.push(itemCreate._id);
         } else {
           pwrName = pwr.name;
           pwrDescription = description;
@@ -466,30 +446,6 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
       const pwrDescription = pwr.description === null ? "" : pwr.description;
       let description = pwrDescription !== "" ? `<p>${pwrDescription}</p>` : "";
       description += processTraitsMod(pwr);
-
-      /*if(pwr.otherpowers?.power ?? null !== null) {
-        if(Array.isArray(pwr.otherpowers.power)) {
-          for(let pdsc of pwr.otherpowers.power) {
-            listBonusTalent = listBonusTalent.concat(processChainedAdvantages(pdsc));
-            description += `<h2>${pdsc.name}</h2>`;
-            description += pdsc?.summary ?? null !== null ? `<p>${pdsc.summary}</p>` : '';
-            description += `<p>${pdsc.description}</p>`;
-            listPwrName.push(pdsc.otherpowers.power.name);
-            listPwrDetails[pdsc.otherpowers.power.name] = {
-              ranks:pdsc.otherpowers.power.ranks
-            };
-          }
-        } else {
-          listBonusTalent = listBonusTalent.concat(processChainedAdvantages(pwr.otherpowers.power));
-          description += `<h2>${pwr.otherpowers.power.name}</h2>`;
-          description += pwr.otherpowers.power?.summary ?? null !== null ? `<p>${pwr.otherpowers.power?.summary}</p>` : '';
-          description += `<p>${pwr.otherpowers.power.description}</p>`;
-          listPwrName.push(pwr.otherpowers.power.name);
-            listPwrDetails[pwr.otherpowers.power.name] = {
-              ranks:pwr.otherpowers.power.ranks
-            };
-        }
-      }*/
 
       if(pwr.descriptors?.descriptor ?? null !== null) {
         if(Array.isArray(pwr.descriptors.descriptor)) {
@@ -616,6 +572,9 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
 
         if(totalMod > 0 && !costNull) itemCreate.update({[`system.cout.divers`]:itemCreate.system.cout.divers-totalMod});
         else if(totalMod > 0 && link !== "") actor.items.get(link).update({[`system.cout.divers`]:actor.items.get(link).system.cout.divers-totalMod});
+
+        const total = itemCreate.system.cout.total;
+        if(total > 5 && (pwr?.alternatepowers?.power ?? null) == null) listPwrWhoCanLostCost.push(itemCreate._id);
       } else {
         pwrName = pwr.name;
         pwrDescription = description;
@@ -629,6 +588,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
     description:pwrDescription,
     listPwrName:listPwrName,
     listPwrDetails:listPwrDetails,
+    listPwrWhoCanLostCost:listPwrWhoCanLostCost
   }
 }
 

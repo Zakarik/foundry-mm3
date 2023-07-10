@@ -75,6 +75,10 @@ div {
 
                         @include fakebutton('roll');
 
+                        a.roll {
+                            font-size: 14px;
+                        }
+
                         a.oneRoll {
                             align-items: center;
                         }

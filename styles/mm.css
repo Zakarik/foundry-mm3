@@ -448,6 +448,9 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.comp a.roll
   letter-spacing: 1px;
   text-shadow: none;
 }
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp a.roll {
+  font-size: 14px;
+}
 div.personnage section.sheet-body div.caracteristiques div.inner div.comp a.oneRoll {
   align-items: center;
 }

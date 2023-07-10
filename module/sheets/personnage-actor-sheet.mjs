@@ -102,6 +102,7 @@ export class PersonnageActorSheet extends ActorSheet {
       const complications = data.complications?.complication ?? null;
       const equipements = data.gear?.item ?? null;
       const langues = data.languages?.language ?? null;
+      const resources = data?.resources?.resource ?? null;
       const update = {};
       const attributsTRA = {
         "Strength":"force",
@@ -194,10 +195,32 @@ export class PersonnageActorSheet extends ActorSheet {
       }
 
       const prcPwrs = await processPowers(this.actor, pouvoirs, true);
+      const listPwrWhoCanLostCost = prcPwrs.listPwrWhoCanLostCost;
       listBonusTalent = listBonusTalent.concat(prcPwrs.talents);
       powerNames = powerNames.concat(prcPwrs.listPwrName);
       powerDetails = foundry.utils.mergeObject(powerDetails, prcPwrs.listPwrDetails);
-      
+
+      if(resources !== null) {
+        const ppusedPwr = Number(resources[1].spent)
+        const ppusedPwrActor = this.actor.system.pp.pouvoirs;
+        let ppDiff = ppusedPwrActor-ppusedPwr;
+
+        if(ppusedPwr < ppusedPwrActor) {
+          for(let pwr of listPwrWhoCanLostCost) {
+            const getItm = this.actor.items.get(pwr);
+            const resteCout = Number(getItm.system.cout.total);
+
+            if((resteCout-ppDiff) < 1) {
+              await getItm.update({[`system.cout.divers`]:getItm.system.cout.divers-Math.max((resteCout-ppDiff), 1)});
+              ppDiff -= Math.max((resteCout-ppDiff), 1);
+            } else {
+              await getItm.update({[`system.cout.divers`]:getItm.system.cout.divers-ppDiff});
+              break;
+            }
+          }
+        }
+      }
+
       if(langues !== null) {
         if(Array.isArray(langues)) {
           for(let lang of langues) {

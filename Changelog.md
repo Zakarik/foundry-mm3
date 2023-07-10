@@ -1,3 +1,8 @@
+## Version 1.9.1
+### Bugfix
+- Diminution de taille de la police d'écriture des boutons de compétences, pour une meilleure compatibilité avec toutes les langues.
+- Correction d'un problème rare dans le décompte des points lors de l'import depuis Hero Lab.
+
 ## Version 1.9.0
 ### Améliorations
 - Ajout de la traduction espagnole.
