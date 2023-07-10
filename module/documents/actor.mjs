@@ -292,7 +292,7 @@ export class MM3Actor extends Actor {
     let ppTaille = 0;
     let ppRobustesse = 0;
 
-    switch(getTaille) {
+    switch(getTaille.toLowerCase()) {
       case 'insignifiante':
         ppTaille = -4;
       break;

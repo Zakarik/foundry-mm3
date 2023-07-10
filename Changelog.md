@@ -1,3 +1,8 @@
+## Version 1.8.5
+### Bugfix
+- Correction d'un bug sur la gestion de la taille des QG.
+- Correction de problèmes de traductions en anglais et portugais.
+
 ## Version 1.8.4
 ### Bugfix
 - Nouvelle correction de l'importation des pouvoirs, afin d'ajouter dans la description de ceux-ci les modificateurs de traits.
