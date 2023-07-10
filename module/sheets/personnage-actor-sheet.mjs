@@ -436,6 +436,13 @@ export class PersonnageActorSheet extends ActorSheet {
         }
       }
 
+      const language = game.settings.get("core", "language");
+      const height = data.personal.charheight.text;
+      const heightParts = height.split("'");
+      const feet = parseInt(heightParts[0]) * 0.3048;
+      const inches = parseInt(heightParts[1]) * 0.0254;
+      const heightInMeters = (feet + inches).toFixed(2);
+
       update[`system.competence.combatcontact.list`] = listSkill.combatcontact;
       update[`system.competence.combatdistance.list`] = listSkill.combatdistance;
       update[`system.competence.expertise.list`] = listSkill.expertise;
@@ -444,8 +451,8 @@ export class PersonnageActorSheet extends ActorSheet {
       update['name'] = data.name;
       update[`system.age`] = data.personal.age;
       update[`system.genre`] = data.personal.gender;
-      update[`system.taille`] = data.personal.charheight.text;
-      update[`system.poids`] = data.personal.charweight.text;
+      update[`system.taille`] = language !== 'en' ? `${heightInMeters}m` : height;
+      update[`system.poids`] = language !== 'en' ? `${Math.round(parseInt(data.personal.charweight.value)*0.4536)}kg` : data.personal.charweight.text;
       update[`system.historique`] = data.personal.description;
       update[`system.yeux`] = data.personal.eyes;
       update[`system.cheveux`] = data.personal.hair;

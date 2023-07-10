@@ -1,3 +1,7 @@
+## Version 1.12.0
+### Améliorations
+- Dorénavant, l'importation depuis Hero Lab convertira automatiquement la taille et le poids au système métrique SI le système n'est pas en anglais, sinon ça reste au système impérial.
+
 ## Version 1.11.0
 ### Améliorations
 - Amélioration de la description des pouvoirs importés via Hero Lab.
