@@ -1,6 +1,13 @@
+## Version 1.9.0
+### Améliorations
+- Ajout de la traduction espagnole.
+
+### Bugfix
+- Corrections de traductions portugaise.
+
 ## Version 1.8.7
 ### Bugfix
-- Corrections de traductions Anglais / Portugais.
+- Corrections de traductions anglaise / portugaiss.
 
 ## Version 1.8.6
 ### Bugfix

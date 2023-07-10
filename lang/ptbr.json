@@ -36,7 +36,7 @@
       "Slow":"Impedido",
       "Defenseless":"Indefeso",
       "Transformed":"Transformado",
-      "Vulnerability":"Vunerável",
+      "Vulnerability":"Vulnerável",
       "Chanceling":"Abatido",
       "Enthralled":"Transe",
       "Influenced":"Compelido",
@@ -151,8 +151,8 @@
     },
     "MOD":{
       "Label-short":"Mod.",
-      "Attaque":"Moficador de Ataque",
-      "Defense":"Moficador de Defesa",
+      "Attaque":"Modificador  de Ataque",
+      "Defense":"Modificador  de Defesa",
       "Effet":"Modificador de Efeito"
     },
     "POUVOIR":{

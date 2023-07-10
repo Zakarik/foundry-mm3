@@ -1,0 +1,309 @@
+{
+  "ACTOR":{
+    "TypePersonnage":"Personaje",
+    "TypeVehicule":"Vehículo",
+    "TypeQg":"Base de operaciones"
+  },
+  "ITEM":{
+    "TypePouvoir":"Poderes",
+    "TypeModificateur":"Modificador",
+    "TypeTalent":"Dotes",
+    "TypeEquipement":"Equipo"
+  },
+  "TYPES":{
+    "Actor":{
+      "personnage":"Personaje",
+      "vehicule":"Vehículo",
+      "qg":"Base de operaciones"
+    },
+    "Item":{
+      "pouvoir":"Poderes",
+      "modificateur": "Modificador",
+      "talent": "Dotes",
+      "equipement": "Equipo"
+    }
+  },
+  "MM3":{
+    "STATUS":{
+      "Controlled":"Controlado",
+      "Decreased":"Dañado",
+      "Tired":"Fatigado",
+      "Disabled":"Discapacitado",
+      "Dazed":"Aturdido",
+      "Stuck":"Inmóvil",
+      "Insensitive":"Inatento",
+      "Invalid":"Debilitado",
+      "Slow":"Impedido",
+      "Defenseless":"Indefenso",
+      "Transformed":"Transformado",
+      "Vulnerability":"Vulnerable",
+      "Chanceling":"Escalonado",
+      "Enthralled":"Trance",
+      "Influenced":"Compelido",
+      "Exhausted":"Exhausto",
+      "Tied":"Atado",
+      "Dying":"Muriendo",
+      "Neutralized":"Discapacitado",
+      "Surprised":"Sorprendido",
+      "Downgrade":"Debilitado",
+      "Prone":"Caído",
+      "Blind":"Ciego",    
+      "Asleep":"Adormecido",    
+      "Restrained":"Restringido",    
+      "Paralysis":"Paralizado",    
+      "Deaf":"Sordo",
+      "Stunned":"Aturdido"
+    },
+    "TYPEIDENTITE":{
+      "Secrete":"Identidad Secreta",
+      "Publique":"Identidad Pública",
+      "CliquePublique":"Haga clic para cambiar a la identidad pública",
+      "CliqueSecrete":"Haga clic para cambiar a la identidad secreta"
+    },
+    "TABS":{
+      "Informations":"Informaciones",
+      "CaracComp":"Características e Habilidades",
+      "PouvoirsTalentsEquipements":"Poderes, Dotes & Equipos",
+      "Importations":"Importar"
+    },
+    "BTN":{
+      "Add":"Añadir",
+      "AddPwr":"Añadir un poder",
+      "AddTl":"Añadir una ventaja",
+      "AddEq":"Añadir un equipo"
+    },
+    "CARACTERISTIQUES":{
+      "Force":"Fuerza",
+      "Force-short":"Fue",
+      "Agilite":"Agilidad",
+      "Agilite-short":"Agi",
+      "Combativite":"Lucha",
+      "Combativite-short":"Luc",
+      "Sensibilite":"Conciencia",
+      "Sensibilite-short":"Coc",
+      "Endurance":"Constitución",
+      "Endurance-short":"Con",
+      "Dexterite":"Destreza",
+      "Dexterite-short":"Des",
+      "Intelligence":"Intelecto",
+      "Intelligence-short":"Int",
+      "Presence":"Presencia",
+      "Presence-short":"Prs"
+    },
+    "COMPETENCES":{
+      "Acrobaties":"Acrobacias",
+      "Athletisme":"Atletismo",
+      "Duperie":"Engañar",
+      "Perspicacite":"Averiguar Intenciones",
+      "Intimidation":"Intimidación",
+      "Investigation":"Investigación",
+      "Perception":"Percepción",
+      "Persuasion":"Persuasión",
+      "Habilete":"Juegos de Manos",
+      "Discretion":"Sigilo",
+      "Technologie":"Tecnología",
+      "Soins":"Medicina",
+      "Combatcontact":"Combate Cuerpo a Cuerpo",
+      "Combatdistance":"Combate a Distancia",
+      "Expertise":"Especialidad",
+      "Vehicules":"Vehículo"
+    },
+    "PP":{
+      "Total":"Puntos de poder totales",
+      "Depart":"Puntos de poder iniciales",
+      "Gagner":"Puntos de poder obtenidos"
+    },
+    "DEFENSE":{
+      "Label":"Defensa",
+      "Jetattaquevs":"Tirada de ataque vs.",
+      "DDDefense":"CD Defensa",
+      "DDEsquive":"CD Esquiva",
+      "DDParade":"CD Bloqueo",
+      "Esquive":"Esquiva",
+      "Parade":"Bloqueo",
+      "Vigueur":"fortaleza",
+      "Robustesse":"Dureza",
+      "Volonte":"Voluntad"
+    },
+    "ATTAQUE":{
+      "Label":"Ataque",
+      "Initiative":"Iniciativa"
+    },
+    "STRATEGIE":{
+      "Attaqueprecision":"Ataque Preciso",
+      "Attaqueoutrance":"Ataque Imprudente",
+      "Attaquedefensive":"Ataque Defensivo",
+      "Attaquepuissance":"Ataque Poderoso",
+      "Etats":"Condiciones"
+    },
+    "BONUS":{
+      "Attaque":"Bonificación de Ataque",
+      "Defense":"Bonificación de Defensa",
+      "Effet":"Bonificación de Efecto"
+    },
+    "MALUS":{
+      "Attaque":"Penalización de Ataque",
+      "Defense":"Penalización de Defensa",
+      "Effet":"Penalización de Efecto"
+    },
+    "EFFET":{
+      "Label":"Efecto"
+    },
+    "MOD":{
+      "Label-short":"Mod.",
+      "Attaque":"Modificador de Ataque",
+      "Defense":"Modificador de Defensa",
+      "Effet":"Modificador de Efecto"
+    },
+    "POUVOIR":{
+      "Descripteurs":"Descriptores",
+      "Standard":"Efecto Estándar",
+      "Alternatif":"Efecto Alternativo",
+      "Dynamique":"Efecto Dinámico",
+      "Principal":"Poder Principal",
+      "TYPE":{
+        "Attaque":"Ataque",
+        "Controle":"Controle",
+        "Defense":"Defensa",
+        "Generaux":"General",
+        "Mouvement":"Movimiento",
+        "Sensoriels":"Sensorial"
+      },
+      "ACTION":{
+        "Label":"Acción",
+        "Simple":"Estándar",
+        "Mouvement":"Movimiento",
+        "Libre":"Libre",
+        "Reaction":"Reacción",
+        "Aucune":"Ninguna",
+        "FSimple":"Acción Estándar",
+        "FMouvement":"Acción de Movimiento",
+        "FLibre":"Acción Libre",
+        "FReaction":"Acción de Reacción",
+        "FAucune":"Ninguna Acción"
+      },
+      "PORTEE":{
+        "Label":"Alcance",
+        "Personnelle":"Personal",
+        "Contact":"Toque",
+        "Distance":"A Distancia",
+        "Perception":"Percepción",
+        "Rang":"Rango"
+      },
+      "DUREE":{
+        "Label":"Duración",
+        "Instantane":"Instantáneo",
+        "Concentration":"Concentración",
+        "Prolonge":"Sostenido",
+        "Continu":"Contínuo",
+        "Permanent":"Permanente"
+      }
+    },
+    "FILTRE":{
+      "Tous":"Todos",
+      "Pouvoirs":"Poderes & Dispositivos",
+      "Talents":"Dotes",
+      "Equipements":"Equipos"
+    },
+    "TALENT":{
+      "Equipement":"Otorga puntos de equipo"
+    },
+    "TAILLE":{
+      "Insignifiante":"Ínfimo",
+      "Infime":"Minúsculo",
+      "Minuscule":"Diminuto",
+      "Minime":"Menudo",
+      "Petite":"Pequeño",
+      "Intermediaire":"Mediano",
+      "Grand":"Grande",
+      "Enorme":"Enorme",
+      "Gigantesque":"Gigantesco",
+      "Colossal":"Colosal",
+      "Titanesque":"Abrumador"
+    },
+    "SETTING":{
+      "Typejet":"Tipo de tirada de dados",
+      "Standard1d20":"Estándar 1D20",
+      "Guide3d20":"3D20 - Libro del Maestro",
+      "3d6":"Suma de 3D6"
+    },
+    "ROLL":{
+      "AttSuccess":"El ataque golpea !",
+      "AttFail":"El ataque falla  !",
+      "Success":"La tirada tiene éxito !",
+      "Fail":"La tirada falla !",
+      "DegreEchec":"Rango de fracaso",
+      "DD":"CD",
+      "Critique":"Crítico",
+      "Testeffet":"Tirada de efecto",
+      "Initiative":"Iniciativa",
+      "Pasattaque":"Sin tirada de ataque",
+      "DEFENSE":{
+        "Basedefense":"Tirada de defensa base",
+        "Esquive":"Tirada de Esquiva",
+        "Parade":"Tirada de Bloqueo",
+        "Vigueur":"Tirada de Fortaleza",
+        "Robustesse":"Tirada de Dureza",
+        "Volonte":"Tirada de Voluntad"
+      }
+    },
+    "IMPORTATIONS":{
+      "Herolab":"Importar de Hero Lab",
+      "Warningherolab":"Advertencia, si existen otros datos en el formulario, serán conservados o reemplazados, según corresponda. El carácter será entonces una mezcla de datos existentes y nuevos, sin forma de predecir qué se reemplazará o conservará."
+    },
+    "Nom":"Nombre",
+    "Identite":"Identidad",
+    "Hero":"Héroe",
+    "Genre":"Sexo",
+    "TailleP":"Altura",
+    "TailleQV":"Tamaño",
+    "Poids":"Peso",
+    "Age":"Edad",
+    "Yeux":"Ojos",
+    "Cheveux":"Cabello",
+    "Puissance":"Nivel de Poder",
+    "Caracteristiques":"Habilidades",
+    "Pouvoirs":"Poderes",
+    "Talents":"Dotes",
+    "Equipements":"Equipos",
+    "Competences":"Habilidades",
+    "Defenses":"Defensas",
+    "Description":"Descripción",
+    "Historique":"Antecedente",
+    "Complications":"Motivaciones & Complicaciones",
+    "Total":"Total",
+    "Carac":"Carac.",
+    "Base":"Base",
+    "Points":"Puntos",
+    "Rang":"Rango",
+    "Divers":"Varios",
+    "Autre":"Otros",
+    "Etats":"Notas & Condiciones",
+    "Heroisme":"Puntos de Héroe",
+    "Blessures":"Lesiones",
+    "Type":"Tipo",
+    "Extra":"Extra",
+    "Extras":"Extras",
+    "Defaut":"Falla",
+    "Defauts":"Fallas",
+    "Fixe":"Fijo",
+    "Parrang":"Por Rano",
+    "PPParrang":"PP/Rano",
+    "Cout":"Costo",
+    "Coutactuel":"Costo real",
+    "Couttotal":"Costo total",
+    "Couttotalsiprincipal":"Costo total (principal)",
+    "Couttotalsisecondaire":"Costo total (secundario)",
+    "Couttotaltheorique":"Costo total teórico",
+    "Couttotalfinal":"Costo total final",
+    "Details":"Detalles",
+    "Choisir":"Escoge",
+    "Max-short":"Máx",
+    "Pointsequipementsused":"Puntos de equipo utilizados",
+    "Coutvitesse":"Costo base del efecto de movimiento",
+    "Vitesse":"Velocidad",
+    "Particularites":"Características",
+    "Editadvanced":"Editar configurações avançadas",
+    "Adefinir":"A definir"
+  }
+}
