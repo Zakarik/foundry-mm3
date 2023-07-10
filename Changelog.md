@@ -1,3 +1,7 @@
+## Version 1.12.1
+### Bugfix
+- Correction d'un bug suite à la mise à jour permettant de définir le DD de défense.
+
 ## Version 1.12.0
 ### Améliorations
 - Dorénavant, l'importation depuis Hero Lab convertira automatiquement la taille et le poids au système métrique SI le système n'est pas en anglais, sinon ça reste au système impérial.
