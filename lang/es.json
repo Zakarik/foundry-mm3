@@ -272,7 +272,7 @@
     "Historique":"Antecedente",
     "Complications":"Motivaciones & Complicaciones",
     "Total":"Total",
-    "Carac":"Carac.",
+    "Carac":"Habil.",
     "Base":"Base",
     "Points":"Puntos",
     "Rang":"Rango",
@@ -303,7 +303,7 @@
     "Coutvitesse":"Costo base del efecto de movimiento",
     "Vitesse":"Velocidad",
     "Particularites":"Características",
-    "Editadvanced":"Editar configurações avançadas",
+    "Editadvanced":"Editar ajustes avanzados",
     "Adefinir":"A definir"
   }
 }

@@ -1,3 +1,10 @@
+## Version 1.13.0
+### Améliorations
+- Ajout de la traduction italienne.
+
+### Bugfix
+- Correction de problèmes de traduction en anglais, espagnole et portugais.
+
 ## Version 1.12.1
 ### Bugfix
 - Correction d'un bug suite à la mise à jour permettant de définir le DD de défense.

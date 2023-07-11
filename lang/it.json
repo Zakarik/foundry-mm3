@@ -1,0 +1,309 @@
+{
+  "ACTOR":{
+    "TypePersonnage":"Personaggio",
+    "TypeVehicule":"Veicolo",
+    "TypeQg":"QG"
+  },
+  "ITEM":{
+    "TypePouvoir":"Potere",
+    "TypeModificateur":"Modificatore",
+    "TypeTalent":"Vantaggio",
+    "TypeEquipement":"Equipaggiamento"
+  },
+  "TYPES":{
+    "Actor":{
+      "personnage":"Personaggio",
+      "vehicule":"Veicolo",
+      "qg":"QG"
+    },
+    "Item":{
+      "pouvoir":"Potere",
+      "modificateur": "Modificatore",
+      "talent": "Vantaggio",
+      "equipement": "Equipaggiamento"
+    }
+  },
+  "MM3":{
+    "STATUS":{
+      "Controlled":"Controllato",
+      "Decreased":"Impedito",
+      "Tired":"Affaticato",
+      "Disabled":"Disabilitato",
+      "Dazed":"Stordito",
+      "Stuck":"Immobile",
+      "Insensitive":"Inconsapevole",
+      "Invalid":"Debilitato",
+      "Slow":"Ostacolato",
+      "Defenseless":"Senza difese",
+      "Transformed":"Trasformato",
+      "Vulnerability":"Vulnerabile",
+      "Chanceling":"Barcollante",
+      "Enthralled":"Incantato",
+      "Influenced":"Costretto",
+      "Exhausted":"Esaurito",
+      "Tied":"Legato",
+      "Dying":"Morente",
+      "Neutralized":"Incapacitato",
+      "Surprised":"Sorpreso",
+      "Downgrade":"Indebolito",
+      "Prone":"Incline",
+      "Blind":"Cieco",    
+      "Asleep":"Addormentato",    
+      "Restrained":"Ristretto",    
+      "Paralysis":"Paralizzato",    
+      "Deaf":"Sordo",
+      "Stunned":"Stordito"
+    },
+    "TYPEIDENTITE":{
+      "Secrete":"Identità Segreta",
+      "Publique":"Identità Pubblica",
+      "CliquePublique":"Clicca per passare all'identità pubblica",
+      "CliqueSecrete":"Clicca per passare all'identità segreta"
+    },
+    "TABS":{
+      "Informations":"Informazioni",
+      "CaracComp":"Statistiche e abilità",
+      "PouvoirsTalentsEquipements":"Poteri, Vantaggi & Equipaggiamenti",
+      "Importations":"Importa"
+    },
+    "BTN":{
+      "Add":"Aggiungi",
+      "AddPwr":"Aggiungi un potere",
+      "AddTl":"Aggiungi un vantaggio",
+      "AddEq":"Aggiungi un equipaggiamento"
+    },
+    "CARACTERISTIQUES":{
+      "Force":"Forza",
+      "Force-short":"For",
+      "Agilite":"Agilità",
+      "Agilite-short":"Agi",
+      "Combativite":"Mischia",
+      "Combativite-short":"Mis",
+      "Sensibilite":"Intuizione",
+      "Sensibilite-short":"Itu",
+      "Endurance":"Vigore",
+      "Endurance-short":"Vig",
+      "Dexterite":"Destrezza",
+      "Dexterite-short":"Des",
+      "Intelligence":"Intelletto",
+      "Intelligence-short":"Int",
+      "Presence":"Presenza",
+      "Presence-short":"Prs"
+    },
+    "COMPETENCES":{
+      "Acrobaties":"Acrobazia",
+      "Athletisme":"Atletica",
+      "Duperie":"Inganno",
+      "Perspicacite":"Intuito",
+      "Intimidation":"Intimidazione",
+      "Investigation":"Investigazione",
+      "Perception":"Percezione",
+      "Persuasion":"Persuasione",
+      "Habilete":"Destrezza manuale",
+      "Discretion":"Furtività",
+      "Technologie":"Tecnologia",
+      "Soins":"trattamento",
+      "Combatcontact":"Combattimento ravvicinato",
+      "Combatdistance":"Combattimento a distanza",
+      "Expertise":"Competenza",
+      "Vehicules":"Veicoli"
+    },
+    "PP":{
+      "Total":"Punti Potere Totali",
+      "Depart":"Punti Potere Iniziali",
+      "Gagner":"Punti Potere Acquisiti"
+    },
+    "DEFENSE":{
+      "Label":"Difesa",
+      "Jetattaquevs":"Tiro di attacco vs.",
+      "DDDefense":"Difesa DC",
+      "DDEsquive":"Schivare DC",
+      "DDParade":"Parata DC",
+      "Esquive":"Schivare",
+      "Parade":"Parata",
+      "Vigueur":"Tempra",
+      "Robustesse":"Robustezza",
+      "Volonte":"Volontà"
+    },
+    "ATTAQUE":{
+      "Label":"Attacco",
+      "Initiative":"Iniziativa"
+    },
+    "STRATEGIE":{
+      "Attaqueprecision":"Attacco Preciso",
+      "Attaqueoutrance":"Attacco Totale",
+      "Attaquedefensive":"Attacco Difensivo",
+      "Attaquepuissance":"Attacco Potente",
+      "Etats":"Condizioni"
+    },
+    "BONUS":{
+      "Attaque":"Bonus d'Attacco",
+      "Defense":"Bonus di Difesa",
+      "Effet":"Bonus di Effetto"
+    },
+    "MALUS":{
+      "Attaque":"Penalità d'Attacco",
+      "Defense":"Penalità di Difesa",
+      "Effet":"Penalità di Effetto"
+    },
+    "EFFET":{
+      "Label":"Effetto"
+    },
+    "MOD":{
+      "Label-short":"Mod.",
+      "Attaque":"Modificatore d'Attacco",
+      "Defense":"Modificatore di Difesa",
+      "Effet":"Modificatore di Effetto"
+    },
+    "POUVOIR":{
+      "Descripteurs":"Descrittori",
+      "Standard":"Effetto Standard",
+      "Alternatif":"Effetto Alternativo",
+      "Dynamique":"Effetto Dinamico",
+      "Principal":"Potere Principale",
+      "TYPE":{
+        "Attaque":"Attacco",
+        "Controle":"Controllo",
+        "Defense":"Difesa",
+        "Generaux":"Generale",
+        "Mouvement":"Movimento",
+        "Sensoriels":"Sensoriale"
+      },
+      "ACTION":{
+        "Label":"Azione",
+        "Simple":"Standard",
+        "Mouvement":"Movimento",
+        "Libre":"Libera",
+        "Reaction":"Reazione",
+        "Aucune":"Nessuna",
+        "FSimple":"Azione Standard",
+        "FMouvement":"Azione di Movimento",
+        "FLibre":"Azione Libera",
+        "FReaction":"Azione di Reazione",
+        "FAucune":"Nessuna Azione"
+      },
+      "PORTEE":{
+        "Label":"Gittata",
+        "Personnelle":"Personale",
+        "Contact":"Vicino",
+        "Distance":"A Distanza",
+        "Perception":"Percezione",
+        "Rang":"Rango"
+      },
+      "DUREE":{
+        "Label":"Durata",
+        "Instantane":"Istantaneo",
+        "Concentration":"Concentrazione",
+        "Prolonge":"Sostenuto",
+        "Continu":"Continuo",
+        "Permanent":"Permanente"
+      }
+    },
+    "FILTRE":{
+      "Tous":"Tutti",
+      "Pouvoirs":"Poteri & Dispositivi",
+      "Talents":"Vantaggio",
+      "Equipements":"Equipaggiamento"
+    },
+    "TALENT":{
+      "Equipement":"Fornisce punti equipaggiamento"
+    },
+    "TAILLE":{
+      "Insignifiante":"Minuscolo",
+      "Infime":"Sottile",
+      "Minuscule":"Diminuto",
+      "Minime":"Minuto",
+      "Petite":"Piccolo",
+      "Intermediaire":"Medio",
+      "Grand":"Grande",
+      "Enorme":"Enorme",
+      "Gigantesque":"Gargantuesco",
+      "Colossal":"Colossale",
+      "Titanesque":"Impressionante"
+    },
+    "SETTING":{
+      "Typejet":"Tipo di tiro del dado",
+      "Standard1d20":"Standard 1D20",
+      "Guide3d20":"3D20 - Guida GM",
+      "3d6":"Somma 3D6"
+    },
+    "ROLL":{
+      "AttSuccess":"L'attacco colpisce !",
+      "AttFail":"L'attacco manca  !",
+      "Success":"Il tiro riesce !",
+      "Fail":"Il tiro fallisce !",
+      "DegreEchec":"Grado di fallimento",
+      "DD":"DC",
+      "Critique":"Critico",
+      "Testeffet":"Tiro effetto",
+      "Initiative":"Iniziativa",
+      "Pasattaque":"Nessun tiro d'attacco",
+      "DEFENSE":{
+        "Basedefense":"Tiro di Difesa di base",
+        "Esquive":"Tiro di Schivata",
+        "Parade":"Tiro di Parata",
+        "Vigueur":"Tiro di Tempra",
+        "Robustesse":"Tiro di Resistenza",
+        "Volonte":"Tiro di Volontà"
+      }
+    },
+    "IMPORTATIONS":{
+      "Herolab":"Importa da Hero Lab",
+      "Warningherolab":"Attenzione, se ci sono altri dati nel foglio, verranno mantenuti o sostituiti a seconda dei casi. Il personaggio sarà quindi una combinazione di dati esistenti e nuovi, senza possibilità di prevedere cosa verrà sostituito o mantenuto."
+    },
+    "Nom":"Nome",
+    "Identite":"Identità",
+    "Hero":"Eroe",
+    "Genre":"Genere",
+    "TailleP":"Altezza",
+    "TailleQV":"Dimensione",
+    "Poids":"Peso",
+    "Age":"Età",
+    "Yeux":"Occhi",
+    "Cheveux":"Capelli",
+    "Puissance":"Livello di potenza",
+    "Caracteristiques":"Abilità",
+    "Pouvoirs":"Poteri",
+    "Talents":"Vantaggi",
+    "Equipements":"Equipaggiamento",
+    "Competences":"Abilità",
+    "Defenses":"Difese",
+    "Description":"Descrizione",
+    "Historique":"Sfondo",
+    "Complications":"Motivazioni & Complicazioni",
+    "Total":"Totale",
+    "Carac":"Abilità",
+    "Base":"Base",
+    "Points":"Punti",
+    "Rang":"Grado",
+    "Divers":"Varie",
+    "Autre":"Altro",
+    "Etats":"Note & condizioni",
+    "Heroisme":"Punti Eroe",
+    "Blessures":"Infortuni",
+    "Type":"Tipo",
+    "Extra":"Extra",
+    "Extras":"Extra",
+    "Defaut":"Difetto",
+    "Defauts":"Difetti",
+    "Fixe":"Piatto",
+    "Parrang":"Per Rango",
+    "PPParrang":"PP/Rango",
+    "Cout":"Costo",
+    "Coutactuel":"Costo effettivo",
+    "Couttotal":"Costo totale",
+    "Couttotalsiprincipal":"Costo totale (principale)",
+    "Couttotalsisecondaire":"Costo totale (secondario)",
+    "Couttotaltheorique":"Costo totale teorico",
+    "Couttotalfinal":"Costo totale finale",
+    "Details":"Dettagli",
+    "Choisir":"Scegli",
+    "Max-short":"Massimo",
+    "Pointsequipementsused":"Punti equipaggiamento utilizzati",
+    "Coutvitesse":"Costo effetto movimento base",
+    "Vitesse":"Velocità",
+    "Particularites":"Caratteristiche",
+    "Editadvanced":"Modifica le impostazioni avanzate",
+    "Adefinir":"Da definire"
+  }
+}
