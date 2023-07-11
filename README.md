@@ -13,6 +13,7 @@ Pseudo : Zakarik
 ## Translations
 - English : reBanuHaqim
 - Portuguese : reBanuHaqim
+- Spanish : reBanuHaqim
 
 # Mentions Légales
 Mutants & Masterminds 3 est un jeu de Green Ronin, traduit par Black Book Studios.
