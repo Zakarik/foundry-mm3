@@ -214,8 +214,7 @@ Hooks.once('init', async function() {
     id:'stun',
     label:'MM3.STATUS.Stunned',
     icon:"systems/mutants-and-masterminds-3e/assets/icons/stunned.svg"
-  },
-  ];
+  }];  
 
   // Define custom Document classes
   CONFIG.Actor.documentClass = MM3Actor;
@@ -274,6 +273,20 @@ Hooks.once('init', async function() {
       return "";
     }
   });
+
+  Handlebars.registerHelper('singularOrPlural', function(count, successOrFail) {
+    let result = "";
+    
+    if(count > 1) {
+      if(successOrFail === 'success') result = game.i18n.localize("MM3.ROLL.DegresReussite");
+      else  result = game.i18n.localize("MM3.ROLL.DegresEchec");
+    } else {
+      if(successOrFail === 'success') result = game.i18n.localize("MM3.ROLL.DegreReussite");
+      else  result = game.i18n.localize("MM3.ROLL.DegreEchec");
+    }
+
+    return result;
+  });
   
   Handlebars.registerHelper('mm3concat', function(base, id, last) {
     return `${base}.${id}.${last}`;
@@ -329,6 +342,24 @@ Hooks.once('init', async function() {
 /* -------------------------------------------- */
 
 Hooks.once('ready', async function () {
+  let status = {};
+  
+  for(let i of CONFIG.statusEffects) {
+    status[game.i18n.localize(i.label)] = i;
+  };
+
+  const sortStatus = Object.keys(status).sort(function (a, b) {
+    return a.localeCompare(b);
+  });
+
+  let sortedStatus = [];
+
+  for(let i of sortStatus) {
+    sortedStatus.push(status[i]);
+  }
+
+  CONFIG.statusEffects = sortedStatus;
+  
   Object.defineProperty(game.user, "isFirstGM", {
     get: function () {
         return game.user.isGM && game.user.id === game.users.find((u) => u.active && u.isGM)?.id;

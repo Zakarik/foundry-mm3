@@ -1,3 +1,8 @@
+## Version 1.14.0
+### Améliorations
+- Ajout du décompte des degrés de succès pour les attaques ciblées.
+- Les États seront dorénavant classés par ordre alphabétique.
+
 ## Version 1.13.0
 ### Améliorations
 - Ajout de la traduction italienne.

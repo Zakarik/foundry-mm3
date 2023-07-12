@@ -33,6 +33,13 @@
             </div>
             {{/if}}
             {{#if isSuccess}} 
+                {{#if degreSuccess}}
+                <div class="dice-tooltip dataAttack">
+                    <div class="inner">
+                        <span>{{singularOrPlural degreSuccess 'success'}} : {{degreSuccess}}</span>
+                    </div>
+                </div>
+                {{/if}}
             <div class="btn">
                 <button class="btnRoll" data-target="{{btn.target}}" data-savetype="{{btn.saveType}}" data-vs="{{btn.vs}}">
                     {{translate 'jetdefenses' btn.saveType}}
@@ -55,7 +62,7 @@
             </div> 
             {{#if hasMarge}}
             <h4 class="dice-total attack">
-                {{localize "MM3.ROLL.DegreEchec"}} : {{resultMarge}}
+                {{singularOrPlural resultMarge 'fail'}} : {{resultMarge}}
             </h4>
             {{/if}}
         {{/if}}

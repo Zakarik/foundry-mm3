@@ -664,6 +664,7 @@ export function getFullCarac(carac){
     return result;
 }
 
+//ROLL STANDARD
 export async function rollStd(actor, name, score) {
   const optDices = getDices();  
   const dicesCrit = optDices.critique;
@@ -705,6 +706,7 @@ export async function rollStd(actor, name, score) {
   });
 }
 
+//ROLL VS DD
 export async function rollVs(actor, name, score, vs) {
   const optDices = getDices();  
   const save = new Roll(`${optDices.dices} + ${score}`);
@@ -752,6 +754,7 @@ export async function rollVs(actor, name, score, vs) {
   });
 }
 
+//ROLL ATTAQUE AVEC CIBLE
 export async function rollAtkTgt(actor, name, score, data, tgt) {
   if(tgt === undefined) return;
   const optDices = getDices();
@@ -765,25 +768,24 @@ export async function rollAtkTgt(actor, name, score, data, tgt) {
   roll.evaluate({async:false});
 
   const tokenData = token.actor.system;
-
   const resultDie = roll.total-score-dataStr.attaque;
-
   const parade = Number(tokenData.ddparade);
   const esquive = Number(tokenData.ddesquive);
+  const sCritique = dataCbt.critique;
+  const defpassive = dataCbt?.defpassive ?? 'parade';
+  const saveType = dataCbt.save;
 
   let ddDefense = 0;
   let traType = "";
-  
-  const defpassive = dataCbt?.defpassive ?? 'parade';
 
   ddDefense = defpassive === 'parade' ? parade : esquive;
-  traType = defpassive === 'parade' ? game.i18n.localize("MM3.DEFENSE.DDParade") : game.i18n.localize("MM3.DEFENSE.DDEsquive");
-
-  const saveType = dataCbt.save;
+  traType = defpassive === 'parade' ? game.i18n.localize("MM3.DEFENSE.DDParade") : game.i18n.localize("MM3.DEFENSE.DDEsquive");    
 
   let pRoll = {};
   
-  if((roll.total >= ddDefense && resultDie !== 1) || resultDie >= dataCbt.critique) {
+  if((roll.total >= ddDefense && resultDie !== 1) || resultDie >= sCritique) {
+    let dSuccess = Math.floor(((roll.total - ddDefense)/5))+1;
+
     pRoll = {
       flavor:`${name}`,
       tooltip:await roll.getTooltip(),
@@ -792,7 +794,8 @@ export async function rollAtkTgt(actor, name, score, data, tgt) {
       isCombat:true,
       isSuccess:true,
       defense:ddDefense,
-      isCritique:resultDie >= dataCbt.critique ? true : false,
+      isCritique:resultDie >= sCritique ? true : false,
+      degreSuccess:dSuccess,
       type:traType,
       text:dataCbt.text,
       btn:{
@@ -836,6 +839,7 @@ export async function rollAtkTgt(actor, name, score, data, tgt) {
   });
 }
 
+//ROLL AVEC CIBLE
 export async function rollTgt(actor, name, data, tgt) {
   if(tgt === undefined) return;  
   const dataCbt = data.attaque;
@@ -876,6 +880,7 @@ export async function rollTgt(actor, name, data, tgt) {
   });
 }
 
+//ROLL SANS JET D'ATTAQUE
 export async function rollWAtk(actor, name, data) {
   const dataCbt = data.attaque;
   const dataStr = data.strategie;
@@ -906,6 +911,7 @@ export async function rollWAtk(actor, name, data) {
   });
 }
 
+//ROLL ATTAQUE
 export async function rollAtk(actor, name, score, data) {
   const optDices = getDices();
   const dicesBase = optDices.dices;
@@ -950,6 +956,7 @@ export async function rollAtk(actor, name, score, data) {
   });
 }
 
+//ROLL POUVOIR
 export async function rollPwr(actor, id) {
   const optDices = game.settings.get("mutants-and-masterminds-3e", "typeroll");
   const pwr = actor.items.filter(item => item.id === id)[0];
