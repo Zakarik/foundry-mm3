@@ -1,3 +1,7 @@
+## Version 1.14.1
+### Bugfix
+- Correction d'un bug rare sur l'importeur qui empêchais l'importation.
+
 ## Version 1.14.0
 ### Améliorations
 - Ajout du décompte des degrés de succès pour les attaques ciblées.

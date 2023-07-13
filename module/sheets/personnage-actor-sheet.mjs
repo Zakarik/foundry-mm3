@@ -114,6 +114,16 @@ export class PersonnageActorSheet extends ActorSheet {
         "Presence":"presence",
         "Intellect":"intelligence",
       };
+      const attributsShort = {
+        "STR":"for",
+        "STA":"end",
+        "AGI":"agi",
+        "DEX":"dex",
+        "FGT":"cbt",
+        "AWA":"sns",
+        "PRE":"prs",
+        "INT":"int"
+      };
       const skillsTRA = {
         "Acrobaties":"acrobaties",
         "Acrobatics":"acrobaties",
@@ -367,12 +377,21 @@ export class PersonnageActorSheet extends ActorSheet {
       }
 
       for(let skill of skills) {
-        const label = skillsTRA[skill.name.split(':')[0]];
+        const skillName = skill.name.split(':')[0];
+        const search = Object.keys(skillsTRA).reduce((a, b) => {
+          return skillName.includes(b) ? b : a;
+        }, "");
+        const label = skillsTRA[search];        
 
         if(label.includes('expertise') || label.includes('combatcontact') || label.includes('combatdistance')) {
           const length = Object.keys(listSkill[label]).length;
           let lastLabel = skill.name.replace(`${skill.name.split(":")[0]}: `, '');
           if(label.includes('expertise')) {
+            const searchcar = Object.keys(attributsShort).reduce((a, b) => {
+              return skillName.includes(b) ? b : a;
+            }, "INT");
+            const car = attributsShort[searchcar];
+
             listSkill[label][length] = {
               "label":lastLabel,
               "total":0,
@@ -380,7 +399,7 @@ export class PersonnageActorSheet extends ActorSheet {
               "rang":Number(skill.cost.value)*2,
               "autre":0,
               "carCanChange":true,
-              "car":"int",
+              "car":car,
             }
           } else {
             const lengthAttack = Object.keys(listAttack).length;
