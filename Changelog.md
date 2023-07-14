@@ -1,3 +1,13 @@
+## Version 1.15.0
+### Améliorations
+- Ajout d'une fenêtre pour rentrer un degré de difficulté lors d'un jet de caractéristique / compétence / défense.
+- Ajout d'un paramètre en lien avec ça, permettant de définir comment cette fenêtre apparait. Soit par shift + clic gauche, soit par clic gauche simple.
+- Ajout de la possibilité d'envoyer les talents et les équipements dans le tchat.
+- Ajout de la possibilité de réduire les complications, talents et équipements, de la même façon que les pouvoirs.
+- Ajout de la gestion des caractéristiques absentes (y compris lors de l'importation).
+- Il m'a été rapporté que dans le cas de texte long (par exemple les motivations), certains pouvaient avoir du mal à lire le texte. J'ai donc ajouté une option d'accessibilité permettant de changer la police d'écriture de ces textes, pour des polices plus standards.
+- Lors de l'ouverture d'une fiche de personnage, l'onglet par défaut est "Caractéristiques et Compétences" dorénavant.
+
 ## Version 1.14.1
 ### Bugfix
 - Correction d'un bug rare sur l'importeur qui empêchais l'importation.

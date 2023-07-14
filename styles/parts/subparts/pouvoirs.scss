@@ -617,14 +617,48 @@ div {
                     &.title {
                         width:100%;
                     }
+
+                    &.deploy {
+                        display: flex;
+                        align-items: center;
+
+                        i {
+                            cursor:pointer;
+
+                            &::before {
+                                border: 1px solid $black;
+                                font-size: 13px;
+                                border-radius: 30px;
+                                width: 23px;
+                                text-align: center;
+                                color: $black;
+                                height: 23px;
+                                display:block;
+                            }
+
+                            &.plus {
+                                &::before {
+                                    content: "+";
+                                }
+                            }
+
+                            &.minus {
+                                &::before {
+                                    content: "-";
+                                }
+                            }
+                        }
+                    }
                 }
 
                 div {
                     &.talent {
                         header {
                             display:grid;
-                            grid-template-columns: 45px 1fr;
+                            grid-template-columns: 23px 29px 45px 1fr;
                             grid-gap: 5px;
+
+                            @include fakebutton('sendInfos');
 
                             span {
                                 &.cout {
@@ -670,6 +704,12 @@ div {
                                             text-shadow: 0px 0px 3px;
                                         }
                                     }
+                                }
+                            }
+                            
+                            a {
+                                &.sendInfos {
+                                    align-items: center;
                                 }
                             }
                         }
@@ -727,6 +767,38 @@ div {
                             color:$red;
                         }
                     }
+
+                    &.deploy {
+                        display: flex;
+                        align-items: center;
+
+                        i {
+                            cursor:pointer;
+
+                            &::before {
+                                border: 1px solid $black;
+                                font-size: 13px;
+                                border-radius: 30px;
+                                width: 23px;
+                                text-align: center;
+                                color: $black;
+                                height: 23px;
+                                display:block;
+                            }
+
+                            &.plus {
+                                &::before {
+                                    content: "+";
+                                }
+                            }
+
+                            &.minus {
+                                &::before {
+                                    content: "-";
+                                }
+                            }
+                        }
+                    }
                 }
 
                 div {
@@ -734,9 +806,11 @@ div {
                         grid-column-start: 1;
                         grid-column-end: 3;
 
+                        @include fakebutton('sendInfos');
+
                         header {
                             display:grid;
-                            grid-template-columns: 45px 1fr;
+                            grid-template-columns: 23px 29px 45px 1fr;
                             grid-gap: 5px;
 
                             span {
@@ -783,6 +857,12 @@ div {
                                             text-shadow: 0px 0px 3px;
                                         }
                                     }
+                                }
+                            }
+
+                            a {
+                                &.sendInfos {
+                                    align-items: center;
                                 }
                             }
                         }

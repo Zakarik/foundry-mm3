@@ -664,8 +664,17 @@ export function getFullCarac(carac){
     return result;
 }
 
+export function accessibility(actor, html) {
+  const options = actor.system?.accessibility ?? null;
+  const font = options !== null ? options?.font ?? null : null;
+
+  if(font !== null) {
+    html.find('div.editor-content').css('font-family', font);
+  }
+}
+
 //ROLL STANDARD
-export async function rollStd(actor, name, score) {
+export async function rollStd(actor, name, score, shift=false) {
   const optDices = getDices();  
   const dicesCrit = optDices.critique;
   const dicesBase = optDices.dices;
@@ -676,34 +685,97 @@ export async function rollStd(actor, name, score) {
   roll.evaluate({async:false});
 
   const resultDie = roll.total-score;
-
-  pRoll = {
-    flavor:`${name}`,
-    tooltip:await roll.getTooltip(),
-    formula:`${dicesFormula} + ${score}`,
-    result:roll.total,
-    isCritique:resultDie >= dicesCrit ? true : false,
-  };
-
-  const rollMsgData = {
-    user: game.user.id,
-    speaker: {
-      actor: actor?.id || null,
-      token: actor?.token?.id || null,
-      alias: actor?.name || null,
-    },
-    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-    rolls:[roll],
-    content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
-    sound: CONFIG.sounds.dice
-  };
-
+  const ruleDC = game.settings.get("mutants-and-masterminds-3e", "dcroll");
   const rMode = game.settings.get("core", "rollMode");
-  const msgData = ChatMessage.applyRollMode(rollMsgData, rMode);
 
-  await ChatMessage.create(msgData, {
-    rollMode:rMode
-  });
+  if((ruleDC === "shift" && shift) || (ruleDC !== "shift" && !shift)) {
+    const askNiveauDialogOptions = {classes: ["dialog", "mm3-dialog"]};
+
+    await new Dialog({
+      title: game.i18n.localize("MM3.ROLL.AskDD"),
+      content: `<span>${game.i18n.localize("MM3.ROLL.DD")} ?</span><input type="number" class="dc" value="0" min="0"/>`,
+      buttons: {
+        button1: {
+          label: game.i18n.localize("MM3.ROLL.Valider"),
+          callback: async (dataHtml) => {
+            const ddfind = dataHtml?.find('.dc')?.val() ?? 0;
+            const dd = Number(ddfind);
+            let resultMarge = 0;
+            let isCritique = false;
+            
+            if(dd > 0) resultMarge = ((roll.total-dd)/5);
+            if(resultDie >= dicesCrit) isCritique = true;
+
+            const finalMarge = resultMarge < 0 ? Math.abs(resultMarge)+1 : resultMarge+1;
+
+            pRoll = {
+              flavor:`${name}`,
+              tooltip:await roll.getTooltip(),
+              formula:`${dicesFormula} + ${score}`,
+              result:roll.total,
+              isCritique:isCritique,
+              vs:dd > 0 ? dd : false,
+              isSuccess:roll.total >= dd ? true : false,
+              hasMarge:dd > 0 ? true : false,
+              resultMarge:isCritique ? Math.floor(finalMarge)+1 : Math.floor(finalMarge),
+              successOrFail:resultMarge < 0 ? 'fail' : 'success',
+            };
+          
+            const rollMsgData = {
+              user: game.user.id,
+              speaker: {
+                actor: actor?.id || null,
+                token: actor?.token?.id || null,
+                alias: actor?.name || null,
+              },
+              type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+              rolls:[roll],
+              content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
+              sound: CONFIG.sounds.dice
+            };
+          
+            const msgData = ChatMessage.applyRollMode(rollMsgData, rMode);
+          
+            await ChatMessage.create(msgData, {
+              rollMode:rMode
+            });
+          },
+          icon: `<i class="fas fa-check"></i>`
+        },
+        button2: {
+          label: game.i18n.localize("MM3.ROLL.Annuler"),
+          callback: async () => {},
+          icon: `<i class="fas fa-times"></i>`
+        }
+      }
+    }, askNiveauDialogOptions).render(true);
+  } else {
+    pRoll = {
+      flavor:`${name}`,
+      tooltip:await roll.getTooltip(),
+      formula:`${dicesFormula} + ${score}`,
+      result:roll.total,
+      isCritique:resultDie >= dicesCrit ? true : false,
+    };
+  
+    const rollMsgData = {
+      user: game.user.id,
+      speaker: {
+        actor: actor?.id || null,
+        token: actor?.token?.id || null,
+        alias: actor?.name || null,
+      },
+      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+      rolls:[roll],
+      content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
+      sound: CONFIG.sounds.dice
+    };
+    const msgData = ChatMessage.applyRollMode(rollMsgData, rMode);
+  
+    await ChatMessage.create(msgData, {
+      rollMode:rMode
+    });
+  }
 }
 
 //ROLL VS DD
@@ -732,7 +804,8 @@ export async function rollVs(actor, name, score, vs) {
     vs:vs,
     isSuccess:isSuccess,
     hasMarge:hasMarge,
-    resultMarge:marge
+    resultMarge:marge,
+    successOrFail:'fail',
   };
 
   const saveMsgData = {
@@ -1004,6 +1077,47 @@ export async function rollPwr(actor, id) {
   const rMode = game.settings.get("core", "rollMode");
   const msgData = ChatMessage.applyRollMode(rollMsgData, rMode);
 
+  await ChatMessage.create(msgData, {
+    rollMode:rMode
+  });
+}
+
+export async function sendInChat(actor, itm) {
+  let rank = 0;
+  let labelrank = '';
+
+  switch(itm.type) {
+    case 'talent':
+      labelrank = game.i18n.localize("MM3.Rang");
+      rank = itm.system.rang;
+      break;
+
+    case 'equipement':
+      labelrank = game.i18n.localize("MM3.Cout");
+      rank = itm.system.cout;
+      break;
+  }
+
+  const pData = {
+    flavor:`${itm.name}`,
+    labelrank:`${labelrank}`,
+    rank:`${rank}`,
+    description:`${itm.system.description}`
+  };
+
+  const msgData = {
+    user: game.user.id,
+    speaker: {
+      actor: actor?.id || null,
+      token: actor?.token?.id || null,
+      alias: actor?.name || null,
+    },
+    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+    content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/msgdata.html', pData),
+    sound: CONFIG.sounds.dice
+  };
+
+  const rMode = game.settings.get("core", "rollMode");
   await ChatMessage.create(msgData, {
     rollMode:rMode
   });

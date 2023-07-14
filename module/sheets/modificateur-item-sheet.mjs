@@ -1,5 +1,9 @@
+import {
+  accessibility
+} from "../helpers/common.mjs";
+
 /**
- * @extends {ActorSheet}
+ * @extends {ItemSheet}
  */
 export class ModificateurItemSheet extends ItemSheet {
 
@@ -10,6 +14,7 @@ export class ModificateurItemSheet extends ItemSheet {
       template: "systems/mutants-and-masterminds-3e/templates/modificateur-item-sheet.html",
       width: 850,
       height: 500,
+      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "modificateur"}],
       dragDrop: [{dragSelector: ".draggable", dropSelector: null}],
     });
   }
@@ -39,6 +44,8 @@ export class ModificateurItemSheet extends ItemSheet {
   /** @inheritdoc */
   activateListeners(html) {
     super.activateListeners(html);
+
+    accessibility(this.item, html);
 
     // Everything below here is only needed if the sheet is editable
     if ( !this.isEditable ) return;

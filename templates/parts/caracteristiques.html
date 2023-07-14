@@ -8,12 +8,15 @@
                 <span class="header">{{localize "MM3.Divers"}}</span>
 
                 {{#each systemData.caracteristique as | key carac |}}
+
+                    {{#unless key.absente}}
                     <a class="roll draggable" data-type="caracteristique" data-what="{{carac}}" data-name="{{translate 'caracteristiques' carac}}" data-total="{{key.total}}">
                         {{translate 'caracteristiques' carac}}
                     </a>
                     <span class="score">{{key.total}}</span>
                     <input type="number" name="system.caracteristique.{{carac}}.base" value="{{key.base}}" />
                     <input type="number" name="system.caracteristique.{{carac}}.divers" value="{{key.divers}}" />
+                    {{/unless}}
                 {{/each}}
             </div>
 

@@ -63,8 +63,9 @@
     "TABS":{
       "Informations":"Information",
       "CaracComp":"Stats & Skills",
-      "PouvoirsTalentsEquipements":"Powers, Advantages & Equipments",
-      "Importations":"Import"
+      "PouvoirsTalentsEquipements":"Powers, Advantages & Equipment",
+      "Importations":"Import",
+      "Options":"Options"
     },
     "BTN":{
       "Add":"Add",
@@ -225,7 +226,12 @@
       "Typejet":"Dice Roll Type",
       "Standard1d20":"Standard 1D20",
       "Guide3d20":"3D20 GM Guide",
-      "3d6":"Sum 3D6"
+      "3d6":"Sum 3D6",
+      "DCRoll":"Shortcut for DC request",
+      "DCRollHint":"Sets the shortcut to open the DC request window in a roll, the other option will allow a roll to be made without this window appearing.",
+      "Clicgauche":"Left Click",
+      "ShiftClicgauche":"Shift + Left Click",
+      "CaractéristiquesAbsentes":"Absent Abilities"
     },
     "ROLL":{
       "AttSuccess":"The attack hits !",
@@ -237,10 +243,13 @@
       "DegreEchec":"Degree of failure",
       "DegresEchec":"Degrees of failure",
       "DD":"DC",
+      "AskDD":"Is there a DC? Leave at 0 if no",
       "Critique":"Critical",
       "Testeffet":"Effect roll",
       "Initiative":"Initiative",
       "Pasattaque":"No attack roll",
+      "Valider":"Confirm",
+      "Annuler":"Cancel",
       "DEFENSE":{
         "Basedefense":"Base defense roll",
         "Esquive":"Dodge roll",
@@ -253,6 +262,10 @@
     "IMPORTATIONS":{
       "Herolab":"Import From Hero Lab",
       "Warningherolab":"Warning, if there is other data on the sheet, it will be kept or replaced as appropriate. The character will thus be a mix of existing and new data, without the possibility of predicting what will be replaced or retained."
+    },
+    "ACCESSIBILITE":{
+      "Label":"Accessibility",
+      "Font":"Font modification for long texts"
     },
     "Nom":"Name",
     "Identite":"Identity",
@@ -268,7 +281,7 @@
     "Caracteristiques":"Abilities",
     "Pouvoirs":"Powers",
     "Talents":"Talents",
-    "Equipements":"Equipments",
+    "Equipements":"Equipment",
     "Competences":"Skills",
     "Defenses":"Defenses",
     "Description":"Description",

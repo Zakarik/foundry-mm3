@@ -15,4 +15,17 @@ export const RegisterSettings = function () {
             "3D6":"MM3.SETTING.3d6",
         }
     });
+
+    game.settings.register("mutants-and-masterminds-3e", "dcroll", {
+        name: "MM3.SETTING.DCRoll",
+        hint: "MM3.SETTING.DCRollHint",
+        scope: "client",
+        config: true,
+        default: "shift",
+        type: String,
+        choices:{
+            "shift":"MM3.SETTING.ShiftClicgauche",
+            "clic":"MM3.SETTING.Clicgauche",
+        }
+    });
 };

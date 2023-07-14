@@ -1,5 +1,8 @@
 
 import toggler from '../helpers/toggler.js';
+import {
+  accessibility
+} from "../helpers/common.mjs";
 
 /**
  * @extends {ActorSheet}
@@ -49,6 +52,7 @@ export class QGActorSheet extends ActorSheet {
     super.activateListeners(html);
 
     toggler.init(this.id, html);
+    accessibility(this.actor, html);
 
     // Everything below here is only needed if the sheet is editable
     if ( !this.isEditable ) return;

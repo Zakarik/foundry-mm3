@@ -10,11 +10,15 @@
         <div class="complications twoBlock">
             <span>{{localize "MM3.Complications"}}</span>
             {{#each systemData.complications as | key complication |}}
-                <div class="header">
+            <div class="subblock">
+                <div class="header js-toggler">
+                    <span class="deploy "><i class="minus"></i></span>
                     <input type="text" name="system.complications.{{complication}}.label" value="{{key.label}}" />
                     <i class="fa-solid fa-trash-xmark delete" data-id="{{complication}}" data-type="complications"></i>
                 </div>
                 {{editor key.description target=(mm3concat 'system.complications' complication 'description') button=true owner=owner editable=@root/editable}}
+            </div>
+                
             {{/each}}
 
             <a class="add" data-type="complications">

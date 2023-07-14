@@ -1,5 +1,9 @@
+import {
+  accessibility
+} from "../helpers/common.mjs";
+
 /**
- * @extends {ActorSheet}
+ * @extends {ItemSheet}
  */
 export class PouvoirItemSheet extends ItemSheet {
 
@@ -9,7 +13,8 @@ export class PouvoirItemSheet extends ItemSheet {
       classes: ["mm3", "sheet", "item", "pouvoir"],
       template: "systems/mutants-and-masterminds-3e/templates/pouvoir-item-sheet.html",
       width: 850,
-      height: 840,
+      height: 920,
+      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "pouvoirs"}],
       dragDrop: [{dragSelector: ".draggable", dropSelector: null}],
     });
   }
@@ -40,6 +45,8 @@ export class PouvoirItemSheet extends ItemSheet {
   /** @inheritdoc */
   activateListeners(html) {
     super.activateListeners(html);
+
+    accessibility(this.item, html);
 
     // Everything below here is only needed if the sheet is editable
     if ( !this.isEditable ) return;

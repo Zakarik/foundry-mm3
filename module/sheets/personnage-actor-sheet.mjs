@@ -9,7 +9,9 @@ import {
   rollPwr,
   rollTgt,
   rollWAtk,
-  processPowers
+  processPowers,
+  sendInChat,
+  accessibility
 } from "../helpers/common.mjs";
 
 /**
@@ -24,7 +26,7 @@ export class PersonnageActorSheet extends ActorSheet {
       template: "systems/mutants-and-masterminds-3e/templates/personnage-actor-sheet.html",
       width: 850,
       height: 720,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "informations"}],
+      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "caracteristiques"}],
       dragDrop: [{dragSelector: ".draggable", dropSelector: null}],
     });
   }
@@ -39,6 +41,8 @@ export class PersonnageActorSheet extends ActorSheet {
 
     context.systemData = context.data.system;
     this._prepareCompetences(context);
+
+    console.warn(context);
 
     return context;
   }
@@ -61,6 +65,7 @@ export class PersonnageActorSheet extends ActorSheet {
     super.activateListeners(html);
 
     toggler.init(this.id, html);
+    accessibility(this.actor, html);
 
     html.find('.lPouvoirs .mod i').hover(ev => {
       const hover = ev.currentTarget;
@@ -97,7 +102,7 @@ export class PersonnageActorSheet extends ActorSheet {
       const attacks = data.attacks?.attack ?? null;
       const skills = data.skills.skill;
       const defenses = data.defenses.defense;
-      const talents = data.advantages.advantage;
+      const talents = data.advantages?.advantage ?? null;
       const pouvoirs = data.powers?.power ?? null;
       const complications = data.complications?.complication ?? null;
       const equipements = data.gear?.item ?? null;
@@ -189,8 +194,11 @@ export class PersonnageActorSheet extends ActorSheet {
         if(attributsTRA[attr.name] === 'endurance') endurance = Number(attr.modified);
         if(attributsTRA[attr.name] === 'combativite') combativite = Number(attr.modified);
         if(attributsTRA[attr.name] === 'sensibilite') sensibilite = Number(attr.modified);
+
+        console.warn(attr);
         update[`system.caracteristique.${attributsTRA[attr.name]}.base`] = Math.max(Number(attr.base), -5);
         update[`system.caracteristique.${attributsTRA[attr.name]}.divers`] = attr.text === '-' ? 0 : Number(attr.modified)-Number(attr.base);
+        update[`system.caracteristique.${attributsTRA[attr.name]}.absente`] = attr.text === '-' && attr.cost.value === '-10' ? true : false;
       }
 
       totalAttrDef['Dodge'] = agilite;
@@ -353,20 +361,22 @@ export class PersonnageActorSheet extends ActorSheet {
         }
       }
 
-      if(Array.isArray(talents)) {
-        for(let tl of talents) {
-          let itm = {
-            name: tl.name.includes("Languages") !== false ? `${tl.name} (${listLangues.join(" / ")})` : tl.name,
-            type: 'talent',
-            img: "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
-            system:{
-              description:tl.description,
-              rang:listBonusTalent.includes(tl.name) ? 0 : Number(tl.cost.value),
-              equipement: tl.name.match("Équipement|Equipment|équipement|equipment/i") ? true : false
-            }
-          };
-
-          await Item.create(itm, {parent: this.actor});
+      if(talents !== null) {
+        if(Array.isArray(talents)) {
+          for(let tl of talents) {
+            let itm = {
+              name: tl.name.includes("Languages") !== false ? `${tl.name} (${listLangues.join(" / ")})` : tl.name,
+              type: 'talent',
+              img: "systems/mutants-and-masterminds-3e/assets/icons/talent.svg",
+              system:{
+                description:tl.description,
+                rang:listBonusTalent.includes(tl.name) ? 0 : Number(tl.cost.value),
+                equipement: tl.name.match("Équipement|Equipment|équipement|equipment/i") ? true : false
+              }
+            };
+  
+            await Item.create(itm, {parent: this.actor});
+          }
         }
       }
 
@@ -629,12 +639,21 @@ export class PersonnageActorSheet extends ActorSheet {
       const streffet = target.data('streffet');
       const tgt = game.user.targets.ids[0];
       const atk = this.actor.system.attaque[id];
+      const hasShift = ev.shiftKey;
 
       if(type === 'attaque' && tgt !== undefined && atk.noAtk) rollTgt(this.actor, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, tgt);
       else if(type === 'attaque' && tgt !== undefined && !atk.noAtk) rollAtkTgt(this.actor, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, tgt);
       else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(this.actor, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}});
       else if(type === 'attaque' && atk.noAtk) rollWAtk(this.actor, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}});
-      else rollStd(this.actor, name, total);
+      else rollStd(this.actor, name, total, hasShift);
+    });
+
+    html.find('a.sendInfos').click(async ev => {
+      const header = $(ev.currentTarget).parents(".summary");
+      const actor = this.actor;
+      const item = actor.items.get(header.data("item-id"));
+
+      sendInChat(actor, item);
     });
 
     html.find('div.attaque i.editAtk').click(ev => {
@@ -669,6 +688,15 @@ export class PersonnageActorSheet extends ActorSheet {
       const id = target.data('id');
 
       rollPwr(this.actor, id);
+    });
+
+    html.find('a.btnAbs').click(ev => {
+      const target = $(ev.currentTarget);
+      const type = target.data('type');
+      const what = target.data('what');
+      const value = target?.data('value') ?? false ? false : true;
+
+      this.actor.update({[`system.${type}.${what}.absente`]:value});
     });
 
     html.find('div.strategie input').change(async ev => {

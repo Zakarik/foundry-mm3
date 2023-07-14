@@ -64,7 +64,8 @@
       "Informations":"Informations",
       "CaracComp":"Caractéristiques & Compétences",
       "PouvoirsTalentsEquipements":"Pouvoirs, Talents & Équipements",
-      "Importations":"Importations"
+      "Importations":"Importations",
+      "Options":"Options"
     },
     "BTN":{
       "Add":"Ajouter",
@@ -225,7 +226,12 @@
       "Typejet":"Type de jets de dé",
       "Standard1d20":"Standard 1D20",
       "Guide3d20":"3D20 Guide du MJ",
-      "3d6":"Somme de 3D6"
+      "3d6":"Somme de 3D6",
+      "DCRoll":"Raccourci pour la demande du DD",
+      "DCRollHint":"Règle le raccourci ouvrant la fenêtre de demande de DD lors d'un jet, l'autre option permettra alors de faire un jet sans que la fenêtre n'apparaisse.",
+      "Clicgauche":"Clic gauche",
+      "ShiftClicgauche":"Shift + Clic gauche",
+      "CaractéristiquesAbsentes":"Caractéristiques absentes"
     },
     "ROLL":{
       "AttSuccess":"L'Attaque touche !",
@@ -237,10 +243,13 @@
       "DegreEchec":"Degré d'échec",
       "DegresEchec":"Degrés d'échec",
       "DD":"DD",
+      "AskDD":"Y-a-t'il un DD ? Laisser à 0 si non",
       "Critique":"Critique",
       "Testeffet":"Test d'effet",
       "Initiative":"Initiative",
       "Pasattaque":"Aucun jet d'attaque",
+      "Valider":"Valider",
+      "Annuler":"Annuler",
       "DEFENSE":{
         "Basedefense":"Base du jet de défense",
         "Esquive":"Jet d'esquive",
@@ -253,6 +262,10 @@
     "IMPORTATIONS":{
       "Herolab":"Importations depuis Hero Lab",
       "Warningherolab":"Attention, s'il y a d'autres données sur la fiche, celles-ci seront conservées ou remplacées selon les cas. Le personnage sera ainsi un mixte des données existantes et des nouvelles données, sans possibilité de prédire à l'avance ce qui va être remplacé ou conservé."
+    },
+    "ACCESSIBILITE":{
+      "Label":"Accessibilité",
+      "Font":"Modification de la police d'écriture pour les longs textes"
     },
     "Nom":"Nom",
     "Identite":"Identite",

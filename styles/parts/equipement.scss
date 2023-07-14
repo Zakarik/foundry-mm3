@@ -28,20 +28,34 @@ div.equipement {
                 }
             }
         }
+
+        div {
+            &.editor-content {
+                font-family: "Kalam";
+                letter-spacing: 0.5px;
+            }
+        }
     }
 
-    section.body {
-        display:grid;
-        grid-template-columns: 250px 1fr;
-        grid-template-rows: max-content;
-        grid-gap:5px;
-        align-items: flex-start;
-        align-content: flex-start;
-        margin-top:5px;
+    section.sheet-body {
+        div.tab >div.inner {
+            display:grid;
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: max-content;
+            grid-gap:5px;
+            align-items: flex-start;
+            align-content: flex-start;
+            margin-top:5px;
 
-        border: 1px solid $grey;
-        border-top-color: $black;
-        padding: 5px;
+            border: 1px solid $grey;
+            border-top-color: $black;
+            padding: 5px;
+        }
+        
+        @import "subparts/nav";
+        @import "subparts/options";
+
+        
 
         img.profile-img {
             object-fit: contain;

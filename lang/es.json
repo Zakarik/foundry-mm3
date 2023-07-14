@@ -64,7 +64,8 @@
       "Informations":"Informaciones",
       "CaracComp":"Características e Habilidades",
       "PouvoirsTalentsEquipements":"Poderes, Dotes & Equipos",
-      "Importations":"Importar"
+      "Importations":"Importar",
+      "Options":"Opciones"
     },
     "BTN":{
       "Add":"Añadir",
@@ -225,7 +226,12 @@
       "Typejet":"Tipo de tirada de dados",
       "Standard1d20":"Estándar 1D20",
       "Guide3d20":"3D20 - Libro del Maestro",
-      "3d6":"Suma de 3D6"
+      "3d6":"Suma de 3D6",
+      "DCRoll":"Acceso directo para la solicitud de CD",
+      "DCRollHint":"Establece el acceso directo para abrir la ventana de solicitud de DC en una tirada, la otra opción permitirá realizar una tirada sin que aparezca la ventana.",
+      "Clicgauche":"Click Izquierdo",
+      "ShiftClicgauche":"Shift + Click Izquierdo",
+      "CaractéristiquesAbsentes":"Habilidades Faltantes"
     },
     "ROLL":{
       "AttSuccess":"El ataque golpea !",
@@ -237,10 +243,13 @@
       "DegreEchec":"Grado de falla",
       "DegresEchec":"Grados de falla",
       "DD":"CD",
+      "AskDD":"¿Hay un DC? Deje en 0 si no",
       "Critique":"Crítico",
       "Testeffet":"Tirada de efecto",
       "Initiative":"Iniciativa",
       "Pasattaque":"Sin tirada de ataque",
+      "Valider":"Confirmar",
+      "Annuler":"Cancelar",
       "DEFENSE":{
         "Basedefense":"Tirada de defensa base",
         "Esquive":"Tirada de Esquiva",
@@ -253,6 +262,10 @@
     "IMPORTATIONS":{
       "Herolab":"Importar de Hero Lab",
       "Warningherolab":"Advertencia, si existen otros datos en el formulario, serán conservados o reemplazados, según corresponda. El carácter será entonces una mezcla de datos existentes y nuevos, sin forma de predecir qué se reemplazará o conservará."
+    },
+    "ACCESSIBILITE":{
+      "Label":"Accesibilidad",
+      "Font":"Modificación de fuentes para textos largos"
     },
     "Nom":"Nombre",
     "Identite":"Identidad",

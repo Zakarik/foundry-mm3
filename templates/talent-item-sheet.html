@@ -1,25 +1,55 @@
 <form class="{{cssClass}}" autocomplete="off">
     <input name="name" type="text" value="{{data.name}}" placeholder="{{localize "MM3.Nom"}}" />
 
-    <section class="body">
-        <div class="details">
-            <img class="profile-img" src="{{data.img}}" data-edit="img" title="{{data.name}}" />
-            
-            <div class="cout">
-                <label>
-                    <span>{{localize "MM3.Rang"}}</span>
+    <section class="sheet-body">
+        {{!-- Sheet Tab Navigation --}}
+        <nav class="sheet-tabs tabs" data-group="primary">
+            <a class="item" data-tab="talent">{{localize "TYPES.Item.talent"}}</a>
+            <a class="item" data-tab="options">{{localize "MM3.TABS.Options"}}</a>
+        </nav>
 
-                    <input type="number" name="system.rang" value="{{systemData.rang}}" />
-                </label>
-                <a class="btn {{#if systemData.equipement}}selected{{/if}}" data-type="equipement" data-value="{{systemData.equipement}}">
-                    {{localize "MM3.TALENT.Equipement"}}
-                </a>
+        <div class="tab talent" data-group="primary" data-tab="talent">
+            <div class="inner">
+                <div class="details">
+                    <img class="profile-img" src="{{data.img}}" data-edit="img" title="{{data.name}}" />
+                    
+                    <div class="cout">
+                        <label>
+                            <span>{{localize "MM3.Rang"}}</span>
+        
+                            <input type="number" name="system.rang" value="{{systemData.rang}}" />
+                        </label>
+                        <a class="btn {{#if systemData.equipement}}selected{{/if}}" data-type="equipement" data-value="{{systemData.equipement}}">
+                            {{localize "MM3.TALENT.Equipement"}}
+                        </a>
+                    </div>
+                </div>
+        
+                <div class="description">
+                    <span class="label">{{localize "MM3.Description"}}</span>
+                    {{editor systemData.description target="system.description" button=true owner=owner editable=editable}}
+                </div>
             </div>
         </div>
 
-        <div class="description">
-            <span class="label">{{localize "MM3.Description"}}</span>
-            {{editor systemData.description target="system.description" button=true owner=owner editable=editable}}
+        <div class="tab options" data-group="primary" data-tab="options">
+            <div class="inner">
+                <div class="block accessibility">
+                    <span>{{localize "MM3.ACCESSIBILITE.Label"}}</span>
+                    <div class="innerBlock">
+                        <label>
+                            <span>{{localize "MM3.ACCESSIBILITE.Font"}}</span>
+                            <select name="system.accessibility.font">
+                                {{#select systemData.accessibility.font}}
+                                    <option value="Kalam">-</option>
+                                    <option value="Arial">Arial</option>
+                                    <option value="Signika">Signika</option>
+                                {{/select}}
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </form>

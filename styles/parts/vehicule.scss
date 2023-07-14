@@ -8,6 +8,13 @@ div.vehicule {
         form {
             min-width: min-content;
         }
+
+        div {
+            &.editor-content {
+                font-family: "Kalam";
+                letter-spacing: 0.5px;
+            }
+        }
     }
 
     header {
@@ -173,6 +180,7 @@ div.vehicule {
     section {
         &.sheet-body {
             @import "subparts/nav";
+            @import "subparts/options";
 
             div {
                 &.informations {

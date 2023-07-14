@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Bangers&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Sriracha&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Kalam&display=swap');
 @import "parts/functions";
 @import "parts/personnage";
 @import "parts/modificateur";
@@ -9,6 +10,7 @@
 @import "parts/vehicule";
 @import "parts/qg";
 @import "parts/roll";
+@import "parts/dialog";
 
 img#logo {
     content: url("../assets/logo.webp");

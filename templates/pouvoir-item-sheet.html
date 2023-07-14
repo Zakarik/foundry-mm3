@@ -14,228 +14,259 @@
         </select>
     </section>
     
-    <section class="body">
-        <div class="details">
-            <div class="special">
-                <a class="special {{#if (isValue systemData.special 'standard')}}selected{{/if}}" data-type="standard">
-                    {{localize "MM3.POUVOIR.Standard"}}
-                </a>
-                <a class="special {{#if (isValue systemData.special 'alternatif')}}selected{{/if}}" data-type="alternatif">
-                    {{localize "MM3.POUVOIR.Alternatif"}}
-                </a>
-                <a class="special {{#if (isValue systemData.special 'dynamique')}}selected{{/if}}" data-type="dynamique">
-                    {{localize "MM3.POUVOIR.Dynamique"}}
-                </a>
-            </div>
-            
-            <img class="profile-img" src="{{data.img}}" data-edit="img" title="{{data.name}}" />
+    <section class="sheet-body">
+        {{!-- Sheet Tab Navigation --}}
+        <nav class="sheet-tabs tabs" data-group="primary">
+            <a class="item" data-tab="pouvoirs">{{localize "TYPES.Item.pouvoir"}}</a>
+            <a class="item" data-tab="options">{{localize "MM3.TABS.Options"}}</a>
+        </nav>
 
-            <div class="data">
-                <span>{{localize "MM3.POUVOIR.ACTION.Label"}}</span>
-                <select name="system.action">
-                    {{#select systemData.action}}
-                        {{#each systemData.listActions as | key action |}}
-                            <option value="{{action}}">{{key}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
-            
-                <span>{{localize "MM3.POUVOIR.PORTEE.Label"}}</span>
-                <select name="system.portee">
-                    {{#select systemData.portee}}
-                        {{#each systemData.listPortees as | key portee |}}
-                            <option value="{{portee}}">{{key}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
-
-                <span>{{localize "MM3.POUVOIR.DUREE.Label"}}</span>
-                <select name="system.duree">
-                    {{#select systemData.duree}}
-                        {{#each systemData.listDurees as | key duree |}}
-                            <option value="{{duree}}">{{key}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
-            </div>
-
-            <div class="cout">
-                <span class="header">{{localize "MM3.Cout"}}</span>
-
-                <span class="label">{{localize "MM3.Rang"}}</span>
-                <input type="number" name="system.cout.rang" value="{{systemData.cout.rang}}" />
-
-                <details {{#unless systemData.cout.details}}open{{/unless}}>
-                    <div>
-                        <span class="label">{{localize "MM3.Base"}}</span>
-                        <input type="number" name="system.cout.parrang" value="{{systemData.cout.parrang}}" />
-
-                        <span class="label">+ {{localize "MM3.MOD.Label-short"}}</span>
-                        <span class="score">{{systemData.cout.modrang}}</span> 
+        <div class="tab pouvoirs" data-group="primary" data-tab="pouvoirs">
+            <div class="inner">
+                <div class="details">
+                    <div class="special">
+                        <a class="special {{#if (isValue systemData.special 'standard')}}selected{{/if}}" data-type="standard">
+                            {{localize "MM3.POUVOIR.Standard"}}
+                        </a>
+                        <a class="special {{#if (isValue systemData.special 'alternatif')}}selected{{/if}}" data-type="alternatif">
+                            {{localize "MM3.POUVOIR.Alternatif"}}
+                        </a>
+                        <a class="special {{#if (isValue systemData.special 'dynamique')}}selected{{/if}}" data-type="dynamique">
+                            {{localize "MM3.POUVOIR.Dynamique"}}
+                        </a>
                     </div>
-                    <summary data-value="{{systemData.cout.details}}">
-                        <span class="label">{{localize "MM3.PPParrang"}}</span>
-                        <span class="score">{{systemData.cout.parrangtotal}}</span>
-                    </summary>
-                </details>                          
-
-                <span class="label">{{localize "MM3.Divers"}}</span>
-                <input type="number" name="system.cout.divers" value="{{systemData.cout.divers}}" />
-
-                <span class="label">{{localize "MM3.MOD.Label-short"}}</span>
-                <span class="score">{{systemData.cout.modfixe}}</span>
-
-                <hr>
-
-                {{#if (isValue systemData.special 'standard')}}
-                <span class="label">
-                    {{localize "MM3.Total"}}
-                </span>
-                <span class="score total">
-                    {{systemData.cout.total}}
-                </span>
-                {{/if}}
-
-                {{#if (isValue systemData.special 'alternatif')}}
-                <span class="label">
-                    {{localize "MM3.Couttotaltheorique"}}
-                </span>
-                <span class="score total">
-                    {{systemData.cout.totalTheorique}}
-                </span>
-
-                <span class="label">
-                    {{localize "MM3.Couttotalfinal"}}
-                </span>
-                <span class="score total">
-                    {{systemData.cout.total}}              
-                </span>     
-                {{/if}}
-
-                {{#if (isValue systemData.special 'dynamique')}}
-                <span class="label">
-                    {{localize "MM3.Couttotalsiprincipal"}}
-                </span>
-                <span class="score total">
-                    {{systemData.cout.totalTheorique}}
-                </span>
-
-                <span class="label">
-                    {{localize "MM3.Couttotalsisecondaire"}}
-                </span>
-                <span class="score total">
-                    {{systemData.cout.total}}              
-                </span>     
-                {{/if}}
-            </div>
-        </div>
-        <div class="infos">
-            <div class="descripteurs">
-                <span>{{localize "MM3.POUVOIR.Descripteurs"}}</span>
-                <div>
-                    {{#each systemData.descripteurs as | key desc|}}
-                    <div>
-                        <input type="text" name="system.descripteurs.{{desc}}" value="{{key}}" />
-                        <i class="fa-solid fa-trash-xmark delete" data-id="{{desc}}" data-type="descripteurs"></i>
-                    </div>                    
-                    {{/each}}
+                    
+                    <img class="profile-img" src="{{data.img}}" data-edit="img" title="{{data.name}}" />
+        
+                    <div class="data">
+                        <span>{{localize "MM3.POUVOIR.ACTION.Label"}}</span>
+                        <select name="system.action">
+                            {{#select systemData.action}}
+                                {{#each systemData.listActions as | key action |}}
+                                    <option value="{{action}}">{{key}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                    
+                        <span>{{localize "MM3.POUVOIR.PORTEE.Label"}}</span>
+                        <select name="system.portee">
+                            {{#select systemData.portee}}
+                                {{#each systemData.listPortees as | key portee |}}
+                                    <option value="{{portee}}">{{key}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+        
+                        <span>{{localize "MM3.POUVOIR.DUREE.Label"}}</span>
+                        <select name="system.duree">
+                            {{#select systemData.duree}}
+                                {{#each systemData.listDurees as | key duree |}}
+                                    <option value="{{duree}}">{{key}}</option>
+                                {{/each}}
+                            {{/select}}
+                        </select>
+                    </div>
+        
+                    <div class="cout">
+                        <span class="header">{{localize "MM3.Cout"}}</span>
+        
+                        <span class="label">{{localize "MM3.Rang"}}</span>
+                        <input type="number" name="system.cout.rang" value="{{systemData.cout.rang}}" />
+        
+                        <details {{#unless systemData.cout.details}}open{{/unless}}>
+                            <div>
+                                <span class="label">{{localize "MM3.Base"}}</span>
+                                <input type="number" name="system.cout.parrang" value="{{systemData.cout.parrang}}" />
+        
+                                <span class="label">+ {{localize "MM3.MOD.Label-short"}}</span>
+                                <span class="score">{{systemData.cout.modrang}}</span> 
+                            </div>
+                            <summary data-value="{{systemData.cout.details}}">
+                                <span class="label">{{localize "MM3.PPParrang"}}</span>
+                                <span class="score">{{systemData.cout.parrangtotal}}</span>
+                            </summary>
+                        </details>                          
+        
+                        <span class="label">{{localize "MM3.Divers"}}</span>
+                        <input type="number" name="system.cout.divers" value="{{systemData.cout.divers}}" />
+        
+                        <span class="label">{{localize "MM3.MOD.Label-short"}}</span>
+                        <span class="score">{{systemData.cout.modfixe}}</span>
+        
+                        <hr>
+        
+                        {{#if (isValue systemData.special 'standard')}}
+                        <span class="label">
+                            {{localize "MM3.Total"}}
+                        </span>
+                        <span class="score total">
+                            {{systemData.cout.total}}
+                        </span>
+                        {{/if}}
+        
+                        {{#if (isValue systemData.special 'alternatif')}}
+                        <span class="label">
+                            {{localize "MM3.Couttotaltheorique"}}
+                        </span>
+                        <span class="score total">
+                            {{systemData.cout.totalTheorique}}
+                        </span>
+        
+                        <span class="label">
+                            {{localize "MM3.Couttotalfinal"}}
+                        </span>
+                        <span class="score total">
+                            {{systemData.cout.total}}              
+                        </span>     
+                        {{/if}}
+        
+                        {{#if (isValue systemData.special 'dynamique')}}
+                        <span class="label">
+                            {{localize "MM3.Couttotalsiprincipal"}}
+                        </span>
+                        <span class="score total">
+                            {{systemData.cout.totalTheorique}}
+                        </span>
+        
+                        <span class="label">
+                            {{localize "MM3.Couttotalsisecondaire"}}
+                        </span>
+                        <span class="score total">
+                            {{systemData.cout.total}}              
+                        </span>     
+                        {{/if}}
+                    </div>
                 </div>
-                
-                <a class="add" data-type="descripteurs">
-                    {{localize "MM3.BTN.Add"}}
-                </a>
-            </div>
-            <div class="description">
-                <span class="label">{{localize "MM3.Description"}}</span>
-                {{editor systemData.notes target="system.notes" button=true owner=owner editable=editable}}
-            </div>
-            <div class="description">
-                <span class="label">{{localize "MM3.Details"}}</span>
-                {{editor systemData.effets target="system.effets" button=true owner=owner editable=editable}}
-            </div>
-        </div>
-        <div class="modificateurs">
-            <div class="extras">
-                <span class="header">
-                    {{localize "MM3.Extras"}}
-                    <i class="fa-solid fa-plus create" data-mod="extras"></i>
-                </span>
-                {{#each systemData.extras as | key ext |}}
-                    <details {{#if key.details}}open{{/if}}>
-                        <summary>
-                            <div class="before" data-mod="extras" data-id="{{ext}}" data-value="{{key.details}}"></div>
-                            <input name="system.extras.{{ext}}.name" type="text" value="{{key.name}}" placeholder="{{localize "MM3.Nom"}}" />
-                            <i class="fa-solid fa-trash-xmark delete" data-id="{{ext}}" data-type="extras"></i>
-                        </summary>
+                <div class="infos">
+                    <div class="descripteurs">
+                        <span>{{localize "MM3.POUVOIR.Descripteurs"}}</span>
+                        <div>
+                            {{#each systemData.descripteurs as | key desc|}}
+                            <div>
+                                <input type="text" name="system.descripteurs.{{desc}}" value="{{key}}" />
+                                <i class="fa-solid fa-trash-xmark delete" data-id="{{desc}}" data-type="descripteurs"></i>
+                            </div>                    
+                            {{/each}}
+                        </div>
                         
-                        <section class="ext">
-                            <div class="extDetails">
-                                <div class="extcout">
-                                    <label>
-                                        <span>{{localize "MM3.Cout"}}</span>
-
-                                        <input type="number" name="system.extras.{{ext}}.data.cout.value" value="{{key.data.cout.value}}" />
-                                    </label>
-                                    
-                                    <a class="btn {{#if key.data.cout.rang}}selected{{/if}}" data-mod="extras" data-id="{{ext}}" data-type="rang" data-value="{{key.data.cout.rang}}">
-                                        {{localize "MM3.Parrang"}}
-                                    </a>
-
-                                    <a class="btn {{#if key.data.cout.fixe}}selected{{/if}}" data-mod="extras" data-id="{{ext}}" data-type="fixe" data-value="{{key.data.cout.fixe}}">
-                                        {{localize "MM3.Fixe"}}
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="extdescription">
-                                <span class="label">{{localize "MM3.Description"}}</span>
-                                {{editor key.data.description target=(mm3concat 'system.extras' ext 'data.description') button=true owner=owner editable=@root/editable}}
-                            </div>
-                        </section>
-                    </details>
-                {{/each}}
-            </div>
-            <div class="defauts">
-                <span class="header">
-                    {{localize "MM3.Defauts"}}
-                    <i class="fa-solid fa-plus create" data-mod="defauts"></i>
-                </span>
-
-                {{#each systemData.defauts as | key ext |}}
-                    <details {{#if key.details}}open{{/if}}>
-                        <summary>
-                            <div class="before" data-mod="defauts" data-id="{{ext}}" data-value="{{key.details}}"></div>
-                            <input name="system.defauts.{{ext}}.name" type="text" value="{{key.name}}" placeholder="{{localize "MM3.Nom"}}" />
-                            <i class="fa-solid fa-trash-xmark delete" data-id="{{ext}}" data-type="defauts"></i>
-                        </summary>                       
-
-                        <section class="ext">
-                            <div class="extDetails">
-                                <div class="extcout">
-                                    <label>
-                                        <span>{{localize "MM3.Cout"}}</span>
-
-                                        <input type="number" name="system.defauts.{{ext}}.data.cout.value" value="{{key.data.cout.value}}" />
-                                    </label>
-                                    
-                                    <a class="btn {{#if key.data.cout.rang}}selected{{/if}}" data-mod="defauts" data-id="{{ext}}" data-type="rang" data-value="{{key.data.cout.rang}}">
-                                        {{localize "MM3.Parrang"}}
-                                    </a>
-
-                                    <a class="btn {{#if key.data.cout.fixe}}selected{{/if}}" data-mod="defauts" data-id="{{ext}}" data-type="fixe" data-value="{{key.data.cout.fixe}}">
-                                        {{localize "MM3.Fixe"}}
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="extdescription">
-                                <span class="label">{{localize "MM3.Description"}}</span>
-                                {{editor key.data.description target=(mm3concat 'system.defauts' ext 'data.description') button=true owner=owner editable=@root/editable}}
-                            </div>
-                        </section>
-                    </details>
-                {{/each}}
+                        <a class="add" data-type="descripteurs">
+                            {{localize "MM3.BTN.Add"}}
+                        </a>
+                    </div>
+                    <div class="description">
+                        <span class="label">{{localize "MM3.Description"}}</span>
+                        {{editor systemData.notes target="system.notes" button=true owner=owner editable=editable}}
+                    </div>
+                    <div class="description">
+                        <span class="label">{{localize "MM3.Details"}}</span>
+                        {{editor systemData.effets target="system.effets" button=true owner=owner editable=editable}}
+                    </div>
+                </div>
+                <div class="modificateurs">
+                    <div class="extras">
+                        <span class="header">
+                            {{localize "MM3.Extras"}}
+                            <i class="fa-solid fa-plus create" data-mod="extras"></i>
+                        </span>
+                        {{#each systemData.extras as | key ext |}}
+                            <details {{#if key.details}}open{{/if}}>
+                                <summary>
+                                    <div class="before" data-mod="extras" data-id="{{ext}}" data-value="{{key.details}}"></div>
+                                    <input name="system.extras.{{ext}}.name" type="text" value="{{key.name}}" placeholder="{{localize "MM3.Nom"}}" />
+                                    <i class="fa-solid fa-trash-xmark delete" data-id="{{ext}}" data-type="extras"></i>
+                                </summary>
+                                
+                                <section class="ext">
+                                    <div class="extDetails">
+                                        <div class="extcout">
+                                            <label>
+                                                <span>{{localize "MM3.Cout"}}</span>
+        
+                                                <input type="number" name="system.extras.{{ext}}.data.cout.value" value="{{key.data.cout.value}}" />
+                                            </label>
+                                            
+                                            <a class="btn {{#if key.data.cout.rang}}selected{{/if}}" data-mod="extras" data-id="{{ext}}" data-type="rang" data-value="{{key.data.cout.rang}}">
+                                                {{localize "MM3.Parrang"}}
+                                            </a>
+        
+                                            <a class="btn {{#if key.data.cout.fixe}}selected{{/if}}" data-mod="extras" data-id="{{ext}}" data-type="fixe" data-value="{{key.data.cout.fixe}}">
+                                                {{localize "MM3.Fixe"}}
+                                            </a>
+                                        </div>
+                                    </div>
+        
+                                    <div class="extdescription">
+                                        <span class="label">{{localize "MM3.Description"}}</span>
+                                        {{editor key.data.description target=(mm3concat 'system.extras' ext 'data.description') button=true owner=owner editable=@root/editable}}
+                                    </div>
+                                </section>
+                            </details>
+                        {{/each}}
+                    </div>
+                    <div class="defauts">
+                        <span class="header">
+                            {{localize "MM3.Defauts"}}
+                            <i class="fa-solid fa-plus create" data-mod="defauts"></i>
+                        </span>
+        
+                        {{#each systemData.defauts as | key ext |}}
+                            <details {{#if key.details}}open{{/if}}>
+                                <summary>
+                                    <div class="before" data-mod="defauts" data-id="{{ext}}" data-value="{{key.details}}"></div>
+                                    <input name="system.defauts.{{ext}}.name" type="text" value="{{key.name}}" placeholder="{{localize "MM3.Nom"}}" />
+                                    <i class="fa-solid fa-trash-xmark delete" data-id="{{ext}}" data-type="defauts"></i>
+                                </summary>                       
+        
+                                <section class="ext">
+                                    <div class="extDetails">
+                                        <div class="extcout">
+                                            <label>
+                                                <span>{{localize "MM3.Cout"}}</span>
+        
+                                                <input type="number" name="system.defauts.{{ext}}.data.cout.value" value="{{key.data.cout.value}}" />
+                                            </label>
+                                            
+                                            <a class="btn {{#if key.data.cout.rang}}selected{{/if}}" data-mod="defauts" data-id="{{ext}}" data-type="rang" data-value="{{key.data.cout.rang}}">
+                                                {{localize "MM3.Parrang"}}
+                                            </a>
+        
+                                            <a class="btn {{#if key.data.cout.fixe}}selected{{/if}}" data-mod="defauts" data-id="{{ext}}" data-type="fixe" data-value="{{key.data.cout.fixe}}">
+                                                {{localize "MM3.Fixe"}}
+                                            </a>
+                                        </div>
+                                    </div>
+        
+                                    <div class="extdescription">
+                                        <span class="label">{{localize "MM3.Description"}}</span>
+                                        {{editor key.data.description target=(mm3concat 'system.defauts' ext 'data.description') button=true owner=owner editable=@root/editable}}
+                                    </div>
+                                </section>
+                            </details>
+                        {{/each}}
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div class="tab options" data-group="primary" data-tab="options">
+            <div class="inner">
+                <div class="block accessibility">
+                    <span>{{localize "MM3.ACCESSIBILITE.Label"}}</span>
+                    <div class="innerBlock">
+                        <label>
+                            <span>{{localize "MM3.ACCESSIBILITE.Font"}}</span>
+                            <select name="system.accessibility.font">
+                                {{#select systemData.accessibility.font}}
+                                    <option value="Kalam">-</option>
+                                    <option value="Arial">Arial</option>
+                                    <option value="Signika">Signika</option>
+                                {{/select}}
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </section>
 </form>

@@ -50,6 +50,7 @@
          <nav class="sheet-tabs tabs" data-group="primary">
             <a class="item" data-tab="informations">{{localize "MM3.TABS.Informations"}}</a>
             <a class="item" data-tab="details">{{localize "MM3.Details"}}</a>
+            <a class="item" data-tab="options">{{localize "MM3.TABS.Options"}}</a>
         </nav>
 
         <div class="tab informations" data-group="primary" data-tab="informations">
@@ -116,6 +117,26 @@
                     {{> systems/mutants-and-masterminds-3e/templates/parts/listPouvoirs.html}}
                 </div>
             </div>            
-        </div>        
+        </div>
+
+        <div class="tab options" data-group="primary" data-tab="options">
+            <div class="inner">                
+                <div class="block accessibility">
+                    <span>{{localize "MM3.ACCESSIBILITE.Label"}}</span>
+                    <div class="innerBlock">
+                        <label>
+                            <span>{{localize "MM3.ACCESSIBILITE.Font"}}</span>
+                            <select name="system.accessibility.font">
+                                {{#select systemData.accessibility.font}}
+                                    <option value="Kalam">-</option>
+                                    <option value="Arial">Arial</option>
+                                    <option value="Signika">Signika</option>
+                                {{/select}}
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </form>

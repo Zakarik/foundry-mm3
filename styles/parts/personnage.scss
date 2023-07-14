@@ -8,6 +8,13 @@ div.personnage {
         form {
             min-width: min-content;
         }
+
+        div {
+            &.editor-content {
+                font-family: "Kalam";
+                letter-spacing: 0.5px;
+            }
+        }
     }
 
     header {
@@ -251,6 +258,7 @@ div.personnage {
             @import "subparts/caracteristiques";
             @import "subparts/pouvoirs";
             @import "subparts/importations";
+            @import "subparts/options";
         }
     }
 }

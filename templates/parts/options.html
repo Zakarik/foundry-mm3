@@ -1,0 +1,30 @@
+<div class="tab options" data-group="primary" data-tab="options">
+    <div class="inner">
+        <div class="block caracteristique">
+            <span>{{localize "MM3.SETTING.CaractéristiquesAbsentes"}}</span>
+            <div class="innerBlock">
+                {{#each systemData.caracteristique as | key carac |}}
+                    <a class="btnAbs {{#if key.absente}}selected{{/if}}" data-type="caracteristique" data-what="{{carac}}" data-value="{{key.absente}}">
+                        {{translate 'caracteristiques' carac}}
+                    </a>
+                {{/each}}
+            </div>
+        </div>
+        
+        <div class="block accessibility">
+            <span>{{localize "MM3.ACCESSIBILITE.Label"}}</span>
+            <div class="innerBlock">
+                <label>
+                    <span>{{localize "MM3.ACCESSIBILITE.Font"}}</span>
+                    <select name="system.accessibility.font">
+                        {{#select systemData.accessibility.font}}
+                            <option value="Kalam">-</option>
+                            <option value="Arial">Arial</option>
+                            <option value="Signika">Signika</option>
+                        {{/select}}
+                    </select>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

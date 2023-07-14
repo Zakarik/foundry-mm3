@@ -14,7 +14,9 @@
         <span class="title">{{localize "MM3.Talents"}}</span>
         {{#each actor.talents as | key pwr |}}
         <div class="talent summary" data-item-id="{{key._id}}">
-            <header>
+            <header class="js-toggler">
+                <span class="deploy "><i class="minus"></i></span>
+                <a class="sendInfos"><i class="fa-solid fa-comment"></i></a>
                 <span class="cout">{{key.system.rang}}</span>
                 <span class="header">{{key.name}}
                 <i class="fa-solid fa-pen-to-square item-edit"></i>
@@ -35,7 +37,9 @@
         <span class="score {{#if (isHigherThan systemData.ptsEquipements.use systemData.ptsEquipements.max)}}red{{/if}}">{{localize "MM3.Pointsequipementsused"}} : {{systemData.ptsEquipements.use}} / {{systemData.ptsEquipements.max}}</span>
         {{#each actor.equipements as | key pwr |}}
         <div class="talent summary" data-item-id="{{key._id}}">
-            <header>
+            <header class="js-toggler">
+                <span class="deploy "><i class="minus"></i></span>
+                <a class="sendInfos"><i class="fa-solid fa-comment"></i></a>
                 <span class="cout">{{key.system.cout}}</span>
                 <span class="header">{{key.name}}
                 <i class="fa-solid fa-pen-to-square item-edit"></i>

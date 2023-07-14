@@ -52,11 +52,17 @@ div {
                 }
             }
 
+            &.subBlock {
+                display:grid;
+                grid-template-columns: 100%;
+                grid-template-rows: max-content;
+            }
+
             &.complications {
                 input {
                     border-radius:0px;
                     border:0px;
-                    padding-left:5px;
+                    padding-left:35px;
                     font-variant: small-caps;
                     font-size: 17px;
                     font-weight: bold;
@@ -68,7 +74,7 @@ div {
                         width:100%;
                         position:relative;
 
-                        i {
+                        i.delete {
                             cursor:pointer;
                             position:absolute;
                             right:5px;
@@ -127,6 +133,44 @@ div {
             &.twoBlock {
                 grid-column-start: 1;
                 grid-column-end:3;
+            }
+
+            span {
+                &.deploy {
+                    display: flex;
+                    align-items: center;
+                    position: absolute;
+                    top: 1px;
+                    left: 5px;
+
+                    i {
+                        left:5px;
+                        cursor:pointer;
+
+                        &::before {
+                            border: 1px solid $black;
+                            font-size: 13px;
+                            border-radius: 30px;
+                            width: 23px;
+                            text-align: center;
+                            color: $black;
+                            height: 23px;
+                            display:block;
+                        }
+
+                        &.plus {
+                            &::before {
+                                content: "+";
+                            }
+                        }
+
+                        &.minus {
+                            &::before {
+                                content: "-";
+                            }
+                        }
+                    }
+                }
             }
         }
     }

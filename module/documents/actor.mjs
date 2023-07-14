@@ -104,11 +104,17 @@ export class MM3Actor extends Actor {
 
     for(let car in CONFIG.MM3.caracteristiques) {
       const carac = getCarac[car];
-      const cBase = carac.base;
 
-      ppCarac += cBase*2;
+      if(carac.absente) {
+        ppCarac += -10;
+        carac.total = -5;
+      } else {
+        const cBase = carac.base;
 
-      carac.total = cBase+carac.divers;
+        ppCarac += cBase*2;
+
+        carac.total = cBase+carac.divers;
+      }     
     }
 
     for(let com in CONFIG.MM3.competences) {
@@ -119,18 +125,19 @@ export class MM3Actor extends Actor {
         for(let list in cList) {
           const listData = cList[list];
           const listCompRang = listData.rang;
+          const carac = listData.carCanChange ? getCarac[getFullCarac(listData.car)] : getCarac[getFullCarac(comp.car)];
+          const scoreCarac = carac.total;
 
-          if(listData.carCanChange) listData.carac = getCarac[getFullCarac(listData.car)].total;
-          else listData.carac = getCarac[getFullCarac(comp.car)].total;
-          
+          listData.carac = carac.absente ? 0 : scoreCarac;
           listData.total = listData.carac+listCompRang+listData.autre;
           ppComp += listCompRang/2;
         }      
       } else {
+        const carac = getCarac[getFullCarac(comp.car)];
         const compRang = comp.rang;
 
         ppComp += compRang/2;
-        comp.carac = getCarac[getFullCarac(comp.car)].total;
+        comp.carac = carac.absente ? 0 : carac.total;
         comp.total = comp.carac+compRang+comp.autre;
       }
     }
@@ -138,6 +145,7 @@ export class MM3Actor extends Actor {
     for(let def in CONFIG.MM3.defenses) {
       const defense = getDef[def];
       const defRang = defense.base;
+      const carac = getCarac[getFullCarac(defense.car)];
       let mod = 0;
 
       if(def === 'robustesse') mod -= data.blessure;
@@ -145,7 +153,7 @@ export class MM3Actor extends Actor {
       if(def === 'parade') mod += getStr.total.defense;
 
       ppDef += defRang;
-      defense.carac = getCarac[getFullCarac(defense.car)].total;
+      defense.carac = carac.absente ? 0 : carac.total;
       defense.total = defRang+defense.carac+defense.divers+mod;
     }
 

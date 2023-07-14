@@ -5,6 +5,7 @@ import {
   rollAtk,
   rollStd,
   rollPwr,
+  accessibility
 } from "../helpers/common.mjs";
 
 /**
@@ -57,6 +58,7 @@ export class VehiculeActorSheet extends ActorSheet {
     super.activateListeners(html);
 
     toggler.init(this.id, html);
+    accessibility(this.actor, html);
 
     html.find('.pouvoirs .mod i').hover(ev => {
       const hover = ev.currentTarget;

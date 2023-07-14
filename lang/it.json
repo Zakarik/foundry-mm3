@@ -62,9 +62,10 @@
     },
     "TABS":{
       "Informations":"Informazioni",
-      "CaracComp":"Statistiche e abilità",
+      "CaracComp":"Statistiche e Abilità",
       "PouvoirsTalentsEquipements":"Poteri, Vantaggi & Equipaggiamenti",
-      "Importations":"Importa"
+      "Importations":"Importa",
+      "Options":"Opzioni"
     },
     "BTN":{
       "Add":"Aggiungi",
@@ -225,7 +226,12 @@
       "Typejet":"Tipo di tiro del dado",
       "Standard1d20":"Standard 1D20",
       "Guide3d20":"3D20 - Guida GM",
-      "3d6":"Somma 3D6"
+      "3d6":"Somma 3D6",
+      "DCRoll":"Scorciatoia per richiesta DD",
+      "DCRollHint":"Imposta la scorciatoia per aprire la finestra di richiesta DD in un roll, l'altra opzione consentirà quindi di effettuare un roll senza che la finestra appaia.",
+      "Clicgauche":"Clic Sinistro",
+      "ShiftClicgauche":"Shift + Clic Sinistro",
+      "CaractéristiquesAbsentes":"Abilità Mancanti"
     },
     "ROLL":{
       "AttSuccess":"L'attacco colpisce !",
@@ -237,10 +243,13 @@
       "DegreEchec":"Grado di fallimento",
       "DegresEchec":"Gradi di fallimento",
       "DD":"DC",
+      "AskDD":"C'è un DD? Lasciare a 0 se no",
       "Critique":"Critico",
       "Testeffet":"Tiro effetto",
       "Initiative":"Iniziativa",
       "Pasattaque":"Nessun tiro d'attacco",
+      "Valider":"Confermare",
+      "Annuler":"Annulla",
       "DEFENSE":{
         "Basedefense":"Tiro di Difesa di base",
         "Esquive":"Tiro di Schivata",
@@ -253,6 +262,10 @@
     "IMPORTATIONS":{
       "Herolab":"Importa da Hero Lab",
       "Warningherolab":"Attenzione, se ci sono altri dati nel foglio, verranno mantenuti o sostituiti a seconda dei casi. Il personaggio sarà quindi una combinazione di dati esistenti e nuovi, senza possibilità di prevedere cosa verrà sostituito o mantenuto."
+    },
+    "ACCESSIBILITE":{
+      "Label":"Accessibilità",
+      "Font":"Modifica dei font per testi lunghi"
     },
     "Nom":"Nome",
     "Identite":"Identità",
