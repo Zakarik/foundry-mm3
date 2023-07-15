@@ -428,11 +428,11 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
           const modPwrA = countPwr(pwr, "alternatepowers");
           const totalMod = modPwrO+modPwrA;
 
-          if(totalMod > 0 && !costNull) await itemCreate.update({[`system.cout.divers`]:itemCreate.system.cout.divers-totalMod}); 
+          if(totalMod > 0 && !costNull) await itemCreate.update({[`system.cout.divers`]:itm.system.cout.divers-totalMod}); 
           else if(totalMod > 0 && link !== "") await actor.items.get(link).update({[`system.cout.divers`]:actor.items.get(link).system.cout.divers-totalMod});
           
           const total = itemCreate.system.cout.total;
-          if(total > 5 && (pwr?.alternatepowers?.power ?? null) == null) listPwrWhoCanLostCost.push(itemCreate._id);
+          if(total > 1 && (pwr?.alternatepowers?.power ?? null) == null) listPwrWhoCanLostCost.push(itemCreate._id);
         } else {
           pwrName = pwr.name;
           pwrDescription = description;

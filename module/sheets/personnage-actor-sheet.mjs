@@ -42,8 +42,6 @@ export class PersonnageActorSheet extends ActorSheet {
     context.systemData = context.data.system;
     this._prepareCompetences(context);
 
-    console.warn(context);
-
     return context;
   }
 
@@ -154,7 +152,7 @@ export class PersonnageActorSheet extends ActorSheet {
         "Treatment":"soins",
         "Technologie":"technologie",
         "Technology":"technologie",
-        "Véhicules":"vehicule",
+        "Véhicules":"vehicules",
         "Vehicles":"vehicules",
         "Expertise":"expertise",
         "Expertise":"expertise",
@@ -195,7 +193,6 @@ export class PersonnageActorSheet extends ActorSheet {
         if(attributsTRA[attr.name] === 'combativite') combativite = Number(attr.modified);
         if(attributsTRA[attr.name] === 'sensibilite') sensibilite = Number(attr.modified);
 
-        console.warn(attr);
         update[`system.caracteristique.${attributsTRA[attr.name]}.base`] = Math.max(Number(attr.base), -5);
         update[`system.caracteristique.${attributsTRA[attr.name]}.divers`] = attr.text === '-' ? 0 : Number(attr.modified)-Number(attr.base);
         update[`system.caracteristique.${attributsTRA[attr.name]}.absente`] = attr.text === '-' && attr.cost.value === '-10' ? true : false;
@@ -391,7 +388,7 @@ export class PersonnageActorSheet extends ActorSheet {
         const search = Object.keys(skillsTRA).reduce((a, b) => {
           return skillName.includes(b) ? b : a;
         }, "");
-        const label = skillsTRA[search];        
+        const label = skillsTRA[search];
 
         if(label.includes('expertise') || label.includes('combatcontact') || label.includes('combatdistance')) {
           const length = Object.keys(listSkill[label]).length;
