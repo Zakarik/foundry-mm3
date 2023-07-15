@@ -1,3 +1,7 @@
+## Version 1.15.1
+### Bugfix
+- Correction de la traduction italienne.
+
 ## Version 1.15.0
 ### Améliorations
 - Ajout d'une fenêtre pour rentrer un degré de difficulté lors d'un jet de caractéristique / compétence / défense.
