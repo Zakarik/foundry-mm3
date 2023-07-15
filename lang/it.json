@@ -210,17 +210,17 @@
       "Equipement":"Fornisce punti equipaggiamento"
     },
     "TAILLE":{
-      "Insignifiante":"Impercettibile",
-      "Infime":"Infimo",
-      "Minuscule":"Minuscolo",
-      "Minime":"Minuto",
+      "Insignifiante":"Trascurabile",
+      "Infime":"Piccolissimo",
+      "Minuscule":"Minuto",
+      "Minime":"Minuscolo",
       "Petite":"Piccolo",
       "Intermediaire":"Medio",
       "Grand":"Grande",
       "Enorme":"Enorme",
-      "Gigantesque":"Gigantesco",
+      "Gigantesque":"Mastodontico",
       "Colossal":"Colossale",
-      "Titanesque":"Titanico"
+      "Titanesque":"Immenso"
     },
     "SETTING":{
       "Typejet":"Tipo di tiro del dado",
@@ -288,7 +288,7 @@
     "Historique":"Storia",
     "Complications":"Motivazioni & Complicazioni",
     "Total":"Totale",
-    "Carac":"Caratteristiche",
+    "Carac":"Caratt.",
     "Base":"Base",
     "Points":"Punti",
     "Rang":"Grado",

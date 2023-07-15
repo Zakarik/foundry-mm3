@@ -1,3 +1,7 @@
+## Version 1.15.3
+### Bugfix
+- Correction de la traduction italienne.
+
 ## Version 1.15.2
 ### Bugfix
 - Correction d'un bug d'importation.
