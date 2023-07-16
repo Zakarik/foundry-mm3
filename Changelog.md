@@ -1,3 +1,9 @@
+## Version 1.16.0
+### Améliorations
+- Ajout des pouvoirs pour les QG.
+- Ajout des attaques et des stratégies sur les Véhicules et les QG.
+- Changement de l'onglet d'ouverture par défaut pour les véhicules
+
 ## Version 1.15.3
 ### Bugfix
 - Correction de la traduction italienne.

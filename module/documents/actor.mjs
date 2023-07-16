@@ -205,13 +205,32 @@ export class MM3Actor extends Actor {
     const data = actorData.system;
     const getTaille = data.taille;
     const getCarac = data.caracteristique;
+    const getInit = data.initiative;
+    const getStr = data.strategie;
+    const listStr = ['attaqueprecision', 'attaqueoutrance', 'attaquedefensive', 'attaquepuissance', 'etats']
     const cout = data.cout;
+    let attaque = 0;
+    let defense = 0;
+    let effet = 0;
     let ppTaille = 0;
     let ppForce = 0;
     let ppRobustesse = 0;
     let ppDefense = 0;
     let ppPouvoir = 0;
     
+    for(let str of listStr) {
+      const dataStr = getStr[str];
+
+      attaque += dataStr.attaque;
+      defense += dataStr.defense;
+      effet += dataStr.effet;
+    }
+
+    getStr.total = {
+      attaque:attaque,
+      defense:defense,
+      effet:effet
+    };
 
     switch(getTaille) {
       case 'intermediaire':
@@ -260,7 +279,7 @@ export class MM3Actor extends Actor {
       const carac = getCarac[car];
       const cBase = carac.base;
 
-      carac.total = cBase+carac.rang+carac.divers;
+      carac.total = car === 'defense' ? cBase+carac.rang+carac.divers+defense : cBase+carac.rang+carac.divers;
 
       switch(car) {
         case 'force':
@@ -283,6 +302,9 @@ export class MM3Actor extends Actor {
       ppPouvoir += (pwrData.special === 'dynamique' && pwrData.link !== '') || pwrData.special === 'alternatif' ? pwrData.cout.total : pwrData.cout.totalTheorique;
     }
 
+    getInit.carac = 0;
+    getInit.total = getInit.base;
+
     cout.taille = ppTaille;
     cout.force = ppForce;
     cout.robustesse = ppRobustesse;
@@ -297,8 +319,28 @@ export class MM3Actor extends Actor {
     const data = actorData.system;
     const getTaille = data.taille;
     const cout = data.cout;
+    const getInit = data.initiative;
+    const getStr = data.strategie;
+    const listStr = ['attaqueprecision', 'attaqueoutrance', 'attaquedefensive', 'attaquepuissance', 'etats'];
+    let attaque = 0;
+    let defense = 0;
+    let effet = 0;
     let ppTaille = 0;
     let ppRobustesse = 0;
+
+    for(let str of listStr) {
+      const dataStr = getStr[str];
+
+      attaque += dataStr.attaque;
+      defense += dataStr.defense;
+      effet += dataStr.effet;
+    }
+
+    getStr.total = {
+      attaque:attaque,
+      defense:defense,
+      effet:effet
+    };
 
     switch(getTaille.toLowerCase()) {
       case 'insignifiante':
@@ -345,6 +387,9 @@ export class MM3Actor extends Actor {
         ppTaille = 6;
         break;
     }
+
+    getInit.carac = 0;
+    getInit.total = getInit.base;
 
     ppRobustesse += Math.floor(data.robustesse/2)
 

@@ -1,0 +1,81 @@
+<div class="strategie">
+    <span class="header">{{localize "MM3.Nom"}}</span>
+    <span class="header">{{localize "MM3.ATTAQUE.Label"}}</span>
+    <span class="header">{{localize "MM3.DEFENSE.Label"}}</span>
+    <span class="header">{{localize "MM3.EFFET.Label"}}</span>
+
+    <span class="label">
+        {{localize "MM3.STRATEGIE.Attaqueoutrance"}}
+    </span>
+    <input 
+        data-type="attaqueoutrance" data-value="attaque" 
+        type="number" name="system.strategie.attaqueoutrance.attaque" value="{{systemData.strategie.attaqueoutrance.attaque}}"
+        title="{{localize "MM3.BONUS.Attaque"}}"
+    />
+    <input 
+        data-type="attaqueoutrance" data-value="defense" 
+        type="number" name="system.strategie.attaqueoutrance.defense" value="{{systemData.strategie.attaqueoutrance.defense}}"
+        title="{{localize "MM3.MALUS.Defense"}}"
+    />
+    <span></span>
+    
+    <span class="label">
+        {{localize "MM3.STRATEGIE.Attaquedefensive"}}
+    </span>
+    <input 
+        data-type="attaquedefensive" data-value="attaque"
+        type="number" name="system.strategie.attaquedefensive.attaque" value="{{systemData.strategie.attaquedefensive.attaque}}"
+        title="{{localize "MM3.MALUS.Attaque"}}"
+    />
+    <input 
+        data-type="attaquedefensive" data-value="defense"
+        type="number" name="system.strategie.attaquedefensive.defense" value="{{systemData.strategie.attaquedefensive.defense}}"
+        title="{{localize "MM3.BONUS.Defense"}}"
+    />
+    <span></span>
+
+    <span class="label">
+        {{localize "MM3.STRATEGIE.Attaqueprecision"}}
+    </span>
+    <input 
+        data-type="attaqueprecision" data-value="attaque" 
+        type="number" name="system.strategie.attaqueprecision.attaque" value="{{systemData.strategie.attaqueprecision.attaque}}"
+        title="{{localize "MM3.BONUS.Attaque"}}"
+    />
+    <span></span>
+    <input 
+        data-type="attaqueprecision" data-value="effet" 
+        type="number" name="system.strategie.attaqueprecision.effet" value="{{systemData.strategie.attaqueprecision.effet}}"
+        title="{{localize "MM3.MALUS.Effet"}}"
+    />
+
+    <span class="label">
+        {{localize "MM3.STRATEGIE.Attaquepuissance"}}
+    </span>
+    <input 
+        data-type="attaquepuissance" data-value="attaque" 
+        type="number" name="system.strategie.attaquepuissance.attaque" value="{{systemData.strategie.attaquepuissance.attaque}}"
+        title="{{localize "MM3.MALUS.Attaque"}}"
+    />
+    <span></span>
+    <input 
+        data-type="attaquepuissance" data-value="effet" 
+        type="number" name="system.strategie.attaquepuissance.effet" value="{{systemData.strategie.attaquepuissance.effet}}"
+        title="{{localize "MM3.BONUS.Effet"}}"
+    />     
+
+    <span class="label">
+        {{localize "MM3.STRATEGIE.Etats"}}
+    </span>
+    <input 
+        data-type="etats" data-value="attaque" 
+        type="number" name="system.strategie.etats.attaque" value="{{systemData.strategie.etats.attaque}}"
+        title="{{localize "MM3.MOD.Attaque"}}"
+    />
+    <span></span>
+    <input 
+        data-type="etats" data-value="effet" 
+        type="number" name="system.strategie.etats.effet" value="{{systemData.strategie.etats.effet}}"
+        title="{{localize "MM3.MOD.Effet"}}"
+    />             
+</div>

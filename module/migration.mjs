@@ -1,5 +1,5 @@
 export class MigrationMM3 {
-    static NEEDED_VERSION = "1.10.0";
+    static NEEDED_VERSION = "1.16.0";
 
     static needUpdate(version) {
         const currentVersion = game.settings.get("mutants-and-masterminds-3e", "systemVersion");
@@ -106,6 +106,47 @@ export class MigrationMM3 {
 
                 if(defpassive !== '') update[`system.attaque.${a}.defpassive`] = defpassive;
             }
+        }
+
+        if (options?.force || MigrationMM3.needUpdate("1.16.0")) {
+            
+            if(actor.type === 'vehicule' || actor.type === 'qg') {
+                update[`system.initiative`] = {
+                    "base":0
+                };
+
+                update[`system.attaque`] = {};
+
+                update[`system.strategie`] = {
+                    "attaqueprecision":{
+                        "attaque":0,
+                        "defense":0,
+                        "effet":0
+                    },
+                    "attaqueoutrance":{
+                        "attaque":0,
+                        "defense":0,
+                        "effet":0
+                    },
+                    "attaquedefensive":{
+                        "attaque":0,
+                        "defense":0,
+                        "effet":0
+                    },
+                    "attaquepuissance":{
+                        "attaque":0,
+                        "defense":0,
+                        "effet":0
+                    },
+                    "etats":{
+                        "attaque":0,
+                        "defense":0,
+                        "effet":0
+                    }
+                };
+            }
+
+            if(actor.type === 'qg') update[`system.pwr`] = {};
         }
 
         return update;

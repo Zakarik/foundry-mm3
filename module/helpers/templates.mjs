@@ -10,6 +10,8 @@ export const preloadHandlebarsTemplates = async function() {
     // Attribute list partial.
     "systems/mutants-and-masterminds-3e/templates/parts/informations.html",
     "systems/mutants-and-masterminds-3e/templates/parts/caracteristiques.html",
+    "systems/mutants-and-masterminds-3e/templates/parts/attaque.html",
+    "systems/mutants-and-masterminds-3e/templates/parts/strategie.html",
     "systems/mutants-and-masterminds-3e/templates/parts/listPouvoirs.html",
     "systems/mutants-and-masterminds-3e/templates/parts/pouvoirs.html",
     "systems/mutants-and-masterminds-3e/templates/parts/importations.html",

@@ -183,6 +183,9 @@ div.vehicule {
             @import "subparts/options";
 
             div {
+                @include attaque;
+                @include strategie;
+
                 &.informations {
                     border:1px solid $grey;
                     border-top-color:$black;
@@ -246,7 +249,8 @@ div.vehicule {
                     align-content: flex-start;
                 }
 
-                &.details {
+                &.details,
+                &.pouvoirs {
                     div {
                         &.inner {
                             display:grid;
@@ -452,15 +456,11 @@ div.vehicule {
                     }
                 }
 
-                &.pouvoirs {
-                    grid-column-start: 1;
-                    grid-column-end: 3;
-
+                &.listpouvoir {
                     display:grid;
                     grid-template-columns: 1fr 1fr;
                     align-items: flex-start;
                     align-content: flex-start;
-                    padding-top: 5px;
                     grid-gap: 5px;
 
                     @include fakebutton('item-create');
@@ -475,7 +475,7 @@ div.vehicule {
                     }
 
                     div {
-                        &.pwr {
+                        &.pwr {                            
                             div.pwrheader {
                                 grid-column-start: 1;
                                 grid-column-end: 3;

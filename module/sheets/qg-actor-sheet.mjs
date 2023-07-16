@@ -1,6 +1,10 @@
 
 import toggler from '../helpers/toggler.js';
 import {
+  rollAtkTgt,
+  rollAtk,
+  rollStd,
+  rollPwr,
   accessibility
 } from "../helpers/common.mjs";
 
@@ -16,7 +20,7 @@ export class QGActorSheet extends ActorSheet {
       template: "systems/mutants-and-masterminds-3e/templates/qg-actor-sheet.html",
       width: 850,
       height: 500,
-      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "informations"}],
+      tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "details"}],
       dragDrop: [{dragSelector: ".draggable", dropSelector: null}],
     });
   }
@@ -26,6 +30,8 @@ export class QGActorSheet extends ActorSheet {
   /** @inheritdoc */
   getData() {
     const context = super.getData();
+
+    this._prepareCharacterItems(context);
 
     context.systemData = context.data.system;
 
@@ -80,6 +86,195 @@ export class QGActorSheet extends ActorSheet {
 
       this.actor.update({[`system.cout.opened`]:value})
     });
+
+    html.find('a.roll').click(async ev => {
+      const target = $(ev.currentTarget);
+      const type = target.data('type');
+      const name = target.data('name');
+      const total = target.data('total');
+      const id = target.data('id');
+      const strattaque = target.data('strattaque');
+      const streffet = target.data('streffet');
+      const tgt = game.user.targets.ids[0];
+      const atk = this.actor.system.attaque[id];
+      const hasShift = ev.shiftKey;
+
+      if(type === 'attaque' && tgt !== undefined && atk.noAtk) rollTgt(this.actor, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, tgt);
+      else if(type === 'attaque' && tgt !== undefined && !atk.noAtk) rollAtkTgt(this.actor, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, tgt);
+      else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(this.actor, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}});
+      else if(type === 'attaque' && atk.noAtk) rollWAtk(this.actor, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}});
+      else rollStd(this.actor, name, total, hasShift);
+    });
+
+    html.find('a.rollPwr').click(async ev => {
+      const target = $(ev.currentTarget);
+      const id = target.data('id');
+
+      rollPwr(this.actor, id);
+    });
+
+    html.find('a.add').click(async ev => {
+      const target = $(ev.currentTarget);
+      const type = target.data('type');
+      const what = target.data('what');
+
+      const update = {};
+
+      switch(type) {
+        case 'complications':
+          const dataComplication = Object.keys(this.actor.system.complications);
+          const maxKeysComplication = dataComplication.length ? Math.max(...dataComplication) : 0;
+          
+          this.actor.update({[`system.complications.${maxKeysComplication+1}`]:{
+            label:"",
+            description:""
+          }});
+          break;
+          
+        case 'competence':
+          const comp = this.actor.system.competence[what];
+          const dataComp = Object.keys(comp.list);
+          const maxKeysComp = dataComp.length > 0 ? Math.max(...dataComp) : 0;
+          const modele = comp.modele;          
+
+          if(what === 'combatcontact' || what === 'combatdistance') {
+            const attaque = this.actor.system?.attaque || {};
+            const dataAttaque = Object.keys(attaque);
+            const maxKeysAtt = dataAttaque.length > 0 ? Math.max(...dataAttaque) : 0;
+
+            modele['idAtt'] = maxKeysAtt;
+            update[`system.attaque.${maxKeysAtt+1}`] = {
+              type:what,
+              id:maxKeysComp+1,
+              save:'robustesse',
+              effet:0,
+              critique:20,
+              text:"",
+              noAtk:false,
+              basedef:15,
+              defpassive:what === 'combatcontact' ? 'parade' : 'esquive',
+            };
+          }
+
+          update[`system.competence.${what}.list.${maxKeysComp+1}`] = modele;
+
+          this.actor.update(update);
+          break;
+        
+        case 'attaque':
+          const attaque = this.actor.system?.attaque || {};
+          const dataAttaque = Object.keys(attaque);
+          const maxKeysAtt = dataAttaque.length > 0 ? Math.max(...dataAttaque) : 0;
+
+          update[`system.attaque.${maxKeysAtt+1}`] = {
+            type:'other',
+            id:-1,
+            save:'robustesse',
+            label:game.i18n.localize('MM3.Adefinir'),
+            attaque:0,
+            effet:0,
+            critique:20,
+            text:"",
+            noAtk:false,
+            basedef:15,
+            defpassive:'parade',
+          };
+
+          this.actor.update(update);
+          break;
+      }
+    });
+
+    html.find('div.attaque i.editAtk').click(ev => {
+      const target = $(ev.currentTarget);
+      const id = target.data('id');
+      const value = target.data('value') ? false : true;
+
+      this.actor.update({[`system.attaque.${id}.edit`]:value});
+    });
+
+    html.find('div.attaque .noAtk').click(ev => {
+      const target = $(ev.currentTarget);
+      const id = target.data('id');
+      const value = target.data('value') ? false : true;
+
+      this.actor.update({[`system.attaque.${id}.noAtk`]:value});
+    });
+
+    html.find('div.attaque select.defense').change(async ev => {
+      const target = $(ev.currentTarget);
+      const id = target.data('id');
+      const value = target.val();
+      let newValue = 10;
+
+      if(value === 'robustesse') newValue = 15;
+
+      $(html.find(`div.attaque div.specialline input.basedef${id}`)).val(newValue);
+    });
+
+    html.find('div.strategie input').change(async ev => {
+      const target = $(ev.currentTarget);
+      const type = target.data('type');
+      const mod = target.data('value');
+      const value = Number(target.val());
+
+      const update = {};
+    
+      switch(type) {
+        case 'attaqueprecision':
+        case 'attaquepuissance':
+          if(mod === 'attaque') update[`system.strategie.${type}.effet`] = value*-1;
+          else if(mod === 'effet') update[`system.strategie.${type}.attaque`] = value*-1;
+
+          this.actor.update(update);
+          break;
+
+        case 'attaqueoutrance':
+        case 'attaquedefensive':
+          if(mod === 'attaque') update[`system.strategie.${type}.defense`] = value*-1;
+          else if(mod === 'defense') update[`system.strategie.${type}.attaque`] = value*-1;
+
+          this.actor.update(update);
+          break;
+      }
+    });
+  }
+
+  _prepareCharacterItems(context) {
+    const actor = context.actor;
+    const items = context.items;
+    const pouvoirs = items.filter(item => item.type === 'pouvoir');
+    const pwr = [];
+    const pwrAlternatif = {};
+    const pwrDynamique = {};
+    const pwrStandard = {};
+    
+    for(let p of pouvoirs) {
+      pwrAlternatif[p._id] = [];
+      pwrDynamique[p._id] = [];
+    }
+
+    for(let i of items) {
+      const type = i.type;
+      const data = i.system;
+
+      switch(type) {
+        case 'pouvoir':
+          if(data.special === 'standard' || 
+          (data.special === 'alternatif' && data.link === "") || 
+          (data.special === 'dynamique' && data.link === "")) pwr.push(i);
+          else if((data.special === 'alternatif' && data.link !== "")) pwrAlternatif[data.link].push(i);
+          else if((data.special === 'dynamique' && data.link !== "")) pwrDynamique[data.link].push(i);
+          
+          if(data.special === 'standard' || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
+          break;
+      }
+    }
+
+    actor.pouvoirs = pwr;
+    actor.pwrStandard = pwrStandard;
+    actor.pwrAlternatif = pwrAlternatif;
+    actor.pwrDynamique = pwrDynamique;
   }
 
   _prepareList(context) {

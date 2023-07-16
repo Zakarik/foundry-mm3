@@ -376,6 +376,297 @@ div.personnage section.sheet-body div.caracteristiques div.inner {
   grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
 }
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.roll {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.roll:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.noAtk {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.noAtk:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.noAtk.selected {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.roll.large {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.hide {
+  display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.add {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  text-align: center;
+  width: 100%;
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin-top: 2px;
+  margin-left: 2px;
+  margin-bottom: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.add:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  display: grid;
+  grid-template-columns: 1fr max-content repeat(2, 45px 5px) 45px 1fr;
+  grid-gap: 5px;
+  margin-top: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line span {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line span.score {
+  padding-right: 0px;
+  padding-left: 0px;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line span.total {
+  font-weight: bold;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: grid;
+  grid-template-columns: 1fr 1fr 45px;
+  grid-template-rows: max-content;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline span.labelBase {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: right;
+  align-items: center;
+  font-family: Sriracha;
+  white-space: nowrap;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline span.labelDefense {
+  grid-column-start: 1;
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: right;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline span.labelDefense.hide {
+  display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline select.selectDefense {
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline input.label {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.hide {
+  display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.header {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  height: 18px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.carac {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  text-transform: uppercase;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.score {
+  display: grid;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.label {
+  font-size: 0.8em;
+  text-align: center;
+  line-height: 0.8em;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.label.large {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.hide {
+  display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque input.hide {
+  display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque textarea {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  resize: vertical;
+  width: 100%;
+  max-width: 100%;
+  min-height: 40px;
+  font-family: Sriracha;
+  font-size: 0.8em;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque textarea.hide {
+  display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque textarea.short {
+  grid-column-end: 6;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque select.hide {
+  display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque i {
+  cursor: pointer;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque i.hide {
+  display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie > span.label {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
 div.personnage section.sheet-body div.caracteristiques div.inner div.col {
   display: grid;
   row-gap: 10px;
@@ -754,297 +1045,6 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.defense > s
   font-weight: bold;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.defense input {
-  width: 100%;
-  padding-right: 0px;
-  padding-left: 0px;
-  text-align: center;
-  font-family: Sriracha;
-  height: 100%;
-  background: transparent;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque {
-  display: grid;
-  grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
-  grid-template-rows: max-content;
-  border: 2px solid black;
-  padding: 0px 5px 5px;
-  grid-gap: 5px;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.roll {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  background-image: linear-gradient(180deg, white, #e6e6e6);
-  width: 100%;
-  height: 100%;
-  border: 1px solid #aaa;
-  border-bottom-color: #666;
-  border-right: 2px solid #999;
-  border-radius: 5px;
-  border-style: outset;
-  font-family: "Bangers";
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 18px;
-  cursor: pointer;
-  color: #363B44;
-  text-transform: uppercase;
-  padding: 2px 5px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.roll:hover {
-  color: #fe8412;
-  border-color: #fe1611;
-  letter-spacing: 1px;
-  text-shadow: none;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.noAtk {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  background-image: linear-gradient(180deg, white, #e6e6e6);
-  width: 100%;
-  height: 100%;
-  border: 1px solid #aaa;
-  border-bottom-color: #666;
-  border-right: 2px solid #999;
-  border-radius: 5px;
-  border-style: outset;
-  font-family: "Bangers";
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 18px;
-  cursor: pointer;
-  color: #363B44;
-  text-transform: uppercase;
-  padding: 2px 5px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.noAtk:hover {
-  color: #fe8412;
-  border-color: #fe1611;
-  letter-spacing: 1px;
-  text-shadow: none;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.noAtk.selected {
-  color: #fe8412;
-  border-color: #fe1611;
-  letter-spacing: 1px;
-  text-shadow: none;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.roll.large {
-  grid-column-start: 1;
-  grid-column-end: 3;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.hide {
-  display: none;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.add {
-  grid-column-start: 1;
-  grid-column-end: 7;
-  text-align: center;
-  width: 100%;
-  border-bottom: 2px solid #666;
-  border-color: #aaa;
-  border-radius: 5px;
-  border-right: 3px solid #999;
-  border-style: outset;
-  font-family: "Bangers";
-  font-size: 13px;
-  font-weight: normal;
-  line-height: 18px;
-  cursor: pointer;
-  color: #363B44;
-  text-transform: uppercase;
-  padding: 2px 5px;
-  margin-top: 2px;
-  margin-left: 2px;
-  margin-bottom: 2px;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.add:hover {
-  color: #fe8412;
-  border-color: #fe1611;
-  letter-spacing: 1px;
-  text-shadow: none;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line {
-  grid-column-start: 1;
-  grid-column-end: 7;
-  display: grid;
-  grid-template-columns: 1fr max-content repeat(2, 45px 5px) 45px 1fr;
-  grid-gap: 5px;
-  margin-top: 5px;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line span {
-  display: grid;
-  width: 100%;
-  font-weight: bold;
-  justify-content: center;
-  align-items: center;
-  font-family: Sriracha;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line span.score {
-  padding-right: 0px;
-  padding-left: 0px;
-  font-weight: normal;
-  height: 100%;
-  background: transparent;
-  border: 1px solid #7a7971;
-  border-radius: 2px;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line span.total {
-  font-weight: bold;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline {
-  grid-column-start: 1;
-  grid-column-end: 6;
-  display: grid;
-  grid-template-columns: 1fr 1fr 45px;
-  grid-template-rows: max-content;
-  grid-gap: 5px;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline span.labelBase {
-  display: grid;
-  width: 100%;
-  font-weight: bold;
-  justify-content: right;
-  align-items: center;
-  font-family: Sriracha;
-  white-space: nowrap;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline span.labelDefense {
-  grid-column-start: 1;
-  display: grid;
-  width: 100%;
-  font-weight: bold;
-  justify-content: right;
-  align-items: center;
-  font-family: Sriracha;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline span.labelDefense.hide {
-  display: none;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline select.selectDefense {
-  grid-column-start: 2;
-  grid-column-end: 4;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline input.label {
-  grid-column-start: 1;
-  grid-column-end: 4;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.hide {
-  display: none;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.header {
-  grid-column-start: 1;
-  grid-column-end: 6;
-  display: grid;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  font-size: 1em;
-  height: 18px;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.carac {
-  display: grid;
-  width: 100%;
-  font-weight: bold;
-  justify-content: center;
-  align-items: center;
-  font-family: Sriracha;
-  text-transform: uppercase;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.score {
-  display: grid;
-  width: 100%;
-  padding-right: 0px;
-  padding-left: 0px;
-  justify-content: center;
-  align-items: center;
-  font-family: Sriracha;
-  font-weight: normal;
-  height: 100%;
-  background: transparent;
-  border: 1px solid #7a7971;
-  border-radius: 2px;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.label {
-  font-size: 0.8em;
-  text-align: center;
-  line-height: 0.8em;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.label.large {
-  grid-column-start: 1;
-  grid-column-end: 3;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.hide {
-  display: none;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque input {
-  width: 100%;
-  padding-right: 0px;
-  padding-left: 0px;
-  text-align: center;
-  font-family: Sriracha;
-  height: 100%;
-  background: transparent;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque input.hide {
-  display: none;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque textarea {
-  grid-column-start: 1;
-  grid-column-end: 7;
-  resize: vertical;
-  width: 100%;
-  max-width: 100%;
-  min-height: 40px;
-  font-family: Sriracha;
-  font-size: 0.8em;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque textarea.hide {
-  display: none;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque textarea.short {
-  grid-column-end: 6;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque select.hide {
-  display: none;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque i {
-  cursor: pointer;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque i:hover {
-  text-shadow: 0px 0px 3px;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque i.hide {
-  display: none;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.strategie {
-  display: grid;
-  grid-template-columns: 1fr repeat(3, 45px);
-  grid-template-rows: max-content;
-  border: 2px solid black;
-  padding: 0px 5px 5px;
-  grid-gap: 5px;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.strategie > span.header {
-  display: grid;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.8em;
-  height: 18px;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.strategie > span.label {
-  display: grid;
-  width: 100%;
-  font-weight: bold;
-  justify-content: center;
-  align-items: center;
-  font-family: Sriracha;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.strategie input {
   width: 100%;
   padding-right: 0px;
   padding-left: 0px;
@@ -3795,6 +3795,297 @@ div.vehicule section.sheet-body div.options div.accessibility label {
 div.vehicule section.sheet-body div.options div.accessibility select {
   text-align: center;
 }
+div.vehicule section.sheet-body div div.attaque {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.vehicule section.sheet-body div div.attaque a.roll {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.vehicule section.sheet-body div div.attaque a.roll:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.vehicule section.sheet-body div div.attaque a.noAtk {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.vehicule section.sheet-body div div.attaque a.noAtk:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.vehicule section.sheet-body div div.attaque a.noAtk.selected {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.vehicule section.sheet-body div div.attaque a.roll.large {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.vehicule section.sheet-body div div.attaque a.hide {
+  display: none;
+}
+div.vehicule section.sheet-body div div.attaque a.add {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  text-align: center;
+  width: 100%;
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin-top: 2px;
+  margin-left: 2px;
+  margin-bottom: 2px;
+}
+div.vehicule section.sheet-body div div.attaque a.add:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.vehicule section.sheet-body div div.attaque div.line {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  display: grid;
+  grid-template-columns: 1fr max-content repeat(2, 45px 5px) 45px 1fr;
+  grid-gap: 5px;
+  margin-top: 5px;
+}
+div.vehicule section.sheet-body div div.attaque div.line span {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.vehicule section.sheet-body div div.attaque div.line span.score {
+  padding-right: 0px;
+  padding-left: 0px;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.vehicule section.sheet-body div div.attaque div.line span.total {
+  font-weight: bold;
+}
+div.vehicule section.sheet-body div div.attaque div.specialline {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: grid;
+  grid-template-columns: 1fr 1fr 45px;
+  grid-template-rows: max-content;
+  grid-gap: 5px;
+}
+div.vehicule section.sheet-body div div.attaque div.specialline span.labelBase {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: right;
+  align-items: center;
+  font-family: Sriracha;
+  white-space: nowrap;
+}
+div.vehicule section.sheet-body div div.attaque div.specialline span.labelDefense {
+  grid-column-start: 1;
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: right;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.vehicule section.sheet-body div div.attaque div.specialline span.labelDefense.hide {
+  display: none;
+}
+div.vehicule section.sheet-body div div.attaque div.specialline select.selectDefense {
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+div.vehicule section.sheet-body div div.attaque div.specialline input.label {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+div.vehicule section.sheet-body div div.attaque div.hide {
+  display: none;
+}
+div.vehicule section.sheet-body div div.attaque > span.header {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  height: 18px;
+}
+div.vehicule section.sheet-body div div.attaque > span.carac {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  text-transform: uppercase;
+}
+div.vehicule section.sheet-body div div.attaque > span.score {
+  display: grid;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.vehicule section.sheet-body div div.attaque > span.label {
+  font-size: 0.8em;
+  text-align: center;
+  line-height: 0.8em;
+}
+div.vehicule section.sheet-body div div.attaque > span.label.large {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.vehicule section.sheet-body div div.attaque > span.hide {
+  display: none;
+}
+div.vehicule section.sheet-body div div.attaque input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.vehicule section.sheet-body div div.attaque input.hide {
+  display: none;
+}
+div.vehicule section.sheet-body div div.attaque textarea {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  resize: vertical;
+  width: 100%;
+  max-width: 100%;
+  min-height: 40px;
+  font-family: Sriracha;
+  font-size: 0.8em;
+}
+div.vehicule section.sheet-body div div.attaque textarea.hide {
+  display: none;
+}
+div.vehicule section.sheet-body div div.attaque textarea.short {
+  grid-column-end: 6;
+}
+div.vehicule section.sheet-body div div.attaque select.hide {
+  display: none;
+}
+div.vehicule section.sheet-body div div.attaque i {
+  cursor: pointer;
+}
+div.vehicule section.sheet-body div div.attaque i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.vehicule section.sheet-body div div.attaque i.hide {
+  display: none;
+}
+div.vehicule section.sheet-body div div.strategie {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.vehicule section.sheet-body div div.strategie > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.vehicule section.sheet-body div div.strategie > span.label {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.vehicule section.sheet-body div div.strategie input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
 div.vehicule section.sheet-body div.informations {
   border: 1px solid #a8a8a8;
   border-top-color: black;
@@ -3844,7 +4135,7 @@ div.vehicule section.sheet-body div.col {
   align-items: flex-start;
   align-content: flex-start;
 }
-div.vehicule section.sheet-body div.details div.inner {
+div.vehicule section.sheet-body div.details div.inner, div.vehicule section.sheet-body div.pouvoirs div.inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
@@ -4039,17 +4330,14 @@ div.vehicule section.sheet-body div.particularite div.editor div.editor-content 
 div.vehicule section.sheet-body div.particularite div.editor div.tox-tinymce {
   min-height: 300px;
 }
-div.vehicule section.sheet-body div.pouvoirs {
-  grid-column-start: 1;
-  grid-column-end: 3;
+div.vehicule section.sheet-body div.listpouvoir {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: flex-start;
   align-content: flex-start;
-  padding-top: 5px;
   grid-gap: 5px;
 }
-div.vehicule section.sheet-body div.pouvoirs a.item-create {
+div.vehicule section.sheet-body div.listpouvoir a.item-create {
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -4071,20 +4359,20 @@ div.vehicule section.sheet-body div.pouvoirs a.item-create {
   padding: 2px 5px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-div.vehicule section.sheet-body div.pouvoirs a.item-create:hover {
+div.vehicule section.sheet-body div.listpouvoir a.item-create:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.vehicule section.sheet-body div.pouvoirs a.item-create {
+div.vehicule section.sheet-body div.listpouvoir a.item-create {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.vehicule section.sheet-body div.pouvoirs.show {
+div.vehicule section.sheet-body div.listpouvoir.show {
   display: grid;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader {
+div.vehicule section.sheet-body div.listpouvoir div.pwr div.pwrheader {
   grid-column-start: 1;
   grid-column-end: 3;
   width: 100%;
@@ -4096,32 +4384,32 @@ div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader {
   text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
   font-family: "Bangers";
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader i {
+div.vehicule section.sheet-body div.listpouvoir div.pwr div.pwrheader i {
   position: absolute;
   font-size: 1rem;
   color: #EBEBEB;
   top: 8px;
   cursor: pointer;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader i.item-edit {
+div.vehicule section.sheet-body div.listpouvoir div.pwr div.pwrheader i.item-edit {
   right: 25px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader i.item-delete {
+div.vehicule section.sheet-body div.listpouvoir div.pwr div.pwrheader i.item-delete {
   right: 5px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader i:hover {
+div.vehicule section.sheet-body div.listpouvoir div.pwr div.pwrheader i:hover {
   text-shadow: 0px 0px 3px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader.blue {
+div.vehicule section.sheet-body div.listpouvoir div.pwr div.pwrheader.blue {
   background: url("../assets/fond.webp") #4E7FC8;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader.red {
+div.vehicule section.sheet-body div.listpouvoir div.pwr div.pwrheader.red {
   background: url("../assets/fond.webp") #DA3A2F;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr div.pwrheader.violet {
+div.vehicule section.sheet-body div.listpouvoir div.pwr div.pwrheader.violet {
   background: url("../assets/fond.webp") #7E627F;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr span.header {
+div.vehicule section.sheet-body div.listpouvoir div.pwr span.header {
   width: calc(100% - 95px);
   display: grid;
   grid-template-columns: 1fr;
@@ -4138,7 +4426,7 @@ div.vehicule section.sheet-body div.pouvoirs div.pwr span.header {
   align-items: center;
   align-content: center;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr header {
+div.vehicule section.sheet-body div.listpouvoir div.pwr header {
   grid-column-start: 1;
   grid-column-end: 3;
   display: grid;
@@ -4146,19 +4434,19 @@ div.vehicule section.sheet-body div.pouvoirs div.pwr header {
   grid-template-columns: 1fr;
   position: relative;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr header::before {
+div.vehicule section.sheet-body div.listpouvoir div.pwr header::before {
   content: "";
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy {
+div.vehicule section.sheet-body div.listpouvoir div.pwr header span.deploy {
   position: absolute;
   top: 3px;
   left: 10px;
   z-index: 999;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy i {
+div.vehicule section.sheet-body div.listpouvoir div.pwr header span.deploy i {
   cursor: pointer;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy i::before {
+div.vehicule section.sheet-body div.listpouvoir div.pwr header span.deploy i::before {
   border: 2px solid #EBEBEB;
   font-size: 13px;
   border-radius: 30px;
@@ -4168,16 +4456,16 @@ div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy i::befor
   color: #EBEBEB;
   height: 23px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy i.plus::before {
+div.vehicule section.sheet-body div.listpouvoir div.pwr header span.deploy i.plus::before {
   content: "+";
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr header span.deploy i.minus::before {
+div.vehicule section.sheet-body div.listpouvoir div.pwr header span.deploy i.minus::before {
   content: "-";
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr.blue div.pwrheader {
+div.vehicule section.sheet-body div.listpouvoir div.pwr.blue div.pwrheader {
   background: url("../assets/fond.webp") #4E7FC8;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr.blue::after {
+div.vehicule section.sheet-body div.listpouvoir div.pwr.blue::after {
   content: "";
   display: grid;
   grid-template-columns: 1fr;
@@ -4188,10 +4476,10 @@ div.vehicule section.sheet-body div.pouvoirs div.pwr.blue::after {
   background-blend-mode: overlay, multiply;
   background: url("../assets/fond.webp") #4E7FC8;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr.red div.pwrheader {
+div.vehicule section.sheet-body div.listpouvoir div.pwr.red div.pwrheader {
   background: url("../assets/fond.webp") #DA3A2F;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr.red::after {
+div.vehicule section.sheet-body div.listpouvoir div.pwr.red::after {
   content: "";
   display: grid;
   grid-template-columns: 1fr;
@@ -4202,10 +4490,10 @@ div.vehicule section.sheet-body div.pouvoirs div.pwr.red::after {
   background-blend-mode: overlay, multiply;
   background: url("../assets/fond.webp") #DA3A2F;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr.violet div.pwrheader {
+div.vehicule section.sheet-body div.listpouvoir div.pwr.violet div.pwrheader {
   background: url("../assets/fond.webp") #7E627F;
 }
-div.vehicule section.sheet-body div.pouvoirs div.pwr.violet::after {
+div.vehicule section.sheet-body div.listpouvoir div.pwr.violet::after {
   content: "";
   display: grid;
   grid-template-columns: 1fr;
@@ -4216,7 +4504,7 @@ div.vehicule section.sheet-body div.pouvoirs div.pwr.violet::after {
   background-blend-mode: overlay, multiply;
   background: url("../assets/fond.webp") #7E627F;
 }
-div.vehicule section.sheet-body div.pouvoirs div.bottom {
+div.vehicule section.sheet-body div.listpouvoir div.bottom {
   display: grid;
   grid-template-columns: 1fr;
   height: 0.5rem;
@@ -4225,26 +4513,26 @@ div.vehicule section.sheet-body div.pouvoirs div.bottom {
   border-radius: 0px 0px 15px 15px;
   background-blend-mode: overlay, multiply;
 }
-div.vehicule section.sheet-body div.pouvoirs div.bottom.col2 {
+div.vehicule section.sheet-body div.listpouvoir div.bottom.col2 {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.vehicule section.sheet-body div.pouvoirs div.bottom.blue {
+div.vehicule section.sheet-body div.listpouvoir div.bottom.blue {
   background: url("../assets/fond.webp") #4E7FC8;
 }
-div.vehicule section.sheet-body div.pouvoirs div.bottom.red {
+div.vehicule section.sheet-body div.listpouvoir div.bottom.red {
   background: url("../assets/fond.webp") #DA3A2F;
 }
-div.vehicule section.sheet-body div.pouvoirs div.bottom.violet {
+div.vehicule section.sheet-body div.listpouvoir div.bottom.violet {
   background: url("../assets/fond.webp") #7E627F;
 }
-div.vehicule section.sheet-body div.pouvoirs div.allData {
+div.vehicule section.sheet-body div.listpouvoir div.allData {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: flex-start;
   align-content: flex-start;
 }
-div.vehicule section.sheet-body div.pouvoirs div.data {
+div.vehicule section.sheet-body div.listpouvoir div.data {
   grid-column-start: 1;
   grid-column-end: 3;
   display: grid;
@@ -4257,33 +4545,33 @@ div.vehicule section.sheet-body div.pouvoirs div.data {
   border-right: 1px solid #363B44;
   min-height: 29px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.data span {
+div.vehicule section.sheet-body div.listpouvoir div.data span {
   display: flex;
   align-items: center;
   align-content: center;
   font-size: 0.8rem;
   font-weight: normal;
 }
-div.vehicule section.sheet-body div.pouvoirs div.data span.col4 {
+div.vehicule section.sheet-body div.listpouvoir div.data span.col4 {
   grid-column-start: 1;
   grid-column-end: 5;
   justify-content: right;
   padding-right: 5px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.data span.col4L {
+div.vehicule section.sheet-body div.listpouvoir div.data span.col4L {
   grid-column-start: 1;
   grid-column-end: 5;
   justify-content: left;
 }
-div.vehicule section.sheet-body div.pouvoirs div.data.black {
+div.vehicule section.sheet-body div.listpouvoir div.data.black {
   background: #363B44;
   border-left: 0px;
   border-right: 0px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.data.black span {
+div.vehicule section.sheet-body div.listpouvoir div.data.black span {
   color: #EBEBEB;
 }
-div.vehicule section.sheet-body div.pouvoirs div.data a {
+div.vehicule section.sheet-body div.listpouvoir div.data a {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -4303,13 +4591,13 @@ div.vehicule section.sheet-body div.pouvoirs div.data a {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
   margin-right: 1px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.data a:hover {
+div.vehicule section.sheet-body div.listpouvoir div.data a:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.vehicule section.sheet-body div.pouvoirs div.dataSpecial {
+div.vehicule section.sheet-body div.listpouvoir div.dataSpecial {
   grid-column-start: 1;
   grid-column-end: 3;
   display: grid;
@@ -4321,7 +4609,7 @@ div.vehicule section.sheet-body div.pouvoirs div.dataSpecial {
   padding-right: 5px;
   border-top: 1px solid var(--color-border-light-tertiary);
 }
-div.vehicule section.sheet-body div.pouvoirs div.dataSpecial span {
+div.vehicule section.sheet-body div.listpouvoir div.dataSpecial span {
   display: flex;
   width: 100%;
   align-items: center;
@@ -4329,10 +4617,10 @@ div.vehicule section.sheet-body div.pouvoirs div.dataSpecial span {
   font-size: 0.8rem;
   font-weight: normal;
 }
-div.vehicule section.sheet-body div.pouvoirs div.dataSpecial span:first-of-type {
+div.vehicule section.sheet-body div.listpouvoir div.dataSpecial span:first-of-type {
   justify-content: right;
 }
-div.vehicule section.sheet-body div.pouvoirs div.dataSpecial input {
+div.vehicule section.sheet-body div.listpouvoir div.dataSpecial input {
   width: 100%;
   padding-right: 0px;
   padding-left: 0px;
@@ -4344,18 +4632,18 @@ div.vehicule section.sheet-body div.pouvoirs div.dataSpecial input {
   border-bottom: 0px;
   border-radius: 0px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.dataSpecial.black {
+div.vehicule section.sheet-body div.listpouvoir div.dataSpecial.black {
   background: #363B44;
   border-left: 0px;
   border-right: 0px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.dataSpecial.black span {
+div.vehicule section.sheet-body div.listpouvoir div.dataSpecial.black span {
   color: #EBEBEB;
 }
-div.vehicule section.sheet-body div.pouvoirs div.dataSpecial.black input {
+div.vehicule section.sheet-body div.listpouvoir div.dataSpecial.black input {
   color: #EBEBEB;
 }
-div.vehicule section.sheet-body div.pouvoirs div.dataSpecial a {
+div.vehicule section.sheet-body div.listpouvoir div.dataSpecial a {
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -4375,13 +4663,13 @@ div.vehicule section.sheet-body div.pouvoirs div.dataSpecial a {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
   margin-right: 1px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.dataSpecial a:hover {
+div.vehicule section.sheet-body div.listpouvoir div.dataSpecial a:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.vehicule section.sheet-body div.pouvoirs div select.link {
+div.vehicule section.sheet-body div.listpouvoir div select.link {
   grid-column-start: 1;
   grid-column-end: 5;
   width: 100%;
@@ -4402,10 +4690,10 @@ div.vehicule section.sheet-body div.pouvoirs div select.link {
   -o-appearance: none;
   appearance: none;
 }
-div.vehicule section.sheet-body div.pouvoirs div select.link option {
+div.vehicule section.sheet-body div.listpouvoir div select.link option {
   background: #363B44;
 }
-div.vehicule section.sheet-body div.pouvoirs div.details {
+div.vehicule section.sheet-body div.listpouvoir div.details {
   grid-column-start: 1;
   grid-column-end: 3;
   display: grid;
@@ -4416,7 +4704,7 @@ div.vehicule section.sheet-body div.pouvoirs div.details {
   border-right: 1px solid #363B44;
   border-top: 1px solid var(--color-border-light-primary);
 }
-div.vehicule section.sheet-body div.pouvoirs div.details span.label {
+div.vehicule section.sheet-body div.listpouvoir div.details span.label {
   display: grid;
   width: 100%;
   align-items: center;
@@ -4426,7 +4714,7 @@ div.vehicule section.sheet-body div.pouvoirs div.details span.label {
   min-height: 0.8rem;
   padding-top: 2px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.details span.text {
+div.vehicule section.sheet-body div.listpouvoir div.details span.text {
   display: grid;
   width: 100%;
   align-items: flex-start;
@@ -4436,7 +4724,7 @@ div.vehicule section.sheet-body div.pouvoirs div.details span.text {
   padding-left: 5px;
   padding-right: 5px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.mod {
+div.vehicule section.sheet-body div.listpouvoir div.mod {
   display: grid;
   height: 100%;
   grid-template-columns: 1fr;
@@ -4444,7 +4732,7 @@ div.vehicule section.sheet-body div.pouvoirs div.mod {
   align-content: flex-start;
   border-top: 1px solid var(--color-border-light-primary);
 }
-div.vehicule section.sheet-body div.pouvoirs div.mod span.label {
+div.vehicule section.sheet-body div.listpouvoir div.mod span.label {
   display: grid;
   width: 100%;
   align-items: center;
@@ -4454,7 +4742,7 @@ div.vehicule section.sheet-body div.pouvoirs div.mod span.label {
   min-height: 0.8rem;
   padding-top: 2px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.mod span.text {
+div.vehicule section.sheet-body div.listpouvoir div.mod span.text {
   position: relative;
   display: grid;
   width: 100%;
@@ -4471,13 +4759,13 @@ div.vehicule section.sheet-body div.pouvoirs div.mod span.text {
   border-top: 1px dashed var(--color-border-light-primary);
   color: #363B44;
 }
-div.vehicule section.sheet-body div.pouvoirs div.mod span.text i {
+div.vehicule section.sheet-body div.listpouvoir div.mod span.text i {
   position: absolute;
   right: 5px;
   top: 2px;
   cursor: pointer;
 }
-div.vehicule section.sheet-body div.pouvoirs div.mod span.text i div.infoExt {
+div.vehicule section.sheet-body div.listpouvoir div.mod span.text i div.infoExt {
   display: none;
   position: absolute;
   width: 175px;
@@ -4494,22 +4782,22 @@ div.vehicule section.sheet-body div.pouvoirs div.mod span.text i div.infoExt {
   font-weight: normal;
   z-index: 999;
 }
-div.vehicule section.sheet-body div.pouvoirs div.mod span.text i:hover {
+div.vehicule section.sheet-body div.listpouvoir div.mod span.text i:hover {
   text-shadow: 0px 0px 3px;
 }
-div.vehicule section.sheet-body div.pouvoirs div.mod.borderLeft {
+div.vehicule section.sheet-body div.listpouvoir div.mod.borderLeft {
   border-left: 1px solid #363B44;
 }
-div.vehicule section.sheet-body div.pouvoirs div.mod.borderRight {
+div.vehicule section.sheet-body div.listpouvoir div.mod.borderRight {
   border-right: 1px solid #363B44;
 }
-div.vehicule section.sheet-body div.pouvoirs div.mod.borderLightLeft {
+div.vehicule section.sheet-body div.listpouvoir div.mod.borderLightLeft {
   border-left: 1px solid var(--color-border-light-primary);
 }
-div.vehicule section.sheet-body div.pouvoirs div.mod.borderLightRight {
+div.vehicule section.sheet-body div.listpouvoir div.mod.borderLightRight {
   border-right: 1px solid var(--color-border-light-primary);
 }
-div.vehicule section.sheet-body div.pouvoirs div.descripteurs {
+div.vehicule section.sheet-body div.listpouvoir div.descripteurs {
   grid-column-start: 1;
   grid-column-end: 3;
   border-left: 1px solid #363B44;
@@ -4774,6 +5062,297 @@ div.qg section.sheet-body div.options div.accessibility label {
 div.qg section.sheet-body div.options div.accessibility select {
   text-align: center;
 }
+div.qg section.sheet-body div div.attaque {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.qg section.sheet-body div div.attaque a.roll {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.qg section.sheet-body div div.attaque a.roll:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.qg section.sheet-body div div.attaque a.noAtk {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.qg section.sheet-body div div.attaque a.noAtk:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.qg section.sheet-body div div.attaque a.noAtk.selected {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.qg section.sheet-body div div.attaque a.roll.large {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.qg section.sheet-body div div.attaque a.hide {
+  display: none;
+}
+div.qg section.sheet-body div div.attaque a.add {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  text-align: center;
+  width: 100%;
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin-top: 2px;
+  margin-left: 2px;
+  margin-bottom: 2px;
+}
+div.qg section.sheet-body div div.attaque a.add:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.qg section.sheet-body div div.attaque div.line {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  display: grid;
+  grid-template-columns: 1fr max-content repeat(2, 45px 5px) 45px 1fr;
+  grid-gap: 5px;
+  margin-top: 5px;
+}
+div.qg section.sheet-body div div.attaque div.line span {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.qg section.sheet-body div div.attaque div.line span.score {
+  padding-right: 0px;
+  padding-left: 0px;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.qg section.sheet-body div div.attaque div.line span.total {
+  font-weight: bold;
+}
+div.qg section.sheet-body div div.attaque div.specialline {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: grid;
+  grid-template-columns: 1fr 1fr 45px;
+  grid-template-rows: max-content;
+  grid-gap: 5px;
+}
+div.qg section.sheet-body div div.attaque div.specialline span.labelBase {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: right;
+  align-items: center;
+  font-family: Sriracha;
+  white-space: nowrap;
+}
+div.qg section.sheet-body div div.attaque div.specialline span.labelDefense {
+  grid-column-start: 1;
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: right;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.qg section.sheet-body div div.attaque div.specialline span.labelDefense.hide {
+  display: none;
+}
+div.qg section.sheet-body div div.attaque div.specialline select.selectDefense {
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+div.qg section.sheet-body div div.attaque div.specialline input.label {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+div.qg section.sheet-body div div.attaque div.hide {
+  display: none;
+}
+div.qg section.sheet-body div div.attaque > span.header {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  height: 18px;
+}
+div.qg section.sheet-body div div.attaque > span.carac {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  text-transform: uppercase;
+}
+div.qg section.sheet-body div div.attaque > span.score {
+  display: grid;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.qg section.sheet-body div div.attaque > span.label {
+  font-size: 0.8em;
+  text-align: center;
+  line-height: 0.8em;
+}
+div.qg section.sheet-body div div.attaque > span.label.large {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.qg section.sheet-body div div.attaque > span.hide {
+  display: none;
+}
+div.qg section.sheet-body div div.attaque input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.qg section.sheet-body div div.attaque input.hide {
+  display: none;
+}
+div.qg section.sheet-body div div.attaque textarea {
+  grid-column-start: 1;
+  grid-column-end: 7;
+  resize: vertical;
+  width: 100%;
+  max-width: 100%;
+  min-height: 40px;
+  font-family: Sriracha;
+  font-size: 0.8em;
+}
+div.qg section.sheet-body div div.attaque textarea.hide {
+  display: none;
+}
+div.qg section.sheet-body div div.attaque textarea.short {
+  grid-column-end: 6;
+}
+div.qg section.sheet-body div div.attaque select.hide {
+  display: none;
+}
+div.qg section.sheet-body div div.attaque i {
+  cursor: pointer;
+}
+div.qg section.sheet-body div div.attaque i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.qg section.sheet-body div div.attaque i.hide {
+  display: none;
+}
+div.qg section.sheet-body div div.strategie {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.qg section.sheet-body div div.strategie > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.qg section.sheet-body div div.strategie > span.label {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.qg section.sheet-body div div.strategie input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
 div.qg section.sheet-body div.informations {
   border: 1px solid #a8a8a8;
   border-top-color: black;
@@ -4817,7 +5396,7 @@ div.qg section.sheet-body div.informations div.block div.editor div.editor-conte
 div.qg section.sheet-body div.informations div.block div.editor div.tox-tinymce {
   min-height: 300px;
 }
-div.qg section.sheet-body div.details div.inner {
+div.qg section.sheet-body div.details div.inner, div.qg section.sheet-body div.pouvoirs div.inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
@@ -4932,6 +5511,483 @@ div.qg section.sheet-body div.particularite div.editor div.editor-content {
 }
 div.qg section.sheet-body div.particularite div.editor div.tox-tinymce {
   min-height: 300px;
+}
+div.qg section.sheet-body div.listpouvoirs {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  grid-gap: 5px;
+}
+div.qg section.sheet-body div.listpouvoirs a.item-create {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.qg section.sheet-body div.listpouvoirs a.item-create:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.qg section.sheet-body div.listpouvoirs a.item-create {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.qg section.sheet-body div.listpouvoirs.show {
+  display: grid;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr div.pwrheader {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 15px 15px 0px 0px;
+  background-blend-mode: overlay, multiply;
+  background-size: 500px;
+  background-repeat: no-repeat;
+  text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
+  font-family: "Bangers";
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr div.pwrheader i {
+  position: absolute;
+  font-size: 1rem;
+  color: #EBEBEB;
+  top: 8px;
+  cursor: pointer;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr div.pwrheader i.item-edit {
+  right: 25px;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr div.pwrheader i.item-delete {
+  right: 5px;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr div.pwrheader i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr div.pwrheader.blue {
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr div.pwrheader.red {
+  background: url("../assets/fond.webp") #DA3A2F;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr div.pwrheader.violet {
+  background: url("../assets/fond.webp") #7E627F;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr span.header {
+  width: calc(100% - 95px);
+  display: grid;
+  grid-template-columns: 1fr;
+  font-size: 1.5rem;
+  height: 2rem;
+  text-align: center;
+  color: #EBEBEB;
+  letter-spacing: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 45px;
+  margin-right: 50px;
+  white-space: nowrap;
+  align-items: center;
+  align-content: center;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr header {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  position: relative;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr header::before {
+  content: "";
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr header span.deploy {
+  position: absolute;
+  top: 3px;
+  left: 10px;
+  z-index: 999;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr header span.deploy i {
+  cursor: pointer;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr header span.deploy i::before {
+  border: 2px solid #EBEBEB;
+  font-size: 13px;
+  border-radius: 30px;
+  position: absolute;
+  width: 23px;
+  text-align: center;
+  color: #EBEBEB;
+  height: 23px;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr header span.deploy i.plus::before {
+  content: "+";
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr header span.deploy i.minus::before {
+  content: "-";
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr.blue div.pwrheader {
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr.blue::after {
+  content: "";
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr.red div.pwrheader {
+  background: url("../assets/fond.webp") #DA3A2F;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr.red::after {
+  content: "";
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+  background: url("../assets/fond.webp") #DA3A2F;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr.violet div.pwrheader {
+  background: url("../assets/fond.webp") #7E627F;
+}
+div.qg section.sheet-body div.listpouvoirs div.pwr.violet::after {
+  content: "";
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+  background: url("../assets/fond.webp") #7E627F;
+}
+div.qg section.sheet-body div.listpouvoirs div.bottom {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 0.5rem;
+  width: 100%;
+  border-width: 2px;
+  border-radius: 0px 0px 15px 15px;
+  background-blend-mode: overlay, multiply;
+}
+div.qg section.sheet-body div.listpouvoirs div.bottom.col2 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.qg section.sheet-body div.listpouvoirs div.bottom.blue {
+  background: url("../assets/fond.webp") #4E7FC8;
+}
+div.qg section.sheet-body div.listpouvoirs div.bottom.red {
+  background: url("../assets/fond.webp") #DA3A2F;
+}
+div.qg section.sheet-body div.listpouvoirs div.bottom.violet {
+  background: url("../assets/fond.webp") #7E627F;
+}
+div.qg section.sheet-body div.listpouvoirs div.allData {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+div.qg section.sheet-body div.listpouvoirs div.data {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: repeat(3, max-content) 29px;
+  grid-gap: 5px;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 5px;
+  border-left: 1px solid #363B44;
+  border-right: 1px solid #363B44;
+  min-height: 29px;
+}
+div.qg section.sheet-body div.listpouvoirs div.data span {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+div.qg section.sheet-body div.listpouvoirs div.data span.col4 {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  justify-content: right;
+  padding-right: 5px;
+}
+div.qg section.sheet-body div.listpouvoirs div.data span.col4L {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  justify-content: left;
+}
+div.qg section.sheet-body div.listpouvoirs div.data.black {
+  background: #363B44;
+  border-left: 0px;
+  border-right: 0px;
+}
+div.qg section.sheet-body div.listpouvoirs div.data.black span {
+  color: #EBEBEB;
+}
+div.qg section.sheet-body div.listpouvoirs div.data a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-right: 1px;
+}
+div.qg section.sheet-body div.listpouvoirs div.data a:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.qg section.sheet-body div.listpouvoirs div.dataSpecial {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 45px max-content;
+  grid-gap: 5px;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top: 1px solid var(--color-border-light-tertiary);
+}
+div.qg section.sheet-body div.listpouvoirs div.dataSpecial span {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+div.qg section.sheet-body div.listpouvoirs div.dataSpecial span:first-of-type {
+  justify-content: right;
+}
+div.qg section.sheet-body div.listpouvoirs div.dataSpecial input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+  border-top: 0px;
+  border-bottom: 0px;
+  border-radius: 0px;
+}
+div.qg section.sheet-body div.listpouvoirs div.dataSpecial.black {
+  background: #363B44;
+  border-left: 0px;
+  border-right: 0px;
+}
+div.qg section.sheet-body div.listpouvoirs div.dataSpecial.black span {
+  color: #EBEBEB;
+}
+div.qg section.sheet-body div.listpouvoirs div.dataSpecial.black input {
+  color: #EBEBEB;
+}
+div.qg section.sheet-body div.listpouvoirs div.dataSpecial a {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-right: 1px;
+}
+div.qg section.sheet-body div.listpouvoirs div.dataSpecial a:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.qg section.sheet-body div.listpouvoirs div select.link {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  width: 100%;
+  color: #EBEBEB;
+  font-family: "Bangers";
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-light-tertiary);
+  background: #363B44;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-radius: 0px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+}
+div.qg section.sheet-body div.listpouvoirs div select.link option {
+  background: #363B44;
+}
+div.qg section.sheet-body div.listpouvoirs div.details {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border-left: 1px solid #363B44;
+  border-right: 1px solid #363B44;
+  border-top: 1px solid var(--color-border-light-primary);
+}
+div.qg section.sheet-body div.listpouvoirs div.details span.label {
+  display: grid;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  min-height: 0.8rem;
+  padding-top: 2px;
+}
+div.qg section.sheet-body div.listpouvoirs div.details span.text {
+  display: grid;
+  width: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: left;
+  text-align: left;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+div.qg section.sheet-body div.listpouvoirs div.mod {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  border-top: 1px solid var(--color-border-light-primary);
+}
+div.qg section.sheet-body div.listpouvoirs div.mod span.label {
+  display: grid;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  min-height: 0.8rem;
+  padding-top: 2px;
+}
+div.qg section.sheet-body div.listpouvoirs div.mod span.text {
+  position: relative;
+  display: grid;
+  width: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: left;
+  text-align: left;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  min-height: 19px;
+  line-height: 14px;
+  border-top: 1px dashed var(--color-border-light-primary);
+  color: #363B44;
+}
+div.qg section.sheet-body div.listpouvoirs div.mod span.text i {
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  cursor: pointer;
+}
+div.qg section.sheet-body div.listpouvoirs div.mod span.text i div.infoExt {
+  display: none;
+  position: absolute;
+  width: 175px;
+  min-height: 20px;
+  padding: 5px;
+  text-align: justify;
+  border: 1px solid #363B44;
+  border-radius: 5px;
+  background: #4E7FC8;
+  color: #EBEBEB;
+  font-family: Sriracha;
+  line-height: 12px;
+  text-shadow: none;
+  font-weight: normal;
+  z-index: 999;
+}
+div.qg section.sheet-body div.listpouvoirs div.mod span.text i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.qg section.sheet-body div.listpouvoirs div.mod.borderLeft {
+  border-left: 1px solid #363B44;
+}
+div.qg section.sheet-body div.listpouvoirs div.mod.borderRight {
+  border-right: 1px solid #363B44;
+}
+div.qg section.sheet-body div.listpouvoirs div.mod.borderLightLeft {
+  border-left: 1px solid var(--color-border-light-primary);
+}
+div.qg section.sheet-body div.listpouvoirs div.mod.borderLightRight {
+  border-right: 1px solid var(--color-border-light-primary);
+}
+div.qg section.sheet-body div.listpouvoirs div.descripteurs {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  border-left: 1px solid #363B44;
+  border-right: 1px solid #363B44;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 0.8rem;
+  text-align: justify;
 }
 
 .mm3-roll {

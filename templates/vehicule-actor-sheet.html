@@ -50,6 +50,7 @@
          <nav class="sheet-tabs tabs" data-group="primary">
             <a class="item" data-tab="informations">{{localize "MM3.TABS.Informations"}}</a>
             <a class="item" data-tab="details">{{localize "MM3.Details"}}</a>
+            <a class="item" data-tab="pouvoirs">{{localize "MM3.Pouvoirs"}}</a>
             <a class="item" data-tab="options">{{localize "MM3.TABS.Options"}}</a>
         </nav>
 
@@ -113,10 +114,15 @@
                     {{editor systemData.particularite target="system.particularite" button=true owner=owner editable=editable}}
                 </div>
 
-                <div class="pouvoirs">
-                    {{> systems/mutants-and-masterminds-3e/templates/parts/listPouvoirs.html}}
-                </div>
+{{> systems/mutants-and-masterminds-3e/templates/parts/attaque.html}}
+{{> systems/mutants-and-masterminds-3e/templates/parts/strategie.html}}
             </div>            
+        </div>
+
+        <div class="tab pouvoirs" data-group="primary" data-tab="pouvoirs">
+            <div class="listpouvoir inner">
+{{> systems/mutants-and-masterminds-3e/templates/parts/listPouvoirs.html}}
+            </div>
         </div>
 
         <div class="tab options" data-group="primary" data-tab="options">
