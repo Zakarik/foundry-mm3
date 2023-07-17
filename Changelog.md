@@ -1,5 +1,12 @@
 ## Version 1.16.0
 ### Améliorations
+- Prise en charge de l'importation des véhicules et QG (il est uniquement nécessaire d'importer le personnage, les véhicules et QG liés seront importés avec). La seule limite est tous ce qui est "features" qui ne peut être importé, car ne figurant pas dans le fichier.
+
+### Bugfix
+- Correction de l'oubli d'ajout du coût des pouvoirs pour les QG.
+
+## Version 1.16.0
+### Améliorations
 - Ajout des pouvoirs pour les QG.
 - Ajout des attaques et des stratégies sur les Véhicules et les QG.
 - Changement de l'onglet d'ouverture par défaut pour les véhicules

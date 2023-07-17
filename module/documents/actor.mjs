@@ -316,6 +316,8 @@ export class MM3Actor extends Actor {
   _prepareQGData(actorData) {
     if (actorData.type !== 'qg') return;
 
+    const items = actorData.items;
+    const pouvoirs = items.filter(item => item.type === 'pouvoir');
     const data = actorData.system;
     const getTaille = data.taille;
     const cout = data.cout;
@@ -327,6 +329,7 @@ export class MM3Actor extends Actor {
     let effet = 0;
     let ppTaille = 0;
     let ppRobustesse = 0;
+    let ppPouvoir = 0;
 
     for(let str of listStr) {
       const dataStr = getStr[str];
@@ -334,6 +337,12 @@ export class MM3Actor extends Actor {
       attaque += dataStr.attaque;
       defense += dataStr.defense;
       effet += dataStr.effet;
+    }
+
+    for(let pouvoir of pouvoirs) {
+      const pwrData = pouvoir.system;
+
+      ppPouvoir += (pwrData.special === 'dynamique' && pwrData.link !== '') || pwrData.special === 'alternatif' ? pwrData.cout.total : pwrData.cout.totalTheorique;
     }
 
     getStr.total = {
@@ -391,10 +400,11 @@ export class MM3Actor extends Actor {
     getInit.carac = 0;
     getInit.total = getInit.base;
 
-    ppRobustesse += Math.floor(data.robustesse/2)
+    ppRobustesse += Math.floor(Math.max((data.robustesse-6), 0)/2);
 
     cout.taille = ppTaille;
     cout.robustesse = ppRobustesse;
-    cout.total = ppTaille+ppRobustesse+cout.particularite+cout.divers;
+    cout.pouvoir = ppPouvoir;
+    cout.total = ppTaille+ppRobustesse+cout.particularite+ppPouvoir+cout.divers;
   };
 }
