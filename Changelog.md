@@ -1,4 +1,8 @@
-## Version 1.16.0
+## Version 1.17.1
+### Bugfix
+- Correction d'un bug lié à la gestion des fichiers .svg, servant pour les icônes, de Firefox.
+
+## Version 1.17.0
 ### Améliorations
 - Prise en charge de l'importation des véhicules et QG (il est uniquement nécessaire d'importer le personnage, les véhicules et QG liés seront importés avec). La seule limite est tous ce qui est "features" qui ne peut être importé, car ne figurant pas dans le fichier.
 
