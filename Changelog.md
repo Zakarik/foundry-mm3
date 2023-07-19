@@ -1,3 +1,9 @@
+## Version 1.18.0
+### Améliorations
+- Ajout de la possibilité d'ajouter des compétences personnalisées.
+- Ajout de la possibilité de modifier l'icône de pause dans les options (Chaque joueur peut choisir son icône préféré).
+- Ajout de la possibilité de modifier les couleurs du menu dans les options. Indépendant par joueur, encore une fois.
+
 ## Version 1.17.1
 ### Bugfix
 - Correction d'un bug lié à la gestion des fichiers .svg, servant pour les icônes, de Firefox.

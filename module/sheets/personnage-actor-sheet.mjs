@@ -144,8 +144,6 @@ export class PersonnageActorSheet extends ActorSheet {
           break;
           
         case 'competence':
-          update[`system.competence.${what}.list.-=${id}`] = null;
-
           if(what === 'combatcontact' || what === 'combatdistance') {
             const attaque = this.actor.system?.attaque || {};
             const keys = Object.keys(attaque);
@@ -155,6 +153,12 @@ export class PersonnageActorSheet extends ActorSheet {
             });
 
             if(indexAtt !== -1) update[`system.attaque.-=${keys[indexAtt]}`] = null;
+
+            update[`system.competence.${what}.list.-=${id}`] = null;
+          } else if(what === 'new') {
+            update[`system.competence.-=${id}`] = null;
+          } else {
+            update[`system.competence.${what}.list.-=${id}`] = null;
           }
 
           this.actor.update(update);
@@ -187,12 +191,17 @@ export class PersonnageActorSheet extends ActorSheet {
           break;
           
         case 'competence':
-          const comp = this.actor.system.competence[what];
-          const dataComp = Object.keys(comp.list);
-          const maxKeysComp = dataComp.length > 0 ? Math.max(...dataComp) : 0;
-          const modele = comp.modele;          
+          let comp = {};
+          let dataComp = [];
+          let maxKeysComp = 0;
+          let modele = {};
 
           if(what === 'combatcontact' || what === 'combatdistance') {
+            comp = this.actor.system.competence[what];
+            dataComp = Object.keys(comp.list);
+            maxKeysComp = dataComp.length > 0 ? Math.max(...dataComp) : 0;
+            modele = comp.modele;  
+
             const attaque = this.actor.system?.attaque || {};
             const dataAttaque = Object.keys(attaque);
             const maxKeysAtt = dataAttaque.length > 0 ? Math.max(...dataAttaque) : 0;
@@ -209,9 +218,29 @@ export class PersonnageActorSheet extends ActorSheet {
               basedef:15,
               defpassive:what === 'combatcontact' ? 'parade' : 'esquive',
             };
-          }
 
-          update[`system.competence.${what}.list.${maxKeysComp+1}`] = modele;
+            update[`system.competence.${what}.list.${maxKeysComp+1}`] = modele;
+          } else if(what === 'new') {
+            comp = this.actor.system.competence;
+            dataComp = Object.keys(comp);
+            maxKeysComp = dataComp.length;
+            
+            update[`system.competence.z${maxKeysComp}`] = {
+              "carCanChange":true,
+              "car":"for",
+              "label":"",
+              "rang":0,
+              "autre":0,
+              "new":true
+            };
+          } else {
+            comp = this.actor.system.competence[what];
+            dataComp = Object.keys(comp.list);
+            maxKeysComp = dataComp.length > 0 ? Math.max(...dataComp) : 0;
+            modele = comp.modele;  
+            
+            update[`system.competence.${what}.list.${maxKeysComp+1}`] = modele;
+          }
 
           this.actor.update(update);
           break;
@@ -382,10 +411,12 @@ export class PersonnageActorSheet extends ActorSheet {
     const talent = [];
     const equipement = [];
     const pwrStandard = {};
+    const pwrLink = {};
     const pwrAlternatif = {};
     const pwrDynamique = {};
 
     for(let p of pouvoirs) {
+      pwrLink[p._id] = [];
       pwrAlternatif[p._id] = [];
       pwrDynamique[p._id] = [];
     }
@@ -396,13 +427,14 @@ export class PersonnageActorSheet extends ActorSheet {
 
       switch(type) {
         case 'pouvoir':
-          if(data.special === 'standard' || 
+          if((data.special === 'standard' && data.link === "") || 
           (data.special === 'alternatif' && data.link === "") || 
           (data.special === 'dynamique' && data.link === "")) pwr.push(i);
+          else if((data.special === 'standard' && data.link !== "")) pwrLink[data.link].push(i);
           else if((data.special === 'alternatif' && data.link !== "")) pwrAlternatif[data.link].push(i);
           else if((data.special === 'dynamique' && data.link !== "")) pwrDynamique[data.link].push(i);
           
-          if(data.special === 'standard' || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
+          if((data.special === 'standard' && data.link === '') || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
           break;
 
         case 'talent':
@@ -419,6 +451,7 @@ export class PersonnageActorSheet extends ActorSheet {
     actor.equipements = equipement;
     actor.pouvoirs = pwr;
     actor.pwrStandard = pwrStandard;
+    actor.pwrLink = pwrLink;
     actor.pwrAlternatif = pwrAlternatif;
     actor.pwrDynamique = pwrDynamique;
   }
@@ -427,18 +460,24 @@ export class PersonnageActorSheet extends ActorSheet {
     const data = context.data.system.competence;
     const keys = Object.keys(data);
     const list = {};
+
     keys.forEach(key => {
       const get = data[key];
       const canAdd = get?.canAdd || false;
+      const carCanChange = get?.carCanChange || false;
+      const isNew = get?.new || false;
 
       list[key] = {
-        label:game.i18n.localize(CONFIG.MM3.competences[key]),
+        order:isNew ? 'zzzzzz' : game.i18n.localize(CONFIG.MM3.competences[key]),
+        label:isNew ? get.label : game.i18n.localize(CONFIG.MM3.competences[key]),
         total:get?.total || 0,
         carac:get?.carac || 0,
         car:get.car,
         rang:get.rang,
         autre:get.autre,
         canAdd:canAdd,
+        carCanChange:carCanChange,
+        new:isNew,
       }
 
       if(canAdd) {
@@ -447,14 +486,14 @@ export class PersonnageActorSheet extends ActorSheet {
     });
 
     const sortedList = Object.keys(list).sort((a, b) => {
-      if (list[a].label < list[b].label) {
+      if (list[a].order < list[b].order) {
         return -1;
       }
-      if (list[a].label > list[b].label) {
+      if (list[a].order > list[b].order) {
         return 1;
       }
       return 0;
-    }).reduce((obj, key) => {
+    }).reduce((obj, key) => {      
       obj[key] = list[key];
       return obj;
     }, {});

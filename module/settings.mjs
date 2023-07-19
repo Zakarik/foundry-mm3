@@ -28,4 +28,46 @@ export const RegisterSettings = function () {
             "clic":"MM3.SETTING.Clicgauche",
         }
     });
+
+    game.settings.register("mutants-and-masterminds-3e", "pauselogo", {
+        name: "MM3.SETTING.Pause",
+        hint: "MM3.SETTING.PauseHint",
+        scope: "client",
+        config: true,
+        default: "Pause_Icon_1",
+        type: String,
+        choices:{
+            "Pause_Icon_1":"MM3.SETTING.Pause1",
+            "Pause_Icon_2":"MM3.SETTING.Pause2",
+            "Pause_Icon_3":"MM3.SETTING.Pause3",
+        }, 
+        onChange: value => { 
+            $("#pause video").attr('src', `systems/mutants-and-masterminds-3e/assets/pause/${value}.webm`);
+            $("#pause video")[0].load();
+            $("#pause video")[0].play();
+        }
+    });
+
+    game.settings.register("mutants-and-masterminds-3e", "menu", {
+        name: "MM3.SETTING.Menu",
+        hint: "MM3.SETTING.MenuHint",
+        scope: "client",
+        config: true,
+        default: "dark",
+        type: String,
+        choices:{
+            "default":"MM3.SETTING.Defaut",
+            "bleuclair":"MM3.SETTING.BleuClair",
+            "violetclair":"MM3.SETTING.VioletClair",
+            "violet":"MM3.SETTING.Violet",
+            "bleufonce":"MM3.SETTING.BleuFonce",
+        }, 
+        onChange: value => { 
+            $("section#ui-left").removeClass(['bleuclair', 'violetclair', 'violet', 'bleufonce']);
+            $("div#sidebar.app").removeClass(['bleuclair', 'violetclair', 'violet', 'bleufonce']);
+
+            $("section#ui-left").addClass(value);
+            $("div#sidebar.app").addClass(value);
+        }
+    });
 };

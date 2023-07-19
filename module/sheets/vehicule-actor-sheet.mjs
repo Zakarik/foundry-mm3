@@ -36,6 +36,7 @@ export class VehiculeActorSheet extends ActorSheet {
     context.systemData = context.data.system;
 
     this._prepareList(context);
+    console.warn(context);
 
     return context;
   }
@@ -257,7 +258,7 @@ export class VehiculeActorSheet extends ActorSheet {
       }
     });
 
-    html.find('div.lPouvoirs select.link').change(async ev => {
+    html.find('div.listpouvoir select.link').change(async ev => {
       const target = $(ev.currentTarget);
       const header = target.parents(".summary");
       const cout = target.data('cout')-1;
@@ -285,11 +286,13 @@ export class VehiculeActorSheet extends ActorSheet {
     const items = context.items;
     const pouvoirs = items.filter(item => item.type === 'pouvoir');
     const pwr = [];
+    const pwrLink = {};
     const pwrAlternatif = {};
     const pwrDynamique = {};
     const pwrStandard = {};
     
     for(let p of pouvoirs) {
+      pwrLink[p._id] = [];
       pwrAlternatif[p._id] = [];
       pwrDynamique[p._id] = [];
     }
@@ -300,18 +303,20 @@ export class VehiculeActorSheet extends ActorSheet {
 
       switch(type) {
         case 'pouvoir':
-          if(data.special === 'standard' || 
+          if((data.special === 'standard' && data.link === "") || 
           (data.special === 'alternatif' && data.link === "") || 
           (data.special === 'dynamique' && data.link === "")) pwr.push(i);
+          else if((data.special === 'standard' && data.link !== "")) pwrLink[data.link].push(i);
           else if((data.special === 'alternatif' && data.link !== "")) pwrAlternatif[data.link].push(i);
           else if((data.special === 'dynamique' && data.link !== "")) pwrDynamique[data.link].push(i);
           
-          if(data.special === 'standard' || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
+          if((data.special === 'standard' && data.link === '') || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
           break;
       }
     }
 
     actor.pouvoirs = pwr;
+    actor.pwrLink = pwrLink;
     actor.pwrStandard = pwrStandard;
     actor.pwrAlternatif = pwrAlternatif;
     actor.pwrDynamique = pwrDynamique;

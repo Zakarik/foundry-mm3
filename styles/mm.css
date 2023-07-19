@@ -1128,6 +1128,27 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs a.item-create {
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs.show {
   display: grid;
 }
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.grpPwr {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.grpPwr:nth-of-type(even) > div.pwr div.pwrheader {
+  background: url("../assets/fond.webp") #7fc84e;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.grpPwr:nth-of-type(even) > div.pwr::after {
+  background: url("../assets/fond.webp") #7fc84e;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.grpPwr:nth-of-type(odd) > div.pwr div.pwrheader {
+  background: url("../assets/fond.webp") #274064;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.grpPwr:nth-of-type(odd) > div.pwr::after {
+  background: url("../assets/fond.webp") #274064;
+}
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr div.pwrheader {
   grid-column-start: 1;
   grid-column-end: 3;
@@ -4372,6 +4393,27 @@ div.vehicule section.sheet-body div.listpouvoir a.item-create {
 div.vehicule section.sheet-body div.listpouvoir.show {
   display: grid;
 }
+div.vehicule section.sheet-body div.listpouvoir div.grpPwr {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  grid-gap: 5px;
+}
+div.vehicule section.sheet-body div.listpouvoir div.grpPwr:nth-of-type(even) > div.pwr div.pwrheader {
+  background: url("../assets/fond.webp") #7fc84e;
+}
+div.vehicule section.sheet-body div.listpouvoir div.grpPwr:nth-of-type(even) > div.pwr::after {
+  background: url("../assets/fond.webp") #7fc84e;
+}
+div.vehicule section.sheet-body div.listpouvoir div.grpPwr:nth-of-type(odd) > div.pwr div.pwrheader {
+  background: url("../assets/fond.webp") #274064;
+}
+div.vehicule section.sheet-body div.listpouvoir div.grpPwr:nth-of-type(odd) > div.pwr::after {
+  background: url("../assets/fond.webp") #274064;
+}
 div.vehicule section.sheet-body div.listpouvoir div.pwr div.pwrheader {
   grid-column-start: 1;
   grid-column-end: 3;
@@ -5554,6 +5596,27 @@ div.qg section.sheet-body div.listpouvoirs a.item-create {
 div.qg section.sheet-body div.listpouvoirs.show {
   display: grid;
 }
+div.qg section.sheet-body div.listpouvoirs div.grpPwr {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  align-content: flex-start;
+  grid-gap: 5px;
+}
+div.qg section.sheet-body div.listpouvoirs div.grpPwr:nth-of-type(even) > div.pwr div.pwrheader {
+  background: url("../assets/fond.webp") #7fc84e;
+}
+div.qg section.sheet-body div.listpouvoirs div.grpPwr:nth-of-type(even) > div.pwr::after {
+  background: url("../assets/fond.webp") #7fc84e;
+}
+div.qg section.sheet-body div.listpouvoirs div.grpPwr:nth-of-type(odd) > div.pwr div.pwrheader {
+  background: url("../assets/fond.webp") #274064;
+}
+div.qg section.sheet-body div.listpouvoirs div.grpPwr:nth-of-type(odd) > div.pwr::after {
+  background: url("../assets/fond.webp") #274064;
+}
 div.qg section.sheet-body div.listpouvoirs div.pwr div.pwrheader {
   grid-column-start: 1;
   grid-column-end: 3;
@@ -6404,4 +6467,36 @@ img#logo {
   content: url("../assets/logo.webp");
   width: 115px;
   height: 39px;
+}
+
+#pause video {
+  position: absolute;
+  min-height: 200px;
+  min-width: 200px;
+  left: calc(50% - 150px);
+  top: -50px;
+}
+
+#pause {
+  background: none;
+}
+
+div.bleuclair,
+section.bleuclair aside#players.app {
+  background: url("../assets/menu/bleuclair.png") repeat;
+}
+
+div.violetclair,
+section.violetclair aside#players.app {
+  background: url("../assets/menu/violetclair.png") repeat;
+}
+
+div.violet,
+section.violet aside#players.app {
+  background: url("../assets/menu/violet.png") repeat;
+}
+
+div.bleufonce,
+section.bleufonce aside#players.app {
+  background: url("../assets/menu/bleufonce.png") repeat;
 }

@@ -70,6 +70,7 @@
     "BTN":{
       "Add":"Adicionar",
       "AddPwr":"Adicionar um poder",
+      "AddCmp":"Adicionar uma habilidade",
       "AddTl":"Adicionar uma vantagem",
       "AddEq":"Adicionar um equipamento"
     },
@@ -231,7 +232,19 @@
       "DCRollHint":"Define o atalho para abrir a janela de requisição de CD em uma rolagem, a outra opção permitirá que a rolagem seja feita sem que a janela apareça.",
       "Clicgauche":"Clique Esquerdo",
       "ShiftClicgauche":"Shift + Clique Esquerdo",
-      "CaractéristiquesAbsentes":"Habilidades Ausentes"
+      "CaractéristiquesAbsentes":"Habilidades Ausentes",
+      "Pause":"Trocar o ícone de pausa",
+      "PauseHint":"Os ícones de pausa estão organizados do mais animado ao menos animado",
+      "Pause1":"Ícone de pausa 1",
+      "Pause2":"Ícone de pausa 2",
+      "Pause3":"Ícone de pausa 3",
+      "Menu":"Alterar a cor do menu",
+      "MenuHint":"Esta cor afetará o menu à direita e o menu dos jogadores.",
+      "Defaut":"Padrão",
+      "BleuClair":"Azul claro",
+      "VioletClair":"Roxo claro",
+      "Violet":"Roxo",
+      "BleuFonce":"Azul escuro"
     },
     "ROLL":{
       "AttSuccess":"O ataque acerta !",

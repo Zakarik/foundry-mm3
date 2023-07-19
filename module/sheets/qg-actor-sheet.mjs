@@ -238,6 +238,27 @@ export class QGActorSheet extends ActorSheet {
           break;
       }
     });
+
+    html.find('div.listpouvoirs select.link').change(async ev => {
+      const target = $(ev.currentTarget);
+      const header = target.parents(".summary");
+      const cout = target.data('cout')-1;
+      const val = target.val();
+
+      if(val === '') this.actor.items.get(header.data("item-id")).update({[`system.link`]:val});
+      else {
+        const toLink = this.actor.items.get(val);
+        const isDynamique = toLink.system.special === 'dynamique' ? true : false;
+        const coutTotal = isDynamique ? toLink.system.cout.totalTheorique-1 : toLink.system.cout.total;
+
+        if(val === 'principal') this.actor.items.get(header.data("item-id")).update({[`system.link`]:val});
+        else if(coutTotal >= cout) this.actor.items.get(header.data("item-id")).update({[`system.link`]:val});
+        else {
+          this.actor.items.get(header.data("item-id")).update({[`system.link`]:''});
+          target.val('');
+        }
+      }
+    });
   }
 
   _prepareCharacterItems(context) {
@@ -245,11 +266,13 @@ export class QGActorSheet extends ActorSheet {
     const items = context.items;
     const pouvoirs = items.filter(item => item.type === 'pouvoir');
     const pwr = [];
+    const pwrLink = {};
     const pwrAlternatif = {};
     const pwrDynamique = {};
     const pwrStandard = {};
     
     for(let p of pouvoirs) {
+      pwrLink[p._id] = [];
       pwrAlternatif[p._id] = [];
       pwrDynamique[p._id] = [];
     }
@@ -260,18 +283,20 @@ export class QGActorSheet extends ActorSheet {
 
       switch(type) {
         case 'pouvoir':
-          if(data.special === 'standard' || 
+          if((data.special === 'standard' && data.link === "") || 
           (data.special === 'alternatif' && data.link === "") || 
           (data.special === 'dynamique' && data.link === "")) pwr.push(i);
+          else if((data.special === 'standard' && data.link !== "")) pwrLink[data.link].push(i);
           else if((data.special === 'alternatif' && data.link !== "")) pwrAlternatif[data.link].push(i);
           else if((data.special === 'dynamique' && data.link !== "")) pwrDynamique[data.link].push(i);
           
-          if(data.special === 'standard' || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
+          if((data.special === 'standard' && data.link === '') || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
           break;
       }
     }
 
     actor.pouvoirs = pwr;
+    actor.pwrLink = pwrLink;
     actor.pwrStandard = pwrStandard;
     actor.pwrAlternatif = pwrAlternatif;
     actor.pwrDynamique = pwrDynamique;

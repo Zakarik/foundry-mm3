@@ -408,6 +408,41 @@ div.qg {
                     }
 
                     div {
+                        &.grpPwr {
+                            grid-column-start: 1;
+                            grid-column-end: 3;
+    
+                            display:grid;
+                            grid-template-columns: 1fr 1fr;
+                            align-items: flex-start;
+                            align-content: flex-start;
+                            grid-gap: 5px;
+    
+                            &:nth-of-type(even) {
+                                &>div.pwr {
+                                    div.pwrheader {
+                                        background:$imgbg $lightGreen;
+                                    }
+    
+                                    &::after {
+                                        background:$imgbg $lightGreen;
+                                    }
+                                }
+                            }
+    
+                            &:nth-of-type(odd) {
+                                &>div.pwr {
+                                    div.pwrheader {
+                                        background:$imgbg $darkBlue;
+                                    }
+                                    
+                                    &::after {
+                                        background:$imgbg $darkBlue;
+                                    }
+                                }
+                            }
+                        }
+
                         &.pwr {                            
                             div.pwrheader {
                                 grid-column-start: 1;

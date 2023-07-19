@@ -307,8 +307,15 @@ Hooks.once('init', async function() {
   Handlebars.registerHelper('isValue', function(base, compare) {
     return base === compare ? true : false;
   }); 
+
   Handlebars.registerHelper('isNotValue', function(base, compare) {
     return base !== compare ? true : false;
+  }); 
+  
+  Handlebars.registerHelper('hasLink', function(id, actor) {
+    const links = actor?.pwrLink?.[id]?.length ?? 0;
+
+    return links > 0 ? true : false;
   });
 
   Handlebars.registerHelper('getAtt', function(root, what, id, data) {
@@ -342,6 +349,13 @@ Hooks.once('init', async function() {
 /* -------------------------------------------- */
 
 Hooks.once('ready', async function () {
+  const whatMenu = game.settings.get("mutants-and-masterminds-3e", "menu");
+  $("section#ui-left").removeClass(['bleuclair', 'violetclair', 'violet', 'bleufonce']);
+  $("div#sidebar.app").removeClass(['bleuclair', 'violetclair', 'violet', 'bleufonce']);
+  
+  $("section#ui-left").addClass(whatMenu);
+  $("div#sidebar.app").addClass(whatMenu);
+
   let status = {};
   
   for(let i of CONFIG.statusEffects) {
@@ -437,6 +451,15 @@ Hooks.on('renderChatMessage', (message, html, data) => {
   }
 });
 
+Hooks.on('userConnected', (User, boolean) => {
+  const whatMenu = game.settings.get("mutants-and-masterminds-3e", "menu");
+  $("section#ui-left").removeClass(['bleuclair', 'violetclair', 'violet', 'bleufonce']);
+  $("div#sidebar.app").removeClass(['bleuclair', 'violetclair', 'violet', 'bleufonce']);
+
+  $("section#ui-left").addClass(whatMenu);
+  $("div#sidebar.app").addClass(whatMenu);
+});
+
 async function createMacro(bar, data, slot) {
   // Create the macro command
   const type = data.type;
@@ -447,7 +470,7 @@ async function createMacro(bar, data, slot) {
   const what = data?.what ?? "";
   const id = data?.id ?? -1;
   const author = data?.author ?? 'personnage';
-  const command = type === 'pouvoir' ? `game.mm3.RollMacroPwr("${actorId}", "${sceneId}", "${tokenId}", "${id}", "${author}");` : `game.mm3.RollMacro("${actorId}", "${sceneId}", "${tokenId}", "${type}", "${what}", "${id}", "${author}");`;
+  const command = type === 'pouvoir' ? `game.mm3.RollMacroPwr("${actorId}", "${sceneId}", "${tokenId}", "${id}", "${author}");` : `game.mm3.RollMacro("${actorId}", "${sceneId}", "${tokenId}", "${type}", "${what}", "${id}", "${author}", event);`;
 
   let img = "";
 
@@ -462,12 +485,13 @@ async function createMacro(bar, data, slot) {
   return false;
 }
 
-async function RollMacro(actorId, sceneId, tokenId, type, what, id, author) {
+async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, event) {
   const actor = tokenId === 'null' ? game.actors.get(actorId) : game.scenes.get(sceneId).tokens.find(token => token.id === tokenId).actor;
   const data = actor.system;
   const tgt = game.user.targets.ids[0];
   const dataStr = data?.strategie?.total ?? {attaque:0, effet:0};
-  const strategie = {attaque:dataStr.attaque, effet:dataStr.effet}
+  const strategie = {attaque:dataStr.attaque, effet:dataStr.effet};
+  const hasShift = event.shiftKey;
   
   const atk = id === '-1' || id === -1 ? {noAtk:false} : actor.system.attaque[id];
   let name = "";
@@ -489,7 +513,7 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author) {
         name = data[type][what].list[id].label;
         total = data[type][what].list[id].total;
       } else {
-        name = game.i18n.localize(CONFIG.MM3.competences[what]);
+        name = id === 'new' ? data[type][what].label : game.i18n.localize(CONFIG.MM3.competences[what]);
         total = data[type][what].total;
       }
       break;
@@ -512,7 +536,7 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author) {
   else if(type === 'attaque' && tgt !== undefined && !atk.noAtk) rollAtkTgt(actor, name, total, {attaque:atk, strategie:strategie}, tgt);
   else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(actor, name, total, {attaque:atk, strategie:strategie});
   else if(type === 'attaque' && atk.noAtk) rollWAtk(actor, name, {attaque:atk, strategie:strategie});
-  else rollStd(actor, name, total);
+  else rollStd(actor, name, total, hasShift);
 };
 
 async function RollMacroPwr(actorId, sceneId, tokenId, id, author) {
@@ -520,3 +544,15 @@ async function RollMacroPwr(actorId, sceneId, tokenId, id, author) {
   
   rollPwr(actor, id);
 };
+
+Hooks.on("renderPause", function () {
+  $("#pause img").remove();
+  $("#pause figcaption").remove();
+  const whatPause = game.settings.get("mutants-and-masterminds-3e", "pauselogo");
+  const pause = $("#pause video");
+  
+  if(pause.length === 0) $("#pause").append(`<video width="300" height="200" loop autoplay="autoplay"><source src="systems/mutants-and-masterminds-3e/assets/pause/${whatPause}.webm" type="video/webm" /></video>`);
+  else $("#pause video").attr('src', `systems/mutants-and-masterminds-3e/assets/pause/${whatPause}.webm`);
+  $("#pause video")[0].load();
+  $("#pause video")[0].play();
+});

@@ -70,6 +70,7 @@
     "BTN":{
       "Add":"Add",
       "AddPwr":"Add a power",
+      "AddCmp":"Add a skill",
       "AddTl":"Add an advantage",
       "AddEq":"Add an equipment"
     },
@@ -231,7 +232,19 @@
       "DCRollHint":"Sets the shortcut to open the DC request window in a roll, the other option will allow a roll to be made without this window appearing.",
       "Clicgauche":"Left Click",
       "ShiftClicgauche":"Shift + Left Click",
-      "CaractéristiquesAbsentes":"Absent Abilities"
+      "CaractéristiquesAbsentes":"Absent Abilities",
+      "Pause": "Change the pause icon",
+      "PauseHint": "Pause icons are sorted from most animated to least animated",
+      "Pause1": "Pause icon 1",
+      "Pause2": "Pause icon 2",
+      "Pause3": "Pause icon 3",
+      "Menu":"Change menu color",
+      "MenuHint":"This color will affect the right-hand menu and the players' menu.",
+      "Defaut":"Default",
+      "BleuClair":"Light-blue",
+      "VioletClair":"Light-Purple",
+      "Violet":"Purple",
+      "BleuFonce":"Dark-Blue"
     },
     "ROLL":{
       "AttSuccess":"The attack hits !",

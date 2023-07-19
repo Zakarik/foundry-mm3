@@ -129,17 +129,47 @@
                             {{localize "MM3.BTN.Add"}}
                         </a>
                     {{else}}
+                        {{#if key.new}}
+                        <a class="roll oneRoll draggable" data-what="{{comp}}" data-id="new" data-type="competence" data-name="{{key.label}}" data-total="{{key.total}}">
+                            <i class="fa-solid fa-dice-d20"></i>
+                        </a>
+                        <input type="text" name="system.competence.{{comp}}.label" value="{{key.label}}" />                   
+                        {{else}}
                         <a class="roll twoRoll draggable" data-what="{{comp}}" data-type="competence" data-name="{{key.label}}" data-total="{{key.total}}">
                             {{key.label}}
                         </a>
+                        {{/if}}
+                        {{#if carCanChange}}
+                        <select name="system.competence.{{comp}}.car">
+                            {{#select key.car}}
+                                <option value="for">{{translate 'caracteristiquesshort' 'for'}}</option>
+                                <option value="agi">{{translate 'caracteristiquesshort' 'agi'}}</option>
+                                <option value="cbt">{{translate 'caracteristiquesshort' 'cbt'}}</option>
+                                <option value="sns">{{translate 'caracteristiquesshort' 'sns'}}</option>
+                                <option value="end">{{translate 'caracteristiquesshort' 'end'}}</option>
+                                <option value="dex">{{translate 'caracteristiquesshort' 'dex'}}</option>
+                                <option value="int">{{translate 'caracteristiquesshort' 'int'}}</option>
+                                <option value="prs">{{translate 'caracteristiquesshort' 'prs'}}</option>
+                            {{/select}}
+                        </select>
+                        {{else}}
                         <span class="carac">{{translate 'caracteristiquesshort' key.car}}</span>
+                        {{/if}}
                         <span class="score total">{{key.total}}</span>
                         <span class="score">{{key.carac}}</span>
                         <input type="number" name="system.competence.{{comp}}.rang" value="{{key.rang}}" />
                         <input type="number" name="system.competence.{{comp}}.autre" value="{{key.autre}}" />
+                        
+                        {{#if key.new}}
+                        <i class="fa-solid fa-trash-xmark delete" data-id="{{comp}}" data-type="competence" data-what="new"></i>
+                        {{else}}
                         <span></span>
+                        {{/if}}
                     {{/if}}
                 {{/each}}
+                <a class="add" data-type="competence" data-what="new">
+                    {{localize "MM3.BTN.AddCmp"}}
+                </a>
             </div>
 
             <div class="etats">

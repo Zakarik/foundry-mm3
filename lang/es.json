@@ -70,6 +70,7 @@
     "BTN":{
       "Add":"Añadir",
       "AddPwr":"Añadir un poder",
+      "AddCmp":"Añadir una habilidad",
       "AddTl":"Añadir una ventaja",
       "AddEq":"Añadir un equipo"
     },
@@ -231,7 +232,19 @@
       "DCRollHint":"Establece el acceso directo para abrir la ventana de solicitud de DC en una tirada, la otra opción permitirá realizar una tirada sin que aparezca la ventana.",
       "Clicgauche":"Click Izquierdo",
       "ShiftClicgauche":"Shift + Click Izquierdo",
-      "CaractéristiquesAbsentes":"Habilidades Faltantes"
+      "CaractéristiquesAbsentes":"Habilidades Faltantes",
+      "Pause":"Cambiar el icono de pausa",
+      "PauseHint":"Los íconos de pausa están ordenados de los más animados a los menos animados.",
+      "Pause1":"Icono de pausa 1",
+      "Pause2":"Icono de pausa 2",
+      "Pause3":"Icono de pausa 3",
+      "Menu":"Cambiar el color del menú",
+      "MenuHint":"Este color afectará al menú de la derecha y al menú del jugador.",
+      "Defaut":"Estándar",
+      "BleuClair":"Azul claro",
+      "VioletClair":"Púrpura claro",
+      "Violet":"Púrpura",
+      "BleuFonce":"Azul oscuro"
     },
     "ROLL":{
       "AttSuccess":"El ataque golpea !",

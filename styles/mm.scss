@@ -17,3 +17,35 @@ img#logo {
     width:115px;
     height:39px;
 }
+
+#pause video {
+    position:absolute;
+    min-height: 200px;
+    min-width: 200px;
+    left: calc(50% - 150px);
+    top: -50px;
+}
+
+#pause {
+    background:none;
+}
+
+div.bleuclair,
+section.bleuclair aside#players.app {
+    background:url("../assets/menu/bleuclair.png") repeat;
+}
+
+div.violetclair,
+section.violetclair aside#players.app {
+    background:url("../assets/menu/violetclair.png") repeat;
+}
+
+div.violet,
+section.violet aside#players.app {
+    background:url("../assets/menu/violet.png") repeat;
+}
+
+div.bleufonce,
+section.bleufonce aside#players.app {
+    background:url("../assets/menu/bleufonce.png") repeat;
+}

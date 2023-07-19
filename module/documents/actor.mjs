@@ -117,7 +117,7 @@ export class MM3Actor extends Actor {
       }     
     }
 
-    for(let com in CONFIG.MM3.competences) {
+    for(let com in getComp) {
       const comp = getComp[com];
 
       if(comp.canAdd) {
@@ -141,6 +141,31 @@ export class MM3Actor extends Actor {
         comp.total = comp.carac+compRang+comp.autre;
       }
     }
+
+    /*for(let com in CONFIG.MM3.competences) {
+      const comp = getComp[com];
+
+      if(comp.canAdd) {
+        const cList = comp.list;
+        for(let list in cList) {
+          const listData = cList[list];
+          const listCompRang = listData.rang;
+          const carac = listData.carCanChange ? getCarac[getFullCarac(listData.car)] : getCarac[getFullCarac(comp.car)];
+          const scoreCarac = carac.total;
+
+          listData.carac = carac.absente ? 0 : scoreCarac;
+          listData.total = listData.carac+listCompRang+listData.autre;
+          ppComp += listCompRang/2;
+        }      
+      } else {
+        const carac = getCarac[getFullCarac(comp.car)];
+        const compRang = comp.rang;
+
+        ppComp += compRang/2;
+        comp.carac = carac.absente ? 0 : carac.total;
+        comp.total = comp.carac+compRang+comp.autre;
+      }
+    }*/
 
     for(let def in CONFIG.MM3.defenses) {
       const defense = getDef[def];

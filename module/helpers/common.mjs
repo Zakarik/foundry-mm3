@@ -1194,8 +1194,6 @@ export async function processMinions(actor, data) {
             folder:actor.folder
           });
 
-          console.warn(m, data)
-
           processImport(minion, m, acType)
         }
       }
@@ -1211,8 +1209,6 @@ export async function processMinions(actor, data) {
           permission:actor.ownership,
           folder:actor.folder
         });
-
-        console.warn(minions, data)
 
         processImport(minion, minions, acType)
       }
@@ -1335,7 +1331,7 @@ export async function rollStd(actor, name, score, shift=false) {
             const finalMarge = resultMarge < 0 ? Math.abs(resultMarge)+1 : resultMarge+1;
 
             pRoll = {
-              flavor:`${name}`,
+              flavor:name === "" ? " - " : `${name}`,
               tooltip:await roll.getTooltip(),
               formula:`${dicesFormula} + ${score}`,
               result:roll.total,
@@ -1377,7 +1373,7 @@ export async function rollStd(actor, name, score, shift=false) {
     }, askNiveauDialogOptions).render(true);
   } else {
     pRoll = {
-      flavor:`${name}`,
+      flavor:name === "" ? " - " : `${name}`,
       tooltip:await roll.getTooltip(),
       formula:`${dicesFormula} + ${score}`,
       result:roll.total,
@@ -1422,7 +1418,7 @@ export async function rollVs(actor, name, score, vs) {
   else if(margeBrut < 0) isSuccess = true;
 
   const pRollSave = {
-    flavor:`${name}`,
+    flavor:name === "" ? " - " : `${name}`,
     tooltip:await save.getTooltip(),
     formula:`${optDices.formula} + ${score}`,
     result:save.total,
@@ -1486,7 +1482,7 @@ export async function rollAtkTgt(actor, name, score, data, tgt) {
     let dSuccess = Math.floor(((roll.total - ddDefense)/5))+1;
 
     pRoll = {
-      flavor:`${name}`,
+      flavor:name === "" ? " - " : `${name}`,
       tooltip:await roll.getTooltip(),
       formula:`${dicesFormula} + ${score} + ${dataStr.attaque}`,
       result:roll.total,
@@ -1548,7 +1544,7 @@ export async function rollTgt(actor, name, data, tgt) {
   let pRoll = {};
   
   pRoll = {
-    flavor:`${name}`,
+    flavor:name === "" ? " - " : `${name}`,
     isCombat:true,
     isSuccess:true,
     text:dataCbt.text,
@@ -1585,7 +1581,7 @@ export async function rollWAtk(actor, name, data) {
   const dataStr = data.strategie;
 
   const pRoll = {
-    flavor:`${name}`,
+    flavor:name === "" ? " - " : `${name}`,
     effet:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
     text:dataCbt.text
   };
@@ -1625,7 +1621,7 @@ export async function rollAtk(actor, name, score, data) {
   const resultDie = roll.total-score-dataStr.attaque;
 
   const pRoll = {
-    flavor:`${name}`,
+    flavor:name === "" ? " - " : `${name}`,
     tooltip:await roll.getTooltip(),
     formula:`${dicesFormula} + ${score} + ${dataStr.attaque}`,
     result:roll.total,

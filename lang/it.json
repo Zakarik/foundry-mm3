@@ -70,6 +70,7 @@
     "BTN":{
       "Add":"Aggiungi",
       "AddPwr":"Aggiungi un potere",
+      "AddCmp":"Aggiungere un'abilità",
       "AddTl":"Aggiungi un vantaggio",
       "AddEq":"Aggiungi un equipaggiamento"
     },
@@ -231,7 +232,19 @@
       "DCRollHint":"Imposta la scorciatoia per aprire la finestra di richiesta CD in un roll, l'altra opzione consentirà quindi di effettuare un roll senza che la finestra appaia.",
       "Clicgauche":"Clic Sinistro",
       "ShiftClicgauche":"Shift + Clic Sinistro",
-      "CaractéristiquesAbsentes":"Caratteristiche Mancanti"
+      "CaractéristiquesAbsentes":"Caratteristiche Mancanti",
+      "Pause":"Modifica l'icona di pausa",
+      "PauseHint":"Le icone di pausa sono ordinate dalla più animata alla meno animata.",
+      "Pause1":"Icona Pausa 1",
+      "Pause2":"Icona Pausa 2",
+      "Pause3":"Icona Pausa 3",
+      "Menu":"Cambia il colore del menu",
+      "MenuHint":"Questo colore influenzerà il menu a destra e il menu del giocatore.",
+      "Defaut":"Standard",
+      "BleuClair":"Azzurro",
+      "VioletClair":"Viola chiaro",
+      "Violet":"Viola",
+      "BleuFonce":"Blu scuro"
     },
     "ROLL":{
       "AttSuccess":"L'attacco colpisce !",

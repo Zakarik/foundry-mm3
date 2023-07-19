@@ -69,6 +69,7 @@
     },
     "BTN":{
       "Add":"Ajouter",
+      "AddCmp":"Ajouter une compétence",
       "AddPwr":"Ajouter un pouvoir",
       "AddTl":"Ajouter un talent",
       "AddEq":"Ajouter un équipement"
@@ -231,7 +232,19 @@
       "DCRollHint":"Règle le raccourci ouvrant la fenêtre de demande de DD lors d'un jet, l'autre option permettra alors de faire un jet sans que la fenêtre n'apparaisse.",
       "Clicgauche":"Clic gauche",
       "ShiftClicgauche":"Shift + Clic gauche",
-      "CaractéristiquesAbsentes":"Caractéristiques absentes"
+      "CaractéristiquesAbsentes":"Caractéristiques absentes",
+      "Pause":"Modifier l'icône de pause",
+      "PauseHint":"Les icônes de pause sont classés du plus animé au moins animé.",
+      "Pause1":"Icône de pause 1",
+      "Pause2":"Icône de pause 2",
+      "Pause3":"Icône de pause 3",
+      "Menu":"Modifier la couleur du menu",
+      "MenuHint":"Cette couleur affectera le menu de droite et celui des joueurs.",
+      "Defaut":"Défaut",
+      "BleuClair":"Bleu clair",
+      "VioletClair":"Violet clair",
+      "Violet":"Violet",
+      "BleuFonce":"Bleu foncé"
     },
     "ROLL":{
       "AttSuccess":"L'Attaque touche !",
