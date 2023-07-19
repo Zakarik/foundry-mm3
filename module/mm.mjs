@@ -546,13 +546,18 @@ async function RollMacroPwr(actorId, sceneId, tokenId, id, author) {
 };
 
 Hooks.on("renderPause", function () {
-  $("#pause img").remove();
-  $("#pause figcaption").remove();
   const whatPause = game.settings.get("mutants-and-masterminds-3e", "pauselogo");
-  const pause = $("#pause video");
+
+  if(whatPause !== 'default') {
+    $("#pause img").remove();
+    $("#pause figcaption").remove();
+    
+    const pause = $("#pause video");
+    
+    if(pause.length === 0) $("#pause").append(`<video width="300" height="200" loop autoplay="autoplay"><source src="systems/mutants-and-masterminds-3e/assets/pause/${whatPause}.webm" type="video/webm" /></video>`);
+    else $("#pause video").attr('src', `systems/mutants-and-masterminds-3e/assets/pause/${whatPause}.webm`);
+    $("#pause video")[0].load();
+    $("#pause video")[0].play();
+  }
   
-  if(pause.length === 0) $("#pause").append(`<video width="300" height="200" loop autoplay="autoplay"><source src="systems/mutants-and-masterminds-3e/assets/pause/${whatPause}.webm" type="video/webm" /></video>`);
-  else $("#pause video").attr('src', `systems/mutants-and-masterminds-3e/assets/pause/${whatPause}.webm`);
-  $("#pause video")[0].load();
-  $("#pause video")[0].play();
 });

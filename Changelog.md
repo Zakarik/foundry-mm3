@@ -1,3 +1,7 @@
+## Version 1.19.0
+### Améliorations
+- Ajout de la possibilité de remettre l'icône de pause par défaut, pour ceux qui le souhaitent.
+
 ## Version 1.18.0
 ### Améliorations
 - Ajout de la possibilité d'ajouter des compétences personnalisées.

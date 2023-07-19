@@ -37,14 +37,30 @@ export const RegisterSettings = function () {
         default: "Pause_Icon_1",
         type: String,
         choices:{
+            "default":"MM3.SETTING.Defaut",
             "Pause_Icon_1":"MM3.SETTING.Pause1",
             "Pause_Icon_2":"MM3.SETTING.Pause2",
             "Pause_Icon_3":"MM3.SETTING.Pause3",
         }, 
         onChange: value => { 
-            $("#pause video").attr('src', `systems/mutants-and-masterminds-3e/assets/pause/${value}.webm`);
-            $("#pause video")[0].load();
-            $("#pause video")[0].play();
+            if(value !== 'default') {
+                $("#pause img").remove();
+                $("#pause figcaption").remove();
+                
+                const pause = $("#pause video");
+                if(pause.length === 0) {
+                    $("#pause").append(`<video width="300" height="200" loop autoplay="autoplay"><source src="systems/mutants-and-masterminds-3e/assets/pause/${value}.webm" type="video/webm" /></video>`);
+                } else {
+                    $("#pause video").attr('src', `systems/mutants-and-masterminds-3e/assets/pause/${value}.webm`);
+                    $("#pause video")[0].load();
+                    $("#pause video")[0].play();
+                }                
+            } else {
+                $("#pause video").remove();
+                $("#pause").append(`<img src="icons/svg/clockwork.svg" class="fa-spin">`);
+                $("#pause").append(`<figcaption>Game Paused</figcaption>`);
+                
+            }            
         }
     });
 
