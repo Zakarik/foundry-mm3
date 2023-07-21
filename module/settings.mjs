@@ -69,7 +69,7 @@ export const RegisterSettings = function () {
         hint: "MM3.SETTING.MenuHint",
         scope: "client",
         config: true,
-        default: "dark",
+        default: "bleufonce",
         type: String,
         choices:{
             "default":"MM3.SETTING.Defaut",
@@ -84,6 +84,26 @@ export const RegisterSettings = function () {
 
             $("section#ui-left").addClass(value);
             $("div#sidebar.app").addClass(value);
+        }
+    });
+
+    game.settings.register("mutants-and-masterminds-3e", "font", {
+        name: "MM3.SETTING.ForceFont",
+        scope: "client",
+        config: true,
+        default: "default",
+        type: String,
+        choices:{
+            "default":"MM3.Non",
+            "Arial":"Arial",
+            "Arial Narrow":"Arial Narrow",
+            "Signika":"Signika",
+            "var(--font-primary)":"MM3.SETTING.Defaut",
+        }, 
+        onChange: value => { 
+            for (let actor of game.actors.contents) {
+                actor.render(true);
+            }   
         }
     });
 };

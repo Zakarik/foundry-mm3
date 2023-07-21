@@ -233,6 +233,7 @@
       "Clicgauche":"Clic gauche",
       "ShiftClicgauche":"Shift + Clic gauche",
       "CaractéristiquesAbsentes":"Caractéristiques absentes",
+      "ForceFont":"Forcer la police de caractère dans l'ensemble du système",
       "Pause":"Modifier l'icône de pause",
       "PauseHint":"Les icônes de pause sont classés du plus animé au moins animé.",
       "Pause1":"Icône de pause 1",
@@ -278,7 +279,8 @@
     },
     "ACCESSIBILITE":{
       "Label":"Accessibilité",
-      "Font":"Modification de la police d'écriture pour les longs textes"
+      "Font":"Modification de la police d'écriture pour les longs textes",
+      "FontOther":"Modification de la police d'écriture pour les autres textes"
     },
     "Nom":"Nom",
     "Identite":"Identite",
@@ -333,6 +335,7 @@
     "Vitesse":"Vitesse",
     "Particularites":"Particularités",
     "Editadvanced":"Editer les paramètres avancés",
-    "Adefinir":"A définir"
+    "Adefinir":"A définir",
+    "Non":"Non"
   }
 }

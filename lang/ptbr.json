@@ -233,6 +233,7 @@
       "Clicgauche":"Clique Esquerdo",
       "ShiftClicgauche":"Shift + Clique Esquerdo",
       "CaractéristiquesAbsentes":"Habilidades Ausentes",
+      "ForceFont":"Forçar fontes em todo o sistema",
       "Pause":"Trocar o ícone de pausa",
       "PauseHint":"Os ícones de pausa estão organizados do mais animado ao menos animado",
       "Pause1":"Ícone de pausa 1",
@@ -278,7 +279,8 @@
     },
     "ACCESSIBILITE":{
       "Label":"Acessibilidade",
-      "Font":"Modificação da fonte para textos longos"
+      "Font":"Modificação da fonte para textos longos",
+      "FontOther":"Modificação da fonte para outros textos"
     },
     "Nom":"Nome",
     "Identite":"Identidade",
@@ -333,6 +335,7 @@
     "Vitesse":"Velocidade",
     "Particularites":"Características",
     "Editadvanced":"Editar configurações avançadas",
-    "Adefinir":"À definir"
+    "Adefinir":"À definir",
+    "Non":"Não"
   }
 }

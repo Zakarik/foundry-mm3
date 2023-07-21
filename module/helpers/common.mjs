@@ -1287,12 +1287,38 @@ export function getFullCarac(carac){
 }
 
 export function accessibility(actor, html) {
+  const setting = game.settings.get("mutants-and-masterminds-3e", "font");
   const options = actor.system?.accessibility ?? null;
   const font = options !== null ? options?.font ?? null : null;
+  const fontOther = options !== null ? options?.fontOther ?? '' : '';
 
-  if(font !== null) {
-    html.find('div.editor-content').css('font-family', font);
-  }
+  if(setting === 'default') {
+    if(font !== null) {
+      html.find('div.editor-content').css('font-family', font);
+    }
+  
+    if(fontOther !== null || fontOther !== 'null') {
+      html.find('input[type="text"]').css('font-family', fontOther);
+      html.find('select').css('font-family', fontOther);
+      html.find('a').css('font-family', fontOther);
+      html.find('span').css('font-family', fontOther);
+  
+      const resized = ['Arial'];
+  
+      if(resized.includes(fontOther)) html.find('a.item').css('font-size', '11px');
+    }
+  } else {
+    html.find('div.editor-content').css('font-family', setting);
+    html.find('input[type="text"]').css('font-family', setting);
+    html.find('select').css('font-family', setting);
+    html.find('a').css('font-family', setting);
+    html.find('span').css('font-family', setting);
+    html.find('.accessibilityFont').remove();
+
+    const resized = ['Arial'];
+
+    if(resized.includes(setting)) html.find('a.item').css('font-size', '11px');
+  }  
 }
 
 //ROLL STANDARD

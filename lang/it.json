@@ -233,6 +233,7 @@
       "Clicgauche":"Clic Sinistro",
       "ShiftClicgauche":"Shift + Clic Sinistro",
       "CaractéristiquesAbsentes":"Caratteristiche Mancanti",
+      "ForceFont":"Forza i font in tutto il sistema",
       "Pause":"Modifica l'icona di pausa",
       "PauseHint":"Le icone di pausa sono ordinate dalla più animata alla meno animata.",
       "Pause1":"Icona Pausa 1",
@@ -278,7 +279,8 @@
     },
     "ACCESSIBILITE":{
       "Label":"Accessibilità",
-      "Font":"Modifica dei font per testi lunghi"
+      "Font":"Modifica dei font per testi lunghi",
+      "FontOther":"Modifica del font per altri testi"
     },
     "Nom":"Nome",
     "Identite":"Identità",
@@ -333,6 +335,7 @@
     "Vitesse":"Velocità",
     "Particularites":"Caratteristiche",
     "Editadvanced":"Modifica le impostazioni avanzate",
-    "Adefinir":"Da definire"
+    "Adefinir":"Da definire",
+    "Non":"No"
   }
 }

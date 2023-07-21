@@ -1,5 +1,10 @@
 ## Version 1.19.0
 ### Améliorations
+- Ajout d'une police d'écriture "Arial Narrow" parmi les options de polices de caractères.
+- Ajout de la possibilité, pour le MJ, de forcer une police de caractère sur l'ensemble du système.
+
+## Version 1.19.0
+### Améliorations
 - Ajout de la possibilité de remettre l'icône de pause par défaut, pour ceux qui le souhaitent.
 
 ## Version 1.18.0
