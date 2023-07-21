@@ -89,7 +89,7 @@ export const RegisterSettings = function () {
 
     game.settings.register("mutants-and-masterminds-3e", "font", {
         name: "MM3.SETTING.ForceFont",
-        scope: "client",
+        scope: "world",
         config: true,
         default: "default",
         type: String,

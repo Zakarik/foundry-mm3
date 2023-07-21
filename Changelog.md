@@ -1,4 +1,8 @@
-## Version 1.19.0
+## Version 1.20.1
+### Bugfix
+- Correction d'un bug suite à la dernière mise à jour.
+
+## Version 1.20.0
 ### Améliorations
 - Ajout d'une police d'écriture "Arial Narrow" parmi les options de polices de caractères.
 - Ajout de la possibilité, pour le MJ, de forcer une police de caractère sur l'ensemble du système.
