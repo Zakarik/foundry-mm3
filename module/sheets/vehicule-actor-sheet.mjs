@@ -36,7 +36,6 @@ export class VehiculeActorSheet extends ActorSheet {
     context.systemData = context.data.system;
 
     this._prepareList(context);
-    console.warn(context);
 
     return context;
   }

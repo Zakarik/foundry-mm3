@@ -97,9 +97,9 @@ export class MM3Actor extends Actor {
     }
 
     getStr.total = {
-      attaque:attaque,
-      defense:defense,
-      effet:effet
+      attaque:attaque ?? 0,
+      defense:defense ?? 0,
+      effet:effet ?? 0
     };
 
     for(let car in CONFIG.MM3.caracteristiques) {
@@ -246,9 +246,9 @@ export class MM3Actor extends Actor {
     for(let str of listStr) {
       const dataStr = getStr[str];
 
-      attaque += dataStr.attaque;
-      defense += dataStr.defense;
-      effet += dataStr.effet;
+      attaque += dataStr.attaque ?? 0;
+      defense += dataStr.defense ?? 0;
+      effet += dataStr.effet ?? 0;
     }
 
     getStr.total = {
@@ -359,9 +359,9 @@ export class MM3Actor extends Actor {
     for(let str of listStr) {
       const dataStr = getStr[str];
 
-      attaque += dataStr.attaque;
-      defense += dataStr.defense;
-      effet += dataStr.effet;
+      attaque += dataStr.attaque ?? 0;
+      defense += dataStr.defense ?? 0;
+      effet += dataStr.effet ?? 0;
     }
 
     for(let pouvoir of pouvoirs) {

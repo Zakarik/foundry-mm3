@@ -10,7 +10,7 @@
       "historique":"",
       "affiliation":"",
       "base":"",
-      "sexe":"",
+      "genre":"",
       "age":"",
       "taille":"",
       "poids":"",
@@ -261,7 +261,38 @@
           "divers":0
         }
       },
-      "pwr":{}
+      "pwr":{},
+      "initiative":{
+        "base":0
+      },
+      "attaque":{},
+      "strategie":{
+        "attaqueprecision":{
+          "attaque":0,
+          "defense":0,
+          "effet":0
+        },
+        "attaqueoutrance":{
+          "attaque":0,
+          "defense":0,
+          "effet":0
+        },
+        "attaquedefensive":{
+          "attaque":0,
+          "defense":0,
+          "effet":0
+        },
+        "attaquepuissance":{
+          "attaque":0,
+          "defense":0,
+          "effet":0
+        },
+        "etats":{
+          "attaque":0,
+          "defense":0,
+          "effet":0
+        }
+      }
     },
     "qg":{
       "description":"",
@@ -273,6 +304,38 @@
         "robustesse":0,
         "particularite":0,
         "divers":0
+      },
+      "pwr":{},
+      "initiative":{
+        "base":0
+      },
+      "attaque":{},
+      "strategie":{
+        "attaqueprecision":{
+          "attaque":0,
+          "defense":0,
+          "effet":0
+        },
+        "attaqueoutrance":{
+          "attaque":0,
+          "defense":0,
+          "effet":0
+        },
+        "attaquedefensive":{
+          "attaque":0,
+          "defense":0,
+          "effet":0
+        },
+        "attaquepuissance":{
+          "attaque":0,
+          "defense":0,
+          "effet":0
+        },
+        "etats":{
+          "attaque":0,
+          "defense":0,
+          "effet":0
+        }
       }
     }
   },

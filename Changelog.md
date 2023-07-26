@@ -1,3 +1,7 @@
+## Version 1.20.2
+### Bugfix
+- Correction d'un bug de calcul des caractéristiques.
+
 ## Version 1.20.1
 ### Bugfix
 - Correction d'un bug suite à la dernière mise à jour.

@@ -355,6 +355,7 @@ Hooks.once('ready', async function () {
   
   $("section#ui-left").addClass(whatMenu);
   $("div#sidebar.app").addClass(whatMenu);
+  //$("div#sidebar section.actors-sidebar").prepend("<img style='flex:none;margin:0px;border:0px;padding:0px;' src='systems/mutants-and-masterminds-3e/assets/Actors_Banner.png' />");
 
   let status = {};
   
