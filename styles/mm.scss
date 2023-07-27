@@ -29,6 +29,17 @@ $bgs:
 "violet",
 "bleufonce";
 
+$imgs:
+"combat",
+"scenes",
+"actors",
+"items",
+"journal",
+"tables",
+"cards",
+"playlists",
+"compendium";
+
 @each $font in $fonts {
     @import url('https://fonts.googleapis.com/css?family=#{$font}&display=swap');
 }
@@ -69,6 +80,18 @@ div#interface {
             aside#players {
                 background:url("../assets/menu/#{$bg}.png") repeat;
             }
+        }
+    }
+}
+@each $img in $imgs {
+    section##{$img} {
+        >header:first-of-type:before {
+            content:"";
+            background:url("../assets/banners/#{$img}_Banner.png");
+            height: 53px;
+            display: block;
+            width: 100%;
+            background-size: contain;
         }
     }
 }

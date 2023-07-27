@@ -1,3 +1,7 @@
+## Version 1.21.1
+### Bugfix
+- Corrections de problèmes des nouvelles bannières disparaissant dans certains cas.
+
 ## Version 1.21.0
 ### Améliorations
 - Ajout de nombreuses polices d'écritures à la liste des polices possibles.

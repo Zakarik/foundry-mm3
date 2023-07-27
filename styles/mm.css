@@ -6519,3 +6519,84 @@ div#interface.bleufonce div#sidebar,
 div#interface.bleufonce aside#players {
   background: url("../assets/menu/bleufonce.png") repeat;
 }
+
+section#combat > header:first-of-type:before {
+  content: "";
+  background: url("../assets/banners/combat_Banner.png");
+  height: 53px;
+  display: block;
+  width: 100%;
+  background-size: contain;
+}
+
+section#scenes > header:first-of-type:before {
+  content: "";
+  background: url("../assets/banners/scenes_Banner.png");
+  height: 53px;
+  display: block;
+  width: 100%;
+  background-size: contain;
+}
+
+section#actors > header:first-of-type:before {
+  content: "";
+  background: url("../assets/banners/actors_Banner.png");
+  height: 53px;
+  display: block;
+  width: 100%;
+  background-size: contain;
+}
+
+section#items > header:first-of-type:before {
+  content: "";
+  background: url("../assets/banners/items_Banner.png");
+  height: 53px;
+  display: block;
+  width: 100%;
+  background-size: contain;
+}
+
+section#journal > header:first-of-type:before {
+  content: "";
+  background: url("../assets/banners/journal_Banner.png");
+  height: 53px;
+  display: block;
+  width: 100%;
+  background-size: contain;
+}
+
+section#tables > header:first-of-type:before {
+  content: "";
+  background: url("../assets/banners/tables_Banner.png");
+  height: 53px;
+  display: block;
+  width: 100%;
+  background-size: contain;
+}
+
+section#cards > header:first-of-type:before {
+  content: "";
+  background: url("../assets/banners/cards_Banner.png");
+  height: 53px;
+  display: block;
+  width: 100%;
+  background-size: contain;
+}
+
+section#playlists > header:first-of-type:before {
+  content: "";
+  background: url("../assets/banners/playlists_Banner.png");
+  height: 53px;
+  display: block;
+  width: 100%;
+  background-size: contain;
+}
+
+section#compendium > header:first-of-type:before {
+  content: "";
+  background: url("../assets/banners/compendium_Banner.png");
+  height: 53px;
+  display: block;
+  width: 100%;
+  background-size: contain;
+}

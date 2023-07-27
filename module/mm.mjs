@@ -405,22 +405,10 @@ Hooks.once('ready', async function () {
   }
 
   Hooks.on("hotbarDrop", (bar, data, slot) => createMacro(bar, data, slot));
-});
 
-Hooks.on('ready', function() {
   const whatMenu = game.settings.get("mutants-and-masterminds-3e", "menu");
   $("div#interface").removeClass(listBg);
   $("div#interface").addClass(whatMenu);
-
-  const banners = ['combat', 'scenes', 'actors', 'items', 'journal', 'tables', 'cards', 'playlists', 'compendium'];
-
-  for(let b of banners) {
-    if(game.user.isGM) {
-      $(`section#ui-right section#${b}`).prepend(`<img style='flex:none;margin:0px;border:0px;padding:0px;' src='systems/mutants-and-masterminds-3e/assets/banners/${b}_Banner.png' />`);
-    } else {
-      $(`section#${b}`).prepend(`<img style='flex:none;margin:0px;border:0px;padding:0px;' src='systems/mutants-and-masterminds-3e/assets/banners/${b}_Banner.png' />`);
-    }
-  }
 });
 
 Hooks.on('deleteItem', doc => toggler.clearForId(doc.id));
