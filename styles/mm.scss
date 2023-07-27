@@ -1,6 +1,38 @@
-@import url('https://fonts.googleapis.com/css?family=Bangers&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Sriracha&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Kalam&display=swap');
+$fonts:
+"Bangers", 
+"Sriracha", 
+"Kalam",
+"Creepster",
+"Poppins",
+"Roboto",
+"Roboto+Condensed",
+"Roboto+Mono",
+"Tektur",
+"Josefin+Sans",
+"Bebas+Neue",
+"Goldman",
+"Anton",
+"Patrick+Hand+SC",
+"Pirata+One",
+"Prompt",
+"Teko",
+"Russo+One",
+"Righteous",
+"Pathway+Gothic+One",
+"Quantico",
+"Staatliches",
+"Secular+One";
+
+$bgs:
+"bleuclair",
+"violetclair",
+"violet",
+"bleufonce";
+
+@each $font in $fonts {
+    @import url('https://fonts.googleapis.com/css?family=#{$font}&display=swap');
+}
+
 @import "parts/functions";
 @import "parts/personnage";
 @import "parts/modificateur";
@@ -30,22 +62,13 @@ img#logo {
     background:none;
 }
 
-div.bleuclair,
-section.bleuclair aside#players.app {
-    background:url("../assets/menu/bleuclair.png") repeat;
-}
-
-div.violetclair,
-section.violetclair aside#players.app {
-    background:url("../assets/menu/violetclair.png") repeat;
-}
-
-div.violet,
-section.violet aside#players.app {
-    background:url("../assets/menu/violet.png") repeat;
-}
-
-div.bleufonce,
-section.bleufonce aside#players.app {
-    background:url("../assets/menu/bleufonce.png") repeat;
+div#interface {
+    @each $bg in $bgs {
+        &.#{$bg} {
+            div#sidebar,
+            aside#players {
+                background:url("../assets/menu/#{$bg}.png") repeat;
+            }
+        }
+    }
 }

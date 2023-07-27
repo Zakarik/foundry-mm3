@@ -1,6 +1,26 @@
 @import url("https://fonts.googleapis.com/css?family=Bangers&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Sriracha&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Kalam&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Creepster&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Tektur&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Goldman&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Anton&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Patrick+Hand+SC&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Pirata+One&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Prompt&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Teko&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Russo+One&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Pathway+Gothic+One&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Quantico&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Staatliches&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Secular+One&display=swap");
 div.personnage section.window-content {
   background: #EBEBEB;
   color: #363B44;
@@ -5508,6 +5528,8 @@ div.qg section.sheet-body div.particularite {
   grid-template-columns: 1fr 1fr 45px;
   grid-template-rows: max-content;
   border: 2px solid black;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 div.qg section.sheet-body div.particularite span.header {
   font-variant: small-caps;
@@ -6481,22 +6503,19 @@ img#logo {
   background: none;
 }
 
-div.bleuclair,
-section.bleuclair aside#players.app {
+div#interface.bleuclair div#sidebar,
+div#interface.bleuclair aside#players {
   background: url("../assets/menu/bleuclair.png") repeat;
 }
-
-div.violetclair,
-section.violetclair aside#players.app {
+div#interface.violetclair div#sidebar,
+div#interface.violetclair aside#players {
   background: url("../assets/menu/violetclair.png") repeat;
 }
-
-div.violet,
-section.violet aside#players.app {
+div#interface.violet div#sidebar,
+div#interface.violet aside#players {
   background: url("../assets/menu/violet.png") repeat;
 }
-
-div.bleufonce,
-section.bleufonce aside#players.app {
+div#interface.bleufonce div#sidebar,
+div#interface.bleufonce aside#players {
   background: url("../assets/menu/bleufonce.png") repeat;
 }

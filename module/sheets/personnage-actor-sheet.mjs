@@ -43,6 +43,8 @@ export class PersonnageActorSheet extends ActorSheet {
     context.systemData = context.data.system;
     this._prepareCompetences(context);
 
+    console.warn(context);
+
     return context;
   }
 

@@ -1,3 +1,8 @@
+import {
+    listFont,
+    listBg
+  } from "./helpers/common.mjs";
+
 export const RegisterSettings = function () {
     /* ------------------------------------ */
     /* User settings                        */
@@ -79,13 +84,15 @@ export const RegisterSettings = function () {
             "bleufonce":"MM3.SETTING.BleuFonce",
         }, 
         onChange: value => { 
-            $("section#ui-left").removeClass(['bleuclair', 'violetclair', 'violet', 'bleufonce']);
-            $("div#sidebar.app").removeClass(['bleuclair', 'violetclair', 'violet', 'bleufonce']);
-
-            $("section#ui-left").addClass(value);
-            $("div#sidebar.app").addClass(value);
+            $("div#interface").removeClass(listBg);
+            $("div#interface").addClass(value);
         }
     });
+
+    const mFont = foundry.utils.mergeObject({
+        "default":"MM3.Non",
+        "var(--font-primary)":"MM3.SETTING.Defaut",
+    }, listFont);
 
     game.settings.register("mutants-and-masterminds-3e", "font", {
         name: "MM3.SETTING.ForceFont",
@@ -93,17 +100,9 @@ export const RegisterSettings = function () {
         config: true,
         default: "default",
         type: String,
-        choices:{
-            "default":"MM3.Non",
-            "Arial":"Arial",
-            "Arial Narrow":"Arial Narrow",
-            "Signika":"Signika",
-            "var(--font-primary)":"MM3.SETTING.Defaut",
-        }, 
-        onChange: value => { 
-            for (let actor of game.actors.contents) {
-                actor.render(true);
-            }   
+        choices:mFont, 
+        onChange: value => {
+            foundry.utils.debouncedReload();
         }
     });
 };

@@ -25,6 +25,9 @@ import {
   rollTgt,
   rollWAtk,
   rollVs,
+  accessibility,
+  getFullCarac,
+  listBg,
 } from "./helpers/common.mjs";
 
 import { MigrationMM3 } from "./migration.mjs";
@@ -133,7 +136,19 @@ Hooks.once('init', async function() {
   {
     id:'defenseless',
     label:'MM3.STATUS.Defenseless',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/defenseless.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/defenseless.svg",
+    changes:[{
+      key: `esquive`,
+      mode: 0,
+      priority: 1,
+      value: 2
+    },
+    {
+      key: `parade`,
+      mode: 0,
+      priority: 1,
+      value: 2
+    }]
   },
   {
     id:'transformed',
@@ -143,7 +158,19 @@ Hooks.once('init', async function() {
   {
     id:'vulnerability',
     label:'MM3.STATUS.Vulnerability',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/vulnerability.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/vulnerability.svg",
+    changes:[{
+      key: `esquive`,
+      mode: 0,
+      priority: 1,
+      value: 2
+    },
+    {
+      key: `parade`,
+      mode: 0,
+      priority: 1,
+      value: 2
+    }]
   },
   {
     id:'prone',
@@ -349,14 +376,6 @@ Hooks.once('init', async function() {
 /* -------------------------------------------- */
 
 Hooks.once('ready', async function () {
-  const whatMenu = game.settings.get("mutants-and-masterminds-3e", "menu");
-  $("section#ui-left").removeClass(['bleuclair', 'violetclair', 'violet', 'bleufonce']);
-  $("div#sidebar.app").removeClass(['bleuclair', 'violetclair', 'violet', 'bleufonce']);
-  
-  $("section#ui-left").addClass(whatMenu);
-  $("div#sidebar.app").addClass(whatMenu);
-  //$("div#sidebar section.actors-sidebar").prepend("<img style='flex:none;margin:0px;border:0px;padding:0px;' src='systems/mutants-and-masterminds-3e/assets/Actors_Banner.png' />");
-
   let status = {};
   
   for(let i of CONFIG.statusEffects) {
@@ -388,6 +407,22 @@ Hooks.once('ready', async function () {
   Hooks.on("hotbarDrop", (bar, data, slot) => createMacro(bar, data, slot));
 });
 
+Hooks.on('ready', function() {
+  const whatMenu = game.settings.get("mutants-and-masterminds-3e", "menu");
+  $("div#interface").removeClass(listBg);
+  $("div#interface").addClass(whatMenu);
+
+  const banners = ['combat', 'scenes', 'actors', 'items', 'journal', 'tables', 'cards', 'playlists', 'compendium'];
+
+  for(let b of banners) {
+    if(game.user.isGM) {
+      $(`section#ui-right section#${b}`).prepend(`<img style='flex:none;margin:0px;border:0px;padding:0px;' src='systems/mutants-and-masterminds-3e/assets/banners/${b}_Banner.png' />`);
+    } else {
+      $(`section#${b}`).prepend(`<img style='flex:none;margin:0px;border:0px;padding:0px;' src='systems/mutants-and-masterminds-3e/assets/banners/${b}_Banner.png' />`);
+    }
+  }
+});
+
 Hooks.on('deleteItem', doc => toggler.clearForId(doc.id));
 Hooks.on('deleteActor', doc => toggler.clearForId(doc.id));
 
@@ -397,6 +432,8 @@ Hooks.on('renderChatMessage', (message, html, data) => {
   const btn = $(html.find('button.btnRoll'));
   const isExist = btn.length > 0 ? true : false;
   const user = game.user;
+
+  accessibility(null, html)
 
   if(isExist && !user.isGM) {
     const target = $(btn[0]);
@@ -459,6 +496,56 @@ Hooks.on('userConnected', (User, boolean) => {
 
   $("section#ui-left").addClass(whatMenu);
   $("div#sidebar.app").addClass(whatMenu);
+});
+
+Hooks.on("applyActiveEffect", (actor, change) => {
+  if(actor.type !== 'personnage') return;
+
+  const version = game.version.split('.')[0];
+  let status = "";
+  if(version < 11) {
+    status = foundry.utils.getProperty(change.effect, "flags.core.statusId");
+
+    switch(status) {
+      case 'vulnerability':
+        const defense = actor.system.defense[change.key];
+        const carac = actor.system.caracteristique[getFullCarac(defense.car)];
+        const caracTotal = carac.absente ? 0 : carac.base+carac.divers;
+        const defTotal = defense.base+defense.divers+caracTotal;
+
+        defense.other = -Math.floor(defTotal/2);
+        break;
+
+      case 'defenseless':
+        defense = actor.system.defense[change.key];
+        defense.defenseless = true;
+        break;
+    }
+  } else {
+    status = foundry.utils.getProperty(change.effect, "statuses");
+    let defense;
+    let carac;
+    let caracTotal;
+    let defTotal;
+
+    for(let eff of status) {
+      switch(eff) {
+        case 'vulnerability':
+          defense = actor.system.defense[change.key];
+          carac = actor.system.caracteristique[getFullCarac(defense.car)];
+          caracTotal = carac.absente ? 0 : carac.base+carac.divers;
+          defTotal = defense.base+defense.divers+caracTotal;
+
+          defense.other = -Math.floor(defTotal/2);
+          break;
+        
+        case 'defenseless':
+          defense = actor.system.defense[change.key];
+          defense.defenseless = true;
+          break;
+      }
+    }
+  }
 });
 
 async function createMacro(bar, data, slot) {
@@ -559,6 +646,5 @@ Hooks.on("renderPause", function () {
     else $("#pause video").attr('src', `systems/mutants-and-masterminds-3e/assets/pause/${whatPause}.webm`);
     $("#pause video")[0].load();
     $("#pause video")[0].play();
-  }
-  
+  }  
 });

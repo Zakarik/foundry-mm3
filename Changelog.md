@@ -1,6 +1,12 @@
-## Version 1.20.2
+## Version 1.21.0
+### Améliorations
+- Ajout de nombreuses polices d'écritures à la liste des polices possibles.
+- Ajout d'images thématiques en haut de chaque onglet de l'interface utilisateur à droite.
+- Ajout de la prise en compte en jeu des états "Vulnérable" et "Sans défense" pour les personnages, c'est à dire que les défenses seront recalculées en tenant compte de ces états.
+- Mise à jour de l'icône "Sans défense".
+
 ### Bugfix
-- Correction d'un bug de calcul des caractéristiques.
+- Correction de bugs où la couleur choisie l'interface utilisateur pouvait ne pas s'afficher correctement.
 
 ## Version 1.20.1
 ### Bugfix

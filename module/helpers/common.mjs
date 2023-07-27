@@ -1,3 +1,36 @@
+export const listFont = {
+  "Arial":"Arial",
+  "Arial Narrow":"Arial Narrow",
+  "Signika":"Signika",
+  "Creepster":"Creepster",
+  "Poppins":"Poppins",
+  "Roboto":"Roboto",
+  "Roboto Condensed":"Roboto Condensed",
+  "Roboto Mono":"Roboto Mono",
+  "Tektur":"Tektur",
+  "Josefin Sans":"Josefin Sans",
+  "Bebas Neue":"Bebas Neue",
+  "Goldman":"Goldman",
+  "Anton":"Anton",
+  "Patrick Hand SC":"Patrick Hand SC",
+  "Pirata One":"Pirata One",
+  "Prompt":"Prompt",
+  "Teko":"Teko",
+  "Russo One":"Russo One",
+  "Righteous":"Righteous",
+  "Pathway Gothic One":"Pathway Gothic One",
+  "Quantico":"Quantico",
+  "Staatliches":"Staatliches",
+  "Secular One":"Secular One",
+};
+
+export const listBg = [
+  "bleuclair",
+  "violetclair",
+  "violet",
+  "bleufonce"
+];
+
 // Changes XML to JSON
 export const xmlToJson = function (xml) {
   // Create the return object
@@ -1288,9 +1321,10 @@ export function getFullCarac(carac){
 
 export function accessibility(actor, html) {
   const setting = game.settings.get("mutants-and-masterminds-3e", "font");
-  const options = actor.system?.accessibility ?? null;
+  const options = actor?.system?.accessibility ?? null;
   const font = options !== null ? options?.font ?? null : null;
   const fontOther = options !== null ? options?.fontOther ?? '' : '';
+  const resized = ['Arial', "Poppins", "Roboto Mono", "Tektur", "Josefin Sans", "Goldman", "Prompt", "Russo One", "Righteous", "Quantico", "Secular One"];
 
   if(setting === 'default') {
     if(font !== null) {
@@ -1299,23 +1333,23 @@ export function accessibility(actor, html) {
   
     if(fontOther !== null || fontOther !== 'null') {
       html.find('input[type="text"]').css('font-family', fontOther);
+      html.find('h4').css('font-family', fontOther);
       html.find('select').css('font-family', fontOther);
       html.find('a').css('font-family', fontOther);
       html.find('span').css('font-family', fontOther);
   
-      const resized = ['Arial'];
+      
   
       if(resized.includes(fontOther)) html.find('a.item').css('font-size', '11px');
     }
   } else {
     html.find('div.editor-content').css('font-family', setting);
     html.find('input[type="text"]').css('font-family', setting);
+    html.find('h4').css('font-family', setting);
     html.find('select').css('font-family', setting);
     html.find('a').css('font-family', setting);
     html.find('span').css('font-family', setting);
     html.find('.accessibilityFont').remove();
-
-    const resized = ['Arial'];
 
     if(resized.includes(setting)) html.find('a.item').css('font-size', '11px');
   }  

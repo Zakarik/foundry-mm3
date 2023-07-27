@@ -330,6 +330,8 @@ div.qg {
                     grid-template-columns: 1fr 1fr 45px;
                     grid-template-rows: max-content;
                     border:2px solid $black;
+                    margin-left: 5px;
+                    margin-right: 5px;
     
                     span {
                         &.header {

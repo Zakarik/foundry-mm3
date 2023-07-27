@@ -1,5 +1,6 @@
 import {
   getFullCarac,
+  listFont,
 } from "../helpers/common.mjs";
 
 /**
@@ -60,6 +61,8 @@ export class MM3Actor extends Actor {
     this._preparePersonnageData(actorData);
     this._prepareVehiculeData(actorData);
     this._prepareQGData(actorData);
+
+    actorData.system.accessibility.listFont = listFont;
   }
 
   _preparePersonnageData(actorData) {
@@ -142,31 +145,6 @@ export class MM3Actor extends Actor {
       }
     }
 
-    /*for(let com in CONFIG.MM3.competences) {
-      const comp = getComp[com];
-
-      if(comp.canAdd) {
-        const cList = comp.list;
-        for(let list in cList) {
-          const listData = cList[list];
-          const listCompRang = listData.rang;
-          const carac = listData.carCanChange ? getCarac[getFullCarac(listData.car)] : getCarac[getFullCarac(comp.car)];
-          const scoreCarac = carac.total;
-
-          listData.carac = carac.absente ? 0 : scoreCarac;
-          listData.total = listData.carac+listCompRang+listData.autre;
-          ppComp += listCompRang/2;
-        }      
-      } else {
-        const carac = getCarac[getFullCarac(comp.car)];
-        const compRang = comp.rang;
-
-        ppComp += compRang/2;
-        comp.carac = carac.absente ? 0 : carac.total;
-        comp.total = comp.carac+compRang+comp.autre;
-      }
-    }*/
-
     for(let def in CONFIG.MM3.defenses) {
       const defense = getDef[def];
       const defRang = defense.base;
@@ -176,10 +154,11 @@ export class MM3Actor extends Actor {
       if(def === 'robustesse') mod -= data.blessure;
       if(def === 'esquive') mod += getStr.total.defense;
       if(def === 'parade') mod += getStr.total.defense;
+      mod += defense?.other ?? 0;
 
       ppDef += defRang;
       defense.carac = carac.absente ? 0 : carac.total;
-      defense.total = defRang+defense.carac+defense.divers+mod;
+      defense.total = defense.defenseless ? 0 : defRang+defense.carac+defense.divers+mod;
     }
 
     for(let pouvoir of pouvoirs) {

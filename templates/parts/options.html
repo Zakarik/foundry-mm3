@@ -13,14 +13,31 @@
         
         <div class="block accessibility">
             <span>{{localize "MM3.ACCESSIBILITE.Label"}}</span>
-            <div class="innerBlock">
+            <div class="innerBlock accessibilityFont">
                 <label>
                     <span>{{localize "MM3.ACCESSIBILITE.Font"}}</span>
                     <select name="system.accessibility.font">
                         {{#select systemData.accessibility.font}}
                             <option value="Kalam">-</option>
-                            <option value="Arial">Arial</option>
-                            <option value="Signika">Signika</option>
+                            <option value="var(--font-primary)">{{localize "MM3.SETTING.Defaut"}}</option>
+                            {{#each systemData.accessibility.listFont as | key font |}}
+                                <option value="{{key}}">{{font}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                </label>
+            </div>
+
+            <div class="innerBlock accessibilityFont">
+                <label>
+                    <span>{{localize "MM3.ACCESSIBILITE.FontOther"}}</span>
+                    <select name="system.accessibility.fontOther">
+                        {{#select systemData.accessibility.fontOther}}
+                            <option value="">-</option>
+                            <option value="var(--font-primary)">{{localize "MM3.SETTING.Defaut"}}</option>
+                            {{#each systemData.accessibility.listFont as | key font |}}
+                                <option value="{{key}}">{{font}}</option>
+                            {{/each}}
                         {{/select}}
                     </select>
                 </label>

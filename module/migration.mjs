@@ -1,5 +1,5 @@
 export class MigrationMM3 {
-    static NEEDED_VERSION = "1.16.0";
+    static NEEDED_VERSION = "1.21.0";
 
     static needUpdate(version) {
         const currentVersion = game.settings.get("mutants-and-masterminds-3e", "systemVersion");
@@ -149,6 +149,12 @@ export class MigrationMM3 {
             if(actor.type === 'qg') update[`system.pwr`] = {};
         }
 
+        if (options?.force || MigrationMM3.needUpdate("1.21.0")) {
+            if(data.accessibility === undefined) update[`system.accessibility`] = {
+                font:'Kalam',
+                fontOther:'',
+            }
+        }
         return update;
     }
 
