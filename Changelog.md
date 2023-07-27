@@ -1,3 +1,7 @@
+## Version 1.21.2
+### Bugfix
+- Corrections de bug rare sur certaines importations.
+
 ## Version 1.21.1
 ### Bugfix
 - Corrections de problèmes des nouvelles bannières disparaissant dans certains cas.

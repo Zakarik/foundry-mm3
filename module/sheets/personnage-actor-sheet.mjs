@@ -93,6 +93,7 @@ export class PersonnageActorSheet extends ActorSheet {
       const target = ev.target.files[0];
       const file = await readTextFromFile(target);
       let temp = file.replace(/&quot;/g, '#quot;');
+      temp = temp.replace(/&[^;]+;/g, '');
       if (temp[0] == "\"") { // remove the wrapping doublequotes
         temp = temp.substr(1, temp.length - 2);
       }
