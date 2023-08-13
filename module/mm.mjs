@@ -28,6 +28,7 @@ import {
   accessibility,
   getFullCarac,
   listBg,
+  speedCalc,
 } from "./helpers/common.mjs";
 
 import { MigrationMM3 } from "./migration.mjs";
@@ -359,6 +360,22 @@ Hooks.once('init', async function() {
     return result;
   });
 
+  Handlebars.registerHelper('isOwner', function(data) {
+    let result = false;
+
+    if(game.user.isGM || (data.actor.isOwner && !data.actor.isLimited)) result = true;
+
+    return result;
+  });
+  
+  Handlebars.registerHelper('isTrusted', function() {
+    let result = false;
+
+    if(game.user.isGM || game.user.isTrusted) result = true;
+
+    return result;
+  });
+
   game.settings.register("mutants-and-masterminds-3e", "systemVersion", {
     name: "Version du Système",
     scope: "world",
@@ -537,6 +554,7 @@ Hooks.on("applyActiveEffect", (actor, change) => {
 });
 
 async function createMacro(bar, data, slot) {
+  if(data.type === 'Item' || foundry.utils.isEmpty(data)) return;
   // Create the macro command
   const type = data.type;
   const label = data.label;
@@ -635,4 +653,27 @@ Hooks.on("renderPause", function () {
     $("#pause video")[0].load();
     $("#pause video")[0].play();
   }  
+});
+
+Hooks.once("dragRuler.ready", (SpeedProvider) => {
+  class MM3SpeedProvider extends SpeedProvider {
+      get colors() {
+          return [
+              {id: "walk", default: 0x00FF00, name: "MM3.Base"},
+          ]
+      }
+
+      getRanges(token) {
+        const baseSpeed = token.actor.system.vitesse.actuel;
+        const speed = game.settings.get("mutants-and-masterminds-3e", "speedcalculate") ? speedCalc(baseSpeed) : baseSpeed;
+
+        const ranges = [
+          {range: speed, color: "walk"},
+        ]
+
+        return ranges
+      }
+  }
+
+  dragRuler.registerSystem("mutants-and-masterminds-3e", MM3SpeedProvider)
 });

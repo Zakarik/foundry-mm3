@@ -15,6 +15,7 @@
     </div>
 
     {{#each systemData.attaque as | key att |}}
+    <div class="reorder" data-type="attaque" data-sort="{{att}}">
         <div class="specialline {{#unless key.edit}}hide{{/unless}}">
             {{#if (isValue key.type 'other')}}
                 <input class="label" type="text" name="system.attaque.{{att}}.label" value="{{key.label}}" />
@@ -85,6 +86,7 @@
         {{#if (isValue key.type 'other')}}
             <i class="fa-solid fa-trash-xmark delete {{#if key.edit}}hide{{/if}}" data-id="{{att}}" data-type="attaque"></i>
         {{/if}}
+    </div>
     {{/each}}
 
     <a class="add" data-type="attaque">

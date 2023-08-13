@@ -1,3 +1,19 @@
+## Version 1.22.0
+### Améliorations
+- Améliorations des images d'en-tête.
+- Ajout d'un encart permettant de gérer la vitesse des personnages/véhicules/QG, avec calcul automatique de la vitesse de déplacement par round et en km/h (désactivable dans les options pour mettre des valeurs personnalisées), et avec intégration de Drag Ruler (qui prend la valeur par round).
+- Ajout des limitations des stratégies, afin de ne pas dépasser lesdites limites dans le feu de l'action. Il est possible de modifier les limites dans les options des fiches, mais elles ne sont accessibles qu'aux joueurs de confiance et au MJ.
+- Ajout d'un bouton pour remettre à zéro les stratégies en un clique.
+- Ajout d'un encart demandant un modificateur pour les tests d'effets. Cet encart apparait lors de l'envoi du pouvoir dans le tchat, à condition que la touche "shift" soit maintenue lors du clique.
+- Ajout du type de pouvoir dans la liste sur les fiches, à gauche du coût.
+- Amélioration des différences visuels entre les jets publiques, privés et aveugles, en modifiant la couleur desdits jets.
+- Ajout d'une fenêtre de confirmation de suppression lors des... suppressions sur les fiches.
+- Ajout de la possibilité de réorganiser les différentes listes par glisser-déposer (attaques, avantages, pouvoirs, etc.)
+
+### Bugfix
+- Corrections d'un bug qui envoyait le pouvoir principal dans le tchat lors d'un jet, plutôt que le pouvoir secondaire (dans le cadre d'un pouvoir lié à un autre)
+- Correction d'un bug pouvant ne pas prendre en compte le glisser-déposer des modificateurs de pouvoir sur les pouvoirs.
+
 ## Version 1.21.2
 ### Bugfix
 - Corrections de bug rare sur certaines importations.

@@ -34,6 +34,18 @@ export const RegisterSettings = function () {
         }
     });
 
+    game.settings.register("mutants-and-masterminds-3e", "speedcalculate", {
+        name: "MM3.SETTING.SpeedAutocalc",
+        hint: "MM3.SETTING.SpeedAutocalcHint",
+        scope: "world",
+        config: true,
+        default: "default",
+        type: Boolean,
+        onChange: value => {
+            foundry.utils.debouncedReload();
+        }
+    });
+
     game.settings.register("mutants-and-masterminds-3e", "pauselogo", {
         name: "MM3.SETTING.Pause",
         hint: "MM3.SETTING.PauseHint",

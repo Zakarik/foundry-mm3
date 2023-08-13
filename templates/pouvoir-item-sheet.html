@@ -143,7 +143,7 @@
                         <div>
                             {{#each systemData.descripteurs as | key desc|}}
                             <div>
-                                <input type="text" name="system.descripteurs.{{desc}}" value="{{key}}" />
+                                <input type="text" name="system.descripteurs.{{desc}}" value="{{key}}"/>
                                 <i class="fa-solid fa-trash-xmark delete" data-id="{{desc}}" data-type="descripteurs"></i>
                             </div>                    
                             {{/each}}
@@ -169,7 +169,7 @@
                             <i class="fa-solid fa-plus create" data-mod="extras"></i>
                         </span>
                         {{#each systemData.extras as | key ext |}}
-                            <details {{#if key.details}}open{{/if}}>
+                            <details {{#if key.details}}open{{/if}} class="reorder" data-type="extras" data-id="{{ext}}">
                                 <summary>
                                     <div class="before" data-mod="extras" data-id="{{ext}}" data-value="{{key.details}}"></div>
                                     <input name="system.extras.{{ext}}.name" type="text" value="{{key.name}}" placeholder="{{localize "MM3.Nom"}}" />
@@ -210,7 +210,7 @@
                         </span>
         
                         {{#each systemData.defauts as | key ext |}}
-                            <details {{#if key.details}}open{{/if}}>
+                            <details {{#if key.details}}open{{/if}} class="reorder" data-type="defauts" data-id="{{ext}}">
                                 <summary>
                                     <div class="before" data-mod="defauts" data-id="{{ext}}" data-value="{{key.details}}"></div>
                                     <input name="system.defauts.{{ext}}.name" type="text" value="{{key.name}}" placeholder="{{localize "MM3.Nom"}}" />

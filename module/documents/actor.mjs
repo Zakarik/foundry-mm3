@@ -62,7 +62,11 @@ export class MM3Actor extends Actor {
     this._prepareVehiculeData(actorData);
     this._prepareQGData(actorData);
 
-    actorData.system.accessibility.listFont = listFont;
+    actorData.system.accessibility = {
+      listFont:listFont,
+      font:actorData.system?.accessibility?.font ?? "",
+      fontOther:actorData.system?.accessibility?.fontOther ?? "",
+    };
   }
 
   _preparePersonnageData(actorData) {
@@ -78,6 +82,7 @@ export class MM3Actor extends Actor {
     const getDef = data.defense;
     const getInit = data.initiative;
     const getStr = data.strategie;
+    const getVit = data.vitesse;
     const listStr = ['attaqueprecision', 'attaqueoutrance', 'attaquedefensive', 'attaquepuissance', 'etats']
     const pp = data.pp;
     let attaque = 0;
@@ -90,6 +95,7 @@ export class MM3Actor extends Actor {
     let ppTalent = 0;
     let ppEquipement = 0;
     let ppEquipementUsed = 0;
+    let vitesse = 0;
 
     for(let str of listStr) {
       const dataStr = getStr[str];
@@ -181,11 +187,17 @@ export class MM3Actor extends Actor {
       ppEquipementUsed += tlData.cout;
     }
 
+    for(let vit in getVit.list) {
+      if(getVit.list[vit].selected) vitesse = game.settings.get("mutants-and-masterminds-3e", "speedcalculate") ? getVit.list[vit].rang : getVit.list[vit].round;
+    }
+
     data.ddesquive = 10+getDef['esquive'].total;
     data.ddparade = 10+getDef['parade'].total;
 
     getInit.carac = getCarac['agilite'].total;
     getInit.total = getInit.carac+getInit.base;
+
+    getVit.actuel = vitesse;
 
     pp.total = pp.base+pp.gain;
     pp.caracteristiques = ppCarac;
@@ -211,6 +223,7 @@ export class MM3Actor extends Actor {
     const getCarac = data.caracteristique;
     const getInit = data.initiative;
     const getStr = data.strategie;
+    const getVit = data.vitesse;
     const listStr = ['attaqueprecision', 'attaqueoutrance', 'attaquedefensive', 'attaquepuissance', 'etats']
     const cout = data.cout;
     let attaque = 0;
@@ -221,6 +234,7 @@ export class MM3Actor extends Actor {
     let ppRobustesse = 0;
     let ppDefense = 0;
     let ppPouvoir = 0;
+    let vitesse = 0;
     
     for(let str of listStr) {
       const dataStr = getStr[str];
@@ -306,8 +320,14 @@ export class MM3Actor extends Actor {
       ppPouvoir += (pwrData.special === 'dynamique' && pwrData.link !== '') || pwrData.special === 'alternatif' ? pwrData.cout.total : pwrData.cout.totalTheorique;
     }
 
+    for(let vit in getVit.list) {
+      if(getVit.list[vit].selected) vitesse = game.settings.get("mutants-and-masterminds-3e", "speedcalculate") ? getVit.list[vit].rang : getVit.list[vit].round;
+    }
+
     getInit.carac = 0;
     getInit.total = getInit.base;
+
+    getVit.actuel = vitesse;
 
     cout.taille = ppTaille;
     cout.force = ppForce;
@@ -327,6 +347,7 @@ export class MM3Actor extends Actor {
     const cout = data.cout;
     const getInit = data.initiative;
     const getStr = data.strategie;
+    const getVit = data.vitesse;
     const listStr = ['attaqueprecision', 'attaqueoutrance', 'attaquedefensive', 'attaquepuissance', 'etats'];
     let attaque = 0;
     let defense = 0;
@@ -334,6 +355,7 @@ export class MM3Actor extends Actor {
     let ppTaille = 0;
     let ppRobustesse = 0;
     let ppPouvoir = 0;
+    let vitesse = 0;
 
     for(let str of listStr) {
       const dataStr = getStr[str];
@@ -401,10 +423,16 @@ export class MM3Actor extends Actor {
         break;
     }
 
+    for(let vit in getVit.list) {
+      if(getVit.list[vit].selected) vitesse = game.settings.get("mutants-and-masterminds-3e", "speedcalculate") ? getVit.list[vit].rang : getVit.list[vit].round;
+    }
+
     getInit.carac = 0;
     getInit.total = getInit.base;
 
     ppRobustesse += Math.floor(Math.max((data.robustesse-6), 0)/2);
+    
+    getVit.actuel = vitesse;
 
     cout.taille = ppTaille;
     cout.robustesse = ppRobustesse;

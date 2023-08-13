@@ -9,6 +9,7 @@ export const preloadHandlebarsTemplates = async function() {
   const templatePaths = [
     // Attribute list partial.
     "systems/mutants-and-masterminds-3e/templates/parts/informations.html",
+    "systems/mutants-and-masterminds-3e/templates/parts/vitesse.html",
     "systems/mutants-and-masterminds-3e/templates/parts/caracteristiques.html",
     "systems/mutants-and-masterminds-3e/templates/parts/attaque.html",
     "systems/mutants-and-masterminds-3e/templates/parts/strategie.html",

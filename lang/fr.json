@@ -136,7 +136,11 @@
       "Attaqueoutrance":"Attaque à outrance",
       "Attaquedefensive":"Attaque défensive",
       "Attaquepuissance":"Attaque en puissance",
-      "Etats":"États"
+      "Etats":"États",
+      "Changement":"Changement des limites des stratégies",
+      "Limite":"Limite des stratégies",
+      "Save":"Enregistrer les limites des stratégies",
+      "Reset":"Remise à zéro des stratégies"
     },
     "BONUS":{
       "Attaque":"Bonus d'attaque",
@@ -232,6 +236,8 @@
       "DCRollHint":"Règle le raccourci ouvrant la fenêtre de demande de DD lors d'un jet, l'autre option permettra alors de faire un jet sans que la fenêtre n'apparaisse.",
       "Clicgauche":"Clic gauche",
       "ShiftClicgauche":"Shift + Clic gauche",
+      "SpeedAutocalc":"Calcul automatique de la vitesse en round et en km/h",
+      "SpeedAutocalcHint":"Peut être désactivé pour permettre de rentrer des valeures personnalisées.",
       "CaractéristiquesAbsentes":"Caractéristiques absentes",
       "ForceFont":"Forcer la police de caractère dans l'ensemble du système",
       "Pause":"Modifier l'icône de pause",
@@ -281,6 +287,17 @@
       "Label":"Accessibilité",
       "Font":"Modification de la police d'écriture pour les longs textes",
       "FontOther":"Modification de la police d'écriture pour les autres textes"
+    },
+    "DIALOG":{
+      "AskDelete":"Êtes vous sûre de vouloir supprimer ceci ?",
+      "AskMod":"Voulez-vous ajouter un modificateur au test d'effet ?"
+    },
+    "VITESSE":{
+      "Natation":"Natation",
+      "Course":"Course",
+      "Round":"Par round",
+      "Kmh":"km/h",
+      "Metre-short":"m"
     },
     "Nom":"Nom",
     "Identite":"Identite",
@@ -336,6 +353,7 @@
     "Particularites":"Particularités",
     "Editadvanced":"Editer les paramètres avancés",
     "Adefinir":"A définir",
-    "Non":"Non"
+    "Non":"Non",
+    "Mod":"Modificateur"
   }
 }

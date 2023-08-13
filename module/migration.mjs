@@ -1,5 +1,5 @@
 export class MigrationMM3 {
-    static NEEDED_VERSION = "1.21.0";
+    static NEEDED_VERSION = "1.22.0";
 
     static needUpdate(version) {
         const currentVersion = game.settings.get("mutants-and-masterminds-3e", "systemVersion");
@@ -153,6 +153,78 @@ export class MigrationMM3 {
             if(data.accessibility === undefined) update[`system.accessibility`] = {
                 font:'Kalam',
                 fontOther:'',
+            }
+        }
+
+        if (options?.force || MigrationMM3.needUpdate("1.22.0")) {
+            update['system.vitesse'] = {
+                'list':{
+                    'base':{
+                        'autotrade':'base',
+                        'rang':0,
+                        'round':0,
+                        'kmh':0,
+                        'selected':true
+                    },
+                    'course':{
+                        'autotrade':'course',
+                        'rang':1,
+                        'round':0,
+                        'kmh':0,
+                        'selected':false
+                    },
+                    'natation':{
+                        'autotrade':'natation',
+                        'rang':-2,
+                        'round':0,
+                        'kmh':0,
+                        'selected':false
+                    }
+                }                
+            }
+            update['system.strategie.limite'] = {
+                "attaqueprecision":{
+                    "attaque":2,
+                    "defense":0,
+                    "effet":-2
+                },
+                "attaqueoutrance":{
+                    "attaque":2,
+                    "defense":-2,
+                    "effet":0
+                },
+                "attaquedefensive":{
+                    "attaque":-2,
+                    "defense":2,
+                    "effet":0
+                },
+                "attaquepuissance":{
+                    "attaque":-2,
+                    "defense":0,
+                    "effet":2
+                },
+                "query":{
+                    "attaqueprecision":{
+                        "attaque":2,
+                        "defense":0,
+                        "effet":-2
+                    },
+                    "attaqueoutrance":{
+                        "attaque":2,
+                        "defense":-2,
+                        "effet":0
+                    },
+                    "attaquedefensive":{
+                        "attaque":-2,
+                        "defense":2,
+                        "effet":0
+                    },
+                    "attaquepuissance":{
+                        "attaque":-2,
+                        "defense":0,
+                        "effet":2
+                    },
+                }
             }
         }
         return update;

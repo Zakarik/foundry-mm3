@@ -5,7 +5,10 @@ import {
   rollAtk,
   rollStd,
   rollPwr,
-  accessibility
+  accessibility,
+  deletePrompt,
+  modPromptClasses,
+  speedCalc,
 } from "../helpers/common.mjs";
 
 /**
@@ -21,7 +24,7 @@ export class QGActorSheet extends ActorSheet {
       width: 850,
       height: 500,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "details"}],
-      dragDrop: [{dragSelector: ".draggable", dropSelector: null}],
+      dragDrop: [{dragSelector: [".draggable", ".item", ".reorder"], dropSelector: [".draggable", ".reorder", ".item"]}],
     });
   }
 
@@ -32,6 +35,7 @@ export class QGActorSheet extends ActorSheet {
     const context = super.getData();
 
     this._prepareCharacterItems(context);
+    this._prepareSpeed(context);
 
     context.systemData = context.data.system;
 
@@ -76,6 +80,9 @@ export class QGActorSheet extends ActorSheet {
       const header = $(ev.currentTarget).parents(".summary");
       const item = this.actor.items.get(header.data("item-id"));
 
+      confirm = await deletePrompt(this.actor, item.name);
+      if(!confirm) return;
+
       item.delete();
       header.slideUp(200, () => this.render(false));
     });
@@ -109,8 +116,49 @@ export class QGActorSheet extends ActorSheet {
     html.find('a.rollPwr').click(async ev => {
       const target = $(ev.currentTarget);
       const id = target.data('id');
+      const hasShift = ev.shiftKey;
 
-      rollPwr(this.actor, id);
+      if(hasShift) {
+        const dialog = new Dialog({
+          title:game.i18n.localize("MM3.DIALOG.AskMod"),
+          content:`<span class='label'>${game.i18n.localize('MM3.Mod')}</span><input class='mod' type='number' value='0' />`,
+          buttons: {
+            one: {
+              icon: '<i class="fas fa-check"></i>',
+              label: game.i18n.localize('MM3.ROLL.Valider'),
+              callback: (html) => {
+                rollPwr(this.actor, id, $(html.find('input.mod')).val());
+              }
+            },
+            two: {
+              icon: '<i class="fas fa-times"></i>',
+              label: game.i18n.localize('MM3.ROLL.Annuler'),
+              callback: (html) => {}
+            }
+          },
+        },
+        {
+          classes: modPromptClasses(this.actor)
+        }).render(true); 
+      } else {
+        rollPwr(this.actor, id);
+      }
+    });
+
+    html.find('a.selectspeed').click(async ev => {
+      const target = $(ev.currentTarget);
+      const id = target.data('id');
+      const data = this.actor.system.vitesse.list;
+
+      let update = {};
+
+      for(let v in data) {
+        update[`system.vitesse.list.${v}.selected`] = false;
+      }
+
+      update[`system.vitesse.list.${id}.selected`] = true;
+
+      this.actor.update(update);
     });
 
     html.find('a.add').click(async ev => {
@@ -182,6 +230,91 @@ export class QGActorSheet extends ActorSheet {
 
           this.actor.update(update);
           break;
+
+        case 'vitesse':
+          const vitesse = this.actor.system?.vitesse.list || {};
+          const dataLength = Object.keys(vitesse).length;
+
+          update[`system.vitesse.list.v${dataLength+1}`] = {
+            'canDel':true,
+            'label':"",
+            'rang':0,
+            'round':0,
+            'kmh':0
+          }
+
+          this.actor.update(update);
+          break;
+      }
+    });
+
+    html.find('i.delete').click(async ev => {
+      const target = $(ev.currentTarget);
+      const type = target.data('type');
+      const id = target.data('id');
+      const what = target.data('what');
+      const update = {};
+
+      let confirm;
+      let label;
+
+      switch(type) {
+        case 'complications':
+          confirm = await deletePrompt(this.actor, this.actor.system.complications[id].label);
+          if(!confirm) return;
+
+          this.actor.update({[`system.complications.-=${id}`]:null});
+          break;
+          
+        case 'competence':
+          if(what === 'combatcontact' || what === 'combatdistance') {
+            const attaque = this.actor.system?.attaque || {};
+            const keys = Object.keys(attaque);
+            const indexAtt = keys.findIndex(key => {
+              const item = attaque[key];
+              return item.type === what && item.id === id;
+            });
+
+            label = this.actor.system.competence[what].list[id].label;
+
+            if(indexAtt !== -1) update[`system.attaque.-=${keys[indexAtt]}`] = null;
+
+            update[`system.competence.${what}.list.-=${id}`] = null;
+          } else if(what === 'new') {
+            label = this.actor.system.competence[id].label;
+
+            update[`system.competence.-=${id}`] = null;
+          } else {
+            label = this.actor.system.competence[what].list[id].label;
+
+            update[`system.competence.${what}.list.-=${id}`] = null;
+          }
+
+          confirm = await deletePrompt(this.actor, label);
+          if(!confirm) return;
+
+          this.actor.update(update);
+          break;
+      
+        case 'attaque':
+          confirm = await deletePrompt(this.actor, this.actor.system.attaque[id].label);
+          if(!confirm) return;
+
+          update[`system.attaque.-=${id}`] = null;
+
+          this.actor.update(update);
+          break;
+
+        case 'vitesse':
+          confirm = await deletePrompt(this.actor, this.actor.system.vitesse.list[id]?.label ?? game.i18n.localize('MM3.Vitesse'));
+          if(!confirm) return;
+
+          update[`system.vitesse.list.-=${id}`] = null;
+
+          if(this.actor.system.vitesse.list[id].selected) update[`system.vitesse.list.base.selected`] = true;
+
+          this.actor.update(update);
+          break;
       }
     });
 
@@ -212,27 +345,31 @@ export class QGActorSheet extends ActorSheet {
       $(html.find(`div.attaque div.specialline input.basedef${id}`)).val(newValue);
     });
 
-    html.find('div.strategie input').change(async ev => {
+    html.find('div.details div.strategie input').change(async ev => {
       const target = $(ev.currentTarget);
       const type = target.data('type');
       const mod = target.data('value');
+      const max = target.data('max');
       const value = Number(target.val());
 
       const update = {};
+      let newValue = 0;
+      if((value*-1) < 0) newValue = Math.max((value*-1), max);
+      else if((value*-1) > 0) newValue = Math.min((value*-1), max); 
     
       switch(type) {
         case 'attaqueprecision':
         case 'attaquepuissance':
-          if(mod === 'attaque') update[`system.strategie.${type}.effet`] = value*-1;
-          else if(mod === 'effet') update[`system.strategie.${type}.attaque`] = value*-1;
+          if(mod === 'attaque') update[`system.strategie.${type}.effet`] = newValue;
+          else if(mod === 'effet') update[`system.strategie.${type}.attaque`] = newValue;
 
           this.actor.update(update);
           break;
 
         case 'attaqueoutrance':
         case 'attaquedefensive':
-          if(mod === 'attaque') update[`system.strategie.${type}.defense`] = value*-1;
-          else if(mod === 'defense') update[`system.strategie.${type}.attaque`] = value*-1;
+          if(mod === 'attaque') update[`system.strategie.${type}.defense`] = newValue;
+          else if(mod === 'defense') update[`system.strategie.${type}.attaque`] = newValue;
 
           this.actor.update(update);
           break;
@@ -258,6 +395,61 @@ export class QGActorSheet extends ActorSheet {
           target.val('');
         }
       }
+    });
+
+    html.find('a.saveLimiteStrategie').click(async ev => {
+      let update = {};
+
+      update['system.strategie.limite'] = this.actor.system.strategie.limite.query;
+
+      this.actor.update(update);
+
+      const rollMsgData = {
+        user: game.user.id,
+        speaker: {
+          actor: this.actor?.id || null,
+          token: this.actor?.token?.id || null,
+          alias: this.actor?.name || null,
+        },
+        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+        content: game.i18n.localize('MM3.STRATEGIE.Changement'),
+        sound: CONFIG.sounds.dice
+      };
+    
+      const msgData = ChatMessage.applyRollMode(rollMsgData, 'blindroll');
+    
+      await ChatMessage.create(msgData, {
+        rollMode:'blindroll'
+      });
+    });
+
+    html.find('a.resetStrategie').click(async ev => {
+      const update = {}
+
+      update[`system.strategie`] = {
+        'attaqueoutrance':{
+          'attaque':0,
+          'defense':0,
+        },
+        'attaquedefensive':{
+          'attaque':0,
+          'defense':0,
+        },
+        'attaqueprecision':{
+          'attaque':0,
+          'effet':0,
+        },
+        'attaquepuissance':{
+          'attaque':0,
+          'effet':0,
+        },
+        'etats':{
+          'attaque':0,
+          'effet':0,
+        },
+      };
+
+      this.actor.update(update);
     });
   }
 
@@ -333,6 +525,20 @@ export class QGActorSheet extends ActorSheet {
     context.systemData = mergeObject(context.systemData, toAdd);
   }
 
+  _prepareSpeed(context) {
+    const data = context.data.system.vitesse.list;
+
+    for(let v in data) {
+      if(game.settings.get("mutants-and-masterminds-3e", "speedcalculate")) {
+        const rang = Number(data[v].rang);
+      
+        data[v].round = speedCalc(rang).toLocaleString();
+        data[v].kmh = (speedCalc(rang+9)/1000).toLocaleString();
+      }
+      else data[v].manuel = false;
+    }
+  }
+
   /* -------------------------------------------- */
   async _onItemCreate(event) {
     event.preventDefault();
@@ -373,5 +579,141 @@ export class QGActorSheet extends ActorSheet {
     const toCreate = await this.actor.createEmbeddedDocuments("Item", itemData);
 
     return toCreate;
+  }
+
+  _onDragStart(event) {
+    const li = event.currentTarget;
+    if ( event.target.classList.contains("content-link") ) return;
+
+    // Create drag data
+    let dragData;
+
+    // Owned Items
+    if ( li.dataset.itemId ) {
+      const item = this.actor.items.get(li.dataset.itemId);
+      dragData = item.toDragData();
+    }
+
+    // Active Effect
+    if ( li.dataset.effectId ) {
+      const effect = this.actor.effects.get(li.dataset.effectId);
+      dragData = effect.toDragData();
+    }
+
+    if(li.classList.contains('reorder')) {
+      const sort = li.dataset.sort === undefined ? li.parentNode.dataset.sort : li.dataset.sort;
+
+      switch(li.dataset.type) {
+        case 'attaque':
+        case 'complications':
+          const attaque = this.actor.system[li.dataset.type][sort];
+
+          dragData = {
+            type:li.dataset.type,
+            data:attaque,
+            sort:sort,
+          };
+          break;
+        case 'competence':
+          const competence = this.actor.system[li.dataset.type][li.dataset.comp].list[sort];
+
+          dragData = {
+            type:li.dataset.type,
+            comp:li.dataset.comp,
+            data:competence,
+            sort:sort,
+          };
+          break;
+        case 'basecompetence':
+          const basecompetence = this.actor.system.competence[sort];
+
+          dragData = {
+            type:li.dataset.type,
+            data:basecompetence,
+            sort:sort,
+          };
+          break;
+      }
+    }
+
+    if(li.classList.contains('draggable')) {
+      const label = $(li)?.data("name") || "";
+      const type = $(li)?.data("type");
+      const what = $(li)?.data("what");
+      const id = $(li)?.data("id");
+
+      // Create drag data
+      dragData = {
+        actorId: this.actor.id,
+        sceneId: this.actor.isToken ? canvas.scene?.id : null,
+        tokenId: this.actor.isToken ? this.actor.token.id : null,
+        label:label,
+        type:type,
+        what:what,
+        id:id
+      };
+    }
+
+    if ( !dragData ) return;
+
+    console.warn(dragData);
+
+    // Set data transfer
+    event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
+  }
+
+  /** @inheritdoc */
+  async _onDrop(event) {
+    const data = TextEditor.getDragEventData(event);
+    const actor = this.actor;
+    const allowed = Hooks.call("dropActorSheetData", actor, this, data);
+    const dropType = event.target.dataset.type === undefined ? event.target.parentNode.dataset.type : event.target.dataset.type;
+    const sort = event.target.dataset.sort === undefined ? event.target.parentNode.dataset.sort : event.target.dataset.sort;
+    if ( allowed === false ) return;
+
+    let tempTgt;
+    let update = {};
+
+    
+
+    // Handle different data types
+    switch ( data.type ) {
+      case "ActiveEffect":
+        return this._onDropActiveEffect(event, data);
+      case "Actor":
+        return this._onDropActor(event, data);
+      case "Item":
+        return this._onDropItem(event, data);
+      case "Folder":
+        return this._onDropFolder(event, data);
+      case "attaque":
+      case "complications":
+        tempTgt = actor.system[data.type][sort];
+
+        if(tempTgt === undefined || data.type !== dropType) return;
+        
+        update[`system.${data.type}.${sort}`] = data.data;
+        update[`system.${data.type}.${data.sort}`] = tempTgt;
+        actor.update(update);        
+        break;
+      case "competence":
+        tempTgt = actor.system[data.type][data.comp].list[sort];
+
+        if(tempTgt === undefined || data.type !== dropType) return;
+
+        update[`system.${data.type}.${data.comp}.list.${sort}`] = data.data;
+        update[`system.${data.type}.${data.comp}.list.${data.sort}`] = tempTgt;
+        actor.update(update);        
+        break;
+      case 'basecompetence':
+        tempTgt = actor.system.competence[sort];
+
+        if(tempTgt === undefined || data.type !== dropType) return;
+
+        update[`system.competence.${sort}`] = data.data;
+        update[`system.competence.${data.sort}`] = tempTgt;
+        actor.update(update);
+        break;
+    }
   }
 }

@@ -398,11 +398,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner {
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.attaque {
   display: grid;
-  grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
-  grid-template-rows: max-content;
   border: 2px solid black;
-  padding: 0px 5px 5px;
-  grid-gap: 5px;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.roll {
   display: flex;
@@ -460,20 +456,98 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.n
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.noAtk.selected {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > div.line {
+  display: grid;
+  grid-template-columns: 1fr max-content repeat(2, 45px 5px) 45px 1fr;
+  grid-gap: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > div.line span {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > div.line span.score {
+  padding-right: 0px;
+  padding-left: 0px;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > div.line span.total {
+  font-weight: bold;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  height: 18px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque input.hide {
+  display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > a.add {
+  text-align: center;
+  width: calc(100% - 4px);
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > a.add:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.roll.large {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
+  grid-template-rows: max-content;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder a.noAtk.selected {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder a.roll.large {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder a.hide {
   display: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.add {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder a.add {
   grid-column-start: 1;
   grid-column-end: 7;
   text-align: center;
@@ -495,13 +569,13 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.a
   margin-left: 2px;
   margin-bottom: 2px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque a.add:hover {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder a.add:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.line {
   grid-column-start: 1;
   grid-column-end: 7;
   display: grid;
@@ -509,7 +583,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   grid-gap: 5px;
   margin-top: 5px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line span {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.line span {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -517,7 +591,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   align-items: center;
   font-family: Sriracha;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line span.score {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.line span.score {
   padding-right: 0px;
   padding-left: 0px;
   font-weight: normal;
@@ -526,10 +600,10 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.line span.total {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.line span.total {
   font-weight: bold;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.specialline {
   grid-column-start: 1;
   grid-column-end: 6;
   display: grid;
@@ -537,7 +611,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   grid-template-rows: max-content;
   grid-gap: 5px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline span.labelBase {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.specialline span.labelBase {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -546,7 +620,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   font-family: Sriracha;
   white-space: nowrap;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline span.labelDefense {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.specialline span.labelDefense {
   grid-column-start: 1;
   display: grid;
   width: 100%;
@@ -555,21 +629,21 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   align-items: center;
   font-family: Sriracha;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline span.labelDefense.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.specialline span.labelDefense.hide {
   display: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline select.selectDefense {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.specialline select.selectDefense {
   grid-column-start: 2;
   grid-column-end: 4;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.specialline input.label {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.specialline input.label {
   grid-column-start: 1;
   grid-column-end: 4;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.hide {
   display: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.header {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder > span.header {
   grid-column-start: 1;
   grid-column-end: 6;
   display: grid;
@@ -579,7 +653,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > s
   font-size: 1em;
   height: 18px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.carac {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder > span.carac {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -588,7 +662,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > s
   font-family: Sriracha;
   text-transform: uppercase;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.score {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder > span.score {
   display: grid;
   width: 100%;
   padding-right: 0px;
@@ -602,31 +676,19 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > s
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.label {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder > span.label {
   font-size: 0.8em;
   text-align: center;
   line-height: 0.8em;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.label.large {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder > span.label.large {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > span.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder > span.hide {
   display: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque input {
-  width: 100%;
-  padding-right: 0px;
-  padding-left: 0px;
-  text-align: center;
-  font-family: Sriracha;
-  height: 100%;
-  background: transparent;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque input.hide {
-  display: none;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque textarea {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder textarea {
   grid-column-start: 1;
   grid-column-end: 7;
   resize: vertical;
@@ -636,22 +698,22 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque tex
   font-family: Sriracha;
   font-size: 0.8em;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque textarea.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder textarea.hide {
   display: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque textarea.short {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder textarea.short {
   grid-column-end: 6;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque select.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder select.hide {
   display: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque i {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder i {
   cursor: pointer;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque i:hover {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder i:hover {
   text-shadow: 0px 0px 3px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque i.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder i.hide {
   display: none;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.strategie {
@@ -661,6 +723,10 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.strategie {
   border: 2px solid black;
   padding: 0px 5px 5px;
   grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie a.resetStrategie {
+  grid-column-start: 1;
+  grid-column-end: 5;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.strategie > span.header {
   display: grid;
@@ -687,12 +753,199 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.strategie i
   height: 100%;
   background: transparent;
 }
+div.personnage section.sheet-body div.caracteristiques div.inner a.resetStrategie {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.caracteristiques div.inner a.resetStrategie:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner a.resetStrategie {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.caracteristiques div.inner a.resetStrategie:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 div.personnage section.sheet-body div.caracteristiques div.inner div.col {
   display: grid;
   row-gap: 10px;
   align-items: flex-start;
   align-content: flex-start;
   grid-template-rows: max-content;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed {
+  display: grid;
+  grid-template-columns: 22px 1fr 45px repeat(2, 100px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed a.btn {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed a.btn:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed div.inlist {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: grid;
+  grid-template-columns: 22px 1fr 45px repeat(2, 1fr) 12.25px;
+  grid-template-rows: max-content;
+  padding: 0px 5px;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed div.inlist a.selectspeed {
+  padding: 0px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed div.inlist a.selectspeed i {
+  margin: auto;
+  padding-left: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed div.inlist.selected {
+  background: rgba(218, 58, 47, 0.2);
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed div.inlist.selected a.selectspeed {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed div.inlist i.delete {
+  cursor: pointer;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed div.inlist i.delete:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed span.label {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed span.score {
+  display: grid;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+  font-size: 12px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed a.add {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  text-align: center;
+  width: calc(100% - 4px);
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.speed a.add:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.carac {
   display: grid;
@@ -908,6 +1161,144 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.comp i {
   margin-bottom: auto;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.comp i:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 9;
+  grid-template-columns: 29px 1fr repeat(5, 42.55px) 12.25px;
+  grid-template-rows: max-content;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp a.roll,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list a.roll {
+  font-size: 14px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp a.oneRoll,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list a.oneRoll {
+  align-items: center;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp a.twoRoll,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list a.twoRoll {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp span.header,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp span.htwo,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list span.htwo {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp span.label,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list span.label {
+  display: grid;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp span.carac,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list span.carac {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  text-transform: uppercase;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp span.score,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list span.score {
+  display: grid;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp span.total,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list span.total {
+  font-weight: bold;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp a.add,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list a.add {
+  grid-column-start: 1;
+  grid-column-end: 9;
+  text-align: center;
+  width: 100%;
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin-top: 2px;
+  margin-left: 2px;
+  margin-bottom: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp a.add:hover,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list a.add:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp input,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp select,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  text-align: center;
+  background: transparent;
+  text-transform: uppercase;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+  color: #363B44;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp i,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list i {
+  cursor: pointer;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp i:hover,
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list i:hover {
   text-shadow: 0px 0px 3px;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.etats {
@@ -1351,7 +1742,7 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.data span {
   font-weight: normal;
 }
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.data span.col4 {
-  grid-column-start: 1;
+  grid-column-start: 2;
   grid-column-end: 5;
   justify-content: right;
   padding-right: 5px;
@@ -1954,10 +2345,48 @@ div.personnage section.sheet-body div.options {
   border-top-color: black;
   padding: 5px;
 }
+div.personnage section.sheet-body div.options div div.strategie {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.personnage section.sheet-body div.options div div.strategie a.resetStrategie {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+div.personnage section.sheet-body div.options div div.strategie > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.personnage section.sheet-body div.options div div.strategie > span.label {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.personnage section.sheet-body div.options div div.strategie input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
 div.personnage section.sheet-body div.options div.inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
+  align-items: flex-start;
 }
 div.personnage section.sheet-body div.options div.block {
   display: grid;
@@ -2038,6 +2467,51 @@ div.personnage section.sheet-body div.options div.accessibility label {
 div.personnage section.sheet-body div.options div.accessibility select {
   text-align: center;
 }
+div.personnage section.sheet-body div.options div.limite {
+  padding-bottom: 5px;
+}
+div.personnage section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.personnage section.sheet-body div.options div.limite a.saveLimiteStrategie:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.personnage section.sheet-body div.options div.limite span.title {
+  text-align: center;
+  font-variant: small-caps;
+  font-size: 15px;
+  border-bottom: 1px solid black;
+}
+div.personnage section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  width: calc(100% - 10px);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+div.personnage section.sheet-body div.options div.strategie {
+  border: 0px !important;
+}
 
 div.modificateur img.profile-img {
   object-fit: contain;
@@ -2117,10 +2591,48 @@ div.modificateur section.sheet-body div.options {
   border-top-color: black;
   padding: 5px;
 }
+div.modificateur section.sheet-body div.options div div.strategie {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.modificateur section.sheet-body div.options div div.strategie a.resetStrategie {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+div.modificateur section.sheet-body div.options div div.strategie > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.modificateur section.sheet-body div.options div div.strategie > span.label {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.modificateur section.sheet-body div.options div div.strategie input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
 div.modificateur section.sheet-body div.options div.inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
+  align-items: flex-start;
 }
 div.modificateur section.sheet-body div.options div.block {
   display: grid;
@@ -2200,6 +2712,51 @@ div.modificateur section.sheet-body div.options div.accessibility label {
 }
 div.modificateur section.sheet-body div.options div.accessibility select {
   text-align: center;
+}
+div.modificateur section.sheet-body div.options div.limite {
+  padding-bottom: 5px;
+}
+div.modificateur section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.modificateur section.sheet-body div.options div.limite a.saveLimiteStrategie:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.modificateur section.sheet-body div.options div.limite span.title {
+  text-align: center;
+  font-variant: small-caps;
+  font-size: 15px;
+  border-bottom: 1px solid black;
+}
+div.modificateur section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  width: calc(100% - 10px);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+div.modificateur section.sheet-body div.options div.strategie {
+  border: 0px !important;
 }
 div.modificateur section.sheet-body div.details {
   display: grid;
@@ -2457,10 +3014,48 @@ div.pouvoir section.sheet-body div.options {
   border-top-color: black;
   padding: 5px;
 }
+div.pouvoir section.sheet-body div.options div div.strategie {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.pouvoir section.sheet-body div.options div div.strategie a.resetStrategie {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+div.pouvoir section.sheet-body div.options div div.strategie > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.pouvoir section.sheet-body div.options div div.strategie > span.label {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.pouvoir section.sheet-body div.options div div.strategie input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
 div.pouvoir section.sheet-body div.options div.inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
+  align-items: flex-start;
 }
 div.pouvoir section.sheet-body div.options div.block {
   display: grid;
@@ -2540,6 +3135,51 @@ div.pouvoir section.sheet-body div.options div.accessibility label {
 }
 div.pouvoir section.sheet-body div.options div.accessibility select {
   text-align: center;
+}
+div.pouvoir section.sheet-body div.options div.limite {
+  padding-bottom: 5px;
+}
+div.pouvoir section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.pouvoir section.sheet-body div.options div.limite a.saveLimiteStrategie:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.pouvoir section.sheet-body div.options div.limite span.title {
+  text-align: center;
+  font-variant: small-caps;
+  font-size: 15px;
+  border-bottom: 1px solid black;
+}
+div.pouvoir section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  width: calc(100% - 10px);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+div.pouvoir section.sheet-body div.options div.strategie {
+  border: 0px !important;
 }
 div.pouvoir section.sheet-body div.details {
   display: grid;
@@ -3150,10 +3790,48 @@ div.talent section.sheet-body div.options {
   border-top-color: black;
   padding: 5px;
 }
+div.talent section.sheet-body div.options div div.strategie {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.talent section.sheet-body div.options div div.strategie a.resetStrategie {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+div.talent section.sheet-body div.options div div.strategie > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.talent section.sheet-body div.options div div.strategie > span.label {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.talent section.sheet-body div.options div div.strategie input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
 div.talent section.sheet-body div.options div.inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
+  align-items: flex-start;
 }
 div.talent section.sheet-body div.options div.block {
   display: grid;
@@ -3233,6 +3911,51 @@ div.talent section.sheet-body div.options div.accessibility label {
 }
 div.talent section.sheet-body div.options div.accessibility select {
   text-align: center;
+}
+div.talent section.sheet-body div.options div.limite {
+  padding-bottom: 5px;
+}
+div.talent section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.talent section.sheet-body div.options div.limite a.saveLimiteStrategie:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.talent section.sheet-body div.options div.limite span.title {
+  text-align: center;
+  font-variant: small-caps;
+  font-size: 15px;
+  border-bottom: 1px solid black;
+}
+div.talent section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  width: calc(100% - 10px);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+div.talent section.sheet-body div.options div.strategie {
+  border: 0px !important;
 }
 div.talent section.sheet-body div.details {
   display: grid;
@@ -3422,10 +4145,48 @@ div.equipement section.sheet-body div.options {
   border-top-color: black;
   padding: 5px;
 }
+div.equipement section.sheet-body div.options div div.strategie {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.equipement section.sheet-body div.options div div.strategie a.resetStrategie {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+div.equipement section.sheet-body div.options div div.strategie > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.equipement section.sheet-body div.options div div.strategie > span.label {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.equipement section.sheet-body div.options div div.strategie input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
 div.equipement section.sheet-body div.options div.inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
+  align-items: flex-start;
 }
 div.equipement section.sheet-body div.options div.block {
   display: grid;
@@ -3505,6 +4266,51 @@ div.equipement section.sheet-body div.options div.accessibility label {
 }
 div.equipement section.sheet-body div.options div.accessibility select {
   text-align: center;
+}
+div.equipement section.sheet-body div.options div.limite {
+  padding-bottom: 5px;
+}
+div.equipement section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.equipement section.sheet-body div.options div.limite a.saveLimiteStrategie:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.equipement section.sheet-body div.options div.limite span.title {
+  text-align: center;
+  font-variant: small-caps;
+  font-size: 15px;
+  border-bottom: 1px solid black;
+}
+div.equipement section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  width: calc(100% - 10px);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+div.equipement section.sheet-body div.options div.strategie {
+  border: 0px !important;
 }
 div.equipement section.sheet-body img.profile-img {
   object-fit: contain;
@@ -3752,10 +4558,48 @@ div.vehicule section.sheet-body div.options {
   border-top-color: black;
   padding: 5px;
 }
+div.vehicule section.sheet-body div.options div div.strategie {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.vehicule section.sheet-body div.options div div.strategie a.resetStrategie {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+div.vehicule section.sheet-body div.options div div.strategie > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.vehicule section.sheet-body div.options div div.strategie > span.label {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.vehicule section.sheet-body div.options div div.strategie input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
 div.vehicule section.sheet-body div.options div.inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
+  align-items: flex-start;
 }
 div.vehicule section.sheet-body div.options div.block {
   display: grid;
@@ -3836,13 +4680,54 @@ div.vehicule section.sheet-body div.options div.accessibility label {
 div.vehicule section.sheet-body div.options div.accessibility select {
   text-align: center;
 }
+div.vehicule section.sheet-body div.options div.limite {
+  padding-bottom: 5px;
+}
+div.vehicule section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.vehicule section.sheet-body div.options div.limite a.saveLimiteStrategie:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.vehicule section.sheet-body div.options div.limite span.title {
+  text-align: center;
+  font-variant: small-caps;
+  font-size: 15px;
+  border-bottom: 1px solid black;
+}
+div.vehicule section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  width: calc(100% - 10px);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+div.vehicule section.sheet-body div.options div.strategie {
+  border: 0px !important;
+}
 div.vehicule section.sheet-body div div.attaque {
   display: grid;
-  grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
-  grid-template-rows: max-content;
   border: 2px solid black;
-  padding: 0px 5px 5px;
-  grid-gap: 5px;
 }
 div.vehicule section.sheet-body div div.attaque a.roll {
   display: flex;
@@ -3900,20 +4785,98 @@ div.vehicule section.sheet-body div div.attaque a.noAtk:hover {
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.vehicule section.sheet-body div div.attaque a.noAtk.selected {
+div.vehicule section.sheet-body div div.attaque > div.line {
+  display: grid;
+  grid-template-columns: 1fr max-content repeat(2, 45px 5px) 45px 1fr;
+  grid-gap: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+div.vehicule section.sheet-body div div.attaque > div.line span {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.vehicule section.sheet-body div div.attaque > div.line span.score {
+  padding-right: 0px;
+  padding-left: 0px;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.vehicule section.sheet-body div div.attaque > div.line span.total {
+  font-weight: bold;
+}
+div.vehicule section.sheet-body div div.attaque > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  height: 18px;
+}
+div.vehicule section.sheet-body div div.attaque input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.vehicule section.sheet-body div div.attaque input.hide {
+  display: none;
+}
+div.vehicule section.sheet-body div div.attaque > a.add {
+  text-align: center;
+  width: calc(100% - 4px);
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin: 2px;
+}
+div.vehicule section.sheet-body div div.attaque > a.add:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.vehicule section.sheet-body div div.attaque a.roll.large {
+div.vehicule section.sheet-body div div.attaque div.reorder {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
+  grid-template-rows: max-content;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.vehicule section.sheet-body div div.attaque div.reorder a.noAtk.selected {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.vehicule section.sheet-body div div.attaque div.reorder a.roll.large {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.vehicule section.sheet-body div div.attaque a.hide {
+div.vehicule section.sheet-body div div.attaque div.reorder a.hide {
   display: none;
 }
-div.vehicule section.sheet-body div div.attaque a.add {
+div.vehicule section.sheet-body div div.attaque div.reorder a.add {
   grid-column-start: 1;
   grid-column-end: 7;
   text-align: center;
@@ -3935,13 +4898,13 @@ div.vehicule section.sheet-body div div.attaque a.add {
   margin-left: 2px;
   margin-bottom: 2px;
 }
-div.vehicule section.sheet-body div div.attaque a.add:hover {
+div.vehicule section.sheet-body div div.attaque div.reorder a.add:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.vehicule section.sheet-body div div.attaque div.line {
+div.vehicule section.sheet-body div div.attaque div.reorder div.line {
   grid-column-start: 1;
   grid-column-end: 7;
   display: grid;
@@ -3949,7 +4912,7 @@ div.vehicule section.sheet-body div div.attaque div.line {
   grid-gap: 5px;
   margin-top: 5px;
 }
-div.vehicule section.sheet-body div div.attaque div.line span {
+div.vehicule section.sheet-body div div.attaque div.reorder div.line span {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -3957,7 +4920,7 @@ div.vehicule section.sheet-body div div.attaque div.line span {
   align-items: center;
   font-family: Sriracha;
 }
-div.vehicule section.sheet-body div div.attaque div.line span.score {
+div.vehicule section.sheet-body div div.attaque div.reorder div.line span.score {
   padding-right: 0px;
   padding-left: 0px;
   font-weight: normal;
@@ -3966,10 +4929,10 @@ div.vehicule section.sheet-body div div.attaque div.line span.score {
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
-div.vehicule section.sheet-body div div.attaque div.line span.total {
+div.vehicule section.sheet-body div div.attaque div.reorder div.line span.total {
   font-weight: bold;
 }
-div.vehicule section.sheet-body div div.attaque div.specialline {
+div.vehicule section.sheet-body div div.attaque div.reorder div.specialline {
   grid-column-start: 1;
   grid-column-end: 6;
   display: grid;
@@ -3977,7 +4940,7 @@ div.vehicule section.sheet-body div div.attaque div.specialline {
   grid-template-rows: max-content;
   grid-gap: 5px;
 }
-div.vehicule section.sheet-body div div.attaque div.specialline span.labelBase {
+div.vehicule section.sheet-body div div.attaque div.reorder div.specialline span.labelBase {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -3986,7 +4949,7 @@ div.vehicule section.sheet-body div div.attaque div.specialline span.labelBase {
   font-family: Sriracha;
   white-space: nowrap;
 }
-div.vehicule section.sheet-body div div.attaque div.specialline span.labelDefense {
+div.vehicule section.sheet-body div div.attaque div.reorder div.specialline span.labelDefense {
   grid-column-start: 1;
   display: grid;
   width: 100%;
@@ -3995,21 +4958,21 @@ div.vehicule section.sheet-body div div.attaque div.specialline span.labelDefens
   align-items: center;
   font-family: Sriracha;
 }
-div.vehicule section.sheet-body div div.attaque div.specialline span.labelDefense.hide {
+div.vehicule section.sheet-body div div.attaque div.reorder div.specialline span.labelDefense.hide {
   display: none;
 }
-div.vehicule section.sheet-body div div.attaque div.specialline select.selectDefense {
+div.vehicule section.sheet-body div div.attaque div.reorder div.specialline select.selectDefense {
   grid-column-start: 2;
   grid-column-end: 4;
 }
-div.vehicule section.sheet-body div div.attaque div.specialline input.label {
+div.vehicule section.sheet-body div div.attaque div.reorder div.specialline input.label {
   grid-column-start: 1;
   grid-column-end: 4;
 }
-div.vehicule section.sheet-body div div.attaque div.hide {
+div.vehicule section.sheet-body div div.attaque div.reorder div.hide {
   display: none;
 }
-div.vehicule section.sheet-body div div.attaque > span.header {
+div.vehicule section.sheet-body div div.attaque div.reorder > span.header {
   grid-column-start: 1;
   grid-column-end: 6;
   display: grid;
@@ -4019,7 +4982,7 @@ div.vehicule section.sheet-body div div.attaque > span.header {
   font-size: 1em;
   height: 18px;
 }
-div.vehicule section.sheet-body div div.attaque > span.carac {
+div.vehicule section.sheet-body div div.attaque div.reorder > span.carac {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -4028,7 +4991,7 @@ div.vehicule section.sheet-body div div.attaque > span.carac {
   font-family: Sriracha;
   text-transform: uppercase;
 }
-div.vehicule section.sheet-body div div.attaque > span.score {
+div.vehicule section.sheet-body div div.attaque div.reorder > span.score {
   display: grid;
   width: 100%;
   padding-right: 0px;
@@ -4042,31 +5005,19 @@ div.vehicule section.sheet-body div div.attaque > span.score {
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
-div.vehicule section.sheet-body div div.attaque > span.label {
+div.vehicule section.sheet-body div div.attaque div.reorder > span.label {
   font-size: 0.8em;
   text-align: center;
   line-height: 0.8em;
 }
-div.vehicule section.sheet-body div div.attaque > span.label.large {
+div.vehicule section.sheet-body div div.attaque div.reorder > span.label.large {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.vehicule section.sheet-body div div.attaque > span.hide {
+div.vehicule section.sheet-body div div.attaque div.reorder > span.hide {
   display: none;
 }
-div.vehicule section.sheet-body div div.attaque input {
-  width: 100%;
-  padding-right: 0px;
-  padding-left: 0px;
-  text-align: center;
-  font-family: Sriracha;
-  height: 100%;
-  background: transparent;
-}
-div.vehicule section.sheet-body div div.attaque input.hide {
-  display: none;
-}
-div.vehicule section.sheet-body div div.attaque textarea {
+div.vehicule section.sheet-body div div.attaque div.reorder textarea {
   grid-column-start: 1;
   grid-column-end: 7;
   resize: vertical;
@@ -4076,22 +5027,22 @@ div.vehicule section.sheet-body div div.attaque textarea {
   font-family: Sriracha;
   font-size: 0.8em;
 }
-div.vehicule section.sheet-body div div.attaque textarea.hide {
+div.vehicule section.sheet-body div div.attaque div.reorder textarea.hide {
   display: none;
 }
-div.vehicule section.sheet-body div div.attaque textarea.short {
+div.vehicule section.sheet-body div div.attaque div.reorder textarea.short {
   grid-column-end: 6;
 }
-div.vehicule section.sheet-body div div.attaque select.hide {
+div.vehicule section.sheet-body div div.attaque div.reorder select.hide {
   display: none;
 }
-div.vehicule section.sheet-body div div.attaque i {
+div.vehicule section.sheet-body div div.attaque div.reorder i {
   cursor: pointer;
 }
-div.vehicule section.sheet-body div div.attaque i:hover {
+div.vehicule section.sheet-body div div.attaque div.reorder i:hover {
   text-shadow: 0px 0px 3px;
 }
-div.vehicule section.sheet-body div div.attaque i.hide {
+div.vehicule section.sheet-body div div.attaque div.reorder i.hide {
   display: none;
 }
 div.vehicule section.sheet-body div div.strategie {
@@ -4101,6 +5052,10 @@ div.vehicule section.sheet-body div div.strategie {
   border: 2px solid black;
   padding: 0px 5px 5px;
   grid-gap: 5px;
+}
+div.vehicule section.sheet-body div div.strategie a.resetStrategie {
+  grid-column-start: 1;
+  grid-column-end: 5;
 }
 div.vehicule section.sheet-body div div.strategie > span.header {
   display: grid;
@@ -4869,6 +5824,137 @@ div.vehicule section.sheet-body div.listpouvoir div.descripteurs {
   font-size: 0.8rem;
   text-align: justify;
 }
+div.vehicule section.sheet-body div.speed {
+  display: grid;
+  grid-template-columns: 22px 1fr 45px repeat(2, 100px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  grid-gap: 5px;
+}
+div.vehicule section.sheet-body div.speed a.btn {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.vehicule section.sheet-body div.speed a.btn:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.vehicule section.sheet-body div.speed div.inlist {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: grid;
+  grid-template-columns: 22px 1fr 45px repeat(2, 1fr) 12.25px;
+  grid-template-rows: max-content;
+  padding: 0px 5px;
+  grid-gap: 5px;
+}
+div.vehicule section.sheet-body div.speed div.inlist a.selectspeed {
+  padding: 0px;
+}
+div.vehicule section.sheet-body div.speed div.inlist a.selectspeed i {
+  margin: auto;
+  padding-left: 2px;
+}
+div.vehicule section.sheet-body div.speed div.inlist.selected {
+  background: rgba(218, 58, 47, 0.2);
+}
+div.vehicule section.sheet-body div.speed div.inlist.selected a.selectspeed {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.vehicule section.sheet-body div.speed div.inlist i.delete {
+  cursor: pointer;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+div.vehicule section.sheet-body div.speed div.inlist i.delete:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.vehicule section.sheet-body div.speed span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.vehicule section.sheet-body div.speed span.label {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+div.vehicule section.sheet-body div.speed span.score {
+  display: grid;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+  font-size: 12px;
+}
+div.vehicule section.sheet-body div.speed input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.vehicule section.sheet-body div.speed a.add {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  text-align: center;
+  width: calc(100% - 4px);
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin: 2px;
+}
+div.vehicule section.sheet-body div.speed a.add:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 
 div.qg section.window-content {
   background: #EBEBEB;
@@ -5040,10 +6126,48 @@ div.qg section.sheet-body div.options {
   border-top-color: black;
   padding: 5px;
 }
+div.qg section.sheet-body div.options div div.strategie {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.qg section.sheet-body div.options div div.strategie a.resetStrategie {
+  grid-column-start: 1;
+  grid-column-end: 5;
+}
+div.qg section.sheet-body div.options div div.strategie > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.qg section.sheet-body div.options div div.strategie > span.label {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.qg section.sheet-body div.options div div.strategie input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
 div.qg section.sheet-body div.options div.inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
+  align-items: flex-start;
 }
 div.qg section.sheet-body div.options div.block {
   display: grid;
@@ -5124,13 +6248,54 @@ div.qg section.sheet-body div.options div.accessibility label {
 div.qg section.sheet-body div.options div.accessibility select {
   text-align: center;
 }
+div.qg section.sheet-body div.options div.limite {
+  padding-bottom: 5px;
+}
+div.qg section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.qg section.sheet-body div.options div.limite a.saveLimiteStrategie:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.qg section.sheet-body div.options div.limite span.title {
+  text-align: center;
+  font-variant: small-caps;
+  font-size: 15px;
+  border-bottom: 1px solid black;
+}
+div.qg section.sheet-body div.options div.limite a.saveLimiteStrategie {
+  width: calc(100% - 10px);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+div.qg section.sheet-body div.options div.strategie {
+  border: 0px !important;
+}
 div.qg section.sheet-body div div.attaque {
   display: grid;
-  grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
-  grid-template-rows: max-content;
   border: 2px solid black;
-  padding: 0px 5px 5px;
-  grid-gap: 5px;
 }
 div.qg section.sheet-body div div.attaque a.roll {
   display: flex;
@@ -5188,20 +6353,98 @@ div.qg section.sheet-body div div.attaque a.noAtk:hover {
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.qg section.sheet-body div div.attaque a.noAtk.selected {
+div.qg section.sheet-body div div.attaque > div.line {
+  display: grid;
+  grid-template-columns: 1fr max-content repeat(2, 45px 5px) 45px 1fr;
+  grid-gap: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+div.qg section.sheet-body div div.attaque > div.line span {
+  display: grid;
+  width: 100%;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+}
+div.qg section.sheet-body div div.attaque > div.line span.score {
+  padding-right: 0px;
+  padding-left: 0px;
+  font-weight: normal;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+}
+div.qg section.sheet-body div div.attaque > div.line span.total {
+  font-weight: bold;
+}
+div.qg section.sheet-body div div.attaque > span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  height: 18px;
+}
+div.qg section.sheet-body div div.attaque input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.qg section.sheet-body div div.attaque input.hide {
+  display: none;
+}
+div.qg section.sheet-body div div.attaque > a.add {
+  text-align: center;
+  width: calc(100% - 4px);
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin: 2px;
+}
+div.qg section.sheet-body div div.attaque > a.add:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.qg section.sheet-body div div.attaque a.roll.large {
+div.qg section.sheet-body div div.attaque div.reorder {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
+  grid-template-rows: max-content;
+  padding: 0px 5px 5px;
+  grid-gap: 5px;
+}
+div.qg section.sheet-body div div.attaque div.reorder a.noAtk.selected {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.qg section.sheet-body div div.attaque div.reorder a.roll.large {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.qg section.sheet-body div div.attaque a.hide {
+div.qg section.sheet-body div div.attaque div.reorder a.hide {
   display: none;
 }
-div.qg section.sheet-body div div.attaque a.add {
+div.qg section.sheet-body div div.attaque div.reorder a.add {
   grid-column-start: 1;
   grid-column-end: 7;
   text-align: center;
@@ -5223,13 +6466,13 @@ div.qg section.sheet-body div div.attaque a.add {
   margin-left: 2px;
   margin-bottom: 2px;
 }
-div.qg section.sheet-body div div.attaque a.add:hover {
+div.qg section.sheet-body div div.attaque div.reorder a.add:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.qg section.sheet-body div div.attaque div.line {
+div.qg section.sheet-body div div.attaque div.reorder div.line {
   grid-column-start: 1;
   grid-column-end: 7;
   display: grid;
@@ -5237,7 +6480,7 @@ div.qg section.sheet-body div div.attaque div.line {
   grid-gap: 5px;
   margin-top: 5px;
 }
-div.qg section.sheet-body div div.attaque div.line span {
+div.qg section.sheet-body div div.attaque div.reorder div.line span {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -5245,7 +6488,7 @@ div.qg section.sheet-body div div.attaque div.line span {
   align-items: center;
   font-family: Sriracha;
 }
-div.qg section.sheet-body div div.attaque div.line span.score {
+div.qg section.sheet-body div div.attaque div.reorder div.line span.score {
   padding-right: 0px;
   padding-left: 0px;
   font-weight: normal;
@@ -5254,10 +6497,10 @@ div.qg section.sheet-body div div.attaque div.line span.score {
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
-div.qg section.sheet-body div div.attaque div.line span.total {
+div.qg section.sheet-body div div.attaque div.reorder div.line span.total {
   font-weight: bold;
 }
-div.qg section.sheet-body div div.attaque div.specialline {
+div.qg section.sheet-body div div.attaque div.reorder div.specialline {
   grid-column-start: 1;
   grid-column-end: 6;
   display: grid;
@@ -5265,7 +6508,7 @@ div.qg section.sheet-body div div.attaque div.specialline {
   grid-template-rows: max-content;
   grid-gap: 5px;
 }
-div.qg section.sheet-body div div.attaque div.specialline span.labelBase {
+div.qg section.sheet-body div div.attaque div.reorder div.specialline span.labelBase {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -5274,7 +6517,7 @@ div.qg section.sheet-body div div.attaque div.specialline span.labelBase {
   font-family: Sriracha;
   white-space: nowrap;
 }
-div.qg section.sheet-body div div.attaque div.specialline span.labelDefense {
+div.qg section.sheet-body div div.attaque div.reorder div.specialline span.labelDefense {
   grid-column-start: 1;
   display: grid;
   width: 100%;
@@ -5283,21 +6526,21 @@ div.qg section.sheet-body div div.attaque div.specialline span.labelDefense {
   align-items: center;
   font-family: Sriracha;
 }
-div.qg section.sheet-body div div.attaque div.specialline span.labelDefense.hide {
+div.qg section.sheet-body div div.attaque div.reorder div.specialline span.labelDefense.hide {
   display: none;
 }
-div.qg section.sheet-body div div.attaque div.specialline select.selectDefense {
+div.qg section.sheet-body div div.attaque div.reorder div.specialline select.selectDefense {
   grid-column-start: 2;
   grid-column-end: 4;
 }
-div.qg section.sheet-body div div.attaque div.specialline input.label {
+div.qg section.sheet-body div div.attaque div.reorder div.specialline input.label {
   grid-column-start: 1;
   grid-column-end: 4;
 }
-div.qg section.sheet-body div div.attaque div.hide {
+div.qg section.sheet-body div div.attaque div.reorder div.hide {
   display: none;
 }
-div.qg section.sheet-body div div.attaque > span.header {
+div.qg section.sheet-body div div.attaque div.reorder > span.header {
   grid-column-start: 1;
   grid-column-end: 6;
   display: grid;
@@ -5307,7 +6550,7 @@ div.qg section.sheet-body div div.attaque > span.header {
   font-size: 1em;
   height: 18px;
 }
-div.qg section.sheet-body div div.attaque > span.carac {
+div.qg section.sheet-body div div.attaque div.reorder > span.carac {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -5316,7 +6559,7 @@ div.qg section.sheet-body div div.attaque > span.carac {
   font-family: Sriracha;
   text-transform: uppercase;
 }
-div.qg section.sheet-body div div.attaque > span.score {
+div.qg section.sheet-body div div.attaque div.reorder > span.score {
   display: grid;
   width: 100%;
   padding-right: 0px;
@@ -5330,31 +6573,19 @@ div.qg section.sheet-body div div.attaque > span.score {
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
-div.qg section.sheet-body div div.attaque > span.label {
+div.qg section.sheet-body div div.attaque div.reorder > span.label {
   font-size: 0.8em;
   text-align: center;
   line-height: 0.8em;
 }
-div.qg section.sheet-body div div.attaque > span.label.large {
+div.qg section.sheet-body div div.attaque div.reorder > span.label.large {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.qg section.sheet-body div div.attaque > span.hide {
+div.qg section.sheet-body div div.attaque div.reorder > span.hide {
   display: none;
 }
-div.qg section.sheet-body div div.attaque input {
-  width: 100%;
-  padding-right: 0px;
-  padding-left: 0px;
-  text-align: center;
-  font-family: Sriracha;
-  height: 100%;
-  background: transparent;
-}
-div.qg section.sheet-body div div.attaque input.hide {
-  display: none;
-}
-div.qg section.sheet-body div div.attaque textarea {
+div.qg section.sheet-body div div.attaque div.reorder textarea {
   grid-column-start: 1;
   grid-column-end: 7;
   resize: vertical;
@@ -5364,22 +6595,22 @@ div.qg section.sheet-body div div.attaque textarea {
   font-family: Sriracha;
   font-size: 0.8em;
 }
-div.qg section.sheet-body div div.attaque textarea.hide {
+div.qg section.sheet-body div div.attaque div.reorder textarea.hide {
   display: none;
 }
-div.qg section.sheet-body div div.attaque textarea.short {
+div.qg section.sheet-body div div.attaque div.reorder textarea.short {
   grid-column-end: 6;
 }
-div.qg section.sheet-body div div.attaque select.hide {
+div.qg section.sheet-body div div.attaque div.reorder select.hide {
   display: none;
 }
-div.qg section.sheet-body div div.attaque i {
+div.qg section.sheet-body div div.attaque div.reorder i {
   cursor: pointer;
 }
-div.qg section.sheet-body div div.attaque i:hover {
+div.qg section.sheet-body div div.attaque div.reorder i:hover {
   text-shadow: 0px 0px 3px;
 }
-div.qg section.sheet-body div div.attaque i.hide {
+div.qg section.sheet-body div div.attaque div.reorder i.hide {
   display: none;
 }
 div.qg section.sheet-body div div.strategie {
@@ -5389,6 +6620,10 @@ div.qg section.sheet-body div div.strategie {
   border: 2px solid black;
   padding: 0px 5px 5px;
   grid-gap: 5px;
+}
+div.qg section.sheet-body div div.strategie a.resetStrategie {
+  grid-column-start: 1;
+  grid-column-end: 5;
 }
 div.qg section.sheet-body div div.strategie > span.header {
   display: grid;
@@ -5414,6 +6649,14 @@ div.qg section.sheet-body div div.strategie input {
   font-family: Sriracha;
   height: 100%;
   background: transparent;
+}
+div.qg section.sheet-body div.col {
+  display: grid;
+  grid-gap: 5px;
+  width: 100%;
+  height: 100%;
+  align-items: flex-start;
+  align-content: flex-start;
 }
 div.qg section.sheet-body div.informations {
   border: 1px solid #a8a8a8;
@@ -6074,6 +7317,137 @@ div.qg section.sheet-body div.listpouvoirs div.descripteurs {
   font-size: 0.8rem;
   text-align: justify;
 }
+div.qg section.sheet-body div.speed {
+  display: grid;
+  grid-template-columns: 22px 1fr 45px repeat(2, 100px);
+  grid-template-rows: max-content;
+  border: 2px solid black;
+  grid-gap: 5px;
+}
+div.qg section.sheet-body div.speed a.btn {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+div.qg section.sheet-body div.speed a.btn:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.qg section.sheet-body div.speed div.inlist {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: grid;
+  grid-template-columns: 22px 1fr 45px repeat(2, 1fr) 12.25px;
+  grid-template-rows: max-content;
+  padding: 0px 5px;
+  grid-gap: 5px;
+}
+div.qg section.sheet-body div.speed div.inlist a.selectspeed {
+  padding: 0px;
+}
+div.qg section.sheet-body div.speed div.inlist a.selectspeed i {
+  margin: auto;
+  padding-left: 2px;
+}
+div.qg section.sheet-body div.speed div.inlist.selected {
+  background: rgba(218, 58, 47, 0.2);
+}
+div.qg section.sheet-body div.speed div.inlist.selected a.selectspeed {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.qg section.sheet-body div.speed div.inlist i.delete {
+  cursor: pointer;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+div.qg section.sheet-body div.speed div.inlist i.delete:hover {
+  text-shadow: 0px 0px 3px;
+}
+div.qg section.sheet-body div.speed span.header {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  height: 18px;
+}
+div.qg section.sheet-body div.speed span.label {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+div.qg section.sheet-body div.speed span.score {
+  display: grid;
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  justify-content: center;
+  align-items: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+  border: 1px solid #7a7971;
+  border-radius: 2px;
+  font-size: 12px;
+}
+div.qg section.sheet-body div.speed input {
+  width: 100%;
+  padding-right: 0px;
+  padding-left: 0px;
+  text-align: center;
+  font-family: Sriracha;
+  height: 100%;
+  background: transparent;
+}
+div.qg section.sheet-body div.speed a.add {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  text-align: center;
+  width: calc(100% - 4px);
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin: 2px;
+}
+div.qg section.sheet-body div.speed a.add:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 
 .mm3-roll {
   cursor: pointer;
@@ -6442,6 +7816,12 @@ div.qg section.sheet-body div.listpouvoirs div.descripteurs {
 .chat-message {
   background: #EBEBEB;
 }
+.chat-message.whisper {
+  filter: hue-rotate(50deg);
+}
+.chat-message.blind {
+  filter: hue-rotate(250deg);
+}
 
 div.mm3-dialog section.window-content {
   background: #EBEBEB;
@@ -6518,6 +7898,366 @@ div#interface.violet aside#players {
 div#interface.bleufonce div#sidebar,
 div#interface.bleufonce aside#players {
   background: url("../assets/menu/bleufonce.png") repeat;
+}
+
+div.mm3-dialog-delete .window-content {
+  background: #EBEBEB;
+}
+div.mm3-dialog-delete div.dialog-content {
+  text-align: center;
+  font-family: "Bangers";
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+div.mm3-dialog-delete button {
+  text-align: center;
+  border-bottom: 2px solid #666 !important;
+  border-color: #aaa !important;
+  border-radius: 5px;
+  border-right: 3px solid #999 !important;
+  border-style: outset !important;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin: 2px;
+}
+div.mm3-dialog-delete button:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.mm3-dialog-delete.adaptedFont div.dialog-content {
+  font-size: 11px;
+}
+div.mm3-dialog-delete.adaptedFont button {
+  font-size: 11px;
+}
+div.mm3-dialog-delete.Bangers div.dialog-content {
+  font-family: "Bangers";
+}
+div.mm3-dialog-delete.Bangers button {
+  font-family: "Bangers";
+}
+div.mm3-dialog-delete.Sriracha div.dialog-content {
+  font-family: "Sriracha";
+}
+div.mm3-dialog-delete.Sriracha button {
+  font-family: "Sriracha";
+}
+div.mm3-dialog-delete.Kalam div.dialog-content {
+  font-family: "Kalam";
+}
+div.mm3-dialog-delete.Kalam button {
+  font-family: "Kalam";
+}
+div.mm3-dialog-delete.Creepster div.dialog-content {
+  font-family: "Creepster";
+}
+div.mm3-dialog-delete.Creepster button {
+  font-family: "Creepster";
+}
+div.mm3-dialog-delete.Poppins div.dialog-content {
+  font-family: "Poppins";
+}
+div.mm3-dialog-delete.Poppins button {
+  font-family: "Poppins";
+}
+div.mm3-dialog-delete.Roboto div.dialog-content {
+  font-family: "Roboto";
+}
+div.mm3-dialog-delete.Roboto button {
+  font-family: "Roboto";
+}
+div.mm3-dialog-delete.RobotoCondensed div.dialog-content {
+  font-family: "Roboto Condensed";
+}
+div.mm3-dialog-delete.RobotoCondensed button {
+  font-family: "Roboto Condensed";
+}
+div.mm3-dialog-delete.RobotoMono div.dialog-content {
+  font-family: "Roboto Mono";
+}
+div.mm3-dialog-delete.RobotoMono button {
+  font-family: "Roboto Mono";
+}
+div.mm3-dialog-delete.Tektur div.dialog-content {
+  font-family: "Tektur";
+}
+div.mm3-dialog-delete.Tektur button {
+  font-family: "Tektur";
+}
+div.mm3-dialog-delete.JosefinSans div.dialog-content {
+  font-family: "Josefin Sans";
+}
+div.mm3-dialog-delete.JosefinSans button {
+  font-family: "Josefin Sans";
+}
+div.mm3-dialog-delete.BebasNeue div.dialog-content {
+  font-family: "Bebas Neue";
+}
+div.mm3-dialog-delete.BebasNeue button {
+  font-family: "Bebas Neue";
+}
+div.mm3-dialog-delete.Goldman div.dialog-content {
+  font-family: "Goldman";
+}
+div.mm3-dialog-delete.Goldman button {
+  font-family: "Goldman";
+}
+div.mm3-dialog-delete.Anton div.dialog-content {
+  font-family: "Anton";
+}
+div.mm3-dialog-delete.Anton button {
+  font-family: "Anton";
+}
+div.mm3-dialog-delete.PatrickHandSC div.dialog-content {
+  font-family: "Patrick Hand SC";
+}
+div.mm3-dialog-delete.PatrickHandSC button {
+  font-family: "Patrick Hand SC";
+}
+div.mm3-dialog-delete.PirataOne div.dialog-content {
+  font-family: "Pirata One";
+}
+div.mm3-dialog-delete.PirataOne button {
+  font-family: "Pirata One";
+}
+div.mm3-dialog-delete.Prompt div.dialog-content {
+  font-family: "Prompt";
+}
+div.mm3-dialog-delete.Prompt button {
+  font-family: "Prompt";
+}
+div.mm3-dialog-delete.Teko div.dialog-content {
+  font-family: "Teko";
+}
+div.mm3-dialog-delete.Teko button {
+  font-family: "Teko";
+}
+div.mm3-dialog-delete.RussoOne div.dialog-content {
+  font-family: "Russo One";
+}
+div.mm3-dialog-delete.RussoOne button {
+  font-family: "Russo One";
+}
+div.mm3-dialog-delete.Righteous div.dialog-content {
+  font-family: "Righteous";
+}
+div.mm3-dialog-delete.Righteous button {
+  font-family: "Righteous";
+}
+div.mm3-dialog-delete.PathwayGothicOne div.dialog-content {
+  font-family: "Pathway Gothic One";
+}
+div.mm3-dialog-delete.PathwayGothicOne button {
+  font-family: "Pathway Gothic One";
+}
+div.mm3-dialog-delete.Quantico div.dialog-content {
+  font-family: "Quantico";
+}
+div.mm3-dialog-delete.Quantico button {
+  font-family: "Quantico";
+}
+div.mm3-dialog-delete.Staatliches div.dialog-content {
+  font-family: "Staatliches";
+}
+div.mm3-dialog-delete.Staatliches button {
+  font-family: "Staatliches";
+}
+div.mm3-dialog-delete.SecularOne div.dialog-content {
+  font-family: "Secular One";
+}
+div.mm3-dialog-delete.SecularOne button {
+  font-family: "Secular One";
+}
+
+div.mm3-dialog-mod .window-content {
+  background: #EBEBEB;
+}
+div.mm3-dialog-mod div.dialog-content {
+  text-align: center;
+  font-family: "Bangers";
+  font-size: 13px;
+  margin-bottom: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5px;
+}
+div.mm3-dialog-mod div.dialog-content span {
+  line-height: 26.5px;
+}
+div.mm3-dialog-mod button {
+  text-align: center;
+  border-bottom: 2px solid #666 !important;
+  border-color: #aaa !important;
+  border-radius: 5px;
+  border-right: 3px solid #999 !important;
+  border-style: outset !important;
+  font-family: "Bangers";
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  margin: 2px;
+}
+div.mm3-dialog-mod button:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.mm3-dialog-mod.adaptedFont div.dialog-content {
+  font-size: 11px;
+}
+div.mm3-dialog-mod.adaptedFont button {
+  font-size: 11px;
+}
+div.mm3-dialog-mod.Bangers div.dialog-content {
+  font-family: "Bangers";
+}
+div.mm3-dialog-mod.Bangers button {
+  font-family: "Bangers";
+}
+div.mm3-dialog-mod.Sriracha div.dialog-content {
+  font-family: "Sriracha";
+}
+div.mm3-dialog-mod.Sriracha button {
+  font-family: "Sriracha";
+}
+div.mm3-dialog-mod.Kalam div.dialog-content {
+  font-family: "Kalam";
+}
+div.mm3-dialog-mod.Kalam button {
+  font-family: "Kalam";
+}
+div.mm3-dialog-mod.Creepster div.dialog-content {
+  font-family: "Creepster";
+}
+div.mm3-dialog-mod.Creepster button {
+  font-family: "Creepster";
+}
+div.mm3-dialog-mod.Poppins div.dialog-content {
+  font-family: "Poppins";
+}
+div.mm3-dialog-mod.Poppins button {
+  font-family: "Poppins";
+}
+div.mm3-dialog-mod.Roboto div.dialog-content {
+  font-family: "Roboto";
+}
+div.mm3-dialog-mod.Roboto button {
+  font-family: "Roboto";
+}
+div.mm3-dialog-mod.RobotoCondensed div.dialog-content {
+  font-family: "Roboto Condensed";
+}
+div.mm3-dialog-mod.RobotoCondensed button {
+  font-family: "Roboto Condensed";
+}
+div.mm3-dialog-mod.RobotoMono div.dialog-content {
+  font-family: "Roboto Mono";
+}
+div.mm3-dialog-mod.RobotoMono button {
+  font-family: "Roboto Mono";
+}
+div.mm3-dialog-mod.Tektur div.dialog-content {
+  font-family: "Tektur";
+}
+div.mm3-dialog-mod.Tektur button {
+  font-family: "Tektur";
+}
+div.mm3-dialog-mod.JosefinSans div.dialog-content {
+  font-family: "Josefin Sans";
+}
+div.mm3-dialog-mod.JosefinSans button {
+  font-family: "Josefin Sans";
+}
+div.mm3-dialog-mod.BebasNeue div.dialog-content {
+  font-family: "Bebas Neue";
+}
+div.mm3-dialog-mod.BebasNeue button {
+  font-family: "Bebas Neue";
+}
+div.mm3-dialog-mod.Goldman div.dialog-content {
+  font-family: "Goldman";
+}
+div.mm3-dialog-mod.Goldman button {
+  font-family: "Goldman";
+}
+div.mm3-dialog-mod.Anton div.dialog-content {
+  font-family: "Anton";
+}
+div.mm3-dialog-mod.Anton button {
+  font-family: "Anton";
+}
+div.mm3-dialog-mod.PatrickHandSC div.dialog-content {
+  font-family: "Patrick Hand SC";
+}
+div.mm3-dialog-mod.PatrickHandSC button {
+  font-family: "Patrick Hand SC";
+}
+div.mm3-dialog-mod.PirataOne div.dialog-content {
+  font-family: "Pirata One";
+}
+div.mm3-dialog-mod.PirataOne button {
+  font-family: "Pirata One";
+}
+div.mm3-dialog-mod.Prompt div.dialog-content {
+  font-family: "Prompt";
+}
+div.mm3-dialog-mod.Prompt button {
+  font-family: "Prompt";
+}
+div.mm3-dialog-mod.Teko div.dialog-content {
+  font-family: "Teko";
+}
+div.mm3-dialog-mod.Teko button {
+  font-family: "Teko";
+}
+div.mm3-dialog-mod.RussoOne div.dialog-content {
+  font-family: "Russo One";
+}
+div.mm3-dialog-mod.RussoOne button {
+  font-family: "Russo One";
+}
+div.mm3-dialog-mod.Righteous div.dialog-content {
+  font-family: "Righteous";
+}
+div.mm3-dialog-mod.Righteous button {
+  font-family: "Righteous";
+}
+div.mm3-dialog-mod.PathwayGothicOne div.dialog-content {
+  font-family: "Pathway Gothic One";
+}
+div.mm3-dialog-mod.PathwayGothicOne button {
+  font-family: "Pathway Gothic One";
+}
+div.mm3-dialog-mod.Quantico div.dialog-content {
+  font-family: "Quantico";
+}
+div.mm3-dialog-mod.Quantico button {
+  font-family: "Quantico";
+}
+div.mm3-dialog-mod.Staatliches div.dialog-content {
+  font-family: "Staatliches";
+}
+div.mm3-dialog-mod.Staatliches button {
+  font-family: "Staatliches";
+}
+div.mm3-dialog-mod.SecularOne div.dialog-content {
+  font-family: "Secular One";
+}
+div.mm3-dialog-mod.SecularOne button {
+  font-family: "Secular One";
 }
 
 section#combat > header:first-of-type:before {

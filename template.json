@@ -197,6 +197,50 @@
         "base":0
       },
       "strategie":{
+        "limite":{
+          "attaqueprecision":{
+            "attaque":2,
+            "defense":0,
+            "effet":-2
+          },
+          "attaqueoutrance":{
+            "attaque":2,
+            "defense":-2,
+            "effet":0
+          },
+          "attaquedefensive":{
+            "attaque":-2,
+            "defense":2,
+            "effet":0
+          },
+          "attaquepuissance":{
+            "attaque":-2,
+            "defense":0,
+            "effet":2
+          },
+          "query":{
+            "attaqueprecision":{
+              "attaque":2,
+              "defense":0,
+              "effet":-2
+            },
+            "attaqueoutrance":{
+              "attaque":2,
+              "defense":-2,
+              "effet":0
+            },
+            "attaquedefensive":{
+              "attaque":-2,
+              "defense":2,
+              "effet":0
+            },
+            "attaquepuissance":{
+              "attaque":-2,
+              "defense":0,
+              "effet":2
+            }
+          }
+        },
         "attaqueprecision":{
           "attaque":0,
           "defense":0,
@@ -223,7 +267,33 @@
           "effet":0
         }
       },
-      "pwr":{}
+      "pwr":{},
+      "accessibility":{},
+      "vitesse":{
+        "list":{
+          "base":{
+            "autotrade":"base",
+            "rang":0,
+            "round":0,
+            "kmh":0,
+            "selected":true
+          },
+          "course":{
+            "autotrade":"course",
+            "rang":1,
+            "round":0,
+            "kmh":0,
+            "selected":false
+          },
+          "natation":{
+            "autotrade":"natation",
+            "rang":-2,
+            "round":0,
+            "kmh":0,
+            "selected":false
+          }
+        }
+      }
     },
     "vehicule":{
       "description":"",
@@ -267,6 +337,50 @@
       },
       "attaque":{},
       "strategie":{
+        "limite":{
+          "attaqueprecision":{
+            "attaque":2,
+            "defense":0,
+            "effet":-2
+          },
+          "attaqueoutrance":{
+            "attaque":2,
+            "defense":-2,
+            "effet":0
+          },
+          "attaquedefensive":{
+            "attaque":-2,
+            "defense":2,
+            "effet":0
+          },
+          "attaquepuissance":{
+            "attaque":-2,
+            "defense":0,
+            "effet":2
+          },
+          "query":{
+            "attaqueprecision":{
+              "attaque":2,
+              "defense":0,
+              "effet":-2
+            },
+            "attaqueoutrance":{
+              "attaque":2,
+              "defense":-2,
+              "effet":0
+            },
+            "attaquedefensive":{
+              "attaque":-2,
+              "defense":2,
+              "effet":0
+            },
+            "attaquepuissance":{
+              "attaque":-2,
+              "defense":0,
+              "effet":2
+            }
+          }
+        },
         "attaqueprecision":{
           "attaque":0,
           "defense":0,
@@ -292,6 +406,32 @@
           "defense":0,
           "effet":0
         }
+      },
+      "accessibility":{},
+      "vitesse":{
+        "list":{
+          "base":{
+            "autotrade":"base",
+            "rang":0,
+            "round":0,
+            "kmh":0,
+            "selected":true
+          },
+          "course":{
+            "autotrade":"course",
+            "rang":0,
+            "round":0,
+            "kmh":0,
+            "selected":true
+          },
+          "natation":{
+            "autotrade":"natation",
+            "rang":0,
+            "round":0,
+            "kmh":0,
+            "selected":true
+          }
+        }
       }
     },
     "qg":{
@@ -311,6 +451,50 @@
       },
       "attaque":{},
       "strategie":{
+        "limite":{
+          "attaqueprecision":{
+            "attaque":2,
+            "defense":0,
+            "effet":-2
+          },
+          "attaqueoutrance":{
+            "attaque":2,
+            "defense":-2,
+            "effet":0
+          },
+          "attaquedefensive":{
+            "attaque":-2,
+            "defense":2,
+            "effet":0
+          },
+          "attaquepuissance":{
+            "attaque":-2,
+            "defense":0,
+            "effet":2
+          },
+          "query":{
+            "attaqueprecision":{
+              "attaque":2,
+              "defense":0,
+              "effet":-2
+            },
+            "attaqueoutrance":{
+              "attaque":2,
+              "defense":-2,
+              "effet":0
+            },
+            "attaquedefensive":{
+              "attaque":-2,
+              "defense":2,
+              "effet":0
+            },
+            "attaquepuissance":{
+              "attaque":-2,
+              "defense":0,
+              "effet":2
+            }
+          }
+        },
         "attaqueprecision":{
           "attaque":0,
           "defense":0,
@@ -335,6 +519,32 @@
           "attaque":0,
           "defense":0,
           "effet":0
+        }
+      },
+      "accessibility":{},
+      "vitesse":{
+        "list":{
+          "base":{
+            "autotrade":"base",
+            "rang":0,
+            "round":0,
+            "kmh":0,
+            "selected":true
+          },
+          "course":{
+            "autotrade":"course",
+            "rang":0,
+            "round":0,
+            "kmh":0,
+            "selected":true
+          },
+          "natation":{
+            "autotrade":"natation",
+            "rang":0,
+            "round":0,
+            "kmh":0,
+            "selected":true
+          }
         }
       }
     }

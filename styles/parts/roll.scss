@@ -431,4 +431,13 @@
 
 .chat-message {
     background:$fond;
+
+    &.whisper {
+        
+        filter:hue-rotate(50deg);
+    }
+
+    &.blind {
+        filter:hue-rotate(250deg);
+    }
 }

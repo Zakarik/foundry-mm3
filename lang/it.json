@@ -136,7 +136,11 @@
       "Attaqueoutrance":"Attacco Pieno",
       "Attaquedefensive":"Attacco Difensivo",
       "Attaquepuissance":"Attacco Poderoso",
-      "Etats":"Condizioni"
+      "Etats":"Condizioni",
+      "Changement":"Modificando i limiti delle manovre",
+      "Limite":"Limiti delle manovre",
+      "Save":"Salva limiti delle manovre",
+      "Reset":"Resetta le manovre"
     },
     "BONUS":{
       "Attaque":"Bonus d'Attacco",
@@ -232,6 +236,8 @@
       "DCRollHint":"Imposta la scorciatoia per aprire la finestra di richiesta CD in un roll, l'altra opzione consentirà quindi di effettuare un roll senza che la finestra appaia.",
       "Clicgauche":"Clic Sinistro",
       "ShiftClicgauche":"Shift + Clic Sinistro",
+      "SpeedAutocalc":"Calcolo automatico della velocità nei turni e km/h",
+      "SpeedAutocalcHint":"Può essere disabilitato per consentire l'immissione di valori personalizzati.",
       "CaractéristiquesAbsentes":"Caratteristiche Mancanti",
       "ForceFont":"Forza i font in tutto il sistema",
       "Pause":"Modifica l'icona di pausa",
@@ -281,6 +287,17 @@
       "Label":"Accessibilità",
       "Font":"Modifica dei font per testi lunghi",
       "FontOther":"Modifica del font per altri testi"
+    },
+    "DIALOG":{
+      "AskDelete":"Sei sicuro di voler cancellare questo?",
+      "AskMod":"Vuoi aggiungere un modificatore al test degli effetti?"
+    },
+    "VITESSE":{
+      "Natation":"Nuotare",
+      "Course":"Correre",
+      "Round":"Per round",
+      "Kmh":"Km/h",
+      "Metre-short":"m"
     },
     "Nom":"Nome",
     "Identite":"Identità",
@@ -336,6 +353,7 @@
     "Particularites":"Caratteristiche",
     "Editadvanced":"Modifica le impostazioni avanzate",
     "Adefinir":"Da definire",
-    "Non":"No"
+    "Non":"No",
+    "Mod":"Modificatore"
   }
 }

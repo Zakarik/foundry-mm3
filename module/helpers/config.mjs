@@ -92,6 +92,12 @@ MM3.jetdefenses = {
     "volonte":"MM3.ROLL.DEFENSE.Volonte",
 }
 
+MM3.vitesse = {
+    "base":"MM3.Base",
+    "course":"MM3.VITESSE.Course",
+    "natation":"MM3.VITESSE.Natation"
+}
+
 MM3.pouvoirs = {};
 
 MM3.pouvoirs.types = {

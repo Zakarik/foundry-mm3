@@ -6,14 +6,14 @@
         <a class="filtre {{#if (isValue systemData.filtre 'equipements')}}selected{{/if}}" data-type="equipements">{{localize "MM3.FILTRE.Equipements"}}</a>
     </div>    
 
-    <div class="lPouvoirs {{#if (isValue systemData.filtre 'tous')}}show{{/if}}  {{#if (isValue systemData.filtre 'pouvoirs')}}show{{/if}}">
+    <div class="lPouvoirs {{#if (isValue systemData.filtre 'tous')}}show{{/if}}  {{#if (isValue systemData.filtre 'pouvoirs')}}show{{/if}} item-list">
         {{> systems/mutants-and-masterminds-3e/templates/parts/listPouvoirs.html}}
     </div>
 
-    <div class="lTalents {{#if (isValue systemData.filtre 'tous')}}show{{/if}}  {{#if (isValue systemData.filtre 'talents')}}show{{/if}}">
+    <div class="lTalents item-list {{#if (isValue systemData.filtre 'tous')}}show{{/if}}  {{#if (isValue systemData.filtre 'talents')}}show{{/if}}">
         <span class="title">{{localize "MM3.Talents"}}</span>
         {{#each actor.talents as | key pwr |}}
-        <div class="talent summary" data-item-id="{{key._id}}">
+        <div class="talent summary item" data-item-id="{{key._id}}">
             <header class="js-toggler">
                 <span class="deploy "><i class="minus"></i></span>
                 <a class="sendInfos"><i class="fa-solid fa-comment"></i></a>
@@ -32,11 +32,11 @@
         <a class="item-create" data-type="talent">{{localize "MM3.BTN.AddTl"}}</a>
     </div>
 
-    <div class="lEquipements {{#if (isValue systemData.filtre 'tous')}}show{{/if}}  {{#if (isValue systemData.filtre 'equipements')}}show{{/if}}">
+    <div class="lEquipements item-list {{#if (isValue systemData.filtre 'tous')}}show{{/if}}  {{#if (isValue systemData.filtre 'equipements')}}show{{/if}}">
         <span class="title">{{localize "MM3.Equipements"}}</span>
         <span class="score {{#if (isHigherThan systemData.ptsEquipements.use systemData.ptsEquipements.max)}}red{{/if}}">{{localize "MM3.Pointsequipementsused"}} : {{systemData.ptsEquipements.use}} / {{systemData.ptsEquipements.max}}</span>
         {{#each actor.equipements as | key pwr |}}
-        <div class="talent summary" data-item-id="{{key._id}}">
+        <div class="talent summary item" data-item-id="{{key._id}}">
             <header class="js-toggler">
                 <span class="deploy "><i class="minus"></i></span>
                 <a class="sendInfos"><i class="fa-solid fa-comment"></i></a>

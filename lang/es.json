@@ -136,7 +136,11 @@
       "Attaqueoutrance":"Ataque Imprudente",
       "Attaquedefensive":"Ataque Defensivo",
       "Attaquepuissance":"Ataque Poderoso",
-      "Etats":"Condiciones"
+      "Etats":"Condiciones",
+      "Changement":"Cambiando los límites de las maniobras",
+      "Limite":"Límites de maniobras",
+      "Save":"Salva los límites de las maniobras",
+      "Reset":"Restablecer maniobras"
     },
     "BONUS":{
       "Attaque":"Bonificación de Ataque",
@@ -232,6 +236,8 @@
       "DCRollHint":"Establece el acceso directo para abrir la ventana de solicitud de DC en una tirada, la otra opción permitirá realizar una tirada sin que aparezca la ventana.",
       "Clicgauche":"Click Izquierdo",
       "ShiftClicgauche":"Shift + Click Izquierdo",
+      "SpeedAutocalc":"Cálculo automático de velocidad en rondas y km/h",
+      "SpeedAutocalcHint":"Se puede desactivar para permitir que se introduzcan valores personalizados.",
       "CaractéristiquesAbsentes":"Habilidades Faltantes",
       "ForceFont":"Forzar fuentes para todo el sistema",
       "Pause":"Cambiar el icono de pausa",
@@ -281,6 +287,17 @@
       "Label":"Accesibilidad",
       "Font":"Modificación de fuentes para textos largos",
       "FontOther":"Modificación de la fuente para otros textos"
+    },
+    "DIALOG":{
+      "AskDelete":"¿Estás seguro que quieres eliminar esto?",
+      "AskMod":"¿Te gustaría añadir un modificador a la prueba de efecto?"
+    },
+    "VITESSE":{
+      "Natation":"Nadar",
+      "Course":"Correr",
+      "Round":"Por ronda",
+      "Kmh":"Km/h",
+      "Metre-short":"m"
     },
     "Nom":"Nombre",
     "Identite":"Identidad",
@@ -336,6 +353,7 @@
     "Particularites":"Características",
     "Editadvanced":"Editar ajustes avanzados",
     "Adefinir":"A definir",
-    "Non":"No"
+    "Non":"No",
+    "Mod":"Modificador"
   }
 }

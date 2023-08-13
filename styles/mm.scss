@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $fonts:
 "Bangers", 
 "Sriracha", 
@@ -39,6 +41,58 @@ $imgs:
 "cards",
 "playlists",
 "compendium";
+
+$fontmap:(
+    "Bangers":"Bangers", 
+    "Sriracha":"Sriracha", 
+    "Kalam":"Kalam",
+    "Creepster":"Creepster",
+    "Poppins":"Poppins",
+    "Roboto":"Roboto",
+    "Roboto+Condensed":"RobotoCondensed",
+    "Roboto+Mono":"RobotoMono",
+    "Tektur":"Tektur",
+    "Josefin+Sans":"JosefinSans",
+    "Bebas+Neue":"BebasNeue",
+    "Goldman":"Goldman",
+    "Anton":"Anton",
+    "Patrick+Hand+SC":"PatrickHandSC",
+    "Pirata+One":"PirataOne",
+    "Prompt":"Prompt",
+    "Teko":"Teko",
+    "Russo+One":"RussoOne",
+    "Righteous":"Righteous",
+    "Pathway+Gothic+One":"PathwayGothicOne",
+    "Quantico":"Quantico",
+    "Staatliches":"Staatliches",
+    "Secular+One":"SecularOne"
+);
+
+$fontreal:(
+    "Bangers":"Bangers", 
+    "Sriracha":"Sriracha", 
+    "Kalam":"Kalam",
+    "Creepster":"Creepster",
+    "Poppins":"Poppins",
+    "Roboto":"Roboto",
+    "Roboto+Condensed":"Roboto Condensed",
+    "Roboto+Mono":"Roboto Mono",
+    "Tektur":"Tektur",
+    "Josefin+Sans":"Josefin Sans",
+    "Bebas+Neue":"Bebas Neue",
+    "Goldman":"Goldman",
+    "Anton":"Anton",
+    "Patrick+Hand+SC":"Patrick Hand SC",
+    "Pirata+One":"Pirata One",
+    "Prompt":"Prompt",
+    "Teko":"Teko",
+    "Russo+One":"Russo One",
+    "Righteous":"Righteous",
+    "Pathway+Gothic+One":"Pathway Gothic One",
+    "Quantico":"Quantico",
+    "Staatliches":"Staatliches",
+    "Secular+One":"Secular One"
+);
 
 @each $font in $fonts {
     @import url('https://fonts.googleapis.com/css?family=#{$font}&display=swap');
@@ -83,6 +137,141 @@ div#interface {
         }
     }
 }
+
+div.mm3-dialog-delete {
+    .window-content {
+        background:$fond;
+    }
+
+    div {
+        &.dialog-content {
+            text-align: center;
+            font-family: "Bangers";
+            font-size:13px;
+            margin-bottom: 5px;
+        }
+    }
+    
+    button {
+        text-align: center;
+        border-bottom: 2px solid #666 !important;
+        border-color: #aaa !important;
+        border-radius: 5px;
+        border-right: 3px solid #999 !important;
+        border-style: outset !important;
+        font-family: "Bangers";
+        font-size: 13px;
+        font-weight: normal;
+        line-height: 18px;
+        cursor: pointer;
+        color: #363B44;
+        text-transform: uppercase;
+        padding: 2px 5px;
+        margin: 2px;
+
+        &:hover {
+            color: #fe8412;
+            border-color: #fe1611;
+            letter-spacing: 1px;
+            text-shadow: none;
+        }
+    }
+
+    &.adaptedFont {
+        div.dialog-content {
+            font-size:11px;
+        }
+
+        button {
+            font-size:11px;
+        }
+    }
+
+    @each $font in $fonts {
+        &.#{map.get($fontmap, $font)} {
+            div.dialog-content {
+                font-family:map.get($fontreal, $font);
+            }
+            
+            button {
+                font-family:map.get($fontreal, $font);
+            }
+        }
+    }
+}
+
+
+div.mm3-dialog-mod {
+    .window-content {
+        background:$fond;
+    }
+
+    div {
+        &.dialog-content {
+            text-align: center;
+            font-family: "Bangers";
+            font-size:13px;
+            margin-bottom: 5px;
+
+            display:grid;
+            grid-template-columns: 1fr 1fr;
+
+            grid-gap: 5px;
+
+            span {
+                line-height: 26.5px;
+            }
+        }
+    }
+    
+    button {
+        text-align: center;
+        border-bottom: 2px solid #666 !important;
+        border-color: #aaa !important;
+        border-radius: 5px;
+        border-right: 3px solid #999 !important;
+        border-style: outset !important;
+        font-family: "Bangers";
+        font-size: 13px;
+        font-weight: normal;
+        line-height: 18px;
+        cursor: pointer;
+        color: #363B44;
+        text-transform: uppercase;
+        padding: 2px 5px;
+        margin: 2px;
+
+        &:hover {
+            color: #fe8412;
+            border-color: #fe1611;
+            letter-spacing: 1px;
+            text-shadow: none;
+        }
+    }
+
+    &.adaptedFont {
+        div.dialog-content {
+            font-size:11px;
+        }
+
+        button {
+            font-size:11px;
+        }
+    }
+
+    @each $font in $fonts {
+        &.#{map.get($fontmap, $font)} {
+            div.dialog-content {
+                font-family:map.get($fontreal, $font);
+            }
+            
+            button {
+                font-family:map.get($fontreal, $font);
+            }
+        }
+    }
+}
+
 @each $img in $imgs {
     section##{$img} {
         >header:first-of-type:before {

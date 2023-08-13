@@ -136,7 +136,11 @@
       "Attaqueoutrance":"All-out Attack",
       "Attaquedefensive":"Defensive Attack",
       "Attaquepuissance":"Power Attack",
-      "Etats":"Conditions"
+      "Etats":"Conditions",
+      "Changement":"Changing maneuver limits",
+      "Limite":"Maneuver limits",
+      "Save":"Save maneuver limits",
+      "Reset":"Reset maneuvers"
     },
     "BONUS":{
       "Attaque":"Attack Bonuses",
@@ -232,6 +236,8 @@
       "DCRollHint":"Sets the shortcut to open the DC request window in a roll, the other option will allow a roll to be made without this window appearing.",
       "Clicgauche":"Left Click",
       "ShiftClicgauche":"Shift + Left Click",
+      "SpeedAutocalc":"Automatic calculation of speed in rounds and km/h",
+      "SpeedAutocalcHint":"It can be disabled to allow custom values to be entered.",
       "CaractéristiquesAbsentes":"Absent Abilities",
       "ForceFont":"Force fonts throughout the system",
       "Pause": "Change the pause icon",
@@ -281,6 +287,17 @@
       "Label":"Accessibility",
       "Font":"Font modification for long texts",
       "FontOther":"Font modification for other texts"
+    },
+    "DIALOG":{
+      "AskDelete":"Are you sure you want to delete this?",
+      "AskMod":"Would you like to add a modifier to the effect test?"
+    },
+    "VITESSE":{
+      "Natation":"Swimming",
+      "Course":"Running",
+      "Round":"Per round",
+      "Kmh":"Km/h",
+      "Metre-short":"m"
     },
     "Nom":"Name",
     "Identite":"Identity",
@@ -336,6 +353,7 @@
     "Particularites":"Features",
     "Editadvanced":"Edit advanced settings",
     "Adefinir":"To define",
-    "Non":"No"
+    "Non":"No",
+    "Mod":"Modifier"
   }
 }

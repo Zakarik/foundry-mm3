@@ -1352,7 +1352,75 @@ export function accessibility(actor, html) {
     html.find('.accessibilityFont').remove();
 
     if(resized.includes(setting)) html.find('a.item').css('font-size', '11px');
-  }  
+  }
+}
+
+export async function deletePrompt(actor, label) {
+  const setting = game.settings.get("mutants-and-masterminds-3e", "font");
+  const options = actor?.system?.accessibility ?? null;
+  const fontOther = options !== null ? options?.fontOther ?? '' : '';
+  const resized = ['Arial', "Poppins", "Roboto Mono", "Tektur", "Josefin Sans", "Goldman", "Prompt", "Russo One", "Righteous", "Quantico", "Secular One"];
+
+  let usedFont = "";
+  let usedSizeFont = "";
+
+  if(setting === 'default') {
+    if(fontOther !== null || fontOther !== 'null') {
+      usedFont = fontOther;
+      if(resized.includes(fontOther)) 'adaptedFont';
+    }
+  } else {
+    usedFont = setting;
+    if(resized.includes(setting)) usedSizeFont = 'adaptedFont';
+  }
+
+  let classes = ['dialog', 'mm3-dialog-delete'];
+
+  classes.push(usedFont.replace(' ', ""));
+  classes.push(usedSizeFont);
+
+  const confirmation = await Dialog.confirm({
+    title:game.i18n.localize("MM3.DIALOG.AskDelete"),
+    content:`${label}`,
+    options:{
+      classes:classes
+    }
+  });
+
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(
+        confirmation
+      );
+    }, 0);
+  });
+}
+
+export function modPromptClasses(actor) {
+  const setting = game.settings.get("mutants-and-masterminds-3e", "font");
+  const options = actor?.system?.accessibility ?? null;
+  const fontOther = options !== null ? options?.fontOther ?? '' : '';
+  const resized = ['Arial', "Poppins", "Roboto Mono", "Tektur", "Josefin Sans", "Goldman", "Prompt", "Russo One", "Righteous", "Quantico", "Secular One"];
+
+  let usedFont = "";
+  let usedSizeFont = "";
+
+  if(setting === 'default') {
+    if(fontOther !== null || fontOther !== 'null') {
+      usedFont = fontOther;
+      if(resized.includes(fontOther)) 'adaptedFont';
+    }
+  } else {
+    usedFont = setting;
+    if(resized.includes(setting)) usedSizeFont = 'adaptedFont';
+  }
+
+  let classes = ['dialog', 'mm3-dialog-mod'];
+
+  classes.push(usedFont.replace(' ', ""));
+  classes.push(usedSizeFont);
+
+  return classes;
 }
 
 //ROLL STANDARD
@@ -1712,7 +1780,7 @@ export async function rollAtk(actor, name, score, data) {
 }
 
 //ROLL POUVOIR
-export async function rollPwr(actor, id) {
+export async function rollPwr(actor, id, mod=0) {
   const optDices = game.settings.get("mutants-and-masterminds-3e", "typeroll");
   const pwr = actor.items.filter(item => item.id === id)[0];
   const type = pwr.system.special;
@@ -1724,7 +1792,7 @@ export async function rollPwr(actor, id) {
   if(optDices === '3D20') dices = '3D20dldh';
   else if(optDices === '3D6') dices = '3D6';
 
-  const formula = `${dices} + ${rang}`;      
+  const formula = mod === 0 ? `${dices} + ${rang}` : `${dices} + ${rang} + ${mod}`;      
   const roll = new Roll(formula);
   roll.evaluate({async:false});
   const resultDie = roll.total-rang;
@@ -1803,4 +1871,58 @@ export async function sendInChat(actor, itm) {
   await ChatMessage.create(msgData, {
     rollMode:rMode
   });
+}
+
+const vitesse = {
+  "-5":"0.15",
+  "-4":"0.50",
+  "-3":"1",
+  "-2":"2",
+  "-1":"4",
+  "0":"8",
+  "1":"16",
+  "2":"32",
+  "3":"64",
+  "4":"125",
+  "5":"250",
+  "6":"500",
+  "7":"1000",
+  "8":"2000",
+  "9":"4000",
+  "10":"8000",
+  "11":"16000",
+  "12":"32000",
+  "13":"64000",
+  "14":"125000",
+  "15":"250000",
+  "16":"500000",
+  "17":"1000000",
+  "18":"2000000",
+  "19":"4000000",
+  "20":"8000000",
+  "21":"16000000",
+  "22":"32000000",
+  "23":"64000000",
+  "24":"125000000",
+  "25":"250000000",
+  "26":"500000000",
+  "27":"1000000000",
+  "28":"2000000000",
+  "29":"4000000000",
+  "30":"8000000000",
+};
+
+export function speedCalc(int) {
+  let result;
+
+  if(int <= 30) result = Number(vitesse[int]);
+  if(int > 30) {
+    result = Number(vitesse[30]);
+
+    for(let i = 30;i < int;i++) {
+      result = result*2;
+    }
+  }
+
+  return result;
 }

@@ -15,7 +15,7 @@ export class PouvoirItemSheet extends ItemSheet {
       width: 850,
       height: 920,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "pouvoirs"}],
-      dragDrop: [{dragSelector: ".draggable", dropSelector: null}],
+      dragDrop: [{dragSelector: [".draggable"], dropSelector: null}],
     });
   }
 
@@ -210,5 +210,17 @@ export class PouvoirItemSheet extends ItemSheet {
     }
 
     context.systemData = mergeObject(context.systemData, toAdd);
+  }
+
+  /** @inheritdoc */
+  _canDragStart(selector) {
+    return this.isEditable;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  _canDragDrop(selector) {
+    return this.isEditable;
   }
 }

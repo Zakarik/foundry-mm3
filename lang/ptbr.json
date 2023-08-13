@@ -136,7 +136,11 @@
       "Attaqueoutrance":"Ataque Imprudente",
       "Attaquedefensive":"Ataque Defensivo",
       "Attaquepuissance":"Ataque Poderoso",
-      "Etats":"Condições"
+      "Etats":"Condições",
+      "Changement":"Trocando os limites das manobras",
+      "Limite":"Limites das manobras",
+      "Save":"Salvar os limites das manobras",
+      "Reset":"Redefinir manobras"
     },
     "BONUS":{
       "Attaque":"Bônus de Ataque",
@@ -232,6 +236,8 @@
       "DCRollHint":"Define o atalho para abrir a janela de requisição de CD em uma rolagem, a outra opção permitirá que a rolagem seja feita sem que a janela apareça.",
       "Clicgauche":"Clique Esquerdo",
       "ShiftClicgauche":"Shift + Clique Esquerdo",
+      "SpeedAutocalc":"Cálculo automático da velocidade em rodadas e km/h",
+      "SpeedAutocalcHint":"Pode ser desabilitado para permitir que valores personalizados sejam inseridos.",
       "CaractéristiquesAbsentes":"Habilidades Ausentes",
       "ForceFont":"Forçar fontes em todo o sistema",
       "Pause":"Trocar o ícone de pausa",
@@ -281,6 +287,17 @@
       "Label":"Acessibilidade",
       "Font":"Modificação da fonte para textos longos",
       "FontOther":"Modificação da fonte para outros textos"
+    },
+    "DIALOG":{
+      "AskDelete":"Você tem certeza que quer deletar isso?",
+      "AskMod":"Você gostaria de adicionar um modificador ao teste do efeito?"
+    },
+    "VITESSE":{
+      "Natation":"Nadar",
+      "Course":"Correr",
+      "Round":"Por rodada",
+      "Kmh":"Km/h",
+      "Metre-short":"m"
     },
     "Nom":"Nome",
     "Identite":"Identidade",
@@ -336,6 +353,7 @@
     "Particularites":"Características",
     "Editadvanced":"Editar configurações avançadas",
     "Adefinir":"À definir",
-    "Non":"Não"
+    "Non":"Não",
+    "Mod":"Modificador"
   }
 }
