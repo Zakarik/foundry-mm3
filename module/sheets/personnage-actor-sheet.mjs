@@ -31,7 +31,7 @@ export class PersonnageActorSheet extends ActorSheet {
       width: 850,
       height: 720,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "caracteristiques"}],
-      dragDrop: [{dragSelector: [".draggable", ".item", ".reorder"], dropSelector: [".item", ".reorder"]}],
+      dragDrop: [{dragSelector: [".draggable", ".item", ".reorder"], dropSelector: [".item", ".reorder", ".reorderDrop"]}],
     });
   }
 
@@ -461,25 +461,127 @@ export class PersonnageActorSheet extends ActorSheet {
       const mod = target.data('value');
       const max = target.data('max');
       const value = Number(target.val());
+      const inpMax = Number(target.attr('max'));
+      const inpMin = Number(target.attr('min'));
       const update = {};
 
       let newValue = 0;
       if((value*-1) < 0) newValue = Math.max((value*-1), max);
-      else if((value*-1) > 0) newValue = Math.min((value*-1), max); 
+      else if((value*-1) > 0) newValue = Math.min((value*-1), max);
     
       switch(type) {
         case 'attaqueprecision':
+          if(mod === 'attaque') {
+            if(value > inpMax) {
+              target.val(inpMax);
+              newValue = inpMax*-1;
+            }
+            else if(value < 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.effet`] = newValue;
+          }
+          else if(mod === 'effet') {
+            if(value < inpMin) {
+              target.val(inpMin);
+              newValue = inpMin*-1;
+            } 
+            else if(value > 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.attaque`] = newValue;
+          }
+
+          this.actor.update(update);
+          break;
+
         case 'attaquepuissance':
-          if(mod === 'attaque') update[`system.strategie.${type}.effet`] = newValue;
-          else if(mod === 'effet') update[`system.strategie.${type}.attaque`] = newValue;
+          if(mod === 'attaque') {
+            if(value < inpMin) {
+              target.val(inpMin);
+              newValue = inpMin*-1;
+            } 
+            else if(value > 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.effet`] = newValue;
+          }
+          else if(mod === 'effet') {
+            if(value > inpMax) {
+              target.val(inpMax);
+              newValue = inpMax*-1;
+            } 
+            else if(value < 0) {
+              target.val(0);
+              newValue = 0;
+            } 
+
+            update[`system.strategie.${type}.attaque`] = newValue;
+          }
 
           this.actor.update(update);
           break;
 
         case 'attaqueoutrance':
+          if(mod === 'attaque') {
+            if(value > inpMax) {
+              target.val(inpMax);
+              newValue = inpMax*-1;
+            } 
+            else if(value < 0) {
+              target.val(0);
+              newValue = 0;
+            } 
+
+            update[`system.strategie.${type}.defense`] = newValue;
+          } 
+          else if(mod === 'defense') {
+            if(value < inpMin) {
+              target.val(inpMin);
+              newValue = inpMin*-1;
+            } 
+            else if(value > 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.attaque`] = newValue;
+          }
+
+          this.actor.update(update);
+          break;
+
         case 'attaquedefensive':
-          if(mod === 'attaque') update[`system.strategie.${type}.defense`] = newValue;
-          else if(mod === 'defense') update[`system.strategie.${type}.attaque`] = newValue;
+          if(mod === 'attaque') {
+            if(value < inpMin) {
+              target.val(inpMin);
+              newValue = inpMin*-1;
+            } 
+            else if(value > 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.defense`] = newValue;
+          } 
+          else if(mod === 'defense') {
+            if(value > inpMax) {
+              target.val(inpMax);
+              newValue = inpMax*-1;
+            } 
+            else if(value < 0) {
+              target.val(0);
+              newValue = 0;
+            } 
+
+            update[`system.strategie.${type}.attaque`] = newValue;
+          }
 
           this.actor.update(update);
           break;
@@ -652,7 +754,16 @@ export class PersonnageActorSheet extends ActorSheet {
   }
 
   _prepareSpeed(context) {
+    const system = game.settings.get("mutants-and-masterminds-3e", "measuresystem");
     const data = context.data.system.vitesse.list;
+
+    if(system === 'metric') {
+      context.data.system.vitesse.mlabel2 = game.i18n.localize('MM3.VITESSE.Kmh');
+      context.data.system.vitesse.mlabel1 = game.i18n.localize('MM3.VITESSE.Metre-short');
+    } else {
+      context.data.system.vitesse.mlabel2 = game.i18n.localize('MM3.VITESSE.Mph');
+      context.data.system.vitesse.mlabel1 = game.i18n.localize('MM3.VITESSE.Pied-short');
+    }
 
     for(let v in data) {
       const vData = data[v];
@@ -664,10 +775,10 @@ export class PersonnageActorSheet extends ActorSheet {
         const rang = Number(vData.rang);
       
         data[v].round = speedCalc(rang).toLocaleString();
-        data[v].kmh = (speedCalc(rang+9)/1000).toLocaleString();
+        data[v].kmh = (speedCalc(rang+9)/5280).toLocaleString();
       }
       else data[v].manuel = true;
-    }
+    }    
   }
 
   async _onItemCreate(event) {
@@ -740,6 +851,8 @@ export class PersonnageActorSheet extends ActorSheet {
 
     if(li.classList.contains('reorder')) {
       const sort = li.dataset.sort === undefined ? li.parentNode.dataset.sort : li.dataset.sort;
+
+      console.warn(li.dataset.type);
 
       switch(li.dataset.type) {
         case 'attaque':

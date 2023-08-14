@@ -1171,7 +1171,7 @@ export async function processImport(actor, data, actorType='personnage') {
     
   }
 
-  const language = game.settings.get("core", "language");
+  const mesures = game.settings.get("mutants-and-masterminds-3e", "measuresystem");
   const height = data.personal.charheight.text;
   const heightParts = height.split("'");
   const feet = parseInt(heightParts[0]) * 0.3048;
@@ -1185,8 +1185,8 @@ export async function processImport(actor, data, actorType='personnage') {
     update[`system.complications`] = listCpc;
     update[`system.age`] = data.personal.age;
     update[`system.genre`] = data.personal.gender;
-    update[`system.taille`] = language !== 'en' ? `${heightInMeters}m` : height;
-    update[`system.poids`] = language !== 'en' ? `${Math.round(parseInt(data.personal.charweight.value)*0.4536)}kg` : data.personal.charweight.text;
+    update[`system.taille`] = mesures === 'metric' ? `${heightInMeters}m` : height;
+    update[`system.poids`] = mesures === 'metric' ? `${Math.round(parseInt(data.personal.charweight.value)*0.4536)}kg` : data.personal.charweight.text;
     update[`system.historique`] = data.personal.description;
     update[`system.yeux`] = data.personal.eyes;
     update[`system.cheveux`] = data.personal.hair;
@@ -1529,9 +1529,11 @@ export async function rollStd(actor, name, score, shift=false) {
 }
 
 //ROLL VS DD
-export async function rollVs(actor, name, score, vs) {
+export async function rollVs(actor, name, score, vs, mod=0) {
   const optDices = getDices();  
-  const save = new Roll(`${optDices.dices} + ${score}`);
+  let toRoll = mod === 0 ? `${optDices.dices} + ${score}` : `${optDices.dices} + ${score} + ${mod}`;
+  console.warn(toRoll)
+  const save = new Roll(toRoll);
   save.evaluate({async:false});
 
   const saveTotal = Number(save.total);
@@ -1548,7 +1550,7 @@ export async function rollVs(actor, name, score, vs) {
   const pRollSave = {
     flavor:name === "" ? " - " : `${name}`,
     tooltip:await save.getTooltip(),
-    formula:`${optDices.formula} + ${score}`,
+    formula:mod === 0 ? `${optDices.formula} + ${score}` : `${optDices.formula} + ${score} + ${mod}`,
     result:save.total,
     isCritique:isCritique,
     vs:vs,
@@ -1873,7 +1875,7 @@ export async function sendInChat(actor, itm) {
   });
 }
 
-const vitesse = {
+const metric = {
   "-5":"0.15",
   "-4":"0.50",
   "-3":"1",
@@ -1912,12 +1914,53 @@ const vitesse = {
   "30":"8000000000",
 };
 
+const imperial = {
+  "-5":"0.5",
+  "-4":"1",
+  "-3":"3",
+  "-2":"6",
+  "-1":"15",
+  "0":"30",
+  "1":"60",
+  "2":"120",
+  "3":"250",
+  "4":"500",
+  "5":"900",
+  "6":"1800",
+  "7":"2640",
+  "8":"5280",
+  "9":"10560",
+  "10":"21120",
+  "11":"42240",
+  "12":"84480",
+  "13":"158400",
+  "14":"316800",
+  "15":"633600",
+  "16":"1320000",
+  "17":"2640000",
+  "18":"5280000",
+  "19":"10560000",
+  "20":"21120000",
+  "21":"42240000",
+  "22":"84480000",
+  "23":"168960000",
+  "24":"337920000",
+  "25":"660000000",
+  "26":"1320000000",
+  "27":"2640000000",
+  "28":"5280000000",
+  "29":"10560000000",
+  "30":"21120000000",
+};
+
 export function speedCalc(int) {
+  const system = game.settings.get("mutants-and-masterminds-3e", "measuresystem");
+  let used = system === 'metric' ? metric : imperial;
   let result;
 
-  if(int <= 30) result = Number(vitesse[int]);
+  if(int <= 30) result = Number(used[int]);
   if(int > 30) {
-    result = Number(vitesse[30]);
+    result = Number(used[30]);
 
     for(let i = 30;i < int;i++) {
       result = result*2;

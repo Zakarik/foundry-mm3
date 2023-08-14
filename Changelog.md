@@ -1,3 +1,13 @@
+## Version 1.23.0
+### Améliorations
+- Ajout de la possibilité de mettre en modificateur pour le jet de robustesse fait en réponse à une attaque (via le bouton apparaissant dans le tchat) en maintenant la touche shift enfoncée lors du clique.
+- Ajout du choix du système de mesure dans les options du système, afin de pouvoir sélectionner entre impérial et métrique. Il est également actif pour les importations depuis HeroLab dorénavant. Par défaut, c'est sur métrique.
+
+### Bugfix
+- Correction de traductions absentes.
+- Correction de soucis de glisser-déposer pour réorganiser certains éléments, lors qu'il y a des champs de texte à l'intérieur de ceux-ci. Pour régler le problème, j'ai déporté le fait de pouvoir glisser-déposer sur une double flèche à chaque fois que c'était nécessaire.
+- Correction de certains cas où les limites des stratégies n'étaient pas correctement prises en compte.
+
 ## Version 1.22.0
 ### Améliorations
 - Améliorations des images d'en-tête.

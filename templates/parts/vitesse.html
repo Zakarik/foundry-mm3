@@ -3,8 +3,8 @@
         <span></span>
         <span class="header">{{localize "MM3.Vitesse"}}</span>
         <span class="header">{{localize "MM3.Rang"}}</span>
-        <span class="header">{{localize "MM3.VITESSE.Round"}} ({{localize "MM3.VITESSE.Metre-short"}})</span>
-        <span class="header">{{localize "MM3.VITESSE.Kmh"}}</span>
+        <span class="header">{{localize "MM3.VITESSE.Round"}} ({{systemData.vitesse.mlabel1}})</span>
+        <span class="header">{{systemData.vitesse.mlabel2}}</span>
     </div>                
 
     {{#each systemData.vitesse.list as |key spd |}}
@@ -17,7 +17,7 @@
             <span class="label">{{key.label}}</span>
             {{/if}}
 
-            <input type="number" name="system.vitesse.list.{{spd}}.rang" value="{{key.rang}}" />
+            <input type="number" name="system.vitesse.list.{{spd}}.rang" value="{{key.rang}}" min="-5" />
             {{#unless manuel}}
             <span class="score">{{key.round}}</span>
             <span class="score">{{key.kmh}}</span>

@@ -46,6 +46,19 @@ export const RegisterSettings = function () {
         }
     });
 
+    game.settings.register("mutants-and-masterminds-3e", "measuresystem", {
+        name: "MM3.SETTING.MeasureSystem",
+        hint: "MM3.SETTING.MeasureSystemHint",
+        scope: "world",
+        config: true,
+        default: "metric",
+        type: String,
+        choices:{
+            "metric":"MM3.SETTING.Metric",
+            "imperial":"MM3.SETTING.Imperial",
+        },
+    });
+
     game.settings.register("mutants-and-masterminds-3e", "pauselogo", {
         name: "MM3.SETTING.Pause",
         hint: "MM3.SETTING.PauseHint",

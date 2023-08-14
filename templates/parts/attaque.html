@@ -15,7 +15,7 @@
     </div>
 
     {{#each systemData.attaque as | key att |}}
-    <div class="reorder" data-type="attaque" data-sort="{{att}}">
+    <div class="reorderDrop" data-type="attaque" data-sort="{{att}}">
         <div class="specialline {{#unless key.edit}}hide{{/unless}}">
             {{#if (isValue key.type 'other')}}
                 <input class="label" type="text" name="system.attaque.{{att}}.label" value="{{key.label}}" />
@@ -83,9 +83,12 @@
         </select>
         <i class="fa-solid fa-pen-to-square editAtk" data-id="{{att}}" data-value="{{key.edit}}" title="{{localize "MM3.Editadvanced"}}"></i>
         <textarea class="{{#if key.edit}}hide{{/if}} {{#if (isValue key.type 'other')}}short{{/if}}" name="system.attaque.{{att}}.text">{{key.text}}</textarea>
-        {{#if (isValue key.type 'other')}}
-            <i class="fa-solid fa-trash-xmark delete {{#if key.edit}}hide{{/if}}" data-id="{{att}}" data-type="attaque"></i>
-        {{/if}}
+        <div class="icons">
+            <i class="fa-solid fa-arrows-up-down reorder" data-sort="{{att}}" data-type="attaque"></i>
+            {{#if (isValue key.type 'other')}}
+                <i class="fa-solid fa-trash-xmark delete {{#if key.edit}}hide{{/if}}" data-id="{{att}}" data-type="attaque"></i>
+            {{/if}}
+        </div>      
     </div>
     {{/each}}
 

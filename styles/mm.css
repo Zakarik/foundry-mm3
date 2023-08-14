@@ -527,27 +527,27 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque > a
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop {
   display: grid;
   grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
   grid-template-rows: max-content;
   padding: 0px 5px 5px;
   grid-gap: 5px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder a.noAtk.selected {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop a.noAtk.selected {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder a.roll.large {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop a.roll.large {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder a.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop a.hide {
   display: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder a.add {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop a.add {
   grid-column-start: 1;
   grid-column-end: 7;
   text-align: center;
@@ -569,13 +569,13 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   margin-left: 2px;
   margin-bottom: 2px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder a.add:hover {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop a.add:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.line {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop div.line {
   grid-column-start: 1;
   grid-column-end: 7;
   display: grid;
@@ -583,7 +583,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   grid-gap: 5px;
   margin-top: 5px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.line span {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop div.line span {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -591,7 +591,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   align-items: center;
   font-family: Sriracha;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.line span.score {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop div.line span.score {
   padding-right: 0px;
   padding-left: 0px;
   font-weight: normal;
@@ -600,10 +600,10 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.line span.total {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop div.line span.total {
   font-weight: bold;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.specialline {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop div.specialline {
   grid-column-start: 1;
   grid-column-end: 6;
   display: grid;
@@ -611,7 +611,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   grid-template-rows: max-content;
   grid-gap: 5px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.specialline span.labelBase {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop div.specialline span.labelBase {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -620,7 +620,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   font-family: Sriracha;
   white-space: nowrap;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.specialline span.labelDefense {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop div.specialline span.labelDefense {
   grid-column-start: 1;
   display: grid;
   width: 100%;
@@ -629,21 +629,21 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   align-items: center;
   font-family: Sriracha;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.specialline span.labelDefense.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop div.specialline span.labelDefense.hide {
   display: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.specialline select.selectDefense {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop div.specialline select.selectDefense {
   grid-column-start: 2;
   grid-column-end: 4;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.specialline input.label {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop div.specialline input.label {
   grid-column-start: 1;
   grid-column-end: 4;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder div.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop div.hide {
   display: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder > span.header {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop > span.header {
   grid-column-start: 1;
   grid-column-end: 6;
   display: grid;
@@ -653,7 +653,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   font-size: 1em;
   height: 18px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder > span.carac {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop > span.carac {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -662,7 +662,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   font-family: Sriracha;
   text-transform: uppercase;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder > span.score {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop > span.score {
   display: grid;
   width: 100%;
   padding-right: 0px;
@@ -676,21 +676,21 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder > span.label {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop > span.label {
   font-size: 0.8em;
   text-align: center;
   line-height: 0.8em;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder > span.label.large {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop > span.label.large {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder > span.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop > span.hide {
   display: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder textarea {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop textarea {
   grid-column-start: 1;
-  grid-column-end: 7;
+  grid-column-end: 6;
   resize: vertical;
   width: 100%;
   max-width: 100%;
@@ -698,23 +698,28 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div
   font-family: Sriracha;
   font-size: 0.8em;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder textarea.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop textarea.hide {
   display: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder textarea.short {
-  grid-column-end: 6;
-}
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder select.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop select.hide {
   display: none;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder i {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop i {
   cursor: pointer;
+  text-align: center;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder i:hover {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop i:hover {
   text-shadow: 0px 0px 3px;
 }
-div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorder i.hide {
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop i.hide {
   display: none;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop div.icons {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.attaque div.reorderDrop div.icons i.delete {
+  margin-top: auto;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.strategie {
   display: grid;
@@ -1300,6 +1305,14 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.li
 div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.subcomp i:hover,
 div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.list i:hover {
   text-shadow: 0px 0px 3px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.icons {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.icons i {
+  font-size: 12px;
+  text-align: center;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.etats {
   display: grid;
@@ -4856,27 +4869,27 @@ div.vehicule section.sheet-body div div.attaque > a.add:hover {
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop {
   display: grid;
   grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
   grid-template-rows: max-content;
   padding: 0px 5px 5px;
   grid-gap: 5px;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder a.noAtk.selected {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop a.noAtk.selected {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder a.roll.large {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop a.roll.large {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder a.hide {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop a.hide {
   display: none;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder a.add {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop a.add {
   grid-column-start: 1;
   grid-column-end: 7;
   text-align: center;
@@ -4898,13 +4911,13 @@ div.vehicule section.sheet-body div div.attaque div.reorder a.add {
   margin-left: 2px;
   margin-bottom: 2px;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder a.add:hover {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop a.add:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder div.line {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop div.line {
   grid-column-start: 1;
   grid-column-end: 7;
   display: grid;
@@ -4912,7 +4925,7 @@ div.vehicule section.sheet-body div div.attaque div.reorder div.line {
   grid-gap: 5px;
   margin-top: 5px;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder div.line span {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop div.line span {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -4920,7 +4933,7 @@ div.vehicule section.sheet-body div div.attaque div.reorder div.line span {
   align-items: center;
   font-family: Sriracha;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder div.line span.score {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop div.line span.score {
   padding-right: 0px;
   padding-left: 0px;
   font-weight: normal;
@@ -4929,10 +4942,10 @@ div.vehicule section.sheet-body div div.attaque div.reorder div.line span.score 
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder div.line span.total {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop div.line span.total {
   font-weight: bold;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder div.specialline {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop div.specialline {
   grid-column-start: 1;
   grid-column-end: 6;
   display: grid;
@@ -4940,7 +4953,7 @@ div.vehicule section.sheet-body div div.attaque div.reorder div.specialline {
   grid-template-rows: max-content;
   grid-gap: 5px;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder div.specialline span.labelBase {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop div.specialline span.labelBase {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -4949,7 +4962,7 @@ div.vehicule section.sheet-body div div.attaque div.reorder div.specialline span
   font-family: Sriracha;
   white-space: nowrap;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder div.specialline span.labelDefense {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop div.specialline span.labelDefense {
   grid-column-start: 1;
   display: grid;
   width: 100%;
@@ -4958,21 +4971,21 @@ div.vehicule section.sheet-body div div.attaque div.reorder div.specialline span
   align-items: center;
   font-family: Sriracha;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder div.specialline span.labelDefense.hide {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop div.specialline span.labelDefense.hide {
   display: none;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder div.specialline select.selectDefense {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop div.specialline select.selectDefense {
   grid-column-start: 2;
   grid-column-end: 4;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder div.specialline input.label {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop div.specialline input.label {
   grid-column-start: 1;
   grid-column-end: 4;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder div.hide {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop div.hide {
   display: none;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder > span.header {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop > span.header {
   grid-column-start: 1;
   grid-column-end: 6;
   display: grid;
@@ -4982,7 +4995,7 @@ div.vehicule section.sheet-body div div.attaque div.reorder > span.header {
   font-size: 1em;
   height: 18px;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder > span.carac {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop > span.carac {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -4991,7 +5004,7 @@ div.vehicule section.sheet-body div div.attaque div.reorder > span.carac {
   font-family: Sriracha;
   text-transform: uppercase;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder > span.score {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop > span.score {
   display: grid;
   width: 100%;
   padding-right: 0px;
@@ -5005,21 +5018,21 @@ div.vehicule section.sheet-body div div.attaque div.reorder > span.score {
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder > span.label {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop > span.label {
   font-size: 0.8em;
   text-align: center;
   line-height: 0.8em;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder > span.label.large {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop > span.label.large {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder > span.hide {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop > span.hide {
   display: none;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder textarea {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop textarea {
   grid-column-start: 1;
-  grid-column-end: 7;
+  grid-column-end: 6;
   resize: vertical;
   width: 100%;
   max-width: 100%;
@@ -5027,23 +5040,28 @@ div.vehicule section.sheet-body div div.attaque div.reorder textarea {
   font-family: Sriracha;
   font-size: 0.8em;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder textarea.hide {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop textarea.hide {
   display: none;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder textarea.short {
-  grid-column-end: 6;
-}
-div.vehicule section.sheet-body div div.attaque div.reorder select.hide {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop select.hide {
   display: none;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder i {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop i {
   cursor: pointer;
+  text-align: center;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder i:hover {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop i:hover {
   text-shadow: 0px 0px 3px;
 }
-div.vehicule section.sheet-body div div.attaque div.reorder i.hide {
+div.vehicule section.sheet-body div div.attaque div.reorderDrop i.hide {
   display: none;
+}
+div.vehicule section.sheet-body div div.attaque div.reorderDrop div.icons {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+div.vehicule section.sheet-body div div.attaque div.reorderDrop div.icons i.delete {
+  margin-top: auto;
 }
 div.vehicule section.sheet-body div div.strategie {
   display: grid;
@@ -6424,27 +6442,27 @@ div.qg section.sheet-body div div.attaque > a.add:hover {
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.qg section.sheet-body div div.attaque div.reorder {
+div.qg section.sheet-body div div.attaque div.reorderDrop {
   display: grid;
   grid-template-columns: 1fr repeat(3, 45px) 1fr 15px;
   grid-template-rows: max-content;
   padding: 0px 5px 5px;
   grid-gap: 5px;
 }
-div.qg section.sheet-body div div.attaque div.reorder a.noAtk.selected {
+div.qg section.sheet-body div div.attaque div.reorderDrop a.noAtk.selected {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.qg section.sheet-body div div.attaque div.reorder a.roll.large {
+div.qg section.sheet-body div div.attaque div.reorderDrop a.roll.large {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.qg section.sheet-body div div.attaque div.reorder a.hide {
+div.qg section.sheet-body div div.attaque div.reorderDrop a.hide {
   display: none;
 }
-div.qg section.sheet-body div div.attaque div.reorder a.add {
+div.qg section.sheet-body div div.attaque div.reorderDrop a.add {
   grid-column-start: 1;
   grid-column-end: 7;
   text-align: center;
@@ -6466,13 +6484,13 @@ div.qg section.sheet-body div div.attaque div.reorder a.add {
   margin-left: 2px;
   margin-bottom: 2px;
 }
-div.qg section.sheet-body div div.attaque div.reorder a.add:hover {
+div.qg section.sheet-body div div.attaque div.reorderDrop a.add:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.qg section.sheet-body div div.attaque div.reorder div.line {
+div.qg section.sheet-body div div.attaque div.reorderDrop div.line {
   grid-column-start: 1;
   grid-column-end: 7;
   display: grid;
@@ -6480,7 +6498,7 @@ div.qg section.sheet-body div div.attaque div.reorder div.line {
   grid-gap: 5px;
   margin-top: 5px;
 }
-div.qg section.sheet-body div div.attaque div.reorder div.line span {
+div.qg section.sheet-body div div.attaque div.reorderDrop div.line span {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -6488,7 +6506,7 @@ div.qg section.sheet-body div div.attaque div.reorder div.line span {
   align-items: center;
   font-family: Sriracha;
 }
-div.qg section.sheet-body div div.attaque div.reorder div.line span.score {
+div.qg section.sheet-body div div.attaque div.reorderDrop div.line span.score {
   padding-right: 0px;
   padding-left: 0px;
   font-weight: normal;
@@ -6497,10 +6515,10 @@ div.qg section.sheet-body div div.attaque div.reorder div.line span.score {
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
-div.qg section.sheet-body div div.attaque div.reorder div.line span.total {
+div.qg section.sheet-body div div.attaque div.reorderDrop div.line span.total {
   font-weight: bold;
 }
-div.qg section.sheet-body div div.attaque div.reorder div.specialline {
+div.qg section.sheet-body div div.attaque div.reorderDrop div.specialline {
   grid-column-start: 1;
   grid-column-end: 6;
   display: grid;
@@ -6508,7 +6526,7 @@ div.qg section.sheet-body div div.attaque div.reorder div.specialline {
   grid-template-rows: max-content;
   grid-gap: 5px;
 }
-div.qg section.sheet-body div div.attaque div.reorder div.specialline span.labelBase {
+div.qg section.sheet-body div div.attaque div.reorderDrop div.specialline span.labelBase {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -6517,7 +6535,7 @@ div.qg section.sheet-body div div.attaque div.reorder div.specialline span.label
   font-family: Sriracha;
   white-space: nowrap;
 }
-div.qg section.sheet-body div div.attaque div.reorder div.specialline span.labelDefense {
+div.qg section.sheet-body div div.attaque div.reorderDrop div.specialline span.labelDefense {
   grid-column-start: 1;
   display: grid;
   width: 100%;
@@ -6526,21 +6544,21 @@ div.qg section.sheet-body div div.attaque div.reorder div.specialline span.label
   align-items: center;
   font-family: Sriracha;
 }
-div.qg section.sheet-body div div.attaque div.reorder div.specialline span.labelDefense.hide {
+div.qg section.sheet-body div div.attaque div.reorderDrop div.specialline span.labelDefense.hide {
   display: none;
 }
-div.qg section.sheet-body div div.attaque div.reorder div.specialline select.selectDefense {
+div.qg section.sheet-body div div.attaque div.reorderDrop div.specialline select.selectDefense {
   grid-column-start: 2;
   grid-column-end: 4;
 }
-div.qg section.sheet-body div div.attaque div.reorder div.specialline input.label {
+div.qg section.sheet-body div div.attaque div.reorderDrop div.specialline input.label {
   grid-column-start: 1;
   grid-column-end: 4;
 }
-div.qg section.sheet-body div div.attaque div.reorder div.hide {
+div.qg section.sheet-body div div.attaque div.reorderDrop div.hide {
   display: none;
 }
-div.qg section.sheet-body div div.attaque div.reorder > span.header {
+div.qg section.sheet-body div div.attaque div.reorderDrop > span.header {
   grid-column-start: 1;
   grid-column-end: 6;
   display: grid;
@@ -6550,7 +6568,7 @@ div.qg section.sheet-body div div.attaque div.reorder > span.header {
   font-size: 1em;
   height: 18px;
 }
-div.qg section.sheet-body div div.attaque div.reorder > span.carac {
+div.qg section.sheet-body div div.attaque div.reorderDrop > span.carac {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -6559,7 +6577,7 @@ div.qg section.sheet-body div div.attaque div.reorder > span.carac {
   font-family: Sriracha;
   text-transform: uppercase;
 }
-div.qg section.sheet-body div div.attaque div.reorder > span.score {
+div.qg section.sheet-body div div.attaque div.reorderDrop > span.score {
   display: grid;
   width: 100%;
   padding-right: 0px;
@@ -6573,21 +6591,21 @@ div.qg section.sheet-body div div.attaque div.reorder > span.score {
   border: 1px solid #7a7971;
   border-radius: 2px;
 }
-div.qg section.sheet-body div div.attaque div.reorder > span.label {
+div.qg section.sheet-body div div.attaque div.reorderDrop > span.label {
   font-size: 0.8em;
   text-align: center;
   line-height: 0.8em;
 }
-div.qg section.sheet-body div div.attaque div.reorder > span.label.large {
+div.qg section.sheet-body div div.attaque div.reorderDrop > span.label.large {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.qg section.sheet-body div div.attaque div.reorder > span.hide {
+div.qg section.sheet-body div div.attaque div.reorderDrop > span.hide {
   display: none;
 }
-div.qg section.sheet-body div div.attaque div.reorder textarea {
+div.qg section.sheet-body div div.attaque div.reorderDrop textarea {
   grid-column-start: 1;
-  grid-column-end: 7;
+  grid-column-end: 6;
   resize: vertical;
   width: 100%;
   max-width: 100%;
@@ -6595,23 +6613,28 @@ div.qg section.sheet-body div div.attaque div.reorder textarea {
   font-family: Sriracha;
   font-size: 0.8em;
 }
-div.qg section.sheet-body div div.attaque div.reorder textarea.hide {
+div.qg section.sheet-body div div.attaque div.reorderDrop textarea.hide {
   display: none;
 }
-div.qg section.sheet-body div div.attaque div.reorder textarea.short {
-  grid-column-end: 6;
-}
-div.qg section.sheet-body div div.attaque div.reorder select.hide {
+div.qg section.sheet-body div div.attaque div.reorderDrop select.hide {
   display: none;
 }
-div.qg section.sheet-body div div.attaque div.reorder i {
+div.qg section.sheet-body div div.attaque div.reorderDrop i {
   cursor: pointer;
+  text-align: center;
 }
-div.qg section.sheet-body div div.attaque div.reorder i:hover {
+div.qg section.sheet-body div div.attaque div.reorderDrop i:hover {
   text-shadow: 0px 0px 3px;
 }
-div.qg section.sheet-body div div.attaque div.reorder i.hide {
+div.qg section.sheet-body div div.attaque div.reorderDrop i.hide {
   display: none;
+}
+div.qg section.sheet-body div div.attaque div.reorderDrop div.icons {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+div.qg section.sheet-body div div.attaque div.reorderDrop div.icons i.delete {
+  margin-top: auto;
 }
 div.qg section.sheet-body div div.strategie {
   display: grid;

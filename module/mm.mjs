@@ -29,6 +29,7 @@ import {
   getFullCarac,
   listBg,
   speedCalc,
+  modPromptClasses,
 } from "./helpers/common.mjs";
 
 import { MigrationMM3 } from "./migration.mjs";
@@ -460,6 +461,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
       const tgt = target.data('target');
       const savetype = target.data('savetype');
       const vs = target.data('vs');
+      const hasShift = ev.shiftKey;
 
       const token = canvas.scene.tokens.find(token => token.id === tgt);
 
@@ -469,7 +471,33 @@ Hooks.on('renderChatMessage', (message, html, data) => {
       const saveScore = tokenData.defense[savetype].total;
       const name = `${game.i18n.localize(CONFIG.MM3.defenses[savetype])}`;
 
-      rollVs(token.actor, name, saveScore, vs);
+      if(hasShift) {
+        const dialog = new Dialog({
+          title:game.i18n.localize("MM3.DIALOG.AskMod"),
+          content:`<span class='label'>${game.i18n.localize('MM3.Mod')}</span><input class='mod' type='number' value='0' />`,
+          buttons: {
+            one: {
+              icon: '<i class="fas fa-check"></i>',
+              label: game.i18n.localize('MM3.ROLL.Valider'),
+              callback: (html) => {
+                rollVs(token.actor, name, saveScore, vs, $(html.find('input.mod')).val());
+              }
+            },
+            two: {
+              icon: '<i class="fas fa-times"></i>',
+              label: game.i18n.localize('MM3.ROLL.Annuler'),
+              callback: (html) => {}
+            }
+          },
+        },
+        {
+          classes: modPromptClasses(token.actor)
+        }).render(true); 
+      } else {
+        rollVs(token.actor, name, saveScore, vs);
+      }
+
+      
   });
 
   if(isInitiative) {

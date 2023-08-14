@@ -251,7 +251,11 @@
       "BleuClair":"Azul claro",
       "VioletClair":"Roxo claro",
       "Violet":"Roxo",
-      "BleuFonce":"Azul escuro"
+      "BleuFonce":"Azul escuro",
+      "MeasureSystem":"Sistema de medição",
+      "MeasureSystemHint":"Escolha entre o sistema métrico ou imperial.",
+      "Metric":"Métrico",
+      "Imperial":"Imperial"
     },
     "ROLL":{
       "AttSuccess":"O ataque acerta !",
@@ -297,7 +301,9 @@
       "Course":"Correr",
       "Round":"Por rodada",
       "Kmh":"Km/h",
-      "Metre-short":"m"
+      "Metre-short":"m",
+      "Mph":"Mph",
+      "Pied-short":"ft"
     },
     "Nom":"Nome",
     "Identite":"Identidade",

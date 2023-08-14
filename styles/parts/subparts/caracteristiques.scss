@@ -473,6 +473,16 @@ div {
                                 }
                             }
                         }
+
+                        div.icons {
+                            display:grid;
+                            grid-template-columns: 1fr;
+
+                            i {
+                                font-size: 12px;
+                                text-align: center;
+                            }
+                        }
                     }
 
                     &.etats {

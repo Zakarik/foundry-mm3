@@ -89,7 +89,7 @@
                 <span class="header">{{localize "MM3.Autre"}}</span>
 
                 {{#each systemData.competence.list as | key comp |}}
-                    <div class="list {{#if key.new}}reorder{{/if}}" {{#if key.new}}data-type="basecompetence" data-sort="{{comp}}"{{/if}}>
+                    <div class="list {{#if key.new}}reorderDrop{{/if}}" {{#if key.new}}data-type="basecompetence" data-sort="{{comp}}"{{/if}}>
                         {{#if key.canAdd}}
                             <span class="label">{{key.label}}</span>
                             <span class="carac">{{translate 'caracteristiquesshort' key.car}}</span>
@@ -100,7 +100,7 @@
                             <span></span>
 
                             {{#each key.list as | kscomp subcomp |}}
-                            <div class="subcomp reorder" data-type="competence" data-comp="{{comp}}" data-sort="{{subcomp}}">
+                            <div class="subcomp reorderDrop" data-type="competence" data-comp="{{comp}}" data-sort="{{subcomp}}">
                                 <a class="roll oneRoll draggable" data-what="{{comp}}" data-id="{{subcomp}}" data-type="competence" data-name="{{kscomp.label}}" data-total="{{kscomp.total}}">
                                     <i class="fa-solid fa-dice-d20"></i>
                                 </a>
@@ -125,7 +125,10 @@
                                 <span class="score">{{kscomp.carac}}</span>
                                 <input type="number" name="system.competence.{{comp}}.list.{{subcomp}}.rang" value="{{kscomp.rang}}" />
                                 <input type="number" name="system.competence.{{comp}}.list.{{subcomp}}.autre" value="{{kscomp.autre}}" />
-                                <i class="fa-solid fa-trash-xmark delete" data-id="{{subcomp}}" data-type="competence" data-what="{{comp}}"></i>
+                                <div class="icons">
+                                    <i class="fa-solid fa-arrows-up-down reorder" data-type="competence" data-comp="{{comp}}" data-sort="{{subcomp}}"></i>
+                                    <i class="fa-solid fa-trash-xmark delete" data-id="{{subcomp}}" data-type="competence" data-what="{{comp}}"></i>
+                                </div>                                
                             </div>                            
                             {{/each}}
 
@@ -165,7 +168,11 @@
                             <input type="number" name="system.competence.{{comp}}.autre" value="{{key.autre}}" />
                             
                             {{#if key.new}}
-                            <i class="fa-solid fa-trash-xmark delete" data-id="{{comp}}" data-type="competence" data-what="new"></i>
+                            <div class="icons">
+                                <i class="fa-solid fa-arrows-up-down reorder" data-type="basecompetence" data-sort="{{comp}}"></i>
+                                <i class="fa-solid fa-trash-xmark delete" data-id="{{comp}}" data-type="competence" data-what="new"></i>
+                            </div>
+                            
                             {{else}}
                             <span></span>
                             {{/if}}

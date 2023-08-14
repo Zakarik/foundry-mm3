@@ -24,7 +24,7 @@ export class VehiculeActorSheet extends ActorSheet {
       width: 850,
       height: 450,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "details"}],
-      dragDrop: [{dragSelector: ".draggable", dropSelector: null}],
+      dragDrop: [{dragSelector: [".draggable", ".reorder"], dropSelector: ".reorderDrop"}],
     });
   }
 
@@ -363,31 +363,133 @@ export class VehiculeActorSheet extends ActorSheet {
       $(html.find(`div.attaque div.specialline input.basedef${id}`)).val(newValue);
     });
 
-    html.find('div.details div.strategie input').change(async ev => {
+    html.find('div.caracteristiques div.strategie input').change(async ev => {
       const target = $(ev.currentTarget);
       const type = target.data('type');
       const mod = target.data('value');
       const max = target.data('max');
       const value = Number(target.val());
-
+      const inpMax = Number(target.attr('max'));
+      const inpMin = Number(target.attr('min'));
       const update = {};
+
       let newValue = 0;
       if((value*-1) < 0) newValue = Math.max((value*-1), max);
-      else if((value*-1) > 0) newValue = Math.min((value*-1), max); 
+      else if((value*-1) > 0) newValue = Math.min((value*-1), max);
     
       switch(type) {
         case 'attaqueprecision':
+          if(mod === 'attaque') {
+            if(value > inpMax) {
+              target.val(inpMax);
+              newValue = inpMax*-1;
+            }
+            else if(value < 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.effet`] = newValue;
+          }
+          else if(mod === 'effet') {
+            if(value < inpMin) {
+              target.val(inpMin);
+              newValue = inpMin*-1;
+            } 
+            else if(value > 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.attaque`] = newValue;
+          }
+
+          this.actor.update(update);
+          break;
+
         case 'attaquepuissance':
-          if(mod === 'attaque') update[`system.strategie.${type}.effet`] = newValue;
-          else if(mod === 'effet') update[`system.strategie.${type}.attaque`] = newValue;
+          if(mod === 'attaque') {
+            if(value < inpMin) {
+              target.val(inpMin);
+              newValue = inpMin*-1;
+            } 
+            else if(value > 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.effet`] = newValue;
+          }
+          else if(mod === 'effet') {
+            if(value > inpMax) {
+              target.val(inpMax);
+              newValue = inpMax*-1;
+            } 
+            else if(value < 0) {
+              target.val(0);
+              newValue = 0;
+            } 
+
+            update[`system.strategie.${type}.attaque`] = newValue;
+          }
 
           this.actor.update(update);
           break;
 
         case 'attaqueoutrance':
+          if(mod === 'attaque') {
+            if(value > inpMax) {
+              target.val(inpMax);
+              newValue = inpMax*-1;
+            } 
+            else if(value < 0) {
+              target.val(0);
+              newValue = 0;
+            } 
+
+            update[`system.strategie.${type}.defense`] = newValue;
+          } 
+          else if(mod === 'defense') {
+            if(value < inpMin) {
+              target.val(inpMin);
+              newValue = inpMin*-1;
+            } 
+            else if(value > 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.attaque`] = newValue;
+          }
+
+          this.actor.update(update);
+          break;
+
         case 'attaquedefensive':
-          if(mod === 'attaque') update[`system.strategie.${type}.defense`] = newValue;
-          else if(mod === 'defense') update[`system.strategie.${type}.attaque`] = newValue;
+          if(mod === 'attaque') {
+            if(value < inpMin) {
+              target.val(inpMin);
+              newValue = inpMin*-1;
+            } 
+            else if(value > 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.defense`] = newValue;
+          } 
+          else if(mod === 'defense') {
+            if(value > inpMax) {
+              target.val(inpMax);
+              newValue = inpMax*-1;
+            } 
+            else if(value < 0) {
+              target.val(0);
+              newValue = 0;
+            } 
+
+            update[`system.strategie.${type}.attaque`] = newValue;
+          }
 
           this.actor.update(update);
           break;
