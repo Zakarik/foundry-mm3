@@ -852,8 +852,6 @@ export class PersonnageActorSheet extends ActorSheet {
     if(li.classList.contains('reorder')) {
       const sort = li.dataset.sort === undefined ? li.parentNode.dataset.sort : li.dataset.sort;
 
-      console.warn(li.dataset.type);
-
       switch(li.dataset.type) {
         case 'attaque':
         case 'complications':

@@ -245,6 +245,12 @@ Hooks.once('init', async function() {
     icon:"systems/mutants-and-masterminds-3e/assets/icons/stunned.svg"
   }];  
 
+  CONFIG.specialStatusEffects = {
+    BLIND:"blind",
+    DEFEATED:"neutralized",
+    INVISIBLE:"invisible"
+  };
+
   // Define custom Document classes
   CONFIG.Actor.documentClass = MM3Actor;
   CONFIG.Item.documentClass = MM3Item;

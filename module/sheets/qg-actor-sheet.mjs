@@ -758,8 +758,6 @@ export class QGActorSheet extends ActorSheet {
 
     if ( !dragData ) return;
 
-    console.warn(dragData);
-
     // Set data transfer
     event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
   }

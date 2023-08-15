@@ -1532,7 +1532,6 @@ export async function rollStd(actor, name, score, shift=false) {
 export async function rollVs(actor, name, score, vs, mod=0) {
   const optDices = getDices();  
   let toRoll = mod === 0 ? `${optDices.dices} + ${score}` : `${optDices.dices} + ${score} + ${mod}`;
-  console.warn(toRoll)
   const save = new Roll(toRoll);
   save.evaluate({async:false});
 

@@ -1,3 +1,7 @@
+## Version 1.24.0
+### Améliorations
+- Remplacement du status de "mort" dans le combat tracker par le status "neutralisé", étant plus en phase avec MnM.
+
 ## Version 1.23.0
 ### Améliorations
 - Ajout de la possibilité de mettre en modificateur pour le jet de robustesse fait en réponse à une attaque (via le bouton apparaissant dans le tchat) en maintenant la touche shift enfoncée lors du clique.
