@@ -2,6 +2,8 @@
     <div class="inner">
         <div class="col">
             <div class="carac">
+                <span class="title">{{localize "MM3.Caracteristiques"}}</span>
+
                 <span class="header">{{localize "MM3.Nom"}}</span>
                 <span class="header">{{localize "MM3.Total"}}</span>
                 <span class="header">{{localize "MM3.Base"}}</span>
@@ -37,10 +39,12 @@
             </div>
 
             <div class="defense">
+                
+
                 <div class="line">
                     <span>{{localize "MM3.DEFENSE.DDEsquive"}}</span>
                     <span class="score">{{systemData.ddesquive}}</span>
-                    <span></span>
+                    <span class="title">{{localize "MM3.Defenses"}}</span>
                     <span>{{localize "MM3.DEFENSE.DDParade"}}</span>
                     <span class="score">{{systemData.ddparade}}</span>
                 </div>
@@ -81,6 +85,8 @@
         <div class="col">
 {{> systems/mutants-and-masterminds-3e/templates/parts/vitesse.html}}
             <div class="comp">
+                <span class="title">{{localize "MM3.Competences"}}</span>
+
                 <span class="header htwo">{{localize "MM3.Nom"}}</span>
                 <span></span>
                 <span class="header">{{localize "MM3.Total"}}</span>

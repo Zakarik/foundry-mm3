@@ -39,7 +39,7 @@ export const RegisterSettings = function () {
         hint: "MM3.SETTING.SpeedAutocalcHint",
         scope: "world",
         config: true,
-        default: "default",
+        default: true,
         type: Boolean,
         onChange: value => {
             foundry.utils.debouncedReload();

@@ -1,3 +1,12 @@
+## Version 1.25.0
+### Améliorations
+- Ajout de titres pour les différentes sections de la fiche, pour plus de clarté.
+- Ajout automatique des états liés à un état combiné, lorsque ledit état est ajouté à un token.
+
+### Bugfix
+- Correction de traductions absentes.
+- Amélioration de certaines traductions.
+
 ## Version 1.24.0
 ### Améliorations
 - Remplacement du status de "mort" dans le combat tracker par le status "neutralisé", étant plus en phase avec MnM.

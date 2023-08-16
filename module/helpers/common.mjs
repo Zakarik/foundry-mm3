@@ -1423,6 +1423,87 @@ export function modPromptClasses(actor) {
   return classes;
 }
 
+export function setCombinedEffects(token, statusId, active) {
+  if(active) {
+    const version = game.version.split('.')[0];
+    const listStatusEffect = CONFIG.statusEffects;
+    let statusEffect;
+
+    if(version < 11) {
+      statusEffect = listStatusEffect.find((se) => se.id === statusId);
+      if(statusEffect !== undefined) {
+        const changes = statusEffect.changes;
+        
+        if(changes !== undefined) {
+          let effectData = [];
+
+          for(let c of changes) {
+            const idSE = c.key;
+            const exist = token.effects.find((se) => se.flags.core.statusId === idSE);
+            const tSE = listStatusEffect.find((se) => se.id === idSE);
+            
+            if(exist === undefined && tSE !== undefined) {
+              const dChanges = tSE?.changes ?? false;
+
+              let nEffect = {
+                name: game.i18n.localize(tSE.label),
+                label: game.i18n.localize(tSE.label),
+                icon: tSE.icon,
+                "flags.core.statusId":idSE
+              };
+
+              if(dChanges !== false) {
+                nEffect['changes'] = dChanges;
+              }
+
+              effectData.push(nEffect);
+            }
+          }
+
+          if(effectData.length !== 0) token.createEmbeddedDocuments("ActiveEffect", effectData);
+        }
+      }
+    } else {
+      for(let s of statusId) {
+        statusEffect = listStatusEffect.find((se) => se.id === s);
+        
+        if(statusEffect !== undefined) {
+          const changes = statusEffect.changes;
+          
+          if(changes !== undefined) {
+            let effectData = [];
+  
+            for(let c of changes) {
+              const idSE = c.key;
+              const exist = token.statuses.has(idSE);
+              const tSE = listStatusEffect.find((se) => se.id === idSE);
+    
+              if(!exist && tSE !== undefined) {
+                const dChanges = tSE?.changes ?? false;
+  
+                let nEffect = {
+                  name: game.i18n.localize(tSE.label),
+                  label: game.i18n.localize(tSE.label),
+                  icon: tSE.icon,
+                  statuses:[idSE]
+                };
+  
+                if(dChanges !== false) {
+                  nEffect['changes'] = dChanges;
+                }
+  
+                effectData.push(nEffect);
+              }
+            }
+  
+            if(effectData.length !== 0) token.createEmbeddedDocuments("ActiveEffect", effectData);
+          }
+        }
+      }
+    }
+  }
+}
+
 //ROLL STANDARD
 export async function rollStd(actor, name, score, shift=false) {
   const optDices = getDices();  

@@ -185,6 +185,7 @@ div.qg {
             div {
                 @include attaque;
                 @include strategie;
+                @include vitesse;
 
                 &.col {
                     display:grid;
@@ -983,130 +984,6 @@ div.qg {
                             padding-right:5px;
                             font-size: 0.8rem;
                             text-align: justify;
-                        }
-                    }
-                }
-
-                &.speed {
-                    display:grid;
-                    grid-template-columns: 22px 1fr 45px repeat(2, 100px);
-                    grid-template-rows: max-content;
-                    border:2px solid $black;
-                    grid-gap: 5px;
-
-                    @include fakebutton('btn');
-
-                    div {
-                        &.inlist {
-                            grid-column-start: 1;
-                            grid-column-end: 6;
-
-                            display:grid;
-                            grid-template-columns: 22px 1fr 45px repeat(2, 1fr) 12.25px;
-                            grid-template-rows: max-content;
-                            padding:0px 5px;
-                            grid-gap: 5px;
-
-                            a.selectspeed {
-                                padding:0px;
-
-                                i {
-                                    margin:auto;
-                                    padding-left: 2px;
-                                }
-                            }
-
-                            &.selected {
-                                background:rgba(218, 58, 47, 0.2);
-
-                                a.selectspeed {
-                                    color: $lightOrange;
-                                    border-color: $red;
-                                    letter-spacing: 1px;
-                                    text-shadow: none;
-                                }
-                            }
-
-                            i.delete {
-                                cursor:pointer;
-                                margin-top: auto;
-                                margin-bottom:auto;
-    
-                                &:hover {
-                                    text-shadow: 0px 0px 3px;
-                                }
-                            }
-                        }
-                    }
-
-                    span {
-                        &.header {
-                            display:grid;
-                            width:100%;
-                            justify-content: center;
-                            align-items: center;
-                            font-size:0.8em;
-                            height:18px;
-                        }
-
-                        &.label {
-                            display:grid;
-                            width:100%;
-                            justify-content: center;
-                            align-items: center;
-                        }
-
-                        &.score {
-                            display:grid;
-                            width:100%;
-                            padding-right: 0px;
-                            padding-left: 0px;
-                            justify-content: center;
-                            align-items: center;
-                            font-family: Sriracha;
-                            height:100%;
-                            background:transparent;
-                            border:1px solid #7a7971;
-                            border-radius:2px;
-                            font-size: 12px;
-                        }
-                    }
-
-                    input {
-                        width:100%;
-                        padding-right: 0px;
-                        padding-left: 0px;
-                        text-align: center;
-                        font-family: Sriracha;
-                        height:100%;
-                        background:transparent;
-                    }
-
-                    a.add {
-                        grid-column-start: 1;
-                        grid-column-end: 6;
-                        text-align: center;
-                        width:calc(100% - 4px);
-                        border-bottom: 2px solid #666;
-                        border-color: #aaa;
-                        border-radius: 5px;
-                        border-right: 3px solid #999;
-                        border-style: outset;
-                        font-family: "Bangers";
-                        font-size: 13px;
-                        font-weight: normal;
-                        line-height: 18px;
-                        cursor: pointer;
-                        color: $color;
-                        text-transform: uppercase;
-                        padding: 2px 5px;
-                        margin: 2px;
-    
-                        &:hover {
-                            color: $lightOrange;
-                            border-color:$red;
-                            letter-spacing: 1px;
-                            text-shadow:none;
                         }
                     }
                 }

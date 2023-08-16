@@ -30,6 +30,7 @@ import {
   listBg,
   speedCalc,
   modPromptClasses,
+  setCombinedEffects,
 } from "./helpers/common.mjs";
 
 import { MigrationMM3 } from "./migration.mjs";
@@ -177,57 +178,177 @@ Hooks.once('init', async function() {
   {
     id:'prone',
     label:'MM3.STATUS.Prone',
-    icon:"icons/svg/falling.svg"
+    icon:"icons/svg/falling.svg",
+    changes:[{
+      key:'slow',
+      mode:0,
+      value:0
+    }]
   },
   {
     id:'blind',
     label:'MM3.STATUS.Blind',
-    icon:"icons/svg/blind.svg"
+    icon:"icons/svg/blind.svg",
+    changes:[{
+      key:'slow',
+      mode:0,
+      value:0
+    },
+    {
+      key:'insensitive',
+      mode:0,
+      value:0
+    },
+    {
+      key:'vulnerability',
+      mode:0,
+      value:0
+    }]
   },
   {
     id:'chanceling',
     label:'MM3.STATUS.Chanceling',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/chanceling.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/chanceling.svg",
+    changes:[{
+      key:'slow',
+      mode:0,
+      value:0
+    },
+    {
+      key:'dazed',
+      mode:0,
+      value:0
+    }]
   },
   {
     id:'sleep',
     label:'MM3.STATUS.Asleep',
-    icon:"icons/svg/sleep.svg"
+    icon:"icons/svg/sleep.svg",
+    changes:[{
+      key:'defenseless',
+      mode:0,
+      value:0
+    },
+    {
+      key:'insensitive',
+      mode:0,
+      value:0
+    },
+    {
+      key:'stun',
+      mode:0,
+      value:0
+    }]
   },
   {
     id:'restrain',
     label:'MM3.STATUS.Restrained',
-    icon:"icons/svg/net.svg"
+    icon:"icons/svg/net.svg",
+    changes:[{
+      key:'slow',
+      mode:0,
+      value:0
+    },
+    {
+      key:'vulnerability',
+      mode:0,
+      value:0
+    }]
   },
   {
     id:'enthralled',
     label:'MM3.STATUS.Enthralled',
-    icon:"icons/svg/sun.svg"
+    icon:"icons/svg/sun.svg",
+    changes:[{
+      key:'stun',
+      mode:0,
+      value:0
+    }]
   },
   {
     id:'exhausted',
     label:'MM3.STATUS.Exhausted',
-    icon:"icons/svg/unconscious.svg"
+    icon:"icons/svg/unconscious.svg",
+    changes:[{
+      key:'slow',
+      mode:0,
+      value:0
+    },
+    {
+      key:'decreased',
+      mode:0,
+      value:0
+    }]
   },
   {
     id:'tied',
     label:'MM3.STATUS.Tied',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/tied.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/tied.svg",
+    changes:[{
+      key:'defenseless',
+      mode:0,
+      value:0
+    },
+    {
+      key:'decreased',
+      mode:0,
+      value:0
+    },
+    {
+      key:'stuck',
+      mode:0,
+      value:0
+    }]
   },
   {
     id:'dying',
     label:'MM3.STATUS.Dying',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/dying.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/dying.svg",
+    changes:[{
+      key:'neutralized',
+      mode:0,
+      value:0
+    }]
   },
   {
     id:'neutralized',
     label:'MM3.STATUS.Neutralized',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/neutralized.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/neutralized.svg",
+    changes:[{
+      key:'defenseless',
+      mode:0,
+      value:0
+    },
+    {
+      key:'stun',
+      mode:0,
+      value:0
+    },
+    {
+      key:'insensitive',
+      mode:0,
+      value:0
+    }]
   },
   {
     id:'paralysis',
     label:'MM3.STATUS.Paralysis',
-    icon:"icons/svg/paralysis.svg"
+    icon:"icons/svg/paralysis.svg",
+    changes:[{
+      key:'defenseless',
+      mode:0,
+      value:0
+    },
+    {
+      key:'stuck',
+      mode:0,
+      value:0
+    },
+    {
+      key:'stun',
+      mode:0,
+      value:0
+    }]
   },
   {
     id:'deaf',
@@ -237,7 +358,17 @@ Hooks.once('init', async function() {
   {
     id:'surprised',
     label:'MM3.STATUS.Surprised',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/surprised.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/surprised.svg",
+    changes:[{
+      key:'vulnerability',
+      mode:0,
+      value:0
+    },
+    {
+      key:'stun',
+      mode:0,
+      value:0
+    }]
   },
   {
     id:'stun',
@@ -248,7 +379,18 @@ Hooks.once('init', async function() {
   CONFIG.specialStatusEffects = {
     BLIND:"blind",
     DEFEATED:"neutralized",
-    INVISIBLE:"invisible"
+    INVISIBLE:"invisible",
+    ASLEEP:"sleep",
+    BOUND:"tied",
+    DYING:"dying",
+    ENTRANCED:"enthralled",
+    EXHAUSTED:"exhausted",
+    INCAPACITATED:"neutralized",
+    PARALYZED:"paralysis",
+    PRONE:"prone",
+    RESTRAINED:"restrain",
+    STAGGERED:"chanceling",
+    SURPRISED:"surprised",
   };
 
   // Define custom Document classes
@@ -537,17 +679,18 @@ Hooks.on('userConnected', (User, boolean) => {
   $("div#sidebar.app").addClass(whatMenu);
 });
 
-Hooks.on("applyActiveEffect", (actor, change) => {
+Hooks.on("applyActiveEffect", async (actor, change) => {
   if(actor.type !== 'personnage') return;
 
   const version = game.version.split('.')[0];
   let status = "";
   if(version < 11) {
     status = foundry.utils.getProperty(change.effect, "flags.core.statusId");
+    let defense;
 
     switch(status) {
       case 'vulnerability':
-        const defense = actor.system.defense[change.key];
+        defense = actor.system.defense[change.key];
         const carac = actor.system.caracteristique[getFullCarac(defense.car)];
         const caracTotal = carac.absente ? 0 : carac.base+carac.divers;
         const defTotal = defense.base+defense.divers+caracTotal;
@@ -585,6 +728,16 @@ Hooks.on("applyActiveEffect", (actor, change) => {
       }
     }
   }
+});
+
+Hooks.on("createActiveEffect", async (effect, data, id) => {
+  let statuses;
+
+  const version = game.version.split('.')[0];
+  if(version < 11) statuses = effect._statusId;
+  else statuses = effect.statuses;
+
+  setCombinedEffects(effect.parent, statuses, true);
 });
 
 async function createMacro(bar, data, slot) {
