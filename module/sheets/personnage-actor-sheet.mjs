@@ -31,7 +31,7 @@ export class PersonnageActorSheet extends ActorSheet {
       width: 850,
       height: 720,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "caracteristiques"}],
-      dragDrop: [{dragSelector: [".draggable", ".item", ".reorder"], dropSelector: [".item", ".reorder", ".reorderDrop"]}],
+      dragDrop: [{dragSelector: [".draggable", ".item", ".reorder"], dropSelector: null}],
     });
   }
 

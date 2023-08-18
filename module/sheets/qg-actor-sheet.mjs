@@ -24,7 +24,7 @@ export class QGActorSheet extends ActorSheet {
       width: 850,
       height: 500,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "details"}],
-      dragDrop: [{dragSelector: [".draggable", ".item", ".reorder"], dropSelector: [".draggable", ".reorder", ".item", ".reorderDrop"]}],
+      dragDrop: [{dragSelector: [".draggable", ".item", ".reorder"], dropSelector: null}],
     });
   }
 

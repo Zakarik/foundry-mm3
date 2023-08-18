@@ -1,3 +1,8 @@
+## Version 1.25.1
+### Bugfix
+- Correction d'un bug empêchant le drag & drop dans certains cas.
+- Correction de certaines traductions.
+
 ## Version 1.25.0
 ### Améliorations
 - Ajout de titres pour les différentes sections de la fiche, pour plus de clarté.

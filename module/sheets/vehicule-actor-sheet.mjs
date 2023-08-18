@@ -24,7 +24,7 @@ export class VehiculeActorSheet extends ActorSheet {
       width: 850,
       height: 450,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "details"}],
-      dragDrop: [{dragSelector: [".draggable", ".reorder"], dropSelector: ".reorderDrop"}],
+      dragDrop: [{dragSelector: [".draggable", ".reorder"], dropSelector: null}],
     });
   }
 
