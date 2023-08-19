@@ -104,7 +104,12 @@ Hooks.once('init', async function() {
   {
     id:'tired',
     label:'MM3.STATUS.Tired',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/tired.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/tired.svg",
+    changes:[{
+      key:'slow',
+      mode:0,
+      value:0
+    }]
   },
   {
     id:'dazed',
@@ -374,6 +379,11 @@ Hooks.once('init', async function() {
     id:'stun',
     label:'MM3.STATUS.Stunned',
     icon:"systems/mutants-and-masterminds-3e/assets/icons/stunned.svg"
+  },
+  {
+    id:'disabled',
+    label:'MM3.STATUS.Disabled',
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/disabled.svg"
   }];  
 
   CONFIG.specialStatusEffects = {

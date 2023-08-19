@@ -1,3 +1,8 @@
+## Version 1.25.2
+### Bugfix
+- Ajout du status "Handicapé", qui avait été oublié.
+- Ajout du status "Ralenti" lorsque "Fatigué" est appliqué, qui avait été oublié.
+
 ## Version 1.25.1
 ### Bugfix
 - Correction d'un bug empêchant le drag & drop dans certains cas.
