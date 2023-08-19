@@ -1,3 +1,8 @@
+## Version 1.25.4
+### Bugfix
+- Correction d'un bug pouvant créer des compétences "fantômes".
+Si des compétences comme ça sont créées, il est possible de les supprimer à la main, comme des compétences ajoutées, pour éviter de tout bloquer.
+
 ## Version 1.25.3
 ### Bugfix
 - Correction d'un bug pouvant causer le plantage d'un personnage.

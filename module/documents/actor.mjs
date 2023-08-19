@@ -113,8 +113,9 @@ export class MM3Actor extends Actor {
 
     for(let car in CONFIG.MM3.caracteristiques) {
       const carac = getCarac[car];
+      const isAbs = carac?.absente ?? false;
 
-      if(carac.absente) {
+      if(isAbs) {
         ppCarac += -10;
         carac.total = -5;
       } else {
@@ -136,18 +137,21 @@ export class MM3Actor extends Actor {
           const listCompRang = listData.rang;
           const carac = listData.carCanChange ? getCarac[getFullCarac(listData.car)] : getCarac[getFullCarac(comp.car)];
           const scoreCarac = carac.total;
+          const isAbs = carac?.absente ?? false;
 
-          listData.carac = carac.absente ? 0 : scoreCarac;
+          listData.carac = isAbs ? 0 : scoreCarac;
           listData.total = listData.carac+listCompRang+listData.autre;
           ppComp += listCompRang/2;
         }      
-      } else {
+      } else if(comp.car !== undefined) {
         const carac = getCarac[getFullCarac(comp.car)];
         const compRang = comp.rang;
-
+        const isAbs = carac?.absente ?? false;
         ppComp += compRang/2;
-        comp.carac = carac.absente ? 0 : carac.total;
+        comp.carac = isAbs ? 0 : carac.total;
         comp.total = comp.carac+compRang+comp.autre;
+      } else {
+        comp.new = true;
       }
     }
 
@@ -155,6 +159,7 @@ export class MM3Actor extends Actor {
       const defense = getDef[def];
       const defRang = defense.base;
       const carac = getCarac[getFullCarac(defense.car)];
+      const isAbs = carac?.absente ?? false;
       let mod = 0;
 
       if(def === 'robustesse') mod -= data.blessure;
@@ -163,7 +168,7 @@ export class MM3Actor extends Actor {
       mod += defense?.other ?? 0;
 
       ppDef += defRang;
-      defense.carac = carac.absente ? 0 : carac.total;
+      defense.carac = isAbs ? 0 : carac.total;
       defense.total = defense.defenseless ? 0 : defRang+defense.carac+defense.divers+mod;
     }
 
