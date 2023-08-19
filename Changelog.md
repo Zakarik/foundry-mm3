@@ -1,3 +1,7 @@
+## Version 1.25.3
+### Bugfix
+- Correction d'un bug pouvant causer le plantage d'un personnage.
+
 ## Version 1.25.2
 ### Bugfix
 - Ajout du status "Handicapé", qui avait été oublié.

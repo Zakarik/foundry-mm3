@@ -681,9 +681,26 @@ export class PersonnageActorSheet extends ActorSheet {
           if((data.special === 'standard' && data.link === "") || 
           (data.special === 'alternatif' && data.link === "") || 
           (data.special === 'dynamique' && data.link === "")) pwr.push(i);
-          else if((data.special === 'standard' && data.link !== "")) pwrLink[data.link].push(i);
-          else if((data.special === 'alternatif' && data.link !== "")) pwrAlternatif[data.link].push(i);
-          else if((data.special === 'dynamique' && data.link !== "")) pwrDynamique[data.link].push(i);
+          else if((data.special === 'standard' && data.link !== "")) {
+            if(!pwrLink?.[data.link]) {
+              data.link = '';
+              pwr.push(i)
+            }  else pwrLink[data.link].push(i);
+          } 
+          else if((data.special === 'alternatif' && data.link !== "")) {
+            if(!pwrAlternatif?.[data.link]) {
+              data.link = '';
+              pwr.push(i)
+            }  else pwrAlternatif[data.link].push(i);
+            pwrAlternatif[data.link].push(i);
+          }
+          else if((data.special === 'dynamique' && data.link !== "")) {
+            if(!pwrDynamique?.[data.link]) {
+              data.link = '';
+              pwr.push(i)
+            }  else pwrDynamique[data.link].push(i);
+            pwrDynamique[data.link].push(i);
+          }
           
           if((data.special === 'standard' && data.link === '') || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
           break;
