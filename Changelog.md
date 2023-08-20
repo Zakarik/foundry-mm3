@@ -1,3 +1,7 @@
+## Version 1.25.6
+### Bugfix
+- Correction d'un bug rare d'importation d'Hero Lab.
+
 ## Version 1.25.5
 ### Bugfix
 - Correction d'un bug de duplication des pouvoirs suite à la mise à jour 1.25.3.

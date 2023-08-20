@@ -301,18 +301,38 @@ async function processAlternatePower(actor, pwr, itm, otherpowers=false) {
   const isOtherPower = otherpowers ? "standard" : "alternatif";
   const costNull = otherpowers ? true : false;
   let listTalents = [];
+  let add = true;
+  let newDescription = itm.system.notes;
 
   if(alternate !== null) {
     if(Array.isArray(alternate)) {
       for(let aPwr of alternate) {
-        const pPowers = await processPowers(actor, aPwr, true, isOtherPower, itm._id, costNull);
+        if(itm.system.link !== "") add = false;
+
+        const pPowers = await processPowers(actor, aPwr, add, isOtherPower, itm._id, costNull);
         listTalents = listTalents.concat(pPowers.talents);
+
+        if(add === false) {
+          newDescription += `<h3>${aPwr.name}</h3>`;
+          newDescription += `<p>${aPwr.description}</p>`;
+          newDescription += `<p>${aPwr.summary}</p>`;
+        }
       }
     } else {
-      const pPowers = await processPowers(actor, alternate, true, isOtherPower, itm._id, costNull);
+      if(itm.system.link !== "") add = false;
+      
+      const pPowers = await processPowers(actor, alternate, add, isOtherPower, itm._id, costNull);
       listTalents = listTalents.concat(pPowers.talents);
+
+      if(add === false) {
+        newDescription += `<h3>${alternate.name}</h3>`;
+        newDescription += `<p>${alternate.description}</p>`;
+        newDescription += `<p>${alternate.summary}</p>`;
+      }
     }
-  } 
+  }
+
+  if(itm.system.link !== "") actor.items.get(itm._id).update({[`system.notes`]:newDescription});
 
   return {
     talents:listTalents
@@ -469,8 +489,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
         } else {
           pwrName = pwr.name;
           pwrDescription = description;
-        }
-        
+        }        
       }
     } else {
       const pwr = pouvoirs;
