@@ -1,3 +1,7 @@
+## Version 1.25.5
+### Bugfix
+- Correction d'un bug de duplication des pouvoirs suite à la mise à jour 1.25.3.
+
 ## Version 1.25.4
 ### Bugfix
 - Correction d'un bug pouvant créer des compétences "fantômes".

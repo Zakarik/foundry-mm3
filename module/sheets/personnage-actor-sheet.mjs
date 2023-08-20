@@ -692,14 +692,12 @@ export class PersonnageActorSheet extends ActorSheet {
               data.link = '';
               pwr.push(i)
             }  else pwrAlternatif[data.link].push(i);
-            pwrAlternatif[data.link].push(i);
           }
           else if((data.special === 'dynamique' && data.link !== "")) {
             if(!pwrDynamique?.[data.link]) {
               data.link = '';
               pwr.push(i)
             }  else pwrDynamique[data.link].push(i);
-            pwrDynamique[data.link].push(i);
           }
           
           if((data.special === 'standard' && data.link === '') || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
