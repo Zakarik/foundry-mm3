@@ -770,6 +770,7 @@ export class PersonnageActorSheet extends ActorSheet {
   _prepareSpeed(context) {
     const system = game.settings.get("mutants-and-masterminds-3e", "measuresystem");
     const data = context.data.system.vitesse.list;
+    let divide = 1000;
 
     if(system === 'metric') {
       context.data.system.vitesse.mlabel2 = game.i18n.localize('MM3.VITESSE.Kmh');
@@ -777,6 +778,7 @@ export class PersonnageActorSheet extends ActorSheet {
     } else {
       context.data.system.vitesse.mlabel2 = game.i18n.localize('MM3.VITESSE.Mph');
       context.data.system.vitesse.mlabel1 = game.i18n.localize('MM3.VITESSE.Pied-short');
+      divide = 5280;
     }
 
     for(let v in data) {
@@ -789,7 +791,7 @@ export class PersonnageActorSheet extends ActorSheet {
         const rang = Number(vData.rang);
       
         data[v].round = speedCalc(rang).toLocaleString();
-        data[v].kmh = (speedCalc(rang+9)/5280).toLocaleString();
+        data[v].kmh = (speedCalc(rang+9)/divide).toLocaleString();
       }
       else data[v].manuel = true;
     }    

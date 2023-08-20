@@ -628,17 +628,33 @@ export class QGActorSheet extends ActorSheet {
   }
 
   _prepareSpeed(context) {
+    const system = game.settings.get("mutants-and-masterminds-3e", "measuresystem");
     const data = context.data.system.vitesse.list;
+    let divide = 1000;
+
+    if(system === 'metric') {
+      context.data.system.vitesse.mlabel2 = game.i18n.localize('MM3.VITESSE.Kmh');
+      context.data.system.vitesse.mlabel1 = game.i18n.localize('MM3.VITESSE.Metre-short');
+    } else {
+      context.data.system.vitesse.mlabel2 = game.i18n.localize('MM3.VITESSE.Mph');
+      context.data.system.vitesse.mlabel1 = game.i18n.localize('MM3.VITESSE.Pied-short');
+      divide = 5280;
+    }
 
     for(let v in data) {
+      const vData = data[v];
+      const autotrade = vData?.autotrade ?? false;
+
+      if(autotrade !== false) vData.label = game.i18n.localize(CONFIG.MM3.vitesse[autotrade]);
+
       if(game.settings.get("mutants-and-masterminds-3e", "speedcalculate")) {
-        const rang = Number(data[v].rang);
+        const rang = Number(vData.rang);
       
         data[v].round = speedCalc(rang).toLocaleString();
-        data[v].kmh = (speedCalc(rang+9)/1000).toLocaleString();
+        data[v].kmh = (speedCalc(rang+9)/divide).toLocaleString();
       }
-      else data[v].manuel = false;
-    }
+      else data[v].manuel = true;
+    }    
   }
 
   /* -------------------------------------------- */

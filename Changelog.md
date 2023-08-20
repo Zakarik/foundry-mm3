@@ -1,3 +1,7 @@
+## Version 1.25.7
+### Bugfix
+- Correction d'un bug de calcul des vitesse.
+
 ## Version 1.25.6
 ### Bugfix
 - Correction d'un bug rare d'importation d'Hero Lab.
