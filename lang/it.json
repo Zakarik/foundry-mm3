@@ -129,7 +129,9 @@
     },
     "ATTAQUE":{
       "Label":"Attacco",
-      "Initiative":"Iniziativa"
+      "Initiative":"Iniziativa",
+      "ModAttaque":"Modificatore di attacco",
+      "ModEffet":"Modificatore di effetti"
     },
     "STRATEGIE":{
       "Attaqueprecision":"Attacco Preciso",
@@ -153,7 +155,8 @@
       "Effet":"Penalità di Effetto"
     },
     "EFFET":{
-      "Label":"Effetto"
+      "Label":"Effetto",
+      "Rang":"Grado dell'effetto"
     },
     "MOD":{
       "Label-short":"Mod.",
@@ -162,6 +165,7 @@
       "Effet":"Modificatore di Effetto"
     },
     "POUVOIR":{
+      "Vettore":"Colección",
       "Descripteurs":"Descrittori",
       "Standard":"Effetto Standard",
       "Alternatif":"Effetto Alternativo",
@@ -267,13 +271,19 @@
       "DegreEchec":"Grado di fallimento",
       "DegresEchec":"Gradi di fallimento",
       "DD":"CD",
-      "AskDD":"C'è un CD? Lasciare a 0 se no",
       "Critique":"Critico",
       "Testeffet":"Tiro effetto",
       "Initiative":"Iniziativa",
+      "Pascritique":"Nessun Critico",
       "Pasattaque":"Nessun tiro d'attacco",
       "Valider":"Conferma",
       "Annuler":"Annulla",
+      "Typeattaque":"Tipo di attacco",
+      "TYPE":{
+        "Autre":"Altro",
+        "Degats":"Danno",
+        "Affliction":"Afflizione"
+      },
       "DEFENSE":{
         "Basedefense":"Tiro di Difesa di base",
         "Esquive":"Tiro di Schivare",
@@ -281,6 +291,11 @@
         "Vigueur":"Tiro di Tempra",
         "Robustesse":"Tiro di Robustezza",
         "Volonte":"Tiro di Volontà"
+      },
+      "ECHEC":{
+        "Undegre":"Un grado di fallimento",
+        "Deuxdegre":"Due gradi di fallimento",
+        "Troisdegre":"Tre gradi di fallimento"
       }
     },
     "IMPORTATIONS":{
@@ -293,10 +308,14 @@
       "FontOther":"Modifica del font per altri testi"
     },
     "DIALOG":{
+      "AskDD":"C'è un CD? Lasciare a 0 se no",
       "AskDelete":"Sei sicuro di voler cancellare questo?",
-      "AskMod":"Vuoi aggiungere un modificatore al test degli effetti?"
+      "TitleMod":"C'è un modificatore?",
+      "AskMod":"Vuoi aggiungere un modificatore a questo tiro?",
+      "DD":"Qual è la classe di difficoltà?"
     },
     "VITESSE":{
+      "Vitesses":"Velocità",
       "Natation":"Nuotare",
       "Course":"Correre",
       "Round":"Per round",
@@ -304,6 +323,16 @@
       "Metre-short":"m",
       "Mph":"Mph",
       "Pied-short":"ft"
+    },
+    "SPECIAL":{
+      "DeplierTout":"Mostra tutto",
+      "ReplierTout":"Nascondi tutto",
+      "CompLie":"Legato a una competenza",
+      "PwrLie":"Legato a un potere"
+    },
+    "ASTUCE":{
+      "Shift":"Puoi tenere premuto il tasto Shift quando fai clic su abilità, abilità e difese per aggiungere una CD al tiro.",
+      "Alt":"Puoi tenere premuto il tasto Alt quando fai clic su un rotolo per poter aggiungere un modificatore."
     },
     "Nom":"Nome",
     "Identite":"Identità",
@@ -362,6 +391,10 @@
     "Editadvanced":"Modifica le impostazioni avanzate",
     "Adefinir":"Da definire",
     "Non":"No",
-    "Mod":"Modificatore"
+    "Mod":"Modificatore",
+    "EffetsPrincipaux":"Effetti principali",
+    "Cible":"Bersaglio",
+    "SaveEdit":"Salvare le modifiche",
+    "Annuler":"Disfare"
   }
 }

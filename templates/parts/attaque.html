@@ -16,78 +16,55 @@
 
     {{#each systemData.attaque as | key att |}}
     <div class="reorderDrop" data-type="attaque" data-sort="{{att}}">
-        <div class="specialline {{#unless key.edit}}hide{{/unless}}">
-            {{#if (isValue key.type 'other')}}
-                <input class="label" type="text" name="system.attaque.{{att}}.label" value="{{key.label}}" />
-            {{/if}}
-                <span class="labelDefense {{#if key.noAtk}}hide{{/if}}">{{localize "MM3.DEFENSE.Jetattaquevs"}} :</span>
-                <select class="selectDefense {{#if key.noAtk}}hide{{/if}}" name="system.attaque.{{att}}.defpassive">
-                    {{#select key.defpassive}}
-                        <option value="parade">{{localize "MM3.DEFENSE.DDParade"}}</option>
-                        <option value="esquive">{{localize "MM3.DEFENSE.DDEsquive"}}</option>
-                    {{/select}}
-                </select>
-            
-            <a class="noAtk {{#if key.noAtk}}selected{{/if}}" data-id="{{att}}" data-value="{{key.noAtk}}">
-                {{localize "MM3.ROLL.Pasattaque"}}
-            </a>
-            <span class="labelBase">{{localize "MM3.ROLL.DEFENSE.Basedefense"}} :</span>
-            <input class="basedef{{att}}" type="number" name="system.attaque.{{att}}.basedef" value="{{key.basedef}}" min="0" />
-        </div>
+        <span class="label {{#if key.noAtk}}large{{/if}}  {{#if key.noCrit}}large{{/if}} {{#if key.noAtk}}{{#if key.noCrit}}verylarge{{/if}}{{/if}}"></span>
+        <span class="label {{#if key.noAtk}}hide{{/if}}">{{localize "MM3.Attaques"}}</span>
+        <span class="label {{#if key.noCrit}}hide{{/if}}">{{localize "MM3.ROLL.Critique"}}</span>
+        <span class="label">{{localize "MM3.EFFET.Label"}}</span>
+        <span class="label"></span>
+        <span class="label"></span>
 
-        <span class="label {{#if key.edit}}hide{{/if}} {{#if key.noAtk}}large{{/if}}"></span>
-        <span class="label {{#if key.edit}}hide{{/if}} {{#if key.noAtk}}hide{{/if}}">{{localize "MM3.Attaques"}}</span>
-        <span class="label {{#if key.edit}}hide{{/if}}">{{localize "MM3.ROLL.Critique"}}</span>
-        <span class="label {{#if key.edit}}hide{{/if}}">{{localize "MM3.EFFET.Label"}}</span>
-        <span class="label {{#if key.edit}}hide{{/if}}"></span>
-        <span class="label {{#if key.edit}}hide{{/if}}"></span>
+        <a class="roll draggable {{#if key.noAtk}}large{{/if}} {{#if key.noCrit}}large{{/if}} {{#if key.noAtk}}{{#if key.noCrit}}verylarge{{/if}}{{/if}}" 
+        data-type="attaque" 
+        data-name="{{key.label}}" 
+        data-total="{{key.attaque}}" 
+        data-id="{{key._id}}"
+        data-strattaque="{{@root/systemData/strategie/total/attaque}}"
+        data-streffet="{{@root/systemData/strategie/total/effet}}">
+            {{key.label}}
+        </a>
 
-        {{#if (isValue key.type 'other')}}                        
-            <a class="roll draggable {{#if key.edit}}hide{{/if}} {{#if key.noAtk}}large{{/if}}" 
-            data-type="attaque" 
-            data-name="{{key.label}}" 
-            data-total="{{key.attaque}}" 
-            data-id="{{att}}"
-            data-strattaque="{{@root/systemData/strategie/total/attaque}}"
-            data-streffet="{{@root/systemData/strategie/total/effet}}">
-                {{key.label}}
-            </a>
+        {{#unless key.skill}}
+            <input class="{{#if key.noAtk}}hide{{/if}} {{#if key.noAtk}}hide{{/if}}" type="number" name="system.attaque.{{att}}.attaque" title="{{localize "MM3.ATTAQUE.Label"}}" value="{{key.attaque}}" />
         {{else}}
-            <a class="roll draggable {{#if key.edit}}hide{{/if}} {{#if key.noAtk}}large{{/if}}" 
-            data-type="attaque" 
-            data-name="{{getAtt @root key.type key.id 'label'}}" 
-            data-total="{{getAtt @root key.type key.id 'total'}}" 
-            data-id="{{att}}"
-            data-strattaque="{{@root/systemData/strategie/total/attaque}}"
-            data-streffet="{{@root/systemData/strategie/total/effet}}">
-                {{getAtt @root key.type key.id 'label'}}
-            </a>
-        {{/if}}
+            <span class="score {{#if key.noAtk}}hide{{/if}}" title="{{localize "MM3.ATTAQUE.Label"}}">{{key.attaque}}</span>
+        {{/unless}}
 
-        {{#if (isValue key.type 'other')}}
-            <input class="{{#if key.edit}}hide{{/if}} {{#if key.noAtk}}hide{{/if}}" type="number" name="system.attaque.{{att}}.attaque" title="{{localize "MM3.ATTAQUE.Label"}}" value="{{key.attaque}}" />
+        <input class="{{#if key.noCrit}}hide{{/if}}" type="number" name="system.attaque.{{att}}.critique" value="{{key.critique}}" min="0" title="{{localize "MM3.ROLL.Critique"}}"/>
+        
+        {{#if (isAfflictionDmg key)}}
+            <span class="score" title="{{localize "MM3.ROLL.TYPE.Degats"}} / {{localize "MM3.ROLL.TYPE.Affliction"}}">{{key.effet}}/{{key.afflictioneffet}}</span>
         {{else}}
-            <span class="score {{#if key.edit}}hide{{/if}} {{#if key.noAtk}}hide{{/if}}" title="{{localize "MM3.ATTAQUE.Label"}}">{{getAtt @root key.type key.id 'total'}}</span>
+            {{#unless key.pwr}}
+                <input type="number" name="system.attaque.{{att}}.effet" value="{{key.effet}}" min="0" title="{{localize "MM3.EFFET.Label"}}"/>
+            {{else}}
+                <span class="score">{{key.effet}}</span>
+            {{/unless}}        
+        {{/if}}        
+        
+        {{#if (isAfflictionDmg key)}}
+        <span class="score" title="{{localize "MM3.ROLL.TYPE.Degats"}} / {{localize "MM3.ROLL.TYPE.Affliction"}}">
+            {{translate 'defenses' key.save}} / {{translate 'defenses' key.saveAffliction}}
+        </span>
+        {{else}}
+        <span class="score" title="{{localize "MM3.DEFENSE.Label"}}">
+            {{translate 'defenses' key.save}}
+        </span>
         {{/if}}
-
-        <input class="{{#if key.edit}}hide{{/if}}" type="number" name="system.attaque.{{att}}.critique" value="{{key.critique}}" min="0" title="{{localize "MM3.ROLL.Critique"}}"/>
-        <input class="{{#if key.edit}}hide{{/if}}" type="number" name="system.attaque.{{att}}.effet" value="{{key.effet}}" min="0" title="{{localize "MM3.EFFET.Label"}}"/>
-        <select class="defense {{#if key.edit}}hide{{/if}}" data-id="{{att}}" name="system.attaque.{{att}}.save" title="{{localize "MM3.DEFENSE.Label"}}">
-            {{#select key.save}}
-                <option value="esquive">{{translate 'defenses' 'esquive'}}</option>
-                <option value="parade">{{translate 'defenses' 'parade'}}</option>
-                <option value="vigueur">{{translate 'defenses' 'vigueur'}}</option>
-                <option value="robustesse">{{translate 'defenses' 'robustesse'}}</option>
-                <option value="volonte">{{translate 'defenses' 'volonte'}}</option>
-            {{/select}}
-        </select>
-        <i class="fa-solid fa-pen-to-square editAtk" data-id="{{att}}" data-value="{{key.edit}}" title="{{localize "MM3.Editadvanced"}}"></i>
-        <textarea class="{{#if key.edit}}hide{{/if}} {{#if (isValue key.type 'other')}}short{{/if}}" name="system.attaque.{{att}}.text">{{key.text}}</textarea>
+        <i class="fa-solid fa-pen-to-square editAtk" data-label="" data-id="{{key._id}}" data-value="{{key.edit}}" title="{{localize "MM3.Editadvanced"}}"></i>
+        <textarea class="{{#if (isValue key.type 'other')}}short{{/if}}" name="system.attaque.{{att}}.text">{{key.text}}</textarea>
         <div class="icons">
             <i class="fa-solid fa-arrows-up-down reorder" data-sort="{{att}}" data-type="attaque"></i>
-            {{#if (isValue key.type 'other')}}
-                <i class="fa-solid fa-trash-xmark delete {{#if key.edit}}hide{{/if}}" data-id="{{att}}" data-type="attaque"></i>
-            {{/if}}
+            <i class="fa-solid fa-trash-xmark delete" data-id="{{att}}" data-type="attaque"></i>
         </div>      
     </div>
     {{/each}}

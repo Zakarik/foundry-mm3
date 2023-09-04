@@ -129,7 +129,9 @@
     },
     "ATTAQUE":{
       "Label":"Attack",
-      "Initiative":"Initiative"
+      "Initiative":"Initiative",
+      "ModAttaque":"Attack modifier",
+      "ModEffet":"Effect modifier"
     },
     "STRATEGIE":{
       "Attaqueprecision":"Accurate Attack",
@@ -153,7 +155,8 @@
       "Effet":"Effect penalties"
     },
     "EFFET":{
-      "Label":"Effect"
+      "Label":"Effect",
+      "Rang":"Effect Rank"
     },
     "MOD":{
       "Label-short":"Mod.",
@@ -162,6 +165,7 @@
       "Effet":"Effects Modifier"
     },
     "POUVOIR":{
+      "Eventail":"Array",
       "Descripteurs":"Descriptors",
       "Standard":"Standard Effect",
       "Alternatif":"Alternate Effect",
@@ -267,13 +271,19 @@
       "DegreEchec":"Degree of failure",
       "DegresEchec":"Degrees of failure",
       "DD":"DC",
-      "AskDD":"Is there a DC? Leave at 0 if no",
       "Critique":"Critical",
       "Testeffet":"Effect roll",
       "Initiative":"Initiative",
+      "Pascritique":"No Critical",
       "Pasattaque":"No attack roll",
       "Valider":"Confirm",
       "Annuler":"Cancel",
+      "Typeattaque":"Type of attack",
+      "TYPE":{
+        "Autre":"Other",
+        "Degats":"Damage",
+        "Affliction":"Affliction"
+      },
       "DEFENSE":{
         "Basedefense":"Base defense roll",
         "Esquive":"Dodge roll",
@@ -281,6 +291,11 @@
         "Vigueur":"Fortitude roll",
         "Robustesse":"Toughness roll",
         "Volonte":"Will roll"
+      },
+      "ECHEC":{
+        "Undegre":"One degree of failure",
+        "Deuxdegre":"Two degrees of failure",
+        "Troisdegre":"Three degrees of failure"
       }
     },
     "IMPORTATIONS":{
@@ -293,10 +308,14 @@
       "FontOther":"Font modification for other texts"
     },
     "DIALOG":{
+      "AskDD":"Is there a DC? Leave at 0 if no",
       "AskDelete":"Are you sure you want to delete this?",
-      "AskMod":"Would you like to add a modifier to the effect test?"
+      "TitleMod":"Is there a modifier?",
+      "AskMod":"Do you want to add a modifier to this roll?",
+      "DD":"What is the difficulty class?"
     },
     "VITESSE":{
+      "Vitesses":"Speeds",
       "Natation":"Swimming",
       "Course":"Running",
       "Round":"Per round",
@@ -304,6 +323,16 @@
       "Metre-short":"m",
       "Mph":"Mph",
       "Pied-short":"ft"
+    },
+    "SPECIAL":{
+      "DeplierTout":"Unfold all",
+      "ReplierTout":"Fold all",
+      "CompLie":"Linked to a skill",
+      "PwrLie":"Linked to a power"
+    },
+    "ASTUCE":{
+      "Shift":"You can hold down the Shift key when clicking on abilities, skills and defenses to add a DC to the roll.",
+      "Alt":"You can hold down the Alt key when clicking on a roll to be able to add a modifier."
     },
     "Nom":"Name",
     "Identite":"Identity",
@@ -362,6 +391,10 @@
     "Editadvanced":"Edit advanced settings",
     "Adefinir":"To define",
     "Non":"No",
-    "Mod":"Modifier"
+    "Mod":"Modifier",
+    "EffetsPrincipaux":"Main Effects",
+    "Cible":"Target",
+    "SaveEdit":"Save changes",
+    "Annuler":"Undo"
   }
 }

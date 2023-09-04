@@ -12,6 +12,7 @@ import { TalentItemSheet } from "./sheets/talent-item-sheet.mjs";
 import { EquipementItemSheet } from "./sheets/equipement-item-sheet.mjs";
 
 // Import helper/utility classes and constants.
+import { RegisterHandlebars } from "./helpers/handlebars.mjs";
 import { RegisterSettings } from "./settings.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { MM3 } from "./helpers/config.mjs";
@@ -29,9 +30,18 @@ import {
   getFullCarac,
   listBg,
   speedCalc,
-  modPromptClasses,
   setCombinedEffects,
+  getDataSubSkill,
+  getAtk,
+  setStatus,
+  hasStatus,
+  deleteStatus,
+  setSpeed,
 } from "./helpers/common.mjs";
+
+import {
+  EditAttaque,
+} from "./dialog/edit-attaque.mjs";
 
 import { MigrationMM3 } from "./migration.mjs";
 
@@ -57,8 +67,15 @@ Hooks.once('init', async function() {
       MM3Actor,
       MM3Item,
     },
+    EditAttaque,
+    getDataSubSkill,
+    getAtk,
     RollMacro,
     RollMacroPwr,
+    setStatus,
+    hasStatus,
+    deleteStatus,
+    setSpeed,
     config:MM3
   };
 
@@ -69,6 +86,7 @@ Hooks.once('init', async function() {
    * Set an initiative formula for the system
    * @type {String}
    */
+  RegisterHandlebars();
   RegisterSettings();
 
   const optDices = game.settings.get("mutants-and-masterminds-3e", "typeroll");
@@ -444,96 +462,7 @@ Hooks.once('init', async function() {
   Items.registerSheet("mutants-and-masterminds-3e", EquipementItemSheet, {
     types: ["equipement"],
     makeDefault: true
-  });
-
-  Handlebars.registerHelper('translate', function(where, tra) {
-    try {
-      let translation = CONFIG.MM3;
-      const levels = where.split(".");
-      for(let i = 0; i < levels.length; i++) {
-        translation = translation[levels[i]];
-      }
-      return game.i18n.localize(translation[tra]);
-
-    } catch (error) {
-      console.error(`Error translating ${tra} in ${where}: ${error}`);
-      return "";
-    }
-  });
-
-  Handlebars.registerHelper('singularOrPlural', function(count, successOrFail) {
-    let result = "";
-    
-    if(count > 1) {
-      if(successOrFail === 'success') result = game.i18n.localize("MM3.ROLL.DegresReussite");
-      else  result = game.i18n.localize("MM3.ROLL.DegresEchec");
-    } else {
-      if(successOrFail === 'success') result = game.i18n.localize("MM3.ROLL.DegreReussite");
-      else  result = game.i18n.localize("MM3.ROLL.DegreEchec");
-    }
-
-    return result;
-  });
-  
-  Handlebars.registerHelper('mm3concat', function(base, id, last) {
-    return `${base}.${id}.${last}`;
-  });
-  
-  Handlebars.registerHelper('isHigherThan', function(base, compare) {
-    return base > compare ? true : false;
-  });
-
-  Handlebars.registerHelper('isHigherOrEqual', function(base, compare) {
-    return base >= compare ? true : false;
-  });
-
-  Handlebars.registerHelper('marge', function(base, toSubstract) {
-    return Math.floor((base - toSubstract) / 5);
-  });
-
-  Handlebars.registerHelper('isValue', function(base, compare) {
-    return base === compare ? true : false;
-  }); 
-
-  Handlebars.registerHelper('isNotValue', function(base, compare) {
-    return base !== compare ? true : false;
-  }); 
-  
-  Handlebars.registerHelper('hasLink', function(id, actor) {
-    const links = actor?.pwrLink?.[id]?.length ?? 0;
-
-    return links > 0 ? true : false;
-  });
-
-  Handlebars.registerHelper('getAtt', function(root, what, id, data) {
-    return root.systemData.competence[what].list[id][data];
-  });
-
-  Handlebars.registerHelper('getPwrAlt', function(root, folder, key) {
-    return root.actor[folder][key];
-  });
-
-  Handlebars.registerHelper('getPwr', function(root, id, what) {
-    const result = root.systemData?.pwr?.[id]?.cout?.[what] ?? 0;
-
-    return result;
-  });
-
-  Handlebars.registerHelper('isOwner', function(data) {
-    let result = false;
-
-    if(game.user.isGM || (data.actor.isOwner && !data.actor.isLimited)) result = true;
-
-    return result;
-  });
-  
-  Handlebars.registerHelper('isTrusted', function() {
-    let result = false;
-
-    if(game.user.isGM || game.user.isTrusted) result = true;
-
-    return result;
-  });
+  });  
 
   game.settings.register("mutants-and-masterminds-3e", "systemVersion", {
     name: "Version du Système",
@@ -600,11 +529,17 @@ Hooks.on('renderChatMessage', (message, html, data) => {
   accessibility(null, html)
 
   if(isExist && !user.isGM) {
-    const target = $(btn[0]);
-    const tgt = target.data('target');
-    const token = canvas.scene.tokens.find(token => token.id === tgt);
-
-    if(token.actor.ownership[game.user.id] !== 3 && token.actor.ownership.default !== 3) target.hide();
+    html.find('button.btnRoll').each(function() {
+      const target = $(this);
+      const tgt = target.data('target');
+      const scene = canvas.scene;
+  
+      if(scene === null) return;
+  
+      const token = scene.tokens.find(token => token.id === tgt);
+  
+      if(token.actor.ownership[game.user.id] !== 3 && token.actor.ownership.default !== 3) target.parent().hide();
+    });
   }
 
   if(toHide.length > 0 && !user.isGM) {
@@ -619,7 +554,9 @@ Hooks.on('renderChatMessage', (message, html, data) => {
       const tgt = target.data('target');
       const savetype = target.data('savetype');
       const vs = target.data('vs');
-      const hasShift = ev.shiftKey;
+      const dataAtk = target.data('datk');
+      const typeAtk = target.data('type');
+      const hasAlt = ev.altKey;
 
       const token = canvas.scene.tokens.find(token => token.id === tgt);
 
@@ -629,33 +566,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
       const saveScore = tokenData.defense[savetype].total;
       const name = `${game.i18n.localize(CONFIG.MM3.defenses[savetype])}`;
 
-      if(hasShift) {
-        const dialog = new Dialog({
-          title:game.i18n.localize("MM3.DIALOG.AskMod"),
-          content:`<span class='label'>${game.i18n.localize('MM3.Mod')}</span><input class='mod' type='number' value='0' />`,
-          buttons: {
-            one: {
-              icon: '<i class="fas fa-check"></i>',
-              label: game.i18n.localize('MM3.ROLL.Valider'),
-              callback: (html) => {
-                rollVs(token.actor, name, saveScore, vs, $(html.find('input.mod')).val());
-              }
-            },
-            two: {
-              icon: '<i class="fas fa-times"></i>',
-              label: game.i18n.localize('MM3.ROLL.Annuler'),
-              callback: (html) => {}
-            }
-          },
-        },
-        {
-          classes: modPromptClasses(token.actor)
-        }).render(true); 
-      } else {
-        rollVs(token.actor, name, saveScore, vs);
-      }
-
-      
+      rollVs(token.actor, name, saveScore, vs, {typeAtk:typeAtk, atk:dataAtk, tkn:token}, {alt:hasAlt});      
   });
 
   if(isInitiative) {
@@ -763,7 +674,8 @@ async function createMacro(bar, data, slot) {
   const author = data?.author ?? 'personnage';
   const command = type === 'pouvoir' ? `game.mm3.RollMacroPwr("${actorId}", "${sceneId}", "${tokenId}", "${id}", "${author}");` : `game.mm3.RollMacro("${actorId}", "${sceneId}", "${tokenId}", "${type}", "${what}", "${id}", "${author}", event);`;
 
-  let img = "";
+  let img = data.img;
+  if(img === "") img = "systems/mutants-and-masterminds-3e/assets/icons/dice.svg";
 
   let macro = await Macro.create({
     name: label,
@@ -783,8 +695,9 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
   const dataStr = data?.strategie?.total ?? {attaque:0, effet:0};
   const strategie = {attaque:dataStr.attaque, effet:dataStr.effet};
   const hasShift = event.shiftKey;
+  const hasAlt = event.altKey;
   
-  const atk = id === '-1' || id === -1 ? {noAtk:false} : actor.system.attaque[id];
+  const atk = id === '-1' || id === -1 ? {noAtk:false} : game.mm3.getAtk(actor, id).data;
   let name = "";
   let total = 0;
 
@@ -811,11 +724,12 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
     
     case 'attaque':
       const typeAtk = atk.type;
-      const idAtk = atk.id;
+      const idSkill = atk.skill;
 
       if(typeAtk === 'combatcontact' || typeAtk === 'combatdistance') {
-        name = data.competence[typeAtk].list[idAtk].label;
-        total = data.competence[typeAtk].list[idAtk].total;
+        let skill = game.mm3.getDataSubSkill(actor, typeAtk, idSkill);
+        name = skill.label;
+        total = skill.total;
       } else if(typeAtk === 'other') {
         name = atk.label;
         total = atk.attaque;
@@ -823,17 +737,32 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
       break;
   }
 
-  if(type === 'attaque' && tgt !== undefined && atk.noAtk) rollTgt(actor, name, {attaque:atk, strategie:strategie}, tgt);
-  else if(type === 'attaque' && tgt !== undefined && !atk.noAtk) rollAtkTgt(actor, name, total, {attaque:atk, strategie:strategie}, tgt);
-  else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(actor, name, total, {attaque:atk, strategie:strategie});
-  else if(type === 'attaque' && atk.noAtk) rollWAtk(actor, name, {attaque:atk, strategie:strategie});
-  else rollStd(actor, name, total, hasShift);
+  let result = undefined;
+
+  if(type === 'attaque' && tgt !== undefined && atk.noAtk) {
+    for(let t of game.user.targets.ids) {
+      rollTgt(origin, name, {attaque:atk, strategie:strategie}, t);
+    }
+  } else if(type === 'attaque' && tgt !== undefined && !atk.noAtk) {
+    result = {};
+
+    for(let t of game.user.targets.ids) {
+      let roll = await rollAtkTgt(origin, name, total, {attaque:atk, strategie:strategie}, t, {alt:hasAlt});
+      result[t] = roll;
+    }
+  } else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(origin, name, total, {attaque:atk, strategie:strategie}, {alt:hasAlt});
+  else if(type === 'attaque' && atk.noAtk) rollWAtk(origin, name, {attaque:atk, strategie:strategie});
+  else rollStd(origin, name, total, {shift:hasShift, alt:hasAlt});
+
+  return result;
 };
 
-async function RollMacroPwr(actorId, sceneId, tokenId, id, author) {
+async function RollMacroPwr(actorId, sceneId, tokenId, id, author, event) {
   const actor = tokenId === 'null' ? game.actors.get(actorId) : game.scenes.get(sceneId).tokens.find(token => token.id === tokenId).actor;
+  const hasShift = event.shiftKey;
+  const hasAlt = event.altKey;
   
-  rollPwr(actor, id);
+  rollPwr(actor, id, {shift:hasShift, alt:hasAlt});
 };
 
 Hooks.on("renderPause", function () {
@@ -873,4 +802,13 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
   }
 
   dragRuler.registerSystem("mutants-and-masterminds-3e", MM3SpeedProvider)
+});
+
+Hooks.on('renderTokenHUD', (hud, html, actor) => {
+  let toUpdate = undefined;
+
+  if(actor.bar1.attribute === 'blessure') toUpdate = 'bar1';
+  if(actor.bar2.attribute === 'blessure') toUpdate = 'bar2';
+
+  if(toUpdate !== undefined) html.find(`input[name="${toUpdate}.value"]`).prop("type", "number");
 });

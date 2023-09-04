@@ -13,6 +13,7 @@ div {
 
                 a {
                     &.filtre {
+                        position:relative;
                         border-bottom: 2px solid #666;
                         border-color: #aaa;
                         border-radius: 5px;
@@ -26,13 +27,39 @@ div {
                         color: $color;
                         text-transform: uppercase;
                         padding: 2px 5px;
+                        padding-right: 30px;
+                        line-height: 15px;
+                        align-items: flex-end;
+                        display: flex;
+                        letter-spacing: 1px;
 
-                        &:hover,
-                        &.selected {
+                        &:hover {
                             color: $lightOrange;
                             border-color: $red;
                             letter-spacing: 1px;
                             text-shadow: none;
+                        }
+
+                        &.selected {
+                            color:$color;
+                            justify-content: left;
+
+                            border-color: $red;
+                            letter-spacing: 1px;
+                            text-shadow: none;
+                            border-width:2px;
+
+                            i {
+                                position: absolute;
+                                right: 5px;
+                                font-size: 16px;
+                            }
+                        }
+
+                        &.unselected {
+                            justify-content: center;
+                            color:$grey;
+                            padding-right: 5px;
                         }
                     }
                 }
@@ -57,7 +84,65 @@ div {
                     display:grid;
                 }
 
+                header.grpSep {
+                    grid-column-start: 1;
+                    grid-column-end: 3;
+                    position:relative;
+
+                    span.deploy {
+                        position: absolute;
+                        top: 0px;
+                        left: 10px;
+                        z-index: 999;
+
+                        i {
+                            cursor:pointer;
+                            &::before {
+                                border: 2px solid $black;
+                                font-size: 13px;
+                                border-radius: 30px;
+                                position: absolute;
+                                width: 23px;
+                                text-align: center;
+                                color: $black;
+                                height: 23px;
+                            }
+
+                            &.plus {
+                                &::before {
+                                    content: "+";
+                                }
+                            }
+
+                            &.minus {
+                                &::before {
+                                    content: "-";
+                                }
+                            }
+                        }
+                    }
+
+                    h1 {
+                        text-align: center;
+                        border: 0px;
+                        margin-bottom: -1px;
+                        font-size: 20px;
+                        line-height: 30px;
+                        margin-top: 5px;
+                    }
+                }
+
                 div {
+                    &.outerGrpPwr {
+                        grid-column-start: 1;
+                        grid-column-end: 3;
+
+                        grid-template-columns: 1fr 1fr;
+                        align-items: flex-start;
+                        align-content: flex-start;
+                        grid-gap: 5px;
+                    }
+
                     &.grpPwr {
                         grid-column-start: 1;
                         grid-column-end: 3;
@@ -67,6 +152,8 @@ div {
                         align-items: flex-start;
                         align-content: flex-start;
                         grid-gap: 5px;
+                        padding: 5px;
+                        border: 1px solid $grey;
 
                         &:nth-of-type(even) {
                             &>div.pwr {
@@ -91,6 +178,19 @@ div {
                                 }
                             }
                         }
+                    }
+
+                    &.grpPwrAlt {
+                        grid-column-start: 1;
+                        grid-column-end: 3;
+
+                        display:grid;
+                        grid-template-columns: 1fr 1fr;
+                        align-items: flex-start;
+                        align-content: flex-start;
+                        grid-gap: 5px;
+                        padding: 5px;
+                        border: 1px solid $grey;
                     }
 
                     &.pwr {
@@ -142,6 +242,31 @@ div {
 
                                 &.violet {
                                     background:$imgbg $violet;
+                                }
+                            }
+                            
+                            &.pwreffects {
+                                grid-column-start: 1;
+                                grid-column-end: 3;
+
+                                position:relative;
+                                width:100%;
+
+                                font-family: "Bangers";
+
+                                border-width: 2px;
+                                
+                                background:$color;
+                                background-blend-mode: overlay, multiply;
+                                background-size:500px;
+                                background-repeat:no-repeat;
+                                border-bottom: 1px solid var(--color-border-light-tertiary);
+
+                                span {
+                                    width: 100%;
+                                    margin: 0px;
+                                    font-size: 1rem;
+                                    font-weight: normal;
                                 }
                             }
                         }

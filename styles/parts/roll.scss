@@ -33,6 +33,11 @@
             letter-spacing: 1px;
         }
 
+        &.tgtName {
+            border-bottom: 1px solid $grey;
+            font-size:10px;
+        }
+
         &.result {
             box-shadow: none;
             font-family: "Sriracha";

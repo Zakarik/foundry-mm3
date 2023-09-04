@@ -3,6 +3,9 @@
         {{#if flavor}}
         <h4 class="dice-total flavor">{{flavor}}</h4>
         {{/if}}
+        {{#if tgtName}}
+            <h4 class="dice-total formula tgtName">{{localize "MM3.Cible"}} : {{tgtName}}</h4>
+        {{/if}}
         {{#if formula}}
             <h4 class="dice-total formula">{{formula}}</h4>
         {{/if}}
@@ -40,11 +43,14 @@
                     </div>
                 </div>
                 {{/if}}
-            <div class="btn">
-                <button class="btnRoll" data-target="{{btn.target}}" data-savetype="{{btn.saveType}}" data-vs="{{btn.vs}}">
-                    {{translate 'jetdefenses' btn.saveType}}
-                </button>
-            </div>
+                
+            {{#each btn as | key dBtn |}}
+                <div class="btn">
+                    <button class="btnRoll" data-type="{{key.typeAtk}}" data-target="{{key.target}}" data-savetype="{{key.saveType}}" data-vs="{{key.vs}}" data-dAtk="{{@root/dataAtk}}">
+                        {{translate 'jetdefenses' key.saveType}}
+                    </button>
+                </div>
+            {{/each}}
             {{/if}}
         {{/if}}
         {{#if vs}}

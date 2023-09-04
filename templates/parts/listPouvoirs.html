@@ -1,12 +1,27 @@
 {{#each actor.pouvoirs as | key pwr |}}
     {{#if (hasLink key._id @root/actor)}}
-    <div class="grpPwr {{#if (hasLink key._id @root/actor)}}link{{/if}} item" data-item-id="{{key._id}}">
+    <div class="outerGrpPwr item" data-item-id="{{key._id}}"">
+        <header class="grpSep js-toggler" >
+            <span class="deploy "><i class="minus"></i></span>
+            <h1>{{localize "MM3.POUVOIR.Eventail"}} : {{key.name}}</h1>
+        </header>
+    
+        <div class="grpPwr {{#if (hasLink key._id @root/actor)}}link{{/if}}" ">
+    {{else}}
+        {{#if (hasAlt key._id @root/actor)}}
+        <div class="outerGrpPwr item" data-item-id="{{key._id}}">
+            <header class="grpSep js-toggler" >
+                <span class="deploy "><i class="minus"></i></span>
+                <h1>{{localize "MM3.POUVOIR.Eventail"}} : {{key.name}}</h1>
+            </header>
+            <div class="grpPwrAlt">
+        {{/if}}
     {{/if}}
         <div class="pwr summary
     {{#if (isValue key.system.special 'standard')}}blue{{/if}}
     {{#if (isValue key.system.special 'alternatif')}}red{{/if}}
     {{#if (isValue key.system.special 'dynamique')}}violet{{/if}}
-    {{#unless (hasLink key._id @root/actor)}}item{{/unless}}
+    {{#unless (hasLinkAndAlt key._id @root/actor)}}item{{/unless}}
     " data-item-id="{{key._id}}">
         <header class="js-toggler" >
             <span class="deploy "><i class="minus"></i></span>
@@ -16,6 +31,11 @@
                 <i class="fa-solid fa-pen-to-square item-edit"></i>
                 <i class="fa-solid fa-trash-xmark item-delete"></i>
             </div>
+            {{#if key.system.effetsprincipaux}}
+            <div class="pwreffects">
+                <span class="header">{{key.system.effetsprincipaux}}</span>
+            </div>
+            {{/if}}
             
             {{#if (isValue key.system.special 'alternatif')}}
                 <select class="link" data-cout="{{key.system.cout.totalTheorique}}" data-type="{{key.system.special}}">
@@ -139,7 +159,7 @@
         {{#if (isValue kPA.system.special 'standard')}}blue{{/if}}
         {{#if (isValue kPA.system.special 'alternatif')}}red{{/if}}
         {{#if (isValue kPA.system.special 'dynamique')}}violet{{/if}}
-        {{#unless (hasLink key._id @root/actor)}}item{{/unless}}
+        {{#unless (hasLinkAndAlt key._id @root/actor)}}item{{/unless}}
         " data-item-id="{{kPA._id}}">
             <header class="js-toggler" >
                 <span class="deploy "><i class="minus"></i></span>
@@ -253,7 +273,7 @@
         {{#if (isValue kPA.system.special 'standard')}}blue{{/if}}
         {{#if (isValue kPA.system.special 'alternatif')}}red{{/if}}
         {{#if (isValue kPA.system.special 'dynamique')}}violet{{/if}}
-        {{#unless (hasLink key._id @root/actor)}}item{{/unless}}
+        {{#unless (hasLinkAndAlt key._id @root/actor)}}item{{/unless}}
         " data-item-id="{{kPA._id}}">
             <header class="js-toggler" >
                 <span class="deploy "><i class="minus"></i></span>
@@ -356,7 +376,7 @@
         {{#if (isValue kPA.system.special 'standard')}}blue{{/if}}
         {{#if (isValue kPA.system.special 'alternatif')}}red{{/if}}
         {{#if (isValue kPA.system.special 'dynamique')}}violet{{/if}}
-        {{#unless (hasLink key._id @root/actor)}}item{{/unless}}
+        {{#unless (hasLinkAndAlt key._id @root/actor)}}item{{/unless}}
         " data-item-id="{{kPA._id}}">
             <header class="js-toggler" >
                 <span class="deploy "><i class="minus"></i></span>
@@ -471,6 +491,12 @@
         {{/each}}
     {{#if (hasLink key._id @root/actor)}}
     </div>
+    </div>
+    {{else}}
+        {{#if (hasAlt key._id @root/actor)}}
+            </div>
+        </div>
+        {{/if}}
     {{/if}}    
 {{/each}}
 

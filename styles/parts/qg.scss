@@ -64,6 +64,7 @@ div.qg {
             background:$color;
             color:$fond;
             padding:5px;
+            position: relative;
 
             details {
                 width:max-content;
@@ -174,6 +175,19 @@ div.qg {
                     }
                 }
             }
+
+            @include btnOC('btnOC');
+
+            div {
+                &.btnOC {
+                    position: absolute;
+                    right: 5px;
+                    display: grid;
+                    grid-template-columns: max-content max-content;
+                    grid-gap: 5px;
+                    top: 5px;
+                }
+            }
         }
     }
 
@@ -186,6 +200,8 @@ div.qg {
                 @include attaque;
                 @include strategie;
                 @include vitesse;
+
+                @include fakebutton('resetStrategie');
 
                 &.col {
                     display:grid;
@@ -419,7 +435,65 @@ div.qg {
                         display:grid;
                     }
 
+                    header.grpSep {
+                        grid-column-start: 1;
+                        grid-column-end: 3;
+                        position:relative;
+    
+                        span.deploy {
+                            position: absolute;
+                            top: 0px;
+                            left: 10px;
+                            z-index: 999;
+    
+                            i {
+                                cursor:pointer;
+                                &::before {
+                                    border: 2px solid $black;
+                                    font-size: 13px;
+                                    border-radius: 30px;
+                                    position: absolute;
+                                    width: 23px;
+                                    text-align: center;
+                                    color: $black;
+                                    height: 23px;
+                                }
+    
+                                &.plus {
+                                    &::before {
+                                        content: "+";
+                                    }
+                                }
+    
+                                &.minus {
+                                    &::before {
+                                        content: "-";
+                                    }
+                                }
+                            }
+                        }
+    
+                        h1 {
+                            text-align: center;
+                            border: 0px;
+                            margin-bottom: -1px;
+                            font-size: 20px;
+                            line-height: 30px;
+                            margin-top: 5px;
+                        }
+                    }
+
                     div {
+                        &.outerGrpPwr {
+                            grid-column-start: 1;
+                            grid-column-end: 3;
+    
+                            grid-template-columns: 1fr 1fr;
+                            align-items: flex-start;
+                            align-content: flex-start;
+                            grid-gap: 5px;
+                        }
+                        
                         &.grpPwr {
                             grid-column-start: 1;
                             grid-column-end: 3;
@@ -429,6 +503,8 @@ div.qg {
                             align-items: flex-start;
                             align-content: flex-start;
                             grid-gap: 5px;
+                            padding: 5px;
+                            border: 1px solid $grey;
     
                             &:nth-of-type(even) {
                                 &>div.pwr {
@@ -453,6 +529,19 @@ div.qg {
                                     }
                                 }
                             }
+                        }
+
+                        &.grpPwrAlt {
+                            grid-column-start: 1;
+                            grid-column-end: 3;
+    
+                            display:grid;
+                            grid-template-columns: 1fr 1fr;
+                            align-items: flex-start;
+                            align-content: flex-start;
+                            grid-gap: 5px;
+                            padding: 5px;
+                            border: 1px solid $grey;
                         }
 
                         &.pwr {                            

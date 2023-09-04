@@ -140,6 +140,7 @@ div.personnage {
             background:$color;
             color:$fond;
             padding:5px;
+            position: relative;
 
             details {
                 width:max-content;
@@ -246,6 +247,19 @@ div.personnage {
                         padding-bottom:5px;
                         margin-bottom:3px;
                     }
+                }
+            }
+
+            @include btnOC('btnOC');
+
+            div {
+                &.btnOC {
+                    position: absolute;
+                    right: 5px;
+                    display: grid;
+                    grid-template-columns: max-content max-content;
+                    grid-gap: 5px;
+                    top: 5px;
                 }
             }
         }

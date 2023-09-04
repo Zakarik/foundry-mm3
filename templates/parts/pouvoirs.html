@@ -1,9 +1,9 @@
 <div class="tab pouvoirs" data-group="primary" data-tab="pouvoirs">
     <div class="submenu">
-        <a class="filtre {{#if (isValue systemData.filtre 'tous')}}selected{{/if}}" data-type="tous">{{localize "MM3.FILTRE.Tous"}}</a>
-        <a class="filtre {{#if (isValue systemData.filtre 'pouvoirs')}}selected{{/if}}" data-type="pouvoirs">{{localize "MM3.FILTRE.Pouvoirs"}}</a>
-        <a class="filtre {{#if (isValue systemData.filtre 'talents')}}selected{{/if}}" data-type="talents">{{localize "MM3.FILTRE.Talents"}}</a>
-        <a class="filtre {{#if (isValue systemData.filtre 'equipements')}}selected{{/if}}" data-type="equipements">{{localize "MM3.FILTRE.Equipements"}}</a>
+        <a class="filtre {{#if (isValue systemData.filtre 'tous')}}selected{{else}}unselected{{/if}}" data-type="tous">{{localize "MM3.FILTRE.Tous"}}</a>
+        <a class="filtre {{#if (isValue systemData.filtre 'pouvoirs')}}selected{{else}}unselected{{/if}}" data-type="pouvoirs">{{localize "MM3.FILTRE.Pouvoirs"}}</a>
+        <a class="filtre {{#if (isValue systemData.filtre 'talents')}}selected{{else}}unselected{{/if}}" data-type="talents">{{localize "MM3.FILTRE.Talents"}}</a>
+        <a class="filtre {{#if (isValue systemData.filtre 'equipements')}}selected{{else}}unselected{{/if}}" data-type="equipements">{{localize "MM3.FILTRE.Equipements"}}</a>
     </div>    
 
     <div class="lPouvoirs {{#if (isValue systemData.filtre 'tous')}}show{{/if}}  {{#if (isValue systemData.filtre 'pouvoirs')}}show{{/if}} item-list">

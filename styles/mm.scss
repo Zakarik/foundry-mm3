@@ -106,8 +106,10 @@ $fontreal:(
 @import "parts/equipement";
 @import "parts/vehicule";
 @import "parts/qg";
+@import "parts/bottom";
 @import "parts/roll";
 @import "parts/dialog";
+@import "parts/atkedit";
 
 img#logo {
     content: url("../assets/logo.webp");
@@ -283,4 +285,19 @@ div.mm3-dialog-mod {
             background-size: contain;
         }
     }
+}
+
+.placeable-hud input[type="number"] {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 15px var(--color-shadow-dark);
+    border: 1px solid var(--color-border-dark-3);
+    color: var(--color-text-light-2);
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+    border-radius: 8px;
+    font-size: var(--font-size-28);
+    font-weight: bold;
+    pointer-events: all;
 }

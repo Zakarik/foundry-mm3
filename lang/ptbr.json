@@ -129,7 +129,9 @@
     },
     "ATTAQUE":{
       "Label":"Ataque",
-      "Initiative":"Iniciativa"
+      "Initiative":"Iniciativa",
+      "ModAttaque":"Modificador de ataque",
+      "ModEffet":"Modificador de efeito"
     },
     "STRATEGIE":{
       "Attaqueprecision":"Ataque Acurado",
@@ -153,7 +155,8 @@
       "Effet":"Penalidades de Efeito"
     },
     "EFFET":{
-      "Label":"Efeito"
+      "Label":"Efeito",
+      "Rang":"Graduação do Efeito"
     },
     "MOD":{
       "Label-short":"Mod.",
@@ -162,6 +165,7 @@
       "Effet":"Modificador de Efeito"
     },
     "POUVOIR":{
+      "Eventail":"Arranjo",
       "Descripteurs":"Descritores",
       "Standard":"Efeito Padrão",
       "Alternatif":"Efeito Alternativo",
@@ -267,13 +271,19 @@
       "DegreEchec":"Grau de falha",
       "DegresEchec":"Graus de falha",
       "DD":"CD",
-      "AskDD":"Existe uma CD? Deixe em 0 se não",
       "Critique":"Crítico",
       "Testeffet":"Rolagem de Efeito",
       "Initiative":"Iniciativa",
+      "Pascritique":"Sem Crítico",
       "Pasattaque":"Sem rolagem de ataque",
       "Valider":"Confirmar",
       "Annuler":"Cancelar",
+      "Typeattaque":"Tipo de ataque",
+      "TYPE":{
+        "Autre":"Outro",
+        "Degats":"Dano",
+        "Affliction":"Aflição"
+      },
       "DEFENSE":{
         "Basedefense":"Rolagem de defesa base",
         "Esquive":"Rolagem de Esquiva",
@@ -281,6 +291,11 @@
         "Vigueur":"Rolagem de Fortitude",
         "Robustesse":"Rolagem de Resistência",
         "Volonte":"Rolagem de Vontade"
+      },
+      "ECHEC":{
+        "Undegre":"Um grau de falha",
+        "Deuxdegre":"Dois graus de falha",
+        "Troisdegre":"Três graus de falha"
       }
     },
     "IMPORTATIONS":{
@@ -293,10 +308,14 @@
       "FontOther":"Modificação da fonte para outros textos"
     },
     "DIALOG":{
+      "AskDD":"Existe uma CD? Deixe em 0 se não",
       "AskDelete":"Você tem certeza que quer deletar isso?",
-      "AskMod":"Você gostaria de adicionar um modificador ao teste do efeito?"
+      "TitleMod":"Existe um modificador?",
+      "AskMod":"Você deseja adicionar um modificador a esta rolagem?",
+      "DD":"Qual é a classe de dificuldade?"
     },
     "VITESSE":{
+      "Vitesses":"Velocidades",
       "Natation":"Nadar",
       "Course":"Correr",
       "Round":"Por rodada",
@@ -304,6 +323,16 @@
       "Metre-short":"m",
       "Mph":"Mph",
       "Pied-short":"ft"
+    },
+    "SPECIAL":{
+      "DeplierTout":"Abrir todos",
+      "ReplierTout":"Fechar todos",
+      "CompLie":"Ligado a uma habilidade",
+      "PwrLie":"Ligado a um poder"
+    },
+    "ASTUCE":{
+      "Shift":"Você pode manter pressionada a tecla Shift ao clicar em habilidades, perícias e defesas para adicionar uma CD à rolagem.",
+      "Alt":"Você pode manter pressionada a tecla Alt ao clicar em um rolagem para poder adicionar um modificador."
     },
     "Nom":"Nome",
     "Identite":"Identidade",
@@ -362,6 +391,10 @@
     "Editadvanced":"Editar configurações avançadas",
     "Adefinir":"À definir",
     "Non":"Não",
-    "Mod":"Modificador"
+    "Mod":"Modificador",
+    "EffetsPrincipaux":"Efeitos Principais",
+    "Cible":"Alvo",
+    "SaveEdit":"Salvar alterações",
+    "Annuler":"Desfazer"
   }
 }

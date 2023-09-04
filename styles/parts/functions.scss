@@ -133,8 +133,9 @@ $bgopacity:rgba(255, 255, 255, 0.5);
 @mixin fakebutton($class) {
     a.#{$class} {
         display: flex;
+        position: relative;
         justify-content: center;
-        align-items: flex-end;
+        align-items: center;
         background-image: linear-gradient(180deg, $white, $dwhite);
         width: 100%;
         height: 100%;
@@ -148,10 +149,32 @@ $bgopacity:rgba(255, 255, 255, 0.5);
         font-weight: normal;
         line-height: 18px;
         cursor: pointer;
-        color: #363B44;
+        color: $color;
         text-transform: uppercase;
         padding: 2px 5px;
         box-shadow: inset 0 1px 0 rgb(255 255 255 / 20%), 0 1px 2px rgb(0 0 0 / 5%);
+        letter-spacing: 1px;
+
+        &.selected {
+            color:$color;
+            justify-content: left;
+
+            border-color: $red;
+            letter-spacing: 1px;
+            text-shadow: none;
+            border-width:2px;
+
+            i {
+                position: absolute;
+                right: 5px;
+                font-size: 20px;
+            }
+        }
+
+        &.unselected {
+            justify-content: left;
+            color:$grey;
+        }
 
         &:hover {
             color: $lightOrange;
@@ -226,6 +249,10 @@ $bgopacity:rgba(255, 255, 255, 0.5);
             }
         }
 
+        select {
+            height:100%;
+        }
+
         >a {
             &.add {
                 text-align: center;
@@ -274,6 +301,11 @@ $bgopacity:rgba(255, 255, 255, 0.5);
                 &.roll.large {
                     grid-column-start: 1;
                     grid-column-end: 3;
+                }
+
+                &.roll.verylarge {
+                    grid-column-start: 1;
+                    grid-column-end: 4;
                 }
     
                 &.hide {
@@ -428,6 +460,7 @@ $bgopacity:rgba(255, 255, 255, 0.5);
                     padding-right: 0px;
                     padding-left: 0px;
                     justify-content: center;
+                    text-align: center;
                     align-items: center;
                     font-family: Sriracha;
                     font-weight:normal;
@@ -445,6 +478,11 @@ $bgopacity:rgba(255, 255, 255, 0.5);
                     &.large {
                         grid-column-start: 1;
                         grid-column-end: 3;
+                    }
+
+                    &.verylarge {
+                        grid-column-start: 1;
+                        grid-column-end: 4;
                     }
                 }
     
@@ -696,4 +734,40 @@ $bgopacity:rgba(255, 255, 255, 0.5);
             }
         }
     }
+}
+
+@mixin btnOC($class) {
+    div {
+        &.#{$class} {
+            a {
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+                background-image: linear-gradient(180deg, $white, $dwhite);
+                border: 1px solid #aaa;
+                border-bottom-color: #666;
+                border-right: 2px solid #999;
+                border-radius: 5px;
+                border-style: outset;
+                font-family: "Bangers";
+                font-size: 15px;
+                font-weight: normal;
+                line-height: 18px;
+                cursor: pointer;
+                color: #363B44;
+                text-transform: uppercase;
+                padding: 2px 5px;
+                box-shadow: inset 0 1px 0 rgb(255 255 255 / 20%), 0 1px 2px rgb(0 0 0 / 5%);
+                letter-spacing: 1px;
+        
+                &:hover {
+                    color: $lightOrange;
+                    border-color:$red;
+                    letter-spacing: 1px;
+                    text-shadow:none;
+                }
+            }
+        }
+    }
+    
 }

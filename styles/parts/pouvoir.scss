@@ -1,6 +1,7 @@
 div.pouvoir {
     img.profile-img {
         object-fit: contain;
+        width: 100%;
     }
     
     section.window-content {
@@ -79,6 +80,23 @@ div.pouvoir {
 
             option {
                 background:$blue;
+            }
+        }
+    }
+
+    input {
+        &.systemEffect {
+            width:100%;
+            border-radius: 0px;
+            text-align: center;
+            background:$color;
+            color: $fond;
+            border: 0px;
+            font-variant: small-caps;
+            font-size: 25px;
+
+            &::placeholder {
+                color:$fond;
             }
         }
     }
@@ -542,7 +560,7 @@ div.pouvoir {
 
                             section {
                                 display:grid;
-                                grid-template-columns: 100px 1fr;
+                                grid-template-columns: 125px 1fr;
                                 align-items: flex-start;
                                 align-content: flex-start;
                                 border-left:1px solid var(--color-border-light-tertiary);
@@ -572,13 +590,6 @@ div.pouvoir {
                                                 a.btn {
                                                     grid-column-start: 1;
                                                     grid-column-end: 3;
-                                                }
-                        
-                                                a.btn.selected {
-                                                    color: $lightOrange;
-                                                    border-color:$red;
-                                                    letter-spacing: 1px;
-                                                    text-shadow:none;
                                                 }
                         
                                                 label {

@@ -416,20 +416,6 @@
             "round":0,
             "kmh":0,
             "selected":true
-          },
-          "course":{
-            "autotrade":"course",
-            "rang":0,
-            "round":0,
-            "kmh":0,
-            "selected":true
-          },
-          "natation":{
-            "autotrade":"natation",
-            "rang":0,
-            "round":0,
-            "kmh":0,
-            "selected":true
           }
         }
       }
@@ -530,20 +516,6 @@
             "round":0,
             "kmh":0,
             "selected":true
-          },
-          "course":{
-            "autotrade":"course",
-            "rang":0,
-            "round":0,
-            "kmh":0,
-            "selected":true
-          },
-          "natation":{
-            "autotrade":"natation",
-            "rang":0,
-            "round":0,
-            "kmh":0,
-            "selected":true
           }
         }
       }
@@ -557,6 +529,7 @@
       "action":"aucune",
       "portee":"personnelle",
       "duree":"instantane",
+      "effetsprincipaux":"",
       "effets":"",
       "notes":"",
       "link":"",

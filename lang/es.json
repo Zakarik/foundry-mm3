@@ -129,7 +129,9 @@
     },
     "ATTAQUE":{
       "Label":"Ataque",
-      "Initiative":"Iniciativa"
+      "Initiative":"Iniciativa",
+      "ModAttaque":"Modificador de ataque",
+      "ModEffet":"Modificador de efecto"
     },
     "STRATEGIE":{
       "Attaqueprecision":"Ataque Preciso",
@@ -153,7 +155,8 @@
       "Effet":"Penalización de Efecto"
     },
     "EFFET":{
-      "Label":"Efecto"
+      "Label":"Efecto",
+      "Rang":"Rango de efecto"
     },
     "MOD":{
       "Label-short":"Mod.",
@@ -162,6 +165,7 @@
       "Effet":"Modificador de Efecto"
     },
     "POUVOIR":{
+      "Eventail":"Colección",
       "Descripteurs":"Descriptores",
       "Standard":"Efecto Estándar",
       "Alternatif":"Efecto Alternativo",
@@ -267,13 +271,19 @@
       "DegreEchec":"Grado de falla",
       "DegresEchec":"Grados de falla",
       "DD":"CD",
-      "AskDD":"¿Hay un DC? Deje en 0 si no",
       "Critique":"Crítico",
       "Testeffet":"Tirada de efecto",
       "Initiative":"Iniciativa",
+      "Pascritique":"No Crítico",
       "Pasattaque":"Sin tirada de ataque",
       "Valider":"Confirmar",
       "Annuler":"Cancelar",
+      "Typeattaque":"Tipo de ataque",
+      "TYPE":{
+        "Autre":"Other",
+        "Degats":"Dañar",
+        "Affliction":"Afligir"
+      },
       "DEFENSE":{
         "Basedefense":"Tirada de defensa base",
         "Esquive":"Tirada de Esquiva",
@@ -281,6 +291,11 @@
         "Vigueur":"Tirada de Fortaleza",
         "Robustesse":"Tirada de Dureza",
         "Volonte":"Tirada de Voluntad"
+      },
+      "ECHEC":{
+        "Undegre":"Un rango de fracaso",
+        "Deuxdegre":"Dos rangos de fracaso",
+        "Troisdegre":"Tres rangos del fracaso"
       }
     },
     "IMPORTATIONS":{
@@ -293,10 +308,14 @@
       "FontOther":"Modificación de la fuente para otros textos"
     },
     "DIALOG":{
+      "AskDD":"¿Hay un DC? Deje en 0 si no",
       "AskDelete":"¿Estás seguro que quieres eliminar esto?",
-      "AskMod":"¿Te gustaría añadir un modificador a la prueba de efecto?"
+      "TitleMod":"¿Hay algún modificador?",
+      "AskMod":"¿Quieres añadir un modificador a esta tirada?",
+      "DD":"¿Cuál es la clase de dificultad?"
     },
     "VITESSE":{
+      "Vitesses":"Velocidades",
       "Natation":"Nadar",
       "Course":"Correr",
       "Round":"Por ronda",
@@ -304,6 +323,16 @@
       "Metre-short":"m",
       "Mph":"Mph",
       "Pied-short":"ft"
+    },
+    "SPECIAL":{
+      "DeplierTout":"Ocultar todo",
+      "ReplierTout":"Mostrar todo",
+      "CompLie":"Vinculado a una habilidad",
+      "PwrLie":"Vinculado a un poder"
+    },
+    "ASTUCE":{
+      "Shift":"Puedes mantener presionada la tecla Shift al hacer clic en habilidades, destrezas y defensas para agregar una CD a la tirada.",
+      "Alt":"Puedes mantener presionada la tecla Alt al hacer clic en un rollo para poder agregar un modificador."
     },
     "Nom":"Nombre",
     "Identite":"Identidad",
@@ -362,6 +391,10 @@
     "Editadvanced":"Editar ajustes avanzados",
     "Adefinir":"A definir",
     "Non":"No",
-    "Mod":"Modificador"
+    "Mod":"Modificador",
+    "EffetsPrincipaux":"Efectos principales",
+    "Cible":"Objetivo",
+    "SaveEdit":"Guardar cambios",
+    "Annuler":"Deshacer"
   }
 }

@@ -1,6 +1,9 @@
 import {
   getFullCarac,
   listFont,
+  normalizeData,
+  getPwr,
+  getDataSubSkill,
 } from "../helpers/common.mjs";
 
 /**
@@ -61,6 +64,7 @@ export class MM3Actor extends Actor {
     this._preparePersonnageData(actorData);
     this._prepareVehiculeData(actorData);
     this._prepareQGData(actorData);
+    normalizeData(actorData);
 
     actorData.system.accessibility = {
       listFont:listFont,
@@ -83,6 +87,7 @@ export class MM3Actor extends Actor {
     const getInit = data.initiative;
     const getStr = data.strategie;
     const getVit = data.vitesse;
+    const getAtk = data.attaque;
     const listStr = ['attaqueprecision', 'attaqueoutrance', 'attaquedefensive', 'attaquepuissance', 'etats']
     const pp = data.pp;
     let attaque = 0;
@@ -166,6 +171,7 @@ export class MM3Actor extends Actor {
       if(def === 'esquive') mod += getStr.total.defense;
       if(def === 'parade') mod += getStr.total.defense;
       mod += defense?.other ?? 0;
+      mod += getStr.total.defense;
 
       ppDef += defRang;
       defense.carac = isAbs ? 0 : carac.total;
@@ -194,6 +200,55 @@ export class MM3Actor extends Actor {
 
     for(let vit in getVit.list) {
       if(getVit.list[vit].selected) vitesse = game.settings.get("mutants-and-masterminds-3e", "speedcalculate") ? getVit.list[vit].rang : getVit.list[vit].round;
+    }
+
+    for(let atk in getAtk) {
+      let atkData = getAtk[atk];
+      let pwr = atkData?.pwr ?? '';
+      let skill = atkData?.skill ?? '';
+      let type = atkData?.type ?? 'other';
+      let dataPwr = undefined;
+      let dataSkill = null;
+
+      if(pwr !== '') {
+        dataPwr = getPwr(actorData, pwr);
+
+        if(dataPwr === undefined) {
+          atkData.pwr = '';
+        }
+
+      } else if(type !== 'other' && skill !== '') {
+        dataSkill = getDataSubSkill(actorData, type, skill);
+
+        if(dataSkill === null) {
+          atkData.skill = '';
+          atkData.type = 'other';
+        }
+      }
+
+      if(pwr !== '') {
+        if((atkData.isDmg && !atkData.isAffliction) || 
+          (!atkData.isDmg && atkData.isAffliction) ||
+          (!atkData.isDmg && !atkData.isAffliction)) {
+          let basEff = getPwr(actorData, pwr);
+
+          if(basEff !== undefined) {
+            let modEff = atkData?.mod?.eff ?? 0;
+
+            atkData.effet = Number(basEff.system.cout.rang)+Number(modEff);
+          }
+        }
+      }
+
+      if(type !== 'other' && skill !== '') {
+        let basAtk = getDataSubSkill(actorData, type, skill);
+
+        if(basAtk !== null) {
+          let modAtk = atkData?.mod?.atk ?? 0;
+
+          atkData.attaque = Number(basAtk.total)+Number(modAtk);
+        }        
+      }
     }
 
     data.ddesquive = 10+getDef['esquive'].total;

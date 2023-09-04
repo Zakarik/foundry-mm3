@@ -1,3 +1,7 @@
+import {
+  EditAttaque,
+} from "../dialog/edit-attaque.mjs";
+
 export const listFont = {
   "Arial":"Arial",
   "Arial Narrow":"Arial Narrow",
@@ -303,6 +307,8 @@ async function processAlternatePower(actor, pwr, itm, otherpowers=false) {
   let listTalents = [];
   let add = true;
   let newDescription = itm.system.notes;
+  let listPwrName = [];
+  let listPwrDetails = {};
 
   if(alternate !== null) {
     if(Array.isArray(alternate)) {
@@ -310,6 +316,8 @@ async function processAlternatePower(actor, pwr, itm, otherpowers=false) {
         if(itm.system.link !== "") add = false;
 
         const pPowers = await processPowers(actor, aPwr, add, isOtherPower, itm._id, costNull);
+        listPwrDetails = foundry.utils.mergeObject(listPwrDetails, pPowers.listPwrDetails);
+        listPwrName = listPwrName.concat(pPowers.listPwrName);
         listTalents = listTalents.concat(pPowers.talents);
 
         if(add === false) {
@@ -322,6 +330,8 @@ async function processAlternatePower(actor, pwr, itm, otherpowers=false) {
       if(itm.system.link !== "") add = false;
       
       const pPowers = await processPowers(actor, alternate, add, isOtherPower, itm._id, costNull);
+      listPwrDetails = foundry.utils.mergeObject(listPwrDetails, pPowers.listPwrDetails);
+      listPwrName = listPwrName.concat(pPowers.listPwrName);
       listTalents = listTalents.concat(pPowers.talents);
 
       if(add === false) {
@@ -335,6 +345,8 @@ async function processAlternatePower(actor, pwr, itm, otherpowers=false) {
   if(itm.system.link !== "") actor.items.get(itm._id).update({[`system.notes`]:newDescription});
 
   return {
+    powerDetails:listPwrDetails,
+    powerName:listPwrName,
     talents:listTalents
   };
 }
@@ -450,12 +462,14 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
           const costCalc = costCalculate(ranks, cost);
           const calc = costCalc.parrang;
           const mod = costCalc.mod;
+          let name = pwr.name.split(':');
 
           let itm = {
-            name: pwr.name,
+            name: name[0],
             type: 'pouvoir',
             img: "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
             system:{
+              effetsprincipaux:name.slice(1).join(', '),
               special:special,
               link:link,
               descripteurs:descriptors,
@@ -474,6 +488,10 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
 
           const oPwr = link === "" ? await processAlternatePower(actor, pwr, itemCreate, true) : await processAlternatePower(actor, pwr, itemCreate, true);
           const aPwr = link === "" ? await processAlternatePower(actor, pwr, itemCreate, false) : await processAlternatePower(actor, pwr, itemCreate, false);
+          listPwrName = listPwrName.concat(oPwr.powerName);
+          listPwrName = listPwrName.concat(aPwr.powerName);
+          listPwrDetails = foundry.utils.mergeObject(listPwrDetails, oPwr.powerDetails);
+          listPwrDetails = foundry.utils.mergeObject(listPwrDetails, aPwr.powerDetails);
           listBonusTalent = listBonusTalent.concat(oPwr.talents);
           listBonusTalent = listBonusTalent.concat(aPwr.talents);
 
@@ -486,6 +504,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
           
           const total = itemCreate.system.cout.total;
           if(total > 1 && (pwr?.alternatepowers?.power ?? null) == null) listPwrWhoCanLostCost.push(itemCreate._id);
+          listPwrDetails[pwr.name]._id = itemCreate._id;
         } else {
           pwrName = pwr.name;
           pwrDescription = description;
@@ -583,7 +602,8 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
       listBonusTalent = listBonusTalent.concat(processChainedAdvantages(pwr));
       listPwrName.push(pwr.name);
       listPwrDetails[pwr.name] = {
-        ranks:pwr.ranks
+        ranks:pwr.ranks,
+        elements:pwr.elements,
       };
 
       if(createItm) {
@@ -592,12 +612,14 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
         const costCalc = costCalculate(ranks, cost);
         const calc = costCalc.parrang;
         const mod = costCalc.mod;
+        let name = pwr.name.split(':');
 
         let itm = {
-          name: pwr.name,
+          name: name[0],
           type: 'pouvoir',
           img: "systems/mutants-and-masterminds-3e/assets/icons/pouvoir.svg",
           system:{
+            effetsprincipaux:name.slice(1).join(', '),
             special:special,
             link:link,
             descripteurs:descriptors,
@@ -617,6 +639,10 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
 
         const oPwr = link === "" ? await processAlternatePower(actor, pwr, itemCreate, true) : await processAlternatePower(actor, pwr, itemCreate, true);
         const aPwr = link === "" ? await processAlternatePower(actor, pwr, itemCreate, false) : await processAlternatePower(actor, pwr, itemCreate, false);
+        listPwrName = listPwrName.concat(oPwr.powerName);
+        listPwrName = listPwrName.concat(aPwr.powerName);
+        listPwrDetails = foundry.utils.mergeObject(listPwrDetails, oPwr.powerDetails);
+        listPwrDetails = foundry.utils.mergeObject(listPwrDetails, aPwr.powerDetails);
         listBonusTalent = listBonusTalent.concat(oPwr.talents);
         listBonusTalent = listBonusTalent.concat(aPwr.talents);
 
@@ -629,6 +655,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
 
         const total = itemCreate.system.cout.total;
         if(total > 5 && (pwr?.alternatepowers?.power ?? null) == null) listPwrWhoCanLostCost.push(itemCreate._id);
+        listPwrDetails[pwr.name]._id = itemCreate._id;
       } else {
         pwrName = pwr.name;
         pwrDescription = description;
@@ -1046,6 +1073,84 @@ export async function processImport(actor, data, actorType='personnage') {
       DCAttacks[attacks.name.split(":")[0]] = Number(attacks.dc)-15;
     }
   }
+
+  const conditionsVOId = {
+    "controlled":"controlled",
+    "impaired":"decreased",
+    "fatigued":"tired",
+    "disabled":"disabled",
+    "dazed":"dazed",
+    "immobile":"stuck",
+    "unaware":"insensitive",
+    "debilitated":"invalid",
+    "hindered":"slow",
+    "defenseless":"defenseless",
+    "transformed":"transformed",
+    "vulnerable":"vulnerability",
+    "staggered":"chanceling",
+    "enthralled":"enthralled",
+    "compelled":"eye",
+    "exhausted":"exhausted",
+    "bound":"tied",
+    "dying":"dying",
+    "incapacitated":"neutralized",
+    "surprised":"surprised",
+    "weakened":"downgrade",
+    "prone":"prone",
+    "blind":"blind",    
+    "asleep":"sleep",    
+    "restrained":"restrain",    
+    "paralyzed":"paralysis",    
+    "deaf":"deaf",
+    "stunned":"stun"
+  };
+  
+  const conditionsVFId = {
+    "contrôlé":"controlled",
+    "diminué":"decreased",
+    "fatigué":"tired",
+    "handicapé":"disabled",
+    "hébété":"dazed",
+    "immobilisé":"stuck",
+    "insensible":"insensitive",
+    "invalide":"invalid",
+    "ralenti":"slow",
+    "sans défense":"defenseless",
+    "transformé":"transformed",
+    "vulnérable":"vulnerability",
+    "chancelant":"chanceling",
+    "envoûté":"enthralled",
+    "influencé":"eye",
+    "épuisé":"exhausted",
+    "ligoté":"tied",
+    "mourant":"dying",
+    "neutralisé":"neutralized",
+    "surpris":"surprised",
+    "affaibli":"downgrade",
+    "à terre":"prone",
+    "aveugle":"blind",    
+    "endormi":"sleep",    
+    "entravé":"restrain",    
+    "paralysé":"paralysis",    
+    "sourd":"deaf",
+    "étourdi":"stun"
+  };
+
+  const resistVO = {
+    "dodge":"esquive",
+    "parry":"parade",
+    "fortitude":"vigueur",
+    "toughness":"robustesse",
+    "will":"volonte",
+  };
+
+  const resistVF = {
+    "esquive":"esquive",
+    "parade":"parade",
+    "vigueur":"vigueur",
+    "robustesse":"robustesse",
+    "volonté":"volonte",
+  };
   
   if(actorType === 'personnage') {
     for(let skill of skills) {
@@ -1075,24 +1180,44 @@ export async function processImport(actor, data, actorType='personnage') {
           }
         } else {
           const lengthAttack = Object.keys(listAttack).length;
+          let randSkill = foundry.utils.randomID();
+          let randAtk = foundry.utils.randomID();
+          let lowercase = label.toLowerCase();
+          let isDmg = false;
+          let isAffliction = false;
+          let save = 'robustesse';
+          let basedef = 15;
+
+          if(lowercase.includes('damage') || lowercase.includes('degats')) isDmg = true;
+          if(lowercase.includes('affliction')) isAffliction = true;
+
+          if(isAffliction && !isDmg) save = 'volonte';
+
+          if(save !== 'robustesse') basedef = 10;
   
           listSkill[label][length] = {
-            "label":lastLabel,
-            "total":0,
-            "carac":0,
-            "rang":Number(skill.cost.value)*2,
-            "autre":0
+            _id:randSkill,
+            label:lastLabel,
+            total:0,
+            carac:0,
+            rang:Number(skill.cost.value)*2,
+            autre:0,
+            idAtt:randAtk,
           }
   
           listAttack[lengthAttack] = {
+            _id:randAtk,
             type:label,
-            id:length,
-            save:'robustesse',
+            skill:randSkill,
+            label:lastLabel,
+            save:save,
             effet:DCAttacks?.[lastLabel] ?? undefined !== undefined ? DCAttacks[lastLabel] : 0,
             critique:20,
             text:"",
             noAtk:false,
-            basedef:15
+            basedef:basedef,
+            isDmg:isDmg,
+            isAffliction:isAffliction,
           }
   
           alreadyAddAttack.push(lastLabel);
@@ -1101,7 +1226,7 @@ export async function processImport(actor, data, actorType='personnage') {
         update[`system.competence.${label}.rang`] = Number(skill.cost.value)*2;
       }        
     }
-  }  
+  }
 
   if(attacks !== null) {
     if(Array.isArray(attacks)) {
@@ -1112,17 +1237,112 @@ export async function processImport(actor, data, actorType='personnage') {
   
           if(!alreadyAddAttack.includes(firstName)) {
             const lengthAttack = Object.keys(listAttack).length;
+            let randAtk = foundry.utils.randomID();
+            let isDmg = false;
+            let isAffliction = false;
+            let lowercase = att.name.toLowerCase();
+            let pwrData = powerDetails[att.name];
+            let afflictionechec = {
+              e1:[],
+              e2:[],
+              e3:[]
+            };
+            let save = 'robustesse';
+            let saveAffliction = 'volonte';
+            let basedef = 15;
+
+            if(lowercase.includes('damage') || lowercase.includes('degats')) isDmg = true;
+            if(lowercase.includes('affliction')) isAffliction = true;
+
+            if(isAffliction && !isDmg) save = 'volonte';
+
+            if(isAffliction && (pwrData?._id ?? '') !== '') {
+              const elements = pwrData?.elements ?? null;
+
+              if(elements !== null) {
+                const element = elements?.element ?? null;
+
+                if(element !== null) {                            
+                  let first = element.find(f => f.name.includes('1st degree'));
+                  let second = element.find(f => f.name.includes('2nd degree'));
+                  let three = element.find(f => f.name.includes('3rd degree'));
+                  let resist = element.find(f => f.name.includes('Resisted by'));
+                  let fInfo = first?.info ?? null;
+                  let sInfo = second?.info ?? null;
+                  let tInfo = three?.info ?? null;
+                  let rInfo = resist?.info ?? null;
+                  let split;
+                  let condition;
+                  let resistvs;
+
+                  if(fInfo !== null) {
+                    split = fInfo.split(',');
+
+                    for(let s of split) {
+                      condition = conditionsVOId[s.toLowerCase()];
+
+                      if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
+                      if(condition !== undefined) condition = getStatusData(condition);
+                      
+                      if(condition !== undefined) afflictionechec.e1.push(condition);
+                    }
+                  }
+
+                  if(sInfo !== null) {
+                    split = sInfo.split(',');
+
+                    for(let s of split) {
+                      condition = conditionsVOId[s.toLowerCase()];
+
+                      if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
+                      if(condition !== undefined) condition = getStatusData(condition);
+                      
+                      if(condition !== undefined) afflictionechec.e2.push(condition);
+                    }
+                  }
+
+                  if(tInfo !== null) {
+                    split = tInfo.split(',');
+
+                    for(let s of split) {
+                      condition = conditionsVOId[s.toLowerCase()];
+
+                      if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
+                      if(condition !== undefined) condition = getStatusData(condition);
+                      
+                      if(condition !== undefined) afflictionechec.e3.push(condition);
+                    }
+                  }
+
+                  if(rInfo !== null) {
+                    resistvs = resistVO[rInfo.toLowerCase()];
+
+                    if(resistvs === undefined) resistvs = resistVF[rInfo.toLowerCase()];
+                    if(resistvs !== undefined && isAffliction && isDmg) saveAffliction = resistvs;
+                    else if(resistvs !== undefined && isAffliction && !isDmg) save = resistvs;
+                  }
+                }
+              }
+            }
+
+            if(save !== 'robustesse') basedef = 10;
+
             listAttack[lengthAttack] = {
+              _id:randAtk,
+              pwr:pwrData?._id ?? '',
               type:'other',
-              id:-1,
-              save:'robustesse',
+              save:save,
+              saveAffliction:saveAffliction,
+              afflictionechec:afflictionechec,
               label:firstName,
               attaque:Number(att.attack),
               effet:Number(powerDetails[att.name]?.ranks) ?? 0,
               critique:Number(att.crit),
               text:lastname,
               noAtk:false,
-              basedef:15
+              basedef:basedef,
+              isDmg:isDmg,
+              isAffliction:isAffliction,
             }
           }
         } else {
@@ -1130,18 +1350,35 @@ export async function processImport(actor, data, actorType='personnage') {
             const firstName = att.name.split(":")[0];
             const lastname = att.name.replace(`${firstName}: `, '');
             const lengthAttack = Object.keys(listAttack).length;
+            let randAtk = foundry.utils.randomID();
+            let isDmg = false;
+            let isAffliction = false;
+            let lowercase = att.name.toLowerCase();
+            let save = 'robustesse';
+            let saveAffliction = 'volonte';
+            let basedef = 15;
+
+            if(lowercase.includes('damage') || lowercase.includes('degats')) isDmg = true;
+            if(lowercase.includes('affliction')) isAffliction = true;
+
+            if(isAffliction && !isDmg) save = 'volonte';
+
+            if(save !== 'robustesse') basedef = 10;
 
             listAttack[lengthAttack] = {
+              _id:randAtk,
               type:'other',
-              id:-1,
-              save:'robustesse',
+              save:save,
+              saveAffliction:saveAffliction,
               label:firstName,
               attaque:Number(att.attack),
               effet:Number(att.dc)-15 ?? 0,
               critique:Number(att.crit),
               text:lastname,
               noAtk:false,
-              basedef:15
+              basedef:basedef,
+              isDmg:isDmg,
+              isAffliction:isAffliction,
             }
           }
         }
@@ -1153,17 +1390,111 @@ export async function processImport(actor, data, actorType='personnage') {
 
         if(!alreadyAddAttack.includes(firstName)) {
           const lengthAttack = Object.keys(listAttack).length;
+          let randAtk = foundry.utils.randomID();
+          let isDmg = false;
+          let isAffliction = false;
+          let lowercase = attacks.name.toLowerCase();
+          let pwrData = powerDetails[att.name];
+          let afflictionechec = {
+            e1:[],
+            e2:[],
+            e3:[]
+          };
+          let save = 'robustesse';
+          let saveAffliction = 'volonte';
+          let basedef = 15;
+
+          if(lowercase.includes('damage') || lowercase.includes('degats')) isDmg = true;
+          if(lowercase.includes('affliction')) isAffliction = true;
+
+          if(isAffliction && !isDmg) save = 'volonte';
+
+          if(isAffliction && (pwrData?._id ?? '') !== '') {
+            const elements = pwrData?.elements ?? null;
+
+            if(elements !== null) {
+              const element = elements?.element ?? null;
+
+              if(element !== null) {                            
+                let first = element.find(f => f.name.includes('1st degree'));
+                let second = element.find(f => f.name.includes('2nd degree'));
+                let three = element.find(f => f.name.includes('3rd degree'));
+                let resist = element.find(f => f.name.includes('Resisted by'));
+                let fInfo = first?.info ?? null;
+                let sInfo = second?.info ?? null;
+                let tInfo = three?.info ?? null;
+                let rInfo = resist?.info ?? null;
+                let split;
+                let condition;
+                let resistvs;
+
+                if(fInfo !== null) {
+                  split = fInfo.split(',');
+
+                  for(let s of split) {
+                    condition = conditionsVOId[s.toLowerCase()];
+
+                    if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
+                    if(condition !== undefined) condition = getStatusData(condition);
+                    
+                    if(condition !== undefined) afflictionechec.e1.push(condition);
+                  }
+                }
+
+                if(sInfo !== null) {
+                  split = sInfo.split(',');
+
+                  for(let s of split) {
+                    condition = conditionsVOId[s.toLowerCase()];
+
+                    if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
+                    if(condition !== undefined) condition = getStatusData(condition);
+                    
+                    if(condition !== undefined) afflictionechec.e2.push(condition);
+                  }
+                }
+
+                if(tInfo !== null) {
+                  split = tInfo.split(',');
+
+                  for(let s of split) {
+                    condition = conditionsVOId[s.toLowerCase()];
+
+                    if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
+                    if(condition !== undefined) condition = getStatusData(condition);
+                    
+                    if(condition !== undefined) afflictionechec.e3.push(condition);
+                  }
+                }
+
+                if(rInfo !== null) {
+                  resistvs = resistVO[rInfo.toLowerCase()];
+
+                  if(resistvs === undefined) resistvs = resistVF[rInfo.toLowerCase()];
+                  if(resistvs !== undefined && isAffliction && isDmg) saveAffliction = resistvs;
+                  else if(resistvs !== undefined && isAffliction && !isDmg) save = resistvs;
+                }
+              }
+            }
+          }
+
+          if(save !== 'robustesse') basedef = 10;
+          
           listAttack[lengthAttack] = {
+            _id:randAtk,
+            pwr:powerDetails[att.name]?._id ?? '',
             type:'other',
-            id:-1,
-            save:'robustesse',
+            save:save,
+            saveAffliction:saveAffliction,
             label:firstName,
             attaque:Number(attacks.attack),
             effet:Number(powerDetails[attacks.name]?.ranks) ?? 0,
             critique:Number(attacks.crit),
             text:lastname,
             noAtk:false,
-            basedef:15
+            basedef:basedef,
+            isDmg:isDmg,
+            isAffliction:isAffliction,
           }
         }
       } else {
@@ -1171,18 +1502,35 @@ export async function processImport(actor, data, actorType='personnage') {
           const firstName = attacks.name.split(":")[0];
           const lastname = attacks.name.replace(`${firstName}: `, '');
           const lengthAttack = Object.keys(listAttack).length;
+          let randAtk = foundry.utils.randomID();
+          let isDmg = false;
+          let isAffliction = false;
+          let lowercase = attacks.name.toLowerCase();
+          let save = 'robustesse';
+          let saveAffliction = 'volonte';
+          let basedef = 15;
+
+          if(lowercase.includes('damage') || lowercase.includes('degats')) isDmg = true;
+          if(lowercase.includes('affliction')) isAffliction = true;
+
+          if(isAffliction && !isDmg) save = 'volonte';
+
+          if(save !== 'robustesse') basedef = 10;
           
           listAttack[lengthAttack] = {
+            _id:randAtk,
             type:'other',
-            id:-1,
-            save:'robustesse',
+            save:save,
+            saveAffliction:saveAffliction,
             label:firstName,
             attaque:Number(attacks.attack),
             effet:Number(attacks.dc)-15 ?? 0,
             critique:Number(attacks.crit),
             text:lastname,
             noAtk:false,
-            basedef:15
+            basedef:basedef,
+            isDmg:isDmg,
+            isAffliction:isAffliction,
           }
         }
       }
@@ -1225,7 +1573,8 @@ export async function processImport(actor, data, actorType='personnage') {
   update[`system.attaque`] = listAttack;
   update['name'] = data.name;  
   
-  actor.update(update);
+  await actor.update(update);
+  normalizeData(actor, true);
 }
 
 export async function processMinions(actor, data) {
@@ -1372,6 +1721,15 @@ export function accessibility(actor, html) {
 
     if(resized.includes(setting)) html.find('a.item').css('font-size', '11px');
   }
+
+  $(html.find('a.selected')).prepend(`<i class="fa-solid fa-hexagon-check"></i>`);
+  $(html.find('nav.tabs a.active')).prepend(`<i class="fa-solid fa-hexagon-check"></i>`);
+  html.find('nav.tabs a').click(ev => {
+    const target = $(ev.currentTarget);
+    
+    $(html.find('nav.tabs a i')).remove();
+    target.prepend(`<i class="fa-solid fa-hexagon-check"></i>`);
+  });  
 }
 
 export async function deletePrompt(actor, label) {
@@ -1523,118 +1881,152 @@ export function setCombinedEffects(token, statusId, active) {
   }
 }
 
-//ROLL STANDARD
-export async function rollStd(actor, name, score, shift=false) {
-  const optDices = getDices();  
-  const dicesCrit = optDices.critique;
-  const dicesBase = optDices.dices;
-  const dicesFormula = optDices.formula;
-  let pRoll = {};
+export async function dialogAsk(data={}) {
+  return new Promise((resolve, reject) => {
+    const askDD = data?.dd ?? false;
+    const askMod = data?.mod ?? false;
+    const askNiveauDialogOptions = {
+      classes: ["dialog", "mm3-dialog"],
+      width:450,
+    };
 
-  const roll = new Roll(`${dicesBase} + ${score}`);
-  roll.evaluate({async:false});
+    let title = '';
+    let html = '';
+    if(askDD) {
+      title += game.i18n.localize("MM3.DIALOG.AskDD");
+      html += `<span>${game.i18n.localize("MM3.DIALOG.DD")}</span><input type="number" class="dc" value="0" min="0"/>`;
+    }
+    if(askMod) {
+      title += title !== '' ? ` / ${game.i18n.localize("MM3.DIALOG.TitleMod")}` : game.i18n.localize("MM3.DIALOG.TitleMod");
+      html += `<span>${game.i18n.localize("MM3.DIALOG.AskMod")}</span><input type="number" class="mod" value="0" min="0"/>`;
+    } 
 
-  const resultDie = roll.total-score;
-  const ruleDC = game.settings.get("mutants-and-masterminds-3e", "dcroll");
-  const rMode = game.settings.get("core", "rollMode");
-
-  if((ruleDC === "shift" && shift) || (ruleDC !== "shift" && !shift)) {
-    const askNiveauDialogOptions = {classes: ["dialog", "mm3-dialog"]};
-
-    await new Dialog({
-      title: game.i18n.localize("MM3.ROLL.AskDD"),
-      content: `<span>${game.i18n.localize("MM3.ROLL.DD")} ?</span><input type="number" class="dc" value="0" min="0"/>`,
+    new Dialog({
+      title: title,
+      content: html,
       buttons: {
         button1: {
           label: game.i18n.localize("MM3.ROLL.Valider"),
           callback: async (dataHtml) => {
             const ddfind = dataHtml?.find('.dc')?.val() ?? 0;
-            const dd = Number(ddfind);
-            let resultMarge = 0;
-            let isCritique = false;
+            const modfind = dataHtml?.find('.mod')?.val() ?? 0;
+
+            let result = {};
+            if(askDD) result['dd'] = Number(ddfind);
+            if(askMod) result['mod'] = Number(modfind);
             
-            if(dd > 0) resultMarge = ((roll.total-dd)/5);
-            if(resultDie >= dicesCrit) isCritique = true;
-
-            const finalMarge = resultMarge < 0 ? Math.abs(resultMarge)+1 : resultMarge+1;
-
-            pRoll = {
-              flavor:name === "" ? " - " : `${name}`,
-              tooltip:await roll.getTooltip(),
-              formula:`${dicesFormula} + ${score}`,
-              result:roll.total,
-              isCritique:isCritique,
-              vs:dd > 0 ? dd : false,
-              isSuccess:roll.total >= dd ? true : false,
-              hasMarge:dd > 0 ? true : false,
-              resultMarge:isCritique ? Math.floor(finalMarge)+1 : Math.floor(finalMarge),
-              successOrFail:resultMarge < 0 ? 'fail' : 'success',
-            };
-          
-            const rollMsgData = {
-              user: game.user.id,
-              speaker: {
-                actor: actor?.id || null,
-                token: actor?.token?.id || null,
-                alias: actor?.name || null,
-              },
-              type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-              rolls:[roll],
-              content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
-              sound: CONFIG.sounds.dice
-            };
-          
-            const msgData = ChatMessage.applyRollMode(rollMsgData, rMode);
-          
-            await ChatMessage.create(msgData, {
-              rollMode:rMode
-            });
+            resolve(result)
           },
           icon: `<i class="fas fa-check"></i>`
         },
         button2: {
           label: game.i18n.localize("MM3.ROLL.Annuler"),
-          callback: async () => {},
+          callback: async () => { resolve(0) },
           icon: `<i class="fas fa-times"></i>`
         }
       }
-    }, askNiveauDialogOptions).render(true);
+    }, askNiveauDialogOptions).render(true);  
+  });
+}
+
+//ROLL STANDARD
+export async function rollStd(actor, name, score, dataKey={}) {
+  const optDices = getDices();
+  const dicesCrit = optDices.critique;
+  const dicesBase = optDices.dices;
+  const dicesFormula = optDices.formula;
+  const shift = dataKey?.shift ?? false;
+  const ruleDC = game.settings.get("mutants-and-masterminds-3e", "dcroll");
+  const rMode = game.settings.get("core", "rollMode");  
+  const useShift = (ruleDC === "shift" && shift) || (ruleDC !== "shift" && !shift) ? true : false;
+  const alt = dataKey?.alt ?? false;
+  let total = score;
+  let pRoll = {};
+  let ask = false;
+  let dd = 0;
+  let mod = 0;
+
+  if(useShift || alt) {
+    ask = await dialogAsk({dd:useShift, mod:alt});
+
+    dd = ask?.dd ?? 0;
+    mod = ask?.mod ?? 0;
+  }
+
+  const roll = new Roll(`${dicesBase} + ${total} + ${mod}`);
+  roll.evaluate({async:false});
+
+  const resultDie = roll.total-total;
+  let formula = mod === 0 ? `${dicesFormula} + ${total}` : `${dicesFormula} + ${total} + ${mod}`;
+
+  if(useShift) {
+    let resultMarge = 0;
+    let isCritique = false;
+
+    if(dd > 0) resultMarge = ((roll.total-dd)/5);
+    if(resultDie >= dicesCrit) isCritique = true;
+
+    const finalMarge = resultMarge < 0 ? Math.abs(resultMarge)+1 : resultMarge+1;
+
+    pRoll = {
+      flavor:name === "" ? " - " : `${name}`,
+      tooltip:await roll.getTooltip(),
+      formula:formula,
+      result:roll.total,
+      isCritique:isCritique,
+      vs:dd > 0 ? dd : false,
+      isSuccess:roll.total >= dd ? true : false,
+      hasMarge:dd > 0 ? true : false,
+      resultMarge:isCritique ? Math.floor(finalMarge)+1 : Math.floor(finalMarge),
+      successOrFail:resultMarge < 0 ? 'fail' : 'success',
+    };
   } else {
     pRoll = {
       flavor:name === "" ? " - " : `${name}`,
       tooltip:await roll.getTooltip(),
-      formula:`${dicesFormula} + ${score}`,
+      formula:formula,
       result:roll.total,
       isCritique:resultDie >= dicesCrit ? true : false,
     };
+  }  
   
-    const rollMsgData = {
-      user: game.user.id,
-      speaker: {
-        actor: actor?.id || null,
-        token: actor?.token?.id || null,
-        alias: actor?.name || null,
-      },
-      type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-      rolls:[roll],
-      content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
-      sound: CONFIG.sounds.dice
-    };
-    const msgData = ChatMessage.applyRollMode(rollMsgData, rMode);
-  
-    await ChatMessage.create(msgData, {
-      rollMode:rMode
-    });
-  }
+  const rollMsgData = {
+    user: game.user.id,
+    speaker: {
+      actor: actor?.id || null,
+      token: actor?.token?.id || null,
+      alias: actor?.name || null,
+    },
+    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+    rolls:[roll],
+    content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
+    sound: CONFIG.sounds.dice
+  };
+  const msgData = ChatMessage.applyRollMode(rollMsgData, rMode);
+
+  await ChatMessage.create(msgData, {
+    rollMode:rMode
+  });
 }
 
 //ROLL VS DD
-export async function rollVs(actor, name, score, vs, mod=0) {
-  const optDices = getDices();  
+export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
+  const optDices = getDices();
+  const alt = dataKey?.alt ?? false;
+  let ask = false;
+  let mod = 0;
+
+  if(alt) {
+    ask = await dialogAsk({mod:alt});
+
+    mod = ask?.mod ?? 0;
+  }
+
   let toRoll = mod === 0 ? `${optDices.dices} + ${score}` : `${optDices.dices} + ${score} + ${mod}`;
   const save = new Roll(toRoll);
   save.evaluate({async:false});
 
+  const typeAtk = data?.typeAtk ?? false;
   const saveTotal = Number(save.total);
   const saveDices = saveTotal-score;
   const isCritique = saveDices === optDices.critique ? true : false;
@@ -1659,6 +2051,63 @@ export async function rollVs(actor, name, score, vs, mod=0) {
     successOrFail:'fail',
   };
 
+  if(typeAtk !== false && !isSuccess) {
+    const dataAtk = data.atk;
+    const token = data.tkn;
+    let listEtats = [];
+    let update = [];
+    let blessures = {};
+
+    if(typeAtk === 'affliction') {      
+      if(marge === 1) {
+        listEtats = dataAtk.afflictionechec.e1;
+      } else if(marge === 2) {
+        listEtats = dataAtk.afflictionechec.e2;
+      } else if(marge >= 3) {
+        listEtats = dataAtk.afflictionechec.e3;
+      }
+
+      for(let etat of listEtats) {
+        let status = await setStatus(actor, etat.id, false);
+        if(status !== undefined) update.push(status);
+      }
+
+      if(update.length > 0) {
+        await token.actor.createEmbeddedDocuments("ActiveEffect", update);
+      }
+    } 
+    
+    if(typeAtk === 'dmg') {
+      const blessure = Number(actor.system.blessure);
+      const allEtats = CONFIG.statusEffects;
+
+      if(marge === 1) {
+        blessures[`system.blessure`] = blessure+Number(dataAtk.dmgechec.v1);
+      } else if(marge === 2) {
+        blessures[`system.blessure`] = blessure+Number(dataAtk.dmgechec.v2);
+        listEtats.push(allEtats.find(eta => eta.id === 'dazed'));
+      } else if(marge === 3 && !hasStatus(actor, 'chanceling')) {
+        blessures[`system.blessure`] = blessure+Number(dataAtk.dmgechec.v3);
+        listEtats.push(allEtats.find(eta => eta.id === 'chanceling'));
+      } else if(marge >= 3) {
+        listEtats.push(allEtats.find(eta => eta.id === 'neutralized'));
+      }
+
+      for(let etat of listEtats) {
+        let status = await setStatus(actor, etat.id, false);
+        if(status !== undefined) update.push(status);
+      }
+
+      if(update.length > 0) {
+        await token.actor.createEmbeddedDocuments("ActiveEffect", update);
+      }
+
+      if(!foundry.utils.isEmpty(blessures)) {
+        await token.actor.update(blessures);
+      }
+    }
+  }
+
   const saveMsgData = {
     speaker: {
       actor: actor?.id || null,
@@ -1679,66 +2128,109 @@ export async function rollVs(actor, name, score, vs, mod=0) {
 }
 
 //ROLL ATTAQUE AVEC CIBLE
-export async function rollAtkTgt(actor, name, score, data, tgt) {
+export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
   if(tgt === undefined) return;
   const optDices = getDices();
   const dicesBase = optDices.dices;
   const dicesFormula = optDices.formula;
   const token = canvas.scene.tokens.find(token => token.id === tgt);
+  const alt = dataKey?.alt ?? false;
+
+  let ask = false;
+  let mod = 0;
+  let total = score;
+
+  if(alt) {
+    ask = await dialogAsk({mod:alt});
+
+    mod = ask?.mod ?? 0;
+  }
   
   const dataCbt = data.attaque;
   const dataStr = data.strategie;
-  const roll = new Roll(`${dicesBase} + ${score} + ${dataStr.attaque}`);
+  const roll = new Roll(`${dicesBase} + ${total} + ${dataStr.attaque} + ${mod}`);
   roll.evaluate({async:false});
 
   const tokenData = token.actor.system;
-  const resultDie = roll.total-score-dataStr.attaque;
+  const resultDie = roll.total-total-dataStr.attaque;
   const parade = Number(tokenData.ddparade);
   const esquive = Number(tokenData.ddesquive);
   const sCritique = dataCbt.critique;
+  const noCrit = dataCbt.noCrit ? true : false;
   const defpassive = dataCbt?.defpassive ?? 'parade';
+  const isDmg = dataCbt.isDmg;
+  const isAffliction = dataCbt.isAffliction;
+  const saveAffliction = dataCbt.saveAffliction;
   const saveType = dataCbt.save;
 
   let ddDefense = 0;
   let traType = "";
+  let formula = mod === 0 ? `${dicesFormula} + ${total} + ${dataStr.attaque}` : `${dicesFormula} + ${total} + ${dataStr.attaque} + ${mod}`
 
   ddDefense = defpassive === 'parade' ? parade : esquive;
   traType = defpassive === 'parade' ? game.i18n.localize("MM3.DEFENSE.DDParade") : game.i18n.localize("MM3.DEFENSE.DDEsquive");    
 
+  let result = {
+    hit:roll.total >= ddDefense && resultDie !== 1 ? true : false,
+    crit:resultDie >= dataCbt.critique && !noCrit ? true : false,
+  };
   let pRoll = {};
   
-  if((roll.total >= ddDefense && resultDie !== 1) || resultDie >= sCritique) {
+  if((roll.total >= ddDefense && resultDie !== 1) || (resultDie >= sCritique && !noCrit)) {
     let dSuccess = Math.floor(((roll.total - ddDefense)/5))+1;
+
+    let btn = [];
+
+    if(isDmg && isAffliction) {
+      btn.push({
+        typeAtk:'dmg',
+        target:tgt,
+        saveType:saveType,
+        vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
+      },
+      {
+        typeAtk:'affliction',
+        target:tgt,
+        saveType:saveAffliction,
+        vs:Number(dataCbt.afflictioneffet)+Number(dataStr.effet)+Number(dataCbt.afflictiondef),
+      });
+    } else {
+      btn.push({
+        typeAtk:'dmg',
+        target:tgt,
+        saveType:saveType,
+        vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
+      });
+    }
 
     pRoll = {
       flavor:name === "" ? " - " : `${name}`,
       tooltip:await roll.getTooltip(),
-      formula:`${dicesFormula} + ${score} + ${dataStr.attaque}`,
+      formula:formula,
       result:roll.total,
       isCombat:true,
       isSuccess:true,
       defense:ddDefense,
-      isCritique:resultDie >= sCritique ? true : false,
+      isCritique:resultDie >= sCritique && !noCrit ? true : false,
       degreSuccess:dSuccess,
       type:traType,
       text:dataCbt.text,
-      btn:{
-        target:tgt,
-        saveType:saveType,
-        vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
-      }
+      tgtName:token.actor.name,
+      dataAtk:JSON.stringify(dataCbt),
+      btn:btn,
     };
   } else {
     pRoll = {
       flavor:`${name}`,
       tooltip:await roll.getTooltip(),
-      formula:`${dicesFormula} + ${score} + ${dataStr.attaque}`,
+      formula:formula,
       result:roll.total,
       isCombat:true,
       isSuccess:false,
       defense:ddDefense,
       type:traType,
-      text:dataCbt.text
+      text:dataCbt.text,
+      tgtName:token.name,
     };
   }
 
@@ -1761,27 +2253,54 @@ export async function rollAtkTgt(actor, name, score, data, tgt) {
   await ChatMessage.create(msgData, {
     rollMode:rMode
   });
+
+  return result;
 }
 
 //ROLL AVEC CIBLE
 export async function rollTgt(actor, name, data, tgt) {
-  if(tgt === undefined) return;  
+  if(tgt === undefined) return;
+  const actTgt = canvas.scene.tokens.find(token => token.id === tgt);
   const dataCbt = data.attaque;
   const dataStr = data.strategie;  
+  const isDmg = dataCbt.isDmg;
+  const isAffliction = dataCbt.isAffliction;
+  const saveAffliction = dataCbt.saveAffliction;
   const saveType = dataCbt.save;
 
   let pRoll = {};
+
+  let btn = [];
+
+  if(isDmg && isAffliction) {
+    btn.push({
+      typeAtk:'dmg',
+      target:tgt,
+      saveType:saveType,
+      vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
+    },
+    {
+      typeAtk:'affliction',
+      target:tgt,
+      saveType:saveAffliction,
+      vs:Number(dataCbt.afflictioneffet)+Number(dataStr.effet)+Number(dataCbt.afflictiondef),
+    });
+  } else {
+    btn.push({
+      typeAtk:'dmg',
+      target:tgt,
+      saveType:saveType,
+      vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
+    });
+  }
   
   pRoll = {
     flavor:name === "" ? " - " : `${name}`,
     isCombat:true,
     isSuccess:true,
     text:dataCbt.text,
-    btn:{
-      target:tgt,
-      saveType:saveType,
-      vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
-    }
+    tgtName:actTgt.name,
+    btn:btn
   };
 
   const rollMsgData = {
@@ -1836,25 +2355,40 @@ export async function rollWAtk(actor, name, data) {
 }
 
 //ROLL ATTAQUE
-export async function rollAtk(actor, name, score, data) {
+export async function rollAtk(actor, name, score, data, dataKey={}) {
   const optDices = getDices();
   const dicesBase = optDices.dices;
   const dicesFormula = optDices.formula;
 
   const dataCbt = data.attaque;
   const dataStr = data.strategie;
+  const noCrit = dataCbt.noCrit ? true : false;
+  const alt = dataKey?.alt ?? false;
 
-  const roll = new Roll(`${dicesBase} + ${score} + ${dataStr.attaque}`);
+  let ask = false;
+  let mod = 0;
+  let total = score;
+
+  if(alt) {
+    ask = await dialogAsk({mod:alt});
+
+    mod = ask?.mod ?? 0;
+  }
+
+  let formula = mod === 0 ? `${dicesFormula} + ${total} + ${dataStr.attaque}` : `${dicesFormula} + ${total} + ${dataStr.attaque} + ${mod}`;
+  let fRoll = mod === 0 ? `${dicesBase} + ${total} + ${dataStr.attaque}` : `${dicesBase} + ${total} + ${dataStr.attaque} + ${mod}`; 
+
+  const roll = new Roll(fRoll);
   roll.evaluate({async:false});
 
-  const resultDie = roll.total-score-dataStr.attaque;
+  const resultDie = roll.total-total-dataStr.attaque;
 
   const pRoll = {
     flavor:name === "" ? " - " : `${name}`,
     tooltip:await roll.getTooltip(),
-    formula:`${dicesFormula} + ${score} + ${dataStr.attaque}`,
+    formula:formula,
     result:roll.total,
-    isCritique:resultDie >= dataCbt.critique ? true : false,
+    isCritique:resultDie >= dataCbt.critique && !noCrit ? true : false,
     effet:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
     text:dataCbt.text
   };
@@ -1881,27 +2415,39 @@ export async function rollAtk(actor, name, score, data) {
 }
 
 //ROLL POUVOIR
-export async function rollPwr(actor, id, mod=0) {
+export async function rollPwr(actor, id, dataKey={}) {
   const optDices = game.settings.get("mutants-and-masterminds-3e", "typeroll");
   const pwr = actor.items.filter(item => item.id === id)[0];
   const type = pwr.system.special;
   const rang = type === 'dynamique' ? actor.system.pwr[id].cout.rang : pwr.system.cout.rang;
   const name = pwr.name;
   const baseCrit = optDices === '3D6' ? 18 : 20;
+  const alt = dataKey?.alt ?? false;
   let dices = `1D20`;
+  let fDices = optDices === '3D20' ? '3D20' : '1D20';
 
   if(optDices === '3D20') dices = '3D20dldh';
   else if(optDices === '3D6') dices = '3D6';
 
-  const formula = mod === 0 ? `${dices} + ${rang}` : `${dices} + ${rang} + ${mod}`;      
-  const roll = new Roll(formula);
+  let ask = false;
+  let mod = 0;
+
+  if(alt) {
+    ask = await dialogAsk({mod:alt});
+
+    mod = ask?.mod ?? 0;
+  }
+
+  const formula = mod === 0 ? `${fDices} + ${rang}` : `${fDices} + ${rang} + ${mod}`;      
+  const fRoll = mod === 0 ? `${dices} + ${rang}` : `${dices} + ${rang} + ${mod}`;      
+  const roll = new Roll(fRoll);
   roll.evaluate({async:false});
   const resultDie = roll.total-rang;
 
   const pRoll = {
     flavor:`${name}`,
     tooltip:await roll.getTooltip(),
-    formula:optDices === '3D20' ? `3D20 + ${rang}` : formula,
+    formula:formula,
     result:roll.total,
     isCritique:resultDie >= baseCrit ? true : false,
     action:pwr.system.action,
@@ -2067,4 +2613,806 @@ export function speedCalc(int) {
   }
 
   return result;
+}
+
+export function actualiseWAtt() {
+  let eAtt = Object.values(ui.windows).filter((app) => app instanceof game.mm3.EditAttaque);
+
+  for(let att of eAtt) {
+    att.actualise();
+  }
+}
+
+export function commonHTML(html, origin, data={}) {
+  const hasItm = data?.hasItem ?? false;
+  const hasAtk = data?.hasAtk ?? false;
+  const hasPwr = data?.hasPwr ?? false;
+  const hasStr = data?.hasStr ?? false;
+  const hasPP = data?.hasPP ?? false;
+  const hasSpd = data?.hasSpd ?? false;
+  const hasRoll = data?.hasRoll ?? false;
+  const hasAdd = data?.hasAdd ?? false;
+
+  if(hasItm) {
+    html.find('.item-edit').click(ev => {
+      const header = $(ev.currentTarget).parents(".summary");
+      const item = origin.items.get(header.data("item-id"));
+
+      item.sheet.render(true);
+    });
+
+    html.find('.item-delete').click(async ev => {
+      const header = $(ev.currentTarget).parents(".summary");
+      const id = header.data("item-id");
+      const item = origin.items.get(id);
+
+      confirm = await deletePrompt(origin, item.name);
+      if(!confirm) return;
+
+      origin.update({[`system.pwr.-=${id}}`]:null});
+
+      item.delete();
+      header.slideUp(200, () => origin.render(false));
+    });
+  }
+
+  if(hasAtk) {
+    html.find('div.attaque i.editAtk').click(ev => {
+      const target = $(ev.currentTarget);
+      const id = target.data('id');
+      const dataAtk = getAtk(origin, id);
+
+      if(!dataAtk) return;
+
+      const newAtk = new EditAttaque({
+        id:id,
+        actor:origin._id,
+      });
+      newAtk.render(true);
+    });
+  }
+
+  if(hasPwr) {
+    html.find('div.lPouvoirs select.link').change(async ev => {
+      const target = $(ev.currentTarget);
+      const header = target.parents(".summary");
+      const cout = target.data('cout')-1;
+      const val = target.val();
+
+      if(val === '') origin.items.get(header.data("item-id")).update({[`system.link`]:val});
+      else {
+        const toLink = origin.items.get(val);
+        const isDynamique = toLink.system.special === 'dynamique' ? true : false;
+        const coutTotal = isDynamique ? toLink.system.cout.totalTheorique-1 : toLink.system.cout.total;
+
+        if(val === 'principal') origin.items.get(header.data("item-id")).update({[`system.link`]:val});
+        else if(coutTotal >= cout) origin.items.get(header.data("item-id")).update({[`system.link`]:val});
+        else {
+          origin.items.get(header.data("item-id")).update({[`system.link`]:''});
+          target.val('');
+        }
+      }
+    });
+
+    html.find('a.rollPwr').click(async ev => {
+      const target = $(ev.currentTarget);
+      const id = target.data('id');
+      const hasShift = ev.shiftKey;
+      const hasAlt = ev.altKey;
+
+      rollPwr(origin, id, {shift:hasShift, alt:hasAlt});  
+    });
+  }
+
+  if(hasStr) {
+    html.find('a.saveLimiteStrategie').click(async ev => {
+      let update = {};
+
+      update['system.strategie.limite'] = origin.system.strategie.limite.query;
+
+      origin.update(update);
+
+      const rollMsgData = {
+        user: game.user.id,
+        speaker: {
+          actor: origin?.id || null,
+          token: origin?.token?.id || null,
+          alias: origin?.name || null,
+        },
+        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+        content: game.i18n.localize('MM3.STRATEGIE.Changement'),
+        sound: CONFIG.sounds.dice
+      };
+    
+      const msgData = ChatMessage.applyRollMode(rollMsgData, 'blindroll');
+    
+      await ChatMessage.create(msgData, {
+        rollMode:'blindroll'
+      });
+    });
+
+    html.find('a.resetStrategie').click(async ev => {
+      const update = {}
+
+      update[`system.strategie`] = {
+        'attaqueoutrance':{
+          'attaque':0,
+          'defense':0,
+        },
+        'attaquedefensive':{
+          'attaque':0,
+          'defense':0,
+        },
+        'attaqueprecision':{
+          'attaque':0,
+          'effet':0,
+        },
+        'attaquepuissance':{
+          'attaque':0,
+          'effet':0,
+        },
+        'etats':{
+          'attaque':0,
+          'effet':0,
+        },
+      };
+
+      origin.update(update);
+    });    
+
+    html.find(data.strInput).change(async ev => {
+      const target = $(ev.currentTarget);
+      const type = target.data('type');
+      const mod = target.data('value');
+      const max = target.data('max');
+      const value = Number(target.val());
+      const inpMax = Number(target.attr('max'));
+      const inpMin = Number(target.attr('min'));
+      const update = {};
+
+      let newValue = 0;
+      if((value*-1) < 0) newValue = Math.max((value*-1), max);
+      else if((value*-1) > 0) newValue = Math.min((value*-1), max);
+    
+      switch(type) {
+        case 'attaqueprecision':
+          if(mod === 'attaque') {
+            if(value > inpMax) {
+              target.val(inpMax);
+              newValue = inpMax*-1;
+            }
+            else if(value < 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.effet`] = newValue;
+          }
+          else if(mod === 'effet') {
+            if(value < inpMin) {
+              target.val(inpMin);
+              newValue = inpMin*-1;
+            } 
+            else if(value > 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.attaque`] = newValue;
+          }
+          break;
+
+        case 'attaquepuissance':
+          if(mod === 'attaque') {
+            if(value < inpMin) {
+              target.val(inpMin);
+              newValue = inpMin*-1;
+            } 
+            else if(value > 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.effet`] = newValue;
+          }
+          else if(mod === 'effet') {
+            if(value > inpMax) {
+              target.val(inpMax);
+              newValue = inpMax*-1;
+            } 
+            else if(value < 0) {
+              target.val(0);
+              newValue = 0;
+            } 
+
+            update[`system.strategie.${type}.attaque`] = newValue;
+          }
+          break;
+
+        case 'attaqueoutrance':
+          if(mod === 'attaque') {
+            if(value > inpMax) {
+              target.val(inpMax);
+              newValue = inpMax*-1;
+            } 
+            else if(value < 0) {
+              target.val(0);
+              newValue = 0;
+            } 
+
+            update[`system.strategie.${type}.defense`] = newValue;
+          } 
+          else if(mod === 'defense') {
+            if(value < inpMin) {
+              target.val(inpMin);
+              newValue = inpMin*-1;
+            } 
+            else if(value > 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.attaque`] = newValue;
+          }
+          break;
+
+        case 'attaquedefensive':
+          if(mod === 'attaque') {
+            if(value < inpMin) {
+              target.val(inpMin);
+              newValue = inpMin*-1;
+            } 
+            else if(value > 0) {
+              target.val(0);
+              newValue = 0;
+            }
+
+            update[`system.strategie.${type}.defense`] = newValue;
+          } 
+          else if(mod === 'defense') {
+            if(value > inpMax) {
+              target.val(inpMax);
+              newValue = inpMax*-1;
+            } 
+            else if(value < 0) {
+              target.val(0);
+              newValue = 0;
+            } 
+
+            update[`system.strategie.${type}.attaque`] = newValue;
+          }
+          break;
+      }
+
+      if(!isEmpty(update)) origin.update(update);
+    });
+  }
+
+  if(hasPP) {
+    html.find('div.totalpp summary').click(async ev => {
+      const target = $(ev.currentTarget);
+      const value = target.data('value') ? false : true;
+
+      origin.update({[`system.${data.ppName}.opened`]:value})
+    });
+  }
+
+  if(hasSpd) {
+    html.find('a.selectspeed').click(async ev => {
+      const target = $(ev.currentTarget);
+      const id = target.data('id');
+      
+      setSpeed(origin, id);
+    });  
+  }
+
+  if(hasRoll) {
+    html.find('a.roll').click(async ev => {
+      const target = $(ev.currentTarget);
+      const type = target.data('type');
+      const name = target.data('name');
+      const id = target.data('id');
+      const strattaque = target.data('strattaque');
+      const streffet = target.data('streffet');
+      const tgt = game.user.targets.ids[0];
+      const atk = game.mm3.getAtk(origin, id)?.data ?? {noAtk:true};
+      const hasShift = ev.shiftKey;
+      const hasAlt = ev.altKey;
+      let total = Number(target.data('total'));
+
+      if(type === 'attaque' && tgt !== undefined && atk.noAtk) {
+        for(let t of game.user.targets.ids) {
+          rollTgt(origin, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, t);
+        }
+      } else if(type === 'attaque' && tgt !== undefined && !atk.noAtk) {
+        for(let t of game.user.targets.ids) {
+          rollAtkTgt(origin, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, t, {alt:hasAlt});
+        }
+      } else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(origin, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, {alt:hasAlt});
+      else if(type === 'attaque' && atk.noAtk) rollWAtk(origin, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}});
+      else rollStd(origin, name, total, {shift:hasShift, alt:hasAlt});
+    });
+  }
+
+  if(hasAdd) {
+    html.find('a.add').click(async ev => {
+      const target = $(ev.currentTarget);
+      const type = target.data('type');
+      const what = target.data('what');
+
+      const update = {};
+
+      switch(type) {
+        case 'complications':
+          const dataComplication = Object.keys(origin.system.complications);
+          const maxKeysComplication = dataComplication.length ? Math.max(...dataComplication) : 0;
+          
+          origin.update({[`system.complications.${maxKeysComplication+1}`]:{
+            label:"",
+            description:""
+          }});
+          break;
+          
+        case 'competence':
+          const comp = origin.system.competence[what];
+          const dataComp = Object.keys(comp.list);
+          const maxKeysComp = dataComp.length > 0 ? Math.max(...dataComp) : 0;
+          const modele = comp.modele;          
+
+          if(what === 'combatcontact' || what === 'combatdistance') {
+            const attaque = origin.system?.attaque || {};
+            const dataAttaque = Object.keys(attaque);
+            const maxKeysAtt = dataAttaque.length > 0 ? Math.max(...dataAttaque) : 0;
+            let randAtt = foundry.utils.randomID();
+            let randSkill = foundry.utils.randomID();
+
+            modele['idAtt'] = randAtt;
+            modele['_id'] = randSkill;
+            update[`system.attaque.${maxKeysAtt+1}`] = {
+              _id:randAtt,
+              type:what,
+              skill:randSkill,
+              pwr:'',
+              save:'robustesse',
+              effet:0,
+              critique:20,
+              text:"",
+              noAtk:false,
+              basedef:15,
+              label:game.i18n.localize('MM3.Adefinir'),
+              defpassive:what === 'combatcontact' ? 'parade' : 'esquive',
+            };
+          }
+
+          update[`system.competence.${what}.list.${maxKeysComp+1}`] = modele;
+
+          origin.update(update);
+          break;
+        
+        case 'attaque':
+          const attaque = origin.system?.attaque || {};
+          const dataAttaque = Object.keys(attaque);
+          const maxKeysAtt = dataAttaque.length > 0 ? Math.max(...dataAttaque) : 0;
+
+          update[`system.attaque.${maxKeysAtt+1}`] = {
+            _id:foundry.utils.randomID(),
+            skill:'',
+            pwr:'',
+            type:'other',
+            save:'robustesse',
+            saveAffliction:'volonte',
+            label:game.i18n.localize('MM3.Adefinir'),
+            attaque:0,
+            effet:0,
+            critique:20,
+            text:"",
+            noAtk:false,
+            afflictiondef:10,
+            basedef:15,
+            defpassive:'parade',
+          };
+
+          origin.update(update);
+          break;
+
+        case 'vitesse':
+          const vitesse = origin.system?.vitesse.list || {};
+          const dataLength = Object.keys(vitesse).length;
+
+          update[`system.vitesse.list.v${dataLength+1}`] = {
+            'canDel':true,
+            'label':"",
+            'rang':0,
+            'round':0,
+            'kmh':0
+          }
+
+          origin.update(update);
+          break;
+      }
+    });
+
+    html.find('i.delete').click(async ev => {
+      const target = $(ev.currentTarget);
+      const type = target.data('type');
+      const id = target.data('id');
+      const what = target.data('what');
+      const update = {};
+
+      let confirm;
+      let label;
+
+      switch(type) {
+        case 'complications':
+          confirm = await deletePrompt(origin, origin.system.complications[id].label);
+          if(!confirm) return;
+
+          origin.update({[`system.complications.-=${id}`]:null});
+          break;
+          
+        case 'competence':
+          if(what === 'combatcontact' || what === 'combatdistance') {
+            const attaque = origin.system?.attaque || {};
+            const keys = Object.keys(attaque);
+            const indexAtt = keys.findIndex(key => {
+              const item = attaque[key];
+              return item.type === what && item.id === id;
+            });
+
+            label = origin.system.competence[what].list[id].label;
+
+            if(indexAtt !== -1) update[`system.attaque.-=${keys[indexAtt]}`] = null;
+
+            update[`system.competence.${what}.list.-=${id}`] = null;
+          } else if(what === 'new') {
+            label = origin.system.competence[id].label;
+
+            update[`system.competence.-=${id}`] = null;
+          } else {
+            label = origin.system.competence[what].list[id].label;
+
+            update[`system.competence.${what}.list.-=${id}`] = null;
+          }
+
+          confirm = await deletePrompt(origin, label);
+          if(!confirm) return;
+
+          origin.update(update);
+          break;
+      
+        case 'attaque':
+          confirm = await deletePrompt(origin, origin.system.attaque[id].label);
+          if(!confirm) return;
+
+          update[`system.attaque.-=${id}`] = null;
+
+          origin.update(update);
+          break;
+
+        case 'vitesse':
+          confirm = await deletePrompt(origin, origin.system.vitesse.list[id]?.label ?? game.i18n.localize('MM3.Vitesse'));
+          if(!confirm) return;
+
+          update[`system.vitesse.list.-=${id}`] = null;
+
+          if(origin.system.vitesse.list[id].selected) update[`system.vitesse.list.base.selected`] = true;
+
+          origin.update(update);
+          break;
+      }
+    });
+  }
+
+  html.find('a.sendInfos').click(async ev => {
+    const header = $(ev.currentTarget).parents(".summary");
+    const actor = origin;
+    const item = actor.items.get(header.data("item-id"));
+
+    sendInChat(actor, item);
+  });  
+}
+
+export function getPwr(actor, id) {
+  return actor.items.get(id);
+}
+
+export function getDataSubSkill(actor, skill, id) {
+  const data = actor.system;
+  let foundSkill = null;
+
+  if(skill === 'other') return foundSkill;
+
+  for (let key in data.competence[skill].list) {
+      let obj = data.competence[skill].list[key];
+
+      if (obj._id === id) {
+        foundSkill = obj;
+          break;
+      }
+  }
+
+  return foundSkill;
+}
+
+export function getAtk(actor, id) {
+  const data = actor.system;
+  let foundAtk = null;
+
+  for (let key in data.attaque) {
+      let obj = data.attaque[key];
+
+      if (obj._id === id) {
+        foundAtk = {
+          key:key,
+          data:obj
+        };
+          break;
+      }
+  }
+
+  return foundAtk;
+}
+
+export async function setStatus(actor, statusId, autoAdd=true) {
+  const version = game.version.split('.')[0];
+  let status = CONFIG.statusEffects.find((se) => se.id === statusId);
+  let changes = status?.changes ?? false
+  let hasCondition = false;
+  let update = undefined;
+
+  if(version < 11) {
+    hasCondition = actor.effects.find((effect) => effect.flags?.core?.statusId === statusId);
+    
+    if(!hasCondition) {
+      update = {
+        name: game.i18n.localize(status.label),
+        label: game.i18n.localize(status.label),
+        icon: status.icon,
+        "flags.core.statusId":status.id,
+      };
+
+      if(changes !== false) update['changes'] = changes;
+    }            
+  } else {
+    hasCondition = actor.effects.find((effect) => effect.statuses.every((status) => status === statusId))
+    
+    if(!hasCondition) {
+      update = {
+        name: game.i18n.localize(status.label),
+        label: game.i18n.localize(status.label),
+        icon: status.icon,
+        statuses:[status.id]
+      };
+
+      if(changes !== false) update['changes'] = changes;
+    }
+  }
+
+  if(update !== undefined) {
+    if(Object.entries(update).length > 0 && autoAdd) {
+      await actor.createEmbeddedDocuments("ActiveEffect", [update]);
+    }  
+  }
+  
+  return update;
+}
+
+export async function deleteStatus(actor, statusId) {
+  const version = game.version.split('.')[0];
+
+  if(version < 11) {
+    const existingEffects = actor.effects.filter((effect) => effect.flags.core?.statusId === statusId);
+
+    for (const effect of existingEffects) {
+        await effect.delete();
+    }           
+  } else {
+    const existingEffects = actor.effects.filter((effect) => effect.statuses.has(statusId));
+
+    for (const effect of existingEffects) {
+        await effect.delete();
+    }
+  }
+}
+
+export function getStatusData(statusId) {
+  const version = game.version.split('.')[0];
+  let status = CONFIG.statusEffects.find((se) => se.id === statusId);
+  let changes = status?.changes ?? false
+  let update = undefined;
+
+  if(version < 11) {
+    update = {
+      name: game.i18n.localize(status.label),
+      label: game.i18n.localize(status.label),
+      icon: status.icon,
+      "flags.core.statusId":status.id,
+    };
+
+    if(changes !== false) update['changes'] = changes;
+  } else {
+    update = {
+      name: game.i18n.localize(status.label),
+      label: game.i18n.localize(status.label),
+      icon: status.icon,
+      statuses:[status.id]
+    };
+
+    if(changes !== false) update['changes'] = changes;
+  }
+  
+  return update;
+}
+
+export function hasStatus(actor, statusId) {
+  const version = game.version.split('.')[0];
+  let hasCondition = false;
+
+  if(version < 11) {
+    hasCondition = actor.effects.find((effect) => effect.flags?.core?.statusId === statusId);
+  } else {
+    hasCondition = actor.effects.find((effect) => effect.statuses.every((status) => status === statusId))
+  }
+
+  return hasCondition;
+}
+
+export function setSpeed(actor, speedId) {
+  const data = actor.system.vitesse.list;
+
+  let update = {};
+
+  for(let v in data) {
+    update[`system.vitesse.list.${v}.selected`] = false;
+  }
+
+  update[`system.vitesse.list.${speedId}.selected`] = true;
+
+  actor.update(update);
+}
+
+export function normalizeData(actor, force=false) {
+  const type = actor.type;
+  const data = actor.system;
+  const atk = data.attaque;
+  const versioning = data?.version ?? 0;
+
+  let update = {};
+  let hasId;
+  let rand;
+  let listDistance = [];
+  let listContact = [];
+  let listAtk = [];
+
+  if(versioning < 1 || force === true) {
+    if(type === 'personnage') {
+      const contact = data.competence.combatcontact.list;
+      const distance = data.competence.combatdistance.list;
+
+      for(let cc in contact) {
+        let dataCc = contact[cc];
+        hasId = dataCc?._id ?? false;
+
+        if(hasId === false) {
+          rand = foundry.utils.randomID();
+
+          update[`system.competence.combatcontact.list.${cc}._id`] = rand;
+
+          listContact.push({
+            id:cc,
+            _id:rand,
+          });
+        }
+      }
+      
+      for(let rc in distance) {
+        let dataRc = distance[rc];
+        hasId = dataRc?._id ?? false;
+
+        if(hasId === false) {
+          rand = foundry.utils.randomID();
+
+          update[`system.competence.combatdistance.list.${rc}._id`] = rand;
+
+          listDistance.push({
+            id:rc,
+            _id:rand,
+          });
+        }
+      }
+    }
+
+    for(let i = 0;i < Object.values(atk).length; i++) {
+      let dataAtk = Object.values(atk)[i];
+      hasId = dataAtk?._id ?? false
+
+      if(hasId === false) {
+        rand = foundry.utils.randomID();
+
+        update[`system.attaque.${Object.keys(atk)[i]}._id`] = rand;
+
+        listAtk.push({
+          id:i,
+          _id:rand,
+          type:dataAtk.type,
+        });
+      }
+
+      update[`system.attaque.${Object.keys(atk)[i]}.skill`] = dataAtk?.skill ?? '';
+      update[`system.attaque.${Object.keys(atk)[i]}.pwr`] = dataAtk?.pwr ?? '';
+      update[`system.attaque.${Object.keys(atk)[i]}.noCrit`] = dataAtk?.noCrit ?? false;
+      update[`system.attaque.${Object.keys(atk)[i]}.isAffliction`] = dataAtk?.isAffliction ?? false;
+      update[`system.attaque.${Object.keys(atk)[i]}.isDmg`] = dataAtk?.isDmg ?? false;
+      update[`system.attaque.${Object.keys(atk)[i]}.saveAffliction`] = dataAtk?.saveAffliction ?? 'volonte';
+      update[`system.attaque.${Object.keys(atk)[i]}.afflictiondef`] = dataAtk?.afflictiondef ?? 10;
+      update[`system.attaque.${Object.keys(atk)[i]}.afflictioneffet`] = dataAtk?.afflictioneffet ?? 10;
+      update[`system.attaque.${Object.keys(atk)[i]}.-=edit`] = null;
+      update[`system.attaque.${Object.keys(atk)[i]}.afflictionechec`] = {
+        e1:dataAtk?.afflictionechec?.e1 ?? [],
+        e2:dataAtk?.afflictionechec?.e2 ?? [],
+        e3:dataAtk?.afflictionechec?.e3 ?? [],
+      };
+      update[`system.attaque.${Object.keys(atk)[i]}.dmgechec`] = {
+        v1:1,
+        v2:1,
+        v3:1,
+      };
+    }
+
+    if(type === 'personnage') {
+      const contact = data.competence.combatcontact.list;
+      const distance = data.competence.combatdistance.list;
+
+      for(let cc in contact) {
+        let dataCc = contact[cc];
+        let idAtt = dataCc.idAtt;
+        let find = listAtk.find(a => a.id === idAtt && a.type === 'combatcontact')?._id ?? -1;
+
+        if(find !== -1) {
+          update[`system.competence.combatcontact.list.${cc}.idAtt`] = find;
+        }        
+      }
+      
+      for(let rc in distance) {
+        let dataRc = distance[rc];
+        let idAtt = dataRc.idAtt;
+        let find = listAtk.find(a => a.id === idAtt && a.type === 'combatdistance')?._id ?? -1;
+
+        if(find !== -1) {
+          update[`system.competence.combatdistance.list.${rc}.idAtt`] = find;
+        }
+
+        
+      }
+    }
+
+    for(let a in atk) {
+      let dataAtk = atk[a];
+      let type = dataAtk.type;
+      let find;
+
+      if(type === 'combatcontact') {
+        find = listContact.find(c => c.id === `${dataAtk.id}`)?._id ?? -1;
+
+        if(find !== -1) {
+          update[`system.attaque.${a}.skill`] = find;
+        }
+        
+      } else if(type === 'combatdistance') {
+        find = listDistance.find(c => c.id === `${dataAtk.id}`)?._id ?? -1;
+
+        if(find !== -1) {
+          update[`system.attaque.${a}.skill`] = find;
+        }
+      }
+
+      update[`system.attaque.${a}.-=id`] = null;
+    }
+
+    update[`system.version`] = 1;
+  }
+
+  if(!foundry.utils.isEmpty(update) && actor._id !== null) {
+    actor.update(update);
+  } 
 }

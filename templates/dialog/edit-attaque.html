@@ -1,0 +1,255 @@
+<form autocomplete="off">
+    <section class="header">
+        <input class="label" type="text" value="{{data.tempAtk.label}}" placeholder="{{localize "MM3.Nom"}}" />
+    </section>
+    <section class="body">
+        <select class="setTypeAtk full" data-type="e1">
+            {{#select data.setTypeAtk}}
+                <option value="none">{{localize "MM3.ROLL.Typeattaque"}} : {{localize "MM3.ROLL.TYPE.Autre"}}</option>
+                <option value="affliction">{{localize "MM3.ROLL.Typeattaque"}} : {{localize "MM3.ROLL.TYPE.Affliction"}}</option>
+                <option value="dmg">{{localize "MM3.ROLL.Typeattaque"}} : {{localize "MM3.ROLL.TYPE.Degats"}}</option>
+                <option value="afflictiondmg">{{localize "MM3.ROLL.Typeattaque"}} : {{localize "MM3.ROLL.TYPE.Affliction"}} + {{localize "MM3.ROLL.TYPE.Degats"}}</option>
+            {{/select}}
+        </select>
+        
+        <div class="line">
+            <a class="btn linkskill {{#if data.canBeLieSkill}}selected{{else}}unselected{{/if}}" data-oldname="{{data.label}}">{{localize "MM3.SPECIAL.CompLie"}}</a>
+            {{#if data.canBeLieSkill}}
+            <select class="linkskill" data-oldname="{{data.label}}">
+                {{#select data.actualLink}}
+                    <option value="">- {{localize "MM3.Choisir"}} -</option>
+                    {{#each data.skills as | key mS |}}
+                        <optgroup label="{{localize (translate 'competences' mS)}}">
+                            {{#each key as | kS skill |}}
+                                <option value="{{mS}}/{{kS._id}}">{{kS.label}}</option>
+                            {{/each}}
+                        </optgroup>
+                    {{/each}}
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>        
+
+        <div class="line">
+            <a class="btn linkpwr {{#if data.canBeLiePwr}}selected{{else}}unselected{{/if}}" data-oldname="{{data.label}}">{{localize "MM3.SPECIAL.PwrLie"}}</a>
+
+            {{#if data.canBeLiePwr}}
+            <select class="linkpwr" data-oldname="{{data.label}}">
+                {{#select data.tempAtk.pwr}}
+                    <option value="">- {{localize "MM3.Choisir"}} -</option>
+                    {{#each data.pwrs as | key pwr |}}
+                        <option value="{{key._id}}">{{key.name}}</option>
+                    {{/each}}
+                {{/select}}
+            </select>
+            {{/if}}
+        </div>
+        
+
+        <a class="btn noAtk {{#if data.tempAtk.noAtk}}selected{{else}}unselected{{/if}}">{{localize "MM3.ROLL.Pasattaque"}}</a>
+
+        <a class="btn noCrit {{#if data.tempAtk.noCrit}}selected{{else}}unselected{{/if}}">{{localize "MM3.ROLL.Pascritique"}}</a>
+
+        {{#unless (isValue data.setTypeAtk 'afflictiondmg')}}
+            <div class="col">
+                <span>{{localize "MM3.ROLL.DEFENSE.Basedefense"}} :</span>
+                <input class="basedef" type="number" value="{{data.tempAtk.basedef}}" min="0" />
+            </div>
+
+            <select class="defense" data-type="dmg"  title="{{localize "MM3.DEFENSE.Label"}}">
+                {{#select data.tempAtk.save}}
+                    <option value="esquive">{{translate 'defenses' 'esquive'}}</option>
+                    <option value="parade">{{translate 'defenses' 'parade'}}</option>
+                    <option value="vigueur">{{translate 'defenses' 'vigueur'}}</option>
+                    <option value="robustesse">{{translate 'defenses' 'robustesse'}}</option>
+                    <option value="volonte">{{translate 'defenses' 'volonte'}}</option>
+                {{/select}}
+            </select>
+        {{/unless}}
+        
+
+        {{#if data.tempAtk.skill}}
+            {{#unless data.tempAtk.noAtk}}
+                <label class="col">
+                    
+                    <span>{{localize "MM3.ATTAQUE.ModAttaque"}}</span>
+                    <input class="mod" data-type="atk" type="number" value="{{#if data.atk.mod.atk}}{{data.atk.mod.atk}}{{else}}0{{/if}}" />
+                </label>
+            {{/unless}}
+        {{/if}}
+
+        {{#if data.tempAtk.pwr}}
+            {{#unless (isValue data.setTypeAtk 'afflictiondmg')}}
+                <label class="col">
+                    <span>{{localize "MM3.ATTAQUE.ModEffet"}}</span>
+                    <input class="mod" data-type="eff" type="number" value="{{#if data.atk.mod.eff}}{{data.atk.mod.eff}}{{else}}0{{/if}}" />
+                </label>
+            {{/unless}}
+        {{/if}}
+        
+        {{#unless data.tempAtk.noAtk}}
+        <select class="selectDefense full">
+            {{#select data.tempAtk.defpassive}}
+                <option value="parade">{{localize "MM3.DEFENSE.Jetattaquevs"}} {{localize "MM3.DEFENSE.DDParade"}}</option>
+                <option value="esquive">{{localize "MM3.DEFENSE.Jetattaquevs"}} {{localize "MM3.DEFENSE.DDEsquive"}}</option>
+            {{/select}}
+        </select>
+        {{/unless}}
+
+        {{#if data.tempAtk.isDmg}}
+            <div class="col2 multiline dmg">
+                <span class="header">{{localize "MM3.ROLL.TYPE.Degats"}}</span>
+                {{#if (isValue data.setTypeAtk 'afflictiondmg')}}
+                <div class="line headerLine">
+                    <div class="col">
+                        <span>{{localize "MM3.ROLL.DEFENSE.Basedefense"}} :</span>
+                        <input class="defense" data-type="dmg" type="number" value="{{data.tempAtk.basedef}}" min="0" />
+                    </div> 
+                    <select class="defense" data-type="dmg"  title="{{localize "MM3.DEFENSE.Label"}}">
+                        {{#select data.tempAtk.save}}
+                            <option value="esquive">{{translate 'defenses' 'esquive'}}</option>
+                            <option value="parade">{{translate 'defenses' 'parade'}}</option>
+                            <option value="vigueur">{{translate 'defenses' 'vigueur'}}</option>
+                            <option value="robustesse">{{translate 'defenses' 'robustesse'}}</option>
+                            <option value="volonte">{{translate 'defenses' 'volonte'}}</option>
+                        {{/select}}
+                    </select>
+
+                    <div class="col">
+                        <span>{{localize "MM3.EFFET.Rang"}} :</span>
+                        <input class="effet" data-type="dmg" type="number" value="{{data.tempAtk.effet}}" min="0" />
+                    </div>
+                </div>                
+                {{/if}}
+                <div class="dmgdata">
+                    <span class="headerdmg">{{localize "MM3.ROLL.ECHEC.Undegre"}}</span>
+                    <span class="headerdmg middle">{{localize "MM3.ROLL.ECHEC.Deuxdegre"}}</span>
+                    <span class="headerdmg">{{localize "MM3.ROLL.ECHEC.Troisdegre"}}</span>
+
+                    <div class="dmgline">
+                        <div class="col">
+                            <span>{{localize "MM3.ROLL.TYPE.Degats"}} :</span>
+                            <input class="dmgValue" data-type="v1" type="number" value="{{data.tempAtk.dmgechec.v1}}" />
+                        </div>
+                    </div>
+
+                    
+                    <div class="dmgline middle">
+                        <div class="col">
+                            <span>{{localize "MM3.ROLL.TYPE.Degats"}} :</span>
+                            <input class="dmgValue" data-type="v2" type="number" value="{{data.tempAtk.dmgechec.v2}}" />
+                        </div>
+                    </div>
+
+                    
+                    <div class="dmgline">
+                        <div class="col">
+                            <span>{{localize "MM3.ROLL.TYPE.Degats"}} :</span>
+                            <input class="dmgValue" data-type="v3" type="number" value="{{data.tempAtk.dmgechec.v3}}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/if}}        
+
+        {{#if data.tempAtk.isAffliction}}
+        <div class="col2 multiline affliction">
+            <span class="header">{{localize "MM3.ROLL.TYPE.Affliction"}}</span>
+            {{#if (isValue data.setTypeAtk 'afflictiondmg')}}
+            <div class="line headerLine">
+                <div class="col">
+                    <span>{{localize "MM3.ROLL.DEFENSE.Basedefense"}} :</span>
+                    <input class="defense" data-type="affliction" type="number" value="{{data.tempAtk.afflictiondef}}" min="0" />
+                </div>
+                <select class="defense" data-type="affliction"  title="{{localize "MM3.DEFENSE.Label"}}">
+                    {{#select data.tempAtk.saveAffliction}}
+                        <option value="esquive">{{translate 'defenses' 'esquive'}}</option>
+                        <option value="parade">{{translate 'defenses' 'parade'}}</option>
+                        <option value="vigueur">{{translate 'defenses' 'vigueur'}}</option>
+                        <option value="robustesse">{{translate 'defenses' 'robustesse'}}</option>
+                        <option value="volonte">{{translate 'defenses' 'volonte'}}</option>
+                    {{/select}}
+                </select>
+
+                <div class="col">
+                    <span>{{localize "MM3.EFFET.Rang"}} :</span>
+                    <input class="effet" data-type="affliction" type="number" value="{{data.tempAtk.afflictioneffet}}" min="0" />
+                </div>
+            </div>
+            {{/if}}
+            
+
+            <span class="header2">{{localize "MM3.ROLL.ECHEC.Undegre"}}</span>
+            <div class="line">
+                <select class="setDegreeAffliction" data-type="e1">
+                    {{#select data.degreeAffliction.e1}}
+                        <option value=""></option>
+                        {{#each data.etats as | key etats |}}
+                            {{#unless (etatExist @root/data/tempAtk/afflictionechec/e1 key.id)}}
+                            <option value="{{key.id}}">{{localize key.label}}</option>
+                            {{/unless}}
+                        {{/each}}
+                    {{/select}}
+                </select>
+                <a class="btn setDegreeAffliction" data-type="e1">{{localize "MM3.BTN.Add"}}</a>
+            </div>
+            {{#each data.tempAtk.afflictionechec.e1 as | key atk |}}
+                
+                <span class="etat">
+                    {{localize key.label}}
+                
+                    <i class="fa-solid fa-trash-xmark delete" data-type="e1" data-id="{{key.id}}"></i>
+                </span>
+            {{/each}}
+
+            <span class="header2">{{localize "MM3.ROLL.ECHEC.Deuxdegre"}}</span>
+            <div class="line">
+                <select class="setDegreeAffliction" data-type="e2">
+                    {{#select data.degreeAffliction.e2}}
+                        <option value=""></option>
+                        {{#each data.etats as | key etats |}}
+                            {{#unless (etatExist @root/data/tempAtk/afflictionechec/e2 key.id)}}
+                            <option value="{{key.id}}">{{localize key.label}}</option>
+                            {{/unless}}
+                        {{/each}}
+                    {{/select}}
+                </select>
+                <a class="btn setDegreeAffliction" data-type="e2">{{localize "MM3.BTN.Add"}}</a>
+            </div>
+            {{#each data.tempAtk.afflictionechec.e2 as | key atk |}}
+                <span class="etat">
+                    {{localize key.label}}
+
+                    <i class="fa-solid fa-trash-xmark delete" data-type="e2" data-id="{{key.id}}"></i>
+                </span>
+            {{/each}}
+
+            <span class="header2">{{localize "MM3.ROLL.ECHEC.Troisdegre"}}</span>
+            <div class="line">
+                <select class="setDegreeAffliction" data-type="e3">
+                    {{#select data.degreeAffliction.e3}}
+                        <option value=""></option>
+                        {{#each data.etats as | key etats |}}
+                            {{#unless (etatExist @root/data/tempAtk/afflictionechec/e3 key.id)}}
+                            <option value="{{key.id}}">{{localize key.label}}</option>
+                            {{/unless}}
+                        {{/each}}
+                    {{/select}}
+                </select>
+                <a class="btn setDegreeAffliction" data-type="e3">{{localize "MM3.BTN.Add"}}</a>
+            </div>
+            {{#each data.tempAtk.afflictionechec.e3 as | key atk |}}
+                <span class="etat">
+                    {{localize key.label}}
+
+                    <i class="fa-solid fa-trash-xmark delete" data-type="e3" data-id="{{key.id}}"></i>
+                </span>
+            {{/each}}
+        </div>
+        {{/if}}
+    </section>
+    <section class="bottom">
+        <button type="action" class="save">{{localize "MM3.SaveEdit"}}</button>
+        <button type="action" class="cancel">{{localize "MM3.Annuler"}}</button>
+    </section>
+</form>

@@ -8,7 +8,7 @@ div.mm3-dialog {
         div {
             &.dialog-content {
                 display:grid;
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 100px;
                 grid-gap: 5px;
 
                 input {

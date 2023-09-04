@@ -13,7 +13,7 @@ div {
                 @include attaque;
                 @include strategie;
                 @include vitesse;
-                @include fakebutton('resetStrategie');@include fakebutton('resetStrategie');
+                @include fakebutton('resetStrategie');
 
                 div {
                     &.col {

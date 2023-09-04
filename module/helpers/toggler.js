@@ -26,6 +26,34 @@ class Toggler {
         });
       });
     });
+
+    html.find('a.closeAll').click(ev => {
+      this.closeAll(id, html);
+    });
+
+    html.find('a.openAll').click(ev => {
+      this.openAll(id, html);
+    });
+  }
+
+  closeAll(id, html) {
+    html[0].querySelectorAll('.js-toggler').forEach((element, index) => {
+      const data = $(element.querySelector('.deploy'));
+
+      if(data.find('i').hasClass("minus")) {
+        data.trigger('click');
+      }      
+    })
+  }
+
+  openAll(id, html) {
+    html[0].querySelectorAll('.js-toggler').forEach((element, index) => {
+      const data = $(element.querySelector('.deploy'));
+
+      if(data.find('i').hasClass("plus")) {
+        data.trigger('click');
+      }      
+    })
   }
 
   clearForId(id) {

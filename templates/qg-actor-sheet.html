@@ -31,6 +31,11 @@
                 <input type="number" name="system.cout.divers" value="{{systemData.cout.divers}}" min="0"/>
             </div>
         </details>
+
+        <div class="btnOC">
+            <a class="closeAll">{{localize "MM3.SPECIAL.ReplierTout"}}</a>
+            <a class="openAll">{{localize "MM3.SPECIAL.DeplierTout"}}</a>
+        </div>
     </div>
 
     <section class="sheet-body">
@@ -216,4 +221,6 @@
             </div>
         </div>
     </section>
+
+{{> systems/mutants-and-masterminds-3e/templates/parts/bottom.html}}
 </form>

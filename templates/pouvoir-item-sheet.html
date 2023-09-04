@@ -13,8 +13,9 @@
             {{/select}}
         </select>
     </section>
+    <input class="systemEffect" name="system.effetsprincipaux" type="text" value="{{systemData.effetsprincipaux}}" placeholder="{{localize "MM3.EffetsPrincipaux"}}" />
     
-    <section class="sheet-body">
+    <section class="sheet-body">        
         {{!-- Sheet Tab Navigation --}}
         <nav class="sheet-tabs tabs" data-group="primary">
             <a class="item" data-tab="pouvoirs">{{localize "TYPES.Item.pouvoir"}}</a>
@@ -25,13 +26,13 @@
             <div class="inner">
                 <div class="details">
                     <div class="special">
-                        <a class="special {{#if (isValue systemData.special 'standard')}}selected{{/if}}" data-type="standard">
+                        <a class="special {{#if (isValue systemData.special 'standard')}}selected{{else}}unselected{{/if}}" data-type="standard">
                             {{localize "MM3.POUVOIR.Standard"}}
                         </a>
-                        <a class="special {{#if (isValue systemData.special 'alternatif')}}selected{{/if}}" data-type="alternatif">
+                        <a class="special {{#if (isValue systemData.special 'alternatif')}}selected{{else}}unselected{{/if}}" data-type="alternatif">
                             {{localize "MM3.POUVOIR.Alternatif"}}
                         </a>
-                        <a class="special {{#if (isValue systemData.special 'dynamique')}}selected{{/if}}" data-type="dynamique">
+                        <a class="special {{#if (isValue systemData.special 'dynamique')}}selected{{else}}unselected{{/if}}" data-type="dynamique">
                             {{localize "MM3.POUVOIR.Dynamique"}}
                         </a>
                     </div>
@@ -185,11 +186,11 @@
                                                 <input type="number" name="system.extras.{{ext}}.data.cout.value" value="{{key.data.cout.value}}" />
                                             </label>
                                             
-                                            <a class="btn {{#if key.data.cout.rang}}selected{{/if}}" data-mod="extras" data-id="{{ext}}" data-type="rang" data-value="{{key.data.cout.rang}}">
+                                            <a class="btn {{#if key.data.cout.rang}}selected{{else}}unselected{{/if}}" data-mod="extras" data-id="{{ext}}" data-type="rang" data-value="{{key.data.cout.rang}}">
                                                 {{localize "MM3.Parrang"}}
                                             </a>
         
-                                            <a class="btn {{#if key.data.cout.fixe}}selected{{/if}}" data-mod="extras" data-id="{{ext}}" data-type="fixe" data-value="{{key.data.cout.fixe}}">
+                                            <a class="btn {{#if key.data.cout.fixe}}selected{{else}}unselected{{/if}}" data-mod="extras" data-id="{{ext}}" data-type="fixe" data-value="{{key.data.cout.fixe}}">
                                                 {{localize "MM3.Fixe"}}
                                             </a>
                                         </div>
@@ -226,11 +227,11 @@
                                                 <input type="number" name="system.defauts.{{ext}}.data.cout.value" value="{{key.data.cout.value}}" />
                                             </label>
                                             
-                                            <a class="btn {{#if key.data.cout.rang}}selected{{/if}}" data-mod="defauts" data-id="{{ext}}" data-type="rang" data-value="{{key.data.cout.rang}}">
+                                            <a class="btn {{#if key.data.cout.rang}}selected{{else}}unselected{{/if}}" data-mod="defauts" data-id="{{ext}}" data-type="rang" data-value="{{key.data.cout.rang}}">
                                                 {{localize "MM3.Parrang"}}
                                             </a>
         
-                                            <a class="btn {{#if key.data.cout.fixe}}selected{{/if}}" data-mod="defauts" data-id="{{ext}}" data-type="fixe" data-value="{{key.data.cout.fixe}}">
+                                            <a class="btn {{#if key.data.cout.fixe}}selected{{else}}unselected{{/if}}" data-mod="defauts" data-id="{{ext}}" data-type="fixe" data-value="{{key.data.cout.fixe}}">
                                                 {{localize "MM3.Fixe"}}
                                             </a>
                                         </div>

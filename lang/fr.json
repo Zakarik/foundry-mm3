@@ -129,7 +129,9 @@
     },
     "ATTAQUE":{
       "Label":"Attaque",
-      "Initiative":"Initiative"
+      "Initiative":"Initiative",
+      "ModAttaque":"Modificateur d'attaque",
+      "ModEffet":"Modificateur d'effet"
     },
     "STRATEGIE":{
       "Attaqueprecision":"Attaque de précision",
@@ -153,7 +155,8 @@
       "Effet":"Malus aux effets"
     },
     "EFFET":{
-      "Label":"Effet"
+      "Label":"Effet",
+      "Rang":"Rang d'effet"
     },
     "MOD":{
       "Label-short":"Mod.",
@@ -162,6 +165,7 @@
       "Effet":"Modificateur d'effets"
     },
     "POUVOIR":{
+      "Eventail":"Éventail",
       "Descripteurs":"Descripteurs",
       "Standard":"Effet standard",
       "Alternatif":"Effet alternatif",
@@ -266,14 +270,20 @@
       "DegresReussite":"Degrés de réussite",
       "DegreEchec":"Degré d'échec",
       "DegresEchec":"Degrés d'échec",
-      "DD":"DD",
-      "AskDD":"Y-a-t'il un DD ? Laisser à 0 si non",
+      "DD":"DD",      
       "Critique":"Critique",
       "Testeffet":"Test d'effet",
       "Initiative":"Initiative",
+      "Pascritique":"Aucun critique",
       "Pasattaque":"Aucun jet d'attaque",
       "Valider":"Valider",
       "Annuler":"Annuler",
+      "Typeattaque":"Type d'attaque",
+      "TYPE":{
+        "Autre":"Autre",
+        "Degats":"Dégâts",
+        "Affliction":"Affliction"
+      },
       "DEFENSE":{
         "Basedefense":"Base du jet de défense",
         "Esquive":"Jet d'esquive",
@@ -281,6 +291,11 @@
         "Vigueur":"Jet de vigueur",
         "Robustesse":"Jet de robustesse",
         "Volonte":"Jet de volonté"
+      },
+      "ECHEC":{
+        "Undegre":"Un degré d'échec",
+        "Deuxdegre":"Deux degrés d'échec",
+        "Troisdegre":"Trois degrés d'échec"
       }
     },
     "IMPORTATIONS":{
@@ -293,10 +308,14 @@
       "FontOther":"Modification de la police d'écriture pour les autres textes"
     },
     "DIALOG":{
+      "AskDD":"Y-a-t'il un DD ? Laisser à 0 si non",
       "AskDelete":"Êtes vous sûre de vouloir supprimer ceci ?",
-      "AskMod":"Voulez-vous ajouter un modificateur au test d'effet ?"
+      "TitleMod":"Y-a'til un modificateur ?",
+      "AskMod":"Voulez-vous ajouter un modificateur à ce test ?",
+      "DD":"Quel degré de difficulté ?"
     },
     "VITESSE":{
+      "Vitesses":"Vitesses",
       "Natation":"Natation",
       "Course":"Course",
       "Round":"Par round",
@@ -304,6 +323,16 @@
       "Metre-short":"m",
       "Mph":"Mph",
       "Pied-short":"ft"
+    },
+    "SPECIAL":{
+      "DeplierTout":"Déplier tout",
+      "ReplierTout":"Replier tout",
+      "CompLie":"Lié à une compétence",
+      "PwrLie":"Lié à un pouvoir"
+    },
+    "ASTUCE":{
+      "Shift":"Vous pouvez maintenir la touche Shift lors d'un clic sur les caractéristiques, compétences et défenses pour mettre un DD au jet.",
+      "Alt":"Vous pouvez maintenir la touche Alt lors d'un clic sur un jet pour pouvoir ajouter un modificateur."
     },
     "Nom":"Nom",
     "Identite":"Identite",
@@ -362,6 +391,10 @@
     "Editadvanced":"Editer les paramètres avancés",
     "Adefinir":"A définir",
     "Non":"Non",
-    "Mod":"Modificateur"
+    "Mod":"Modificateur",
+    "EffetsPrincipaux":"Effets principaux",
+    "Cible":"Cible",
+    "SaveEdit":"Enregistrer les modifications",
+    "Annuler":"Annuler"
   }
 }

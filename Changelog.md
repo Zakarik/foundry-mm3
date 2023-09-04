@@ -1,3 +1,28 @@
+## Version 1.26.0
+### Améliorations
+- Ajout de la possibilité de détailler les effets principaux à part, dans les pouvoirs.
+Sera affiché en dessous du nom du pouvoir dans la liste.
+- Ajout de deux boutons replier tout / déplier tout.
+- Ajout d'une séparation dans les pouvoirs, pour mieux distinguer les éventails de pouvoirs.
+- Ajout de la possibilité de sélectionner plusieurs cibles lors d'un jet d'attaque. Un jet sera fait pour chacune des cibles.
+- Ajout d'une fenêtre de paramétrage des attaques, permettant de définir si celles-ci sont liées à une compétence, à un pouvoir, un éventuel modificateur d'attaque ou d'effet, ou tout autre paramètre de l'attaque, de manière beaucoup plus simple que la précédente façon de faire.
+- Ajout de la possibilité de paramétrer les attaques avec trois types différents "Dégâts", pour toutes les attaques provoquant des dégâts, "Affliction", pour toutes les attaques provoquant des afflictions, et "Autre" pour tous le reste. Les dégâts et les afflictions seront automatiquement appliqués selon le résultat de la cible.
+- Amélioration de l'aspect visuel de certains boutons, pour que ce soit davantage adapté aux daltoniens.
+- Ajout d'astuces en bas des fiches.
+- Ajout d'une fenêtre permettant de rentrer un modificateur pour les jets (en maintenant alt appuyé lors du clic sur un bouton).
+- Modification des imports depuis Hero Lab pour prendre en compte les modifications sur les attaques.
+**Attention :** Pensez toujours à vérifier les attaques, toutes les données peuvent ne pas s'être mise en place, car tout n'est pas récupérable, et certaines choses peuvent mal avoir été lues.
+- Modification du HUD des tokens (Pas Token Action HUD, mais bien le HUD des tokens de Foundry) pour transformer la barre paramétrée sur "blessure" en type "number", ce qui permet de modifier la valeur avec les flèches haut et bas du clavier directement.
+**Attention :** Il est toujours nécessaire de valider avec la touche enter.
+- Ajout d'une icône par défaut aux capacités n'en disposant pas (caractéristiques, compétences, ...) lors du drag & drop en barre de macro.
+- Ajout d'un indicateur pour savoir la cible d'une attaque lors d'un jet.
+
+### Bugfix
+- Correction d'un bug d'affichage dans les attaques.
+- Correction d'un bug empêchant le drag & drop des items depuis le menu latéral sur les QG.
+- Retrait des vitesses de course et de natation des véhicules qui ne servent à rien.
+- Correction d'un bug n'affichant pas les icônes des macros lors du drag & drop dans la barre de macro.
+
 ## Version 1.25.7
 ### Bugfix
 - Correction d'un bug de calcul des vitesse.
