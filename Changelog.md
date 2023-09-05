@@ -1,3 +1,9 @@
+## Version 1.26.1
+### Bugfix
+- Correction d'un bug de mise en page sur le pied de page des fiches d'acteurs (dans les astuces).
+- Correction de la traduction anglaise.
+- Correction d'un problème avec GM Notes.
+
 ## Version 1.26.0
 ### Améliorations
 - Ajout de la possibilité de détailler les effets principaux à part, dans les pouvoirs.

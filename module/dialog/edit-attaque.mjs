@@ -22,7 +22,7 @@ export class EditAttaque extends FormApplication {
     }
 
     get document() {
-        return this.object;
+        return this.object?.document || null;
     }
 
     get id() {
