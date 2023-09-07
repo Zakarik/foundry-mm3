@@ -2983,6 +2983,7 @@ div.personnage section.sheet-body div.options div.strategie {
 
 div.modificateur img.profile-img {
   object-fit: contain;
+  width: 100%;
 }
 div.modificateur section.window-content {
   background: #EBEBEB;
@@ -3016,7 +3017,7 @@ div.modificateur section.window-content div.editor-content {
 }
 div.modificateur section.sheet-body div.tab > div.inner {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 250px 1fr;
   grid-template-rows: max-content;
   grid-gap: 5px;
   align-items: flex-start;
@@ -4417,7 +4418,7 @@ div.talent section.window-content div.editor-content {
 }
 div.talent section.sheet-body div.tab > div.inner {
   display: grid;
-  grid-template-columns: 250px 1fr;
+  grid-template-columns: 280px 1fr;
   grid-template-rows: max-content;
   grid-gap: 5px;
   align-items: flex-start;
@@ -4755,7 +4756,6 @@ div.talent section.sheet-body div.details a.btn {
   grid-column-end: 3;
 }
 div.talent section.sheet-body div.details a.btn.selected {
-  color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;

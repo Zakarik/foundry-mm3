@@ -45,7 +45,7 @@ div.talent {
     section.sheet-body {
         div.tab >div.inner {
             display:grid;
-            grid-template-columns: 250px 1fr;
+            grid-template-columns: 280px 1fr;
             grid-template-rows: max-content;
             grid-gap:5px;
             align-items: flex-start;
@@ -75,7 +75,6 @@ div.talent {
                     grid-column-end: 3;
 
                     &.selected {
-                        color: $lightOrange;
                         border-color:$red;
                         letter-spacing: 1px;
                         text-shadow:none;

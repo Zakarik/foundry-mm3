@@ -1,3 +1,8 @@
+## Version 1.26.2
+### Bugfix
+- Correction d'un bug de mise en page sur le pied de page des fiches d'acteurs (dans les astuces). (Oui, encore)
+- Correction d'un bug de mise en page dans les talents et des modificateurs.
+
 ## Version 1.26.1
 ### Bugfix
 - Correction d'un bug de mise en page sur le pied de page des fiches d'acteurs (dans les astuces).
