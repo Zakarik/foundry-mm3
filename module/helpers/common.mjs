@@ -2194,12 +2194,19 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
         saveType:saveAffliction,
         vs:Number(dataCbt.afflictioneffet)+Number(dataStr.effet)+Number(dataCbt.afflictiondef),
       });
-    } else {
+    } else if(isDmg) {
       btn.push({
         typeAtk:'dmg',
         target:tgt,
         saveType:saveType,
         vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
+      });
+    } else if(isAffliction) {
+      btn.push({
+        typeAtk:'affliction',
+        target:tgt,
+        saveType:saveAffliction,
+        vs:Number(dataCbt.afflictioneffet)+Number(dataStr.effet)+Number(dataCbt.afflictiondef),
       });
     }
 
@@ -2285,12 +2292,19 @@ export async function rollTgt(actor, name, data, tgt) {
       saveType:saveAffliction,
       vs:Number(dataCbt.afflictioneffet)+Number(dataStr.effet)+Number(dataCbt.afflictiondef),
     });
-  } else {
+  } else if(isDmg) {
     btn.push({
       typeAtk:'dmg',
       target:tgt,
       saveType:saveType,
       vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
+    });
+  } else if(isAffliction) {
+    btn.push({
+      typeAtk:'affliction',
+      target:tgt,
+      saveType:saveAffliction,
+      vs:Number(dataCbt.afflictioneffet)+Number(dataStr.effet)+Number(dataCbt.afflictiondef),
     });
   }
   
@@ -2300,6 +2314,7 @@ export async function rollTgt(actor, name, data, tgt) {
     isSuccess:true,
     text:dataCbt.text,
     tgtName:actTgt.name,
+    dataAtk:JSON.stringify(dataCbt),
     btn:btn
   };
 

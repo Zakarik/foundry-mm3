@@ -1,3 +1,7 @@
+## Version 1.26.3
+### Bugfix
+- Correction d'un bug dans les jets de résistance, dans le cas d'une attaque sans jet d'attaque.
+
 ## Version 1.26.2
 ### Bugfix
 - Correction d'un bug de mise en page sur le pied de page des fiches d'acteurs (dans les astuces). (Oui, encore)
