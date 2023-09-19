@@ -12,6 +12,7 @@
             {{/select}}
         </select>
         
+        {{#if data.skills}}
         <div class="line">
             <a class="btn linkskill {{#if data.canBeLieSkill}}selected{{else}}unselected{{/if}}" data-oldname="{{data.label}}">{{localize "MM3.SPECIAL.CompLie"}}</a>
             {{#if data.canBeLieSkill}}
@@ -28,7 +29,8 @@
                 {{/select}}
             </select>
             {{/if}}
-        </div>        
+        </div>
+        {{/if}}
 
         <div class="line">
             <a class="btn linkpwr {{#if data.canBeLiePwr}}selected{{else}}unselected{{/if}}" data-oldname="{{data.label}}">{{localize "MM3.SPECIAL.PwrLie"}}</a>

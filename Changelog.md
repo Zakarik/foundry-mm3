@@ -1,3 +1,7 @@
+## Version 1.26.4
+### Bugfix
+- Correction d'un bug empêchant l'édition des attaques sur les véhicules et les QG.
+
 ## Version 1.26.3
 ### Bugfix
 - Correction d'un bug dans les jets de résistance, dans le cas d'une attaque sans jet d'attaque.

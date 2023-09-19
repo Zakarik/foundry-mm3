@@ -71,31 +71,35 @@ export class EditAttaque extends FormApplication {
     }
 
     get listSkill() {
-        const data = this.actor.system.competence;
-        const cc = data.combatcontact.list;
-        const rc = data.combatdistance.list;
-        let list = {
-            'combatcontact':[],
-            'combatdistance':[],
-        };
+        let list = false;
 
-        for(let c in cc) {
-            let d = cc[c];
+        if(this.actor.type === 'personnage') {
+            const data = this.actor.system.competence;
+            const cc = data.combatcontact.list;
+            const rc = data.combatdistance.list;
+            list = {
+                'combatcontact':[],
+                'combatdistance':[],
+            };
 
-            list.combatcontact.push({
-                'label':d.label,
-                '_id':d._id,
-            });
-        }
+            for(let c in cc) {
+                let d = cc[c];
 
-        for(let c in rc) {
-            let d = rc[c];
+                list.combatcontact.push({
+                    'label':d.label,
+                    '_id':d._id,
+                });
+            }
 
-            list.combatdistance.push({
-                'label':d.label,
-                '_id':d._id,
-            });
-        }
+            for(let c in rc) {
+                let d = rc[c];
+
+                list.combatdistance.push({
+                    'label':d.label,
+                    '_id':d._id,
+                });
+            }
+        }        
 
         return list;
     }
