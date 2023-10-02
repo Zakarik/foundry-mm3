@@ -1,3 +1,7 @@
+## Version 1.26.5
+### Bugfix
+- Correction d'un bug avec les macros de jets qui prenaient l'utilisateur au lieu de l'acteur pour les messages.
+
 ## Version 1.26.4
 ### Bugfix
 - Correction d'un bug empêchant l'édition des attaques sur les véhicules et les QG.

@@ -689,7 +689,9 @@ async function createMacro(bar, data, slot) {
 }
 
 async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, event) {
+  console.warn(actorId, sceneId, tokenId);
   const actor = tokenId === 'null' ? game.actors.get(actorId) : game.scenes.get(sceneId).tokens.find(token => token.id === tokenId).actor;
+  
   const data = actor.system;
   const tgt = game.user.targets.ids[0];
   const dataStr = data?.strategie?.total ?? {attaque:0, effet:0};
@@ -741,18 +743,18 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
 
   if(type === 'attaque' && tgt !== undefined && atk.noAtk) {
     for(let t of game.user.targets.ids) {
-      rollTgt(origin, name, {attaque:atk, strategie:strategie}, t);
+      rollTgt(actor, name, {attaque:atk, strategie:strategie}, t);
     }
   } else if(type === 'attaque' && tgt !== undefined && !atk.noAtk) {
     result = {};
 
     for(let t of game.user.targets.ids) {
-      let roll = await rollAtkTgt(origin, name, total, {attaque:atk, strategie:strategie}, t, {alt:hasAlt});
+      let roll = await rollAtkTgt(actor, name, total, {attaque:atk, strategie:strategie}, t, {alt:hasAlt});
       result[t] = roll;
     }
-  } else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(origin, name, total, {attaque:atk, strategie:strategie}, {alt:hasAlt});
-  else if(type === 'attaque' && atk.noAtk) rollWAtk(origin, name, {attaque:atk, strategie:strategie});
-  else rollStd(origin, name, total, {shift:hasShift, alt:hasAlt});
+  } else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(actor, name, total, {attaque:atk, strategie:strategie}, {alt:hasAlt});
+  else if(type === 'attaque' && atk.noAtk) rollWAtk(actor, name, {attaque:atk, strategie:strategie});
+  else rollStd(actor, name, total, {shift:hasShift, alt:hasAlt});
 
   return result;
 };
