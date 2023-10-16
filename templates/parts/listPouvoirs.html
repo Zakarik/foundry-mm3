@@ -169,6 +169,12 @@
                     <i class="fa-solid fa-pen-to-square item-edit"></i>
                     <i class="fa-solid fa-trash-xmark item-delete"></i>
                 </div>
+                {{#if kPA.system.effetsprincipaux}}
+                    <div class="pwreffects">
+                        <span class="header">{{kPA.system.effetsprincipaux}}</span>
+                    </div>
+                {{/if}}
+
                 {{#if (isValue kPA.system.special 'alternatif')}}
                     <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
                         {{#select kPA.system.link}}
@@ -283,6 +289,12 @@
                     <i class="fa-solid fa-pen-to-square item-edit"></i>
                     <i class="fa-solid fa-trash-xmark item-delete"></i>
                 </div>
+                {{#if kPA.system.effetsprincipaux}}
+                    <div class="pwreffects">
+                        <span class="header">{{kPA.system.effetsprincipaux}}</span>
+                    </div>
+                {{/if}}
+
                 {{#if (isValue kPA.system.special 'alternatif')}}
                     <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
                         {{#select kPA.system.link}}
@@ -386,6 +398,12 @@
                     <i class="fa-solid fa-pen-to-square item-edit"></i>
                     <i class="fa-solid fa-trash-xmark item-delete"></i>
                 </div>
+                {{#if kPA.system.effetsprincipaux}}
+                    <div class="pwreffects">
+                        <span class="header">{{kPA.system.effetsprincipaux}}</span>
+                    </div>
+                {{/if}}
+
                 {{#if (isValue kPA.system.special 'alternatif')}}
                     <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
                         {{#select kPA.system.link}}

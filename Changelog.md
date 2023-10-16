@@ -1,3 +1,9 @@
+## Version 1.26.6
+### Bugfix
+- Correction de la boîte de texte "Pouvoir principal" manquante pour les pouvoirs alternatifs.
+- Correction de deux bugs d'importation depuis Hero Lab, pouvant empêcher l'importation d'arriver à son terme dans de rares cas.
+- Changement de la valeur de distance de base de la grille de 5m à 1.5m.
+
 ## Version 1.26.5
 ### Bugfix
 - Correction d'un bug avec les macros de jets qui prenaient l'utilisateur au lieu de l'acteur pour les messages.

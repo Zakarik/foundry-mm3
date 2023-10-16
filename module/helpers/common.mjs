@@ -600,8 +600,9 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
       }
 
       listBonusTalent = listBonusTalent.concat(processChainedAdvantages(pwr));
-      listPwrName.push(pwr.name);
-      listPwrDetails[pwr.name] = {
+      let tempName = pwr.name.replace('(', '').replace(')', '').replace('.', '');
+      listPwrName.push(tempName);
+      listPwrDetails[tempName] = {
         ranks:pwr.ranks,
         elements:pwr.elements,
       };
@@ -655,7 +656,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
 
         const total = itemCreate.system.cout.total;
         if(total > 5 && (pwr?.alternatepowers?.power ?? null) == null) listPwrWhoCanLostCost.push(itemCreate._id);
-        listPwrDetails[pwr.name]._id = itemCreate._id;
+        listPwrDetails[tempName]._id = itemCreate._id;
       } else {
         pwrName = pwr.name;
         pwrDescription = description;
@@ -1262,11 +1263,26 @@ export async function processImport(actor, data, actorType='personnage') {
               if(elements !== null) {
                 const element = elements?.element ?? null;
 
-                if(element !== null) {                            
-                  let first = element.find(f => f.name.includes('1st degree'));
-                  let second = element.find(f => f.name.includes('2nd degree'));
-                  let three = element.find(f => f.name.includes('3rd degree'));
-                  let resist = element.find(f => f.name.includes('Resisted by'));
+                if(element !== null) {
+                  let first = undefined;
+                  let second = undefined;
+                  let three = undefined;
+                  let resist = undefined;
+
+                  if(Array.isArray(element)) {
+                    first = element?.find(f => f.name.includes('1st degree')) ?? undefined;
+                    second = element?.find(f => f.name.includes('2nd degree')) ?? undefined;
+                    three = element?.find(f => f.name.includes('3rd degree')) ?? undefined;
+                    resist = element?.find(f => f.name.includes('Resisted by')) ?? undefined;
+                  } else {
+                    let toArray = Object.values(element);
+
+                    first = toArray?.find(f => f.includes('1st degree')) ?? undefined;
+                    second = toArray?.find(f => f.includes('2nd degree')) ?? undefined;
+                    three = toArray?.find(f => f.includes('3rd degree')) ?? undefined;
+                    resist = toArray?.find(f => f.includes('Resisted by')) ?? undefined;
+                  }                  
+                  
                   let fInfo = first?.info ?? null;
                   let sInfo = second?.info ?? null;
                   let tInfo = three?.info ?? null;
