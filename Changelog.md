@@ -1,3 +1,7 @@
+## Version 1.26.7
+### Bugfix
+- Correction d'un oubli de changement de version... !
+
 ## Version 1.26.6
 ### Bugfix
 - Correction de la boîte de texte "Pouvoir principal" manquante pour les pouvoirs alternatifs.
