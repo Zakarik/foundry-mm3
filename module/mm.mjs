@@ -17,6 +17,7 @@ import { RegisterSettings } from "./settings.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { MM3 } from "./helpers/config.mjs";
 import toggler from './helpers/toggler.js';
+import { measureDistances } from "./helpers/canvas.mjs";
 
 import {
   rollAtkTgt,
@@ -813,4 +814,9 @@ Hooks.on('renderTokenHUD', (hud, html, actor) => {
   if(actor.bar2.attribute === 'blessure') toUpdate = 'bar2';
 
   if(toUpdate !== undefined) html.find(`input[name="${toUpdate}.value"]`).prop("type", "number");
+});
+
+Hooks.on("canvasInit", function () {
+  canvas.grid.diagonalRule = game.settings.get("mutants-and-masterminds-3e", "diagonalMovement");
+  SquareGrid.prototype.measureDistances = measureDistances;
 });

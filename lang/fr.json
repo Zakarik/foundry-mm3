@@ -259,7 +259,14 @@
       "MeasureSystem":"Système de mesure",
       "MeasureSystemHint":"Choisir entre le système métrique ou impérial.",
       "Metric":"Métrique",
-      "Imperial":"Imperial"
+      "Imperial":"Imperial",
+      "DiagonalMovement":{
+        "Name": "Mouvement Diagonal",
+        "Hint": "Configurez quelle règle de mouvement diagonal sera utilisée dans le système.",
+        "Manhattan": "Manhattan (3m)",
+        "Equidistant": "Équidistant (1.5m)",
+        "Pathfinder": "Pathfinder/3.5 (1.5m/3m/1.5m)"
+      }
     },
     "ROLL":{
       "AttSuccess":"L'Attaque touche !",
