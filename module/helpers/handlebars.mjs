@@ -4,18 +4,18 @@ import {
 
 export const RegisterHandlebars = function () {
     Handlebars.registerHelper('translate', function(where, tra) {
-    try {
-        let translation = CONFIG.MM3;
-        const levels = where.split(".");
-        for(let i = 0; i < levels.length; i++) {
-        translation = translation[levels[i]];
-        }
-        return game.i18n.localize(translation[tra]);
+        try {
+            let translation = CONFIG.MM3;
+            const levels = where.split(".");
+            for(let i = 0; i < levels.length; i++) {
+            translation = translation[levels[i]];
+            }
+            return game.i18n.localize(translation[tra]);
 
-    } catch (error) {
-        console.error(`Error translating ${tra} in ${where}: ${error}`);
-        return "";
-    }
+        } catch (error) {
+            console.error(`Error translating ${tra} in ${where}: ${error}`);
+            return "";
+        }
     });
 
     Handlebars.registerHelper('singularOrPlural', function(count, successOrFail) {

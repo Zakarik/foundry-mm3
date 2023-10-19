@@ -2221,8 +2221,8 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
       btn.push({
         typeAtk:'affliction',
         target:tgt,
-        saveType:saveAffliction,
-        vs:Number(dataCbt.afflictioneffet)+Number(dataStr.effet)+Number(dataCbt.afflictiondef),
+        saveType:saveType,
+        vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
       });
     }
 
@@ -2319,8 +2319,8 @@ export async function rollTgt(actor, name, data, tgt) {
     btn.push({
       typeAtk:'affliction',
       target:tgt,
-      saveType:saveAffliction,
-      vs:Number(dataCbt.afflictioneffet)+Number(dataStr.effet)+Number(dataCbt.afflictiondef),
+      saveType:saveType,
+      vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
     });
   }
   

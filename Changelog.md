@@ -1,3 +1,7 @@
+## Version 1.26.8
+### Bugfix
+- Correction d'un bug avec les attaques de type "affliction", ne prenant pas en compte la défense correctement.
+
 ## Version 1.26.7
 ### Bugfix
 - Correction d'un oubli de changement de version... !
