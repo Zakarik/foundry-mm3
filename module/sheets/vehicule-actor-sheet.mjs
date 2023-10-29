@@ -300,7 +300,7 @@ export class VehiculeActorSheet extends ActorSheet {
       const item = this.actor.items.get(id);
 
       // Create drag data
-      const dragData = {
+      dragData = {
         actorId: this.actor.id,
         sceneId: this.actor.isToken ? canvas.scene?.id : null,
         tokenId: this.actor.isToken ? this.actor.token.id : null,

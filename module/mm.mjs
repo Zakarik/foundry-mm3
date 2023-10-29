@@ -699,7 +699,7 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
   const hasShift = event.shiftKey;
   const hasAlt = event.altKey;
   
-  const atk = id === '-1' || id === -1 ? {noAtk:false} : game.mm3.getAtk(actor, id).data;
+  const atk = id === '-1' || id === -1 ? {noAtk:false} : game.mm3.getAtk(actor, id)?.data ?? "";
   let name = "";
   let total = 0;
 

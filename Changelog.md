@@ -1,3 +1,8 @@
+## Version 1.26.9
+### Bugfix
+- Correction d'un bug avec les macros de personnage, qui ne pouvait ne pas fonctionner dans le cas d'une expertise, d'un combat au contact ou à distance.
+- Correction d'un bug qui empêchait la création de macro pour les véhicules.
+
 ## Version 1.26.8
 ### Bugfix
 - Correction d'un bug avec les attaques de type "affliction", ne prenant pas en compte la défense correctement.
