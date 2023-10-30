@@ -445,4 +445,8 @@
     &.blind {
         filter:hue-rotate(250deg);
     }
+
+    &.context {
+        z-index: 999;
+    }
 }

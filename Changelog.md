@@ -1,3 +1,7 @@
+## Version 1.26.10
+### Bugfix
+- Correction d'un bug empêchant d'accéder au menu de contexte du tchat des anciens jets dans certains cas.
+
 ## Version 1.26.9
 ### Bugfix
 - Correction d'un bug avec les macros de personnage, qui ne pouvait ne pas fonctionner dans le cas d'une expertise, d'un combat au contact ou à distance.

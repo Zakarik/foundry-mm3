@@ -9331,6 +9331,9 @@ section.sheet-bottom {
 .chat-message.blind {
   filter: hue-rotate(250deg);
 }
+.chat-message.context {
+  z-index: 999;
+}
 
 div.mm3-dialog section.window-content {
   background: #EBEBEB;
