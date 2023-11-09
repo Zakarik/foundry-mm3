@@ -130,4 +130,19 @@ export const RegisterSettings = function () {
             foundry.utils.debouncedReload();
         }
     });
+
+    game.settings.register("mutants-and-masterminds-3e", "diagonalMovement", {
+        name: "MM3.SETTING.DiagonalMovement.Name",
+        hint: "MM3.SETTING.DiagonalMovement.Hint",
+        scope: "world",
+        config: true,
+        default: "EQUIDISTANT",
+        type: String,
+        choices: {
+            "MANHATTAN": "MM3.SETTING.DiagonalMovement.Manhattan",
+            "EQUIDISTANT": "MM3.SETTING.DiagonalMovement.Equidistant",
+            "PATHFINDER": "MM3.SETTING.DiagonalMovement.Pathfinder",
+        },
+        onChange: value => canvas.grid.diagonalRule = value
+    });
 };
