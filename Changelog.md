@@ -1,6 +1,7 @@
 ## Version 1.27.0
 ### Améliorations
 - Ajout de plusieurs autres méthodes de calcul pour les distances en diagonal (Manhattan et Pathfinder/3.5), à sélectionner dans les options.
+(Merci à coppolaop)
 
 ## Version 1.26.10
 ### Bugfix
