@@ -1,3 +1,7 @@
+## Version 1.27.0
+### Améliorations
+- Ajout de plusieurs autres méthodes de calcul pour les distances en diagonal (Manhattan et Pathfinder/3.5), à sélectionner dans les options.
+
 ## Version 1.26.10
 ### Bugfix
 - Correction d'un bug empêchant d'accéder au menu de contexte du tchat des anciens jets dans certains cas.
