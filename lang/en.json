@@ -332,8 +332,8 @@
       "Pied-short":"ft"
     },
     "SPECIAL":{
-      "DeplierTout":"Unfold all",
-      "ReplierTout":"Fold all",
+      "DeplierTout":"Hide All",
+      "ReplierTout":"Show All",
       "CompLie":"Linked to a skill",
       "PwrLie":"Linked to a power"
     },
@@ -354,10 +354,10 @@
     "Puissance":"Power Level",
     "Caracteristiques":"Abilities",
     "Pouvoirs":"Powers",
-    "Talents":"Talents",
+    "Talents":"Advantages",
     "Equipements":"Equipment",
     "Competences":"Skills",
-    "Attaques":"Attacks",
+    "Attaques":"Attack",
     "Strategies":"Maneuvers",
     "Defenses":"Defenses",
     "Description":"Description",
