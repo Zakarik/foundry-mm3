@@ -362,6 +362,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
   if(pouvoirs !== null) {
     if(Array.isArray(pouvoirs)) {
       for(let pwr of pouvoirs) {
+        const pName = pwr.name.replace('.', ' ');
         const descriptors = {};
         const extras = {};
         const defauts = {};
@@ -451,8 +452,8 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
 
         listBonusTalent = listBonusTalent.concat(processChainedAdvantages(pwr));
 
-        listPwrName.push(pwr.name);
-        listPwrDetails[pwr.name] = {
+        listPwrName.push(pName);
+        listPwrDetails[pName] = {
           ranks:pwr.ranks
         };
 
@@ -504,9 +505,10 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
           
           const total = itemCreate.system.cout.total;
           if(total > 1 && (pwr?.alternatepowers?.power ?? null) == null) listPwrWhoCanLostCost.push(itemCreate._id);
-          listPwrDetails[pwr.name]._id = itemCreate._id;
+
+          listPwrDetails[pName]._id = itemCreate._id;
         } else {
-          pwrName = pwr.name;
+          pwrName = pName;
           pwrDescription = description;
         }        
       }

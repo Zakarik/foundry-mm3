@@ -1,3 +1,7 @@
+## Version 1.27.2
+### Bugfix
+- Correction d'un bug rare d'importation, pouvant survenir si les noms des pouvoirs contenait des ".".
+
 ## Version 1.27.1
 ### Bugfix
 - Correction de la traduction portuguaise et anglaise.
