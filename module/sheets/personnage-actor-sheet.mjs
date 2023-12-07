@@ -101,7 +101,42 @@ export class PersonnageActorSheet extends ActorSheet {
       const data = json.document.public.character;
       processImport(this.actor, data);
       processMinions(this.actor, data);
-    });    
+    });
+
+    html.find('.import-all').change(async ev => {
+      const target = ev.target.files[0];
+      const file = await readTextFromFile(target);
+      let temp = file.replace(/&quot;/g, '#quot;');
+      temp = temp.replace(/&[^;]+;/g, '');
+
+      if (temp[0] == "\"") { // Remove the wrapping doublequotes
+        temp = temp.substr(1, temp.length - 2);
+      }
+
+      const json = JSON.parse(xml2json(parseXML(temp), "\t"));
+
+      // Iterate over each character in the DC file and create a new actor
+      for (const characterData of json.document.public.character) {
+        await processCharacterData(characterData);
+      }
+    });
+
+// Process each character's data and create a new actor
+    async function processCharacterData(characterData) {
+      // Assuming processImport and processMinions are defined and handle the actor creation
+
+      const actorData = {
+        name: "temp",
+        type: "personnage",
+        // ... include other necessary attributes or default values
+      };
+
+      // Create the actor
+      let actor = await Actor.create(actorData);
+
+      processImport(actor, characterData);
+      processMinions(actor, characterData);
+    }
 
     html.find('span.switchIdentite').click(async ev => {
       const target = $(ev.currentTarget);
