@@ -38,6 +38,9 @@ import {
   hasStatus,
   deleteStatus,
   setSpeed,
+  processCharacterData,
+  xml2json,
+  parseXML
 } from "./helpers/common.mjs";
 
 import {
@@ -515,6 +518,67 @@ Hooks.once('ready', async function () {
   const whatMenu = game.settings.get("mutants-and-masterminds-3e", "menu");
   $("div#interface").removeClass(listBg);
   $("div#interface").addClass(whatMenu);
+});
+
+Hooks.on('renderActorDirectory', async function () {
+  const setting = game.settings.get("mutants-and-masterminds-3e", "font");
+  let addHtml = ``;
+
+  if(setting !== 'default') {
+    addHtml += `style='font-family:"${setting}"'`;
+  }
+
+  $("section#actors footer.action-buttons").append(`<button class='import-all' ${addHtml}>${game.i18n.localize('MM3.IMPORTATIONS.Portfolio')}</button>`);
+
+  $("section#actors footer.action-buttons button.import-all").on( "click", async function() {
+    const whatMenu = game.settings.get("mutants-and-masterminds-3e", "menu");    
+
+    const html = `
+      <label for="import-portfolio" ${addHtml}>${game.i18n.localize('MM3.IMPORTATIONS.ChoisirPortfolio')}</label>
+      <input type="file" id="import-portfolio" name="import-portfolio" class="import-all" accept="text/xml">
+    `;
+
+    const dOptions = {
+      classes: ["mm3-import-all", whatMenu],
+    };
+
+    if(setting !== 'default') {
+      dOptions.classes.push(setting);
+    }
+
+    let d = new Dialog({
+      title: game.i18n.localize('MM3.IMPORTATIONS.Portfolio'),
+      content:html,
+      buttons: {
+        one: {
+         label: game.i18n.localize('MM3.IMPORTATIONS.Importer'),
+         callback: async (html) => {
+            try {
+              const target = html.find('#import-portfolio')[0].files[0];
+              const file = await readTextFromFile(target);
+              let temp = file.replace(/&quot;/g, '#quot;');
+              temp = temp.replace(/&[^;]+;/g, '');
+          
+              if (temp[0] == "\"") { // Remove the wrapping doublequotes
+                temp = temp.substr(1, temp.length - 2);
+              }
+          
+              const json = JSON.parse(xml2json(parseXML(temp), "\t"));
+          
+              // Iterate over each character in the DC file and create a new actor
+              for (const characterData of json.document.public.character) {
+                await processCharacterData(characterData);
+              }
+            } catch {
+              ui.notifications.error(game.i18n.localize('MM3.IMPORTATIONS.PortfolioError'));
+            }
+          }
+        }
+      }
+    },
+    dOptions);
+    d.render(true);
+  });
 });
 
 Hooks.on('deleteItem', doc => toggler.clearForId(doc.id));

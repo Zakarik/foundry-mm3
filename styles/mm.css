@@ -9377,6 +9377,131 @@ div.mm3-dialog section.window-content div.dialog-buttons button:hover {
   color: #fe8412;
 }
 
+div.mm3-import-all section.window-content {
+  background: #EBEBEB;
+  color: #363B44;
+  font-family: Sriracha;
+  font-weight: bold;
+}
+div.mm3-import-all section.window-content div.dialog-content {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+div.mm3-import-all section.window-content div.dialog-content label {
+  letter-spacing: 1px;
+  text-align: center;
+}
+div.mm3-import-all section.window-content div.dialog-content input {
+  margin-left: auto;
+  margin-right: auto;
+}
+div.mm3-import-all section.window-content div.dialog-buttons {
+  margin-top: 5px;
+}
+div.mm3-import-all section.window-content div.dialog-buttons button {
+  position: relative;
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  font-variant: small-caps;
+  padding: 2px 5px;
+  line-height: 15px;
+  align-items: flex-end;
+  display: flex;
+  justify-content: center;
+  color: black;
+  padding-right: 5px;
+  letter-spacing: 1px;
+}
+div.mm3-import-all.bleuclair {
+  background: url("../assets/menu/bleuclair.png") repeat;
+}
+div.mm3-import-all.violetclair {
+  background: url("../assets/menu/violetclair.png") repeat;
+}
+div.mm3-import-all.violet {
+  background: url("../assets/menu/violet.png") repeat;
+}
+div.mm3-import-all.bleufonce {
+  background: url("../assets/menu/bleufonce.png") repeat;
+}
+div.mm3-import-all.Bangers button {
+  font-family: "Bangers" !important;
+}
+div.mm3-import-all.Sriracha button {
+  font-family: "Sriracha" !important;
+}
+div.mm3-import-all.Kalam button {
+  font-family: "Kalam" !important;
+}
+div.mm3-import-all.Creepster button {
+  font-family: "Creepster" !important;
+}
+div.mm3-import-all.Poppins button {
+  font-family: "Poppins" !important;
+}
+div.mm3-import-all.Roboto button {
+  font-family: "Roboto" !important;
+}
+div.mm3-import-all.RobotoCondensed button {
+  font-family: "Roboto Condensed" !important;
+}
+div.mm3-import-all.RobotoMono button {
+  font-family: "Roboto Mono" !important;
+}
+div.mm3-import-all.Tektur button {
+  font-family: "Tektur" !important;
+}
+div.mm3-import-all.JosefinSans button {
+  font-family: "Josefin Sans" !important;
+}
+div.mm3-import-all.BebasNeue button {
+  font-family: "Bebas Neue" !important;
+}
+div.mm3-import-all.Goldman button {
+  font-family: "Goldman" !important;
+}
+div.mm3-import-all.Anton button {
+  font-family: "Anton" !important;
+}
+div.mm3-import-all.PatrickHandSC button {
+  font-family: "Patrick Hand SC" !important;
+}
+div.mm3-import-all.PirataOne button {
+  font-family: "Pirata One" !important;
+}
+div.mm3-import-all.Prompt button {
+  font-family: "Prompt" !important;
+}
+div.mm3-import-all.Teko button {
+  font-family: "Teko" !important;
+}
+div.mm3-import-all.RussoOne button {
+  font-family: "Russo One" !important;
+}
+div.mm3-import-all.Righteous button {
+  font-family: "Righteous" !important;
+}
+div.mm3-import-all.PathwayGothicOne button {
+  font-family: "Pathway Gothic One" !important;
+}
+div.mm3-import-all.Quantico button {
+  font-family: "Quantico" !important;
+}
+div.mm3-import-all.Staatliches button {
+  font-family: "Staatliches" !important;
+}
+div.mm3-import-all.SecularOne button {
+  font-family: "Secular One" !important;
+}
+
 div.edit-attaque section.window-content {
   background: #EBEBEB;
 }
@@ -9743,6 +9868,31 @@ div#interface.violet aside#players {
 div#interface.bleufonce div#sidebar,
 div#interface.bleufonce aside#players {
   background: url("../assets/menu/bleufonce.png") repeat;
+}
+
+section#actors footer.action-buttons button {
+  position: relative;
+  border-bottom: 2px solid #666;
+  border-color: #aaa;
+  border-radius: 5px;
+  border-right: 3px solid #999;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  font-variant: small-caps;
+  padding: 2px 5px;
+  line-height: 15px;
+  align-items: flex-end;
+  display: flex;
+  justify-content: center;
+  color: black;
+  padding-right: 5px;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
 }
 
 div.mm3-dialog-delete .window-content {

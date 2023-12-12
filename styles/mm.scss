@@ -140,6 +140,31 @@ div#interface {
     }
 }
 
+section#actors footer.action-buttons button {
+    position: relative;
+    border-bottom: 2px solid #666;
+    border-color: #aaa;
+    border-radius: 5px;
+    border-right: 3px solid #999;
+    border-style: outset;
+    font-family: "Bangers";
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 18px;
+    cursor: pointer;
+    font-variant: small-caps;
+    padding: 2px 5px;
+    line-height: 15px;
+    align-items: flex-end;
+    display: flex;
+    justify-content: center;
+    color: $black;
+    padding-right: 5px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+}
+
 div.mm3-dialog-delete {
     .window-content {
         background:$fond;

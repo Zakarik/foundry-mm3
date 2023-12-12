@@ -1,3 +1,8 @@
+## Version 1.28.0
+### Améliorations
+- Ajout d'un bouton en bas de la fenêtre des acteurs, permettant d'importer un portfolio d'Hero Lab en une fois.
+Adapté depuis une proposition de thomasjeffreyandersontwin [#60](https://github.com/Zakarik/foundry-mm3/pull/60) [#61](https://github.com/Zakarik/foundry-mm3/pull/61), merci à lui.
+
 ## Version 1.27.2
 ### Bugfix
 - Correction d'un bug rare d'importation, pouvant survenir si les noms des pouvoirs contenait des ".".

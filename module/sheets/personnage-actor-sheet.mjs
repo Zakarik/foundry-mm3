@@ -101,7 +101,7 @@ export class PersonnageActorSheet extends ActorSheet {
       const data = json.document.public.character;
       processImport(this.actor, data);
       processMinions(this.actor, data);
-    });    
+    });
 
     html.find('span.switchIdentite').click(async ev => {
       const target = $(ev.currentTarget);

@@ -307,7 +307,11 @@
     },
     "IMPORTATIONS":{
       "Herolab":"Importar do Hero Lab",
-      "Warningherolab":"Aviso, se existem outros dados na ficha, eles serão mantidos ou  substituídos, de forma apropriada. O personagem será, então, uma mistura dos dados existentes e dos novos, não tendo forma de prever o que será substituído ou retido."
+      "Warningherolab":"Aviso, se existem outros dados na ficha, eles serão mantidos ou  substituídos, de forma apropriada. O personagem será, então, uma mistura dos dados existentes e dos novos, não tendo forma de prever o que será substituído ou retido.",
+      "Portfolio": "Importar um portfólio",
+      "ChoosePortfolio": "Escolha o Portfólio do Herolab",
+      "Import": "Importar",
+      "PortfolioError": "Erro ao importar portfólio, verificar arquivo"
     },
     "ACCESSIBILITE":{
       "Label":"Acessibilidade",

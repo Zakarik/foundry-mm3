@@ -307,7 +307,11 @@
     },
     "IMPORTATIONS":{
       "Herolab":"Importations depuis Hero Lab",
-      "Warningherolab":"Attention, s'il y a d'autres données sur la fiche, celles-ci seront conservées ou remplacées selon les cas. Le personnage sera ainsi un mixte des données existantes et des nouvelles données, sans possibilité de prédire à l'avance ce qui va être remplacé ou conservé."
+      "Warningherolab":"Attention, s'il y a d'autres données sur la fiche, celles-ci seront conservées ou remplacées selon les cas. Le personnage sera ainsi un mixte des données existantes et des nouvelles données, sans possibilité de prédire à l'avance ce qui va être remplacé ou conservé.",
+      "Portfolio":"Importer un Portfolio",
+      "ChoisirPortfolio":"Choisir le Portfolio d'Herolab",
+      "Importer":"Importer",
+      "PortfolioError":"Erreur d'importation du Portfolio, vérifiez le fichier"
     },
     "ACCESSIBILITE":{
       "Label":"Accessibilité",

@@ -307,7 +307,11 @@
     },
     "IMPORTATIONS":{
       "Herolab":"Import From Hero Lab",
-      "Warningherolab":"Warning, if there is other data on the sheet, it will be kept or replaced as appropriate. The character will thus be a mix of existing and new data, without the possibility of predicting what will be replaced or retained."
+      "Warningherolab":"Warning, if there is other data on the sheet, it will be kept or replaced as appropriate. The character will thus be a mix of existing and new data, without the possibility of predicting what will be replaced or retained.",
+      "Portfolio": "Import a Portfolio",
+      "ChoosePortfolio": "Choose the Herolab's Portfolio",
+      "Import": "Import",
+      "PortfolioError": "Portfolio import error, check file"
     },
     "ACCESSIBILITE":{
       "Label":"Accessibility",

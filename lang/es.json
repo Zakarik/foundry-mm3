@@ -307,7 +307,11 @@
     },
     "IMPORTATIONS":{
       "Herolab":"Importar de Hero Lab",
-      "Warningherolab":"Advertencia, si existen otros datos en el formulario, serán conservados o reemplazados, según corresponda. El carácter será entonces una mezcla de datos existentes y nuevos, sin forma de predecir qué se reemplazará o conservará."
+      "Warningherolab":"Advertencia, si existen otros datos en el formulario, serán conservados o reemplazados, según corresponda. El carácter será entonces una mezcla de datos existentes y nuevos, sin forma de predecir qué se reemplazará o conservará.",
+      "Portfolio": "Importar un portafolio",
+      "ChoosePortfolio": "Elegir Portafolio de Herolab",
+      "Import": "Importar",
+      "PortfolioError": "Error al importar el portafolio, verificar archivo"
     },
     "ACCESSIBILITE":{
       "Label":"Accesibilidad",

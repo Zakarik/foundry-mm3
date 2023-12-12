@@ -1635,6 +1635,23 @@ export async function processMinions(actor, data) {
   }
 }
 
+// Process each character's data and create a new actor
+export async function processCharacterData(characterData) {
+  // Assuming processImport and processMinions are defined and handle the actor creation
+
+  const actorData = {
+    name: "temp",
+    type: "personnage",
+    // ... include other necessary attributes or default values
+  };
+
+  // Create the actor
+  let actor = await Actor.create(actorData);
+
+  processImport(actor, characterData);
+  processMinions(actor, characterData);
+} 
+
 export function costCalculate(ranks, cost) {
   const calc = Math.max(Math.floor(Number(cost)/Number(ranks)), 1);
   const mod = Number(cost)-(Number(ranks)*calc);
