@@ -521,6 +521,8 @@ Hooks.once('ready', async function () {
 });
 
 Hooks.on('renderActorDirectory', async function () {
+  if(!game.user.isGM) return;
+
   const setting = game.settings.get("mutants-and-masterminds-3e", "font");
   let addHtml = ``;
 
@@ -570,7 +572,22 @@ Hooks.on('renderActorDirectory', async function () {
                 await processCharacterData(characterData);
               }
             } catch {
-              ui.notifications.error(game.i18n.localize('MM3.IMPORTATIONS.PortfolioError'));
+              try {
+                const target = html.find('#import-portfolio')[0].files[0];
+                const file = await readTextFromFile(target);
+                let temp = file.replace(/&quot;/g, '#quot;');
+                temp = temp.replace(/&[^;]+;/g, '');
+                if (temp[0] == "\"") { // remove the wrapping doublequotes
+                  temp = temp.substr(1, temp.length - 2);
+                }
+
+                const json = JSON.parse(xml2json(parseXML(temp), "\t"));
+                const data = json.document.public.character;
+
+                await processCharacterData(data);
+              } catch {
+                ui.notifications.error(game.i18n.localize('MM3.IMPORTATIONS.PortfolioError'));
+              }
             }
           }
         }
@@ -666,7 +683,7 @@ Hooks.on('userConnected', (User, boolean) => {
 });
 
 Hooks.on("applyActiveEffect", async (actor, change) => {
-  if(actor.type !== 'personnage') return;
+  if(actor.type !== 'personnage' && this.permission !== 3) return;
 
   const version = game.version.split('.')[0];
   let status = "";
@@ -717,6 +734,7 @@ Hooks.on("applyActiveEffect", async (actor, change) => {
 });
 
 Hooks.on("createActiveEffect", async (effect, data, id) => {
+  if(effect.parent.permission !== 3) return;
   let statuses;
 
   const version = game.version.split('.')[0];

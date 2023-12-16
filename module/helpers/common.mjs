@@ -1642,14 +1642,23 @@ export async function processCharacterData(characterData) {
   const actorData = {
     name: "temp",
     type: "personnage",
+    ownership:{
+      default:3
+    }
     // ... include other necessary attributes or default values
   };
 
   // Create the actor
   let actor = await Actor.create(actorData);
 
-  processImport(actor, characterData);
-  processMinions(actor, characterData);
+  await processImport(actor, characterData);
+  await processMinions(actor, characterData);
+
+  let update = {};
+  update[`ownership.default`] = 0;
+  update[`prototypeToken.name`] = actor.name;
+
+  await actor.update(update);
 } 
 
 export function costCalculate(ranks, cost) {

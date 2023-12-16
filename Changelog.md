@@ -1,3 +1,12 @@
+## Version 1.29.0
+### Améliorations
+- Amélioration de l'importation du Portfolio. Il est en mesure de gérer également l'importation des personnages unique, en plus de gérer l'importation des groupes de personnages.
+
+### Bugfix
+- Correction d'un bug qui causait l'apparition du bouton d'importation pour les PJ également.
+- Correction d'un bug qui causait l'apparition de messages d'erreurs lors de l'application des effets, ou lors de l'importation.
+- Correction d'un bug qui n'attribuait pas le nom correct aux tokens de personnages importés d'un portfolio.
+
 ## Version 1.28.0
 ### Améliorations
 - Ajout d'un bouton en bas de la fenêtre des acteurs, permettant d'importer un portfolio d'Hero Lab en une fois.
