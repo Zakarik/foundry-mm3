@@ -602,7 +602,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
       }
 
       listBonusTalent = listBonusTalent.concat(processChainedAdvantages(pwr));
-      let tempName = pwr.name.replace('(', '').replace(')', '').replace('.', '');
+      let tempName = pwr.name.replaceAll('(', '').replaceAll(')', '').replaceAll('.', '');
       listPwrName.push(tempName);
       listPwrDetails[tempName] = {
         ranks:pwr.ranks,

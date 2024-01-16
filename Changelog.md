@@ -1,3 +1,7 @@
+## Version 1.29.1
+### Bugfix
+- Correction d'un bug rare pouvant bloquer l'importation de personnages.
+
 ## Version 1.29.0
 ### Améliorations
 - Amélioration de l'importation du Portfolio. Il est en mesure de gérer également l'importation des personnages unique, en plus de gérer l'importation des groupes de personnages.
