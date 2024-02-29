@@ -41,6 +41,8 @@ export class PersonnageActorSheet extends ActorSheet {
     this._prepareCompetences(context);
     actualiseWAtt();
 
+    console.warn(context);
+
     return context;
   }
 
@@ -86,7 +88,40 @@ export class PersonnageActorSheet extends ActorSheet {
     if ( !this.isEditable ) return;
 
     html.find('.item-create').click(this._onItemCreate.bind(this));
-    commonHTML(html, this.actor, {hasItem:true, hasAtk:true, hasPwr:true, hasStr:true, strInput:`div.caracteristiques div.strategie input`, hasPP:true, ppName:'pp', hasSpd:true, hasRoll:true, hasAdd:true});
+    commonHTML(html, this.actor, {hasItem:true, hasAtk:true, hasPwr:true, hasStr:true, hasPP:true, ppName:'pp', hasSpd:true, hasRoll:true, hasAdd:true});
+
+    html.find('.pwrActivate').click(async ev => {
+      const target = $(ev.currentTarget);
+      const header = target.parents('.summary');
+      const id = header.data('item-id');      
+      const item = this.actor.items.get(id);
+      const isActive = item.system?.activate ?? false;
+      const value = isActive ? false : true;
+      const link = item.system?.link ?? '';
+      let linksFilter = [];
+        
+      if(value) {
+        linksFilter = this.actor.items.filter(itm => 
+          (itm.system.link === link && itm._id !== id && link !== '' && (item.system.special === 'alternatif' || itm.system.special === 'alternatif')) || 
+          (itm._id === item.system.link && item.system.special === 'alternatif') || 
+          (itm.system.link === item._id && itm.system.special === 'alternatif'));
+
+        for(let l of linksFilter) {
+          l.update({['system.activate']:false});
+        }
+      }
+
+      item.update({[`system.activate`]:value});
+    });
+
+    html.find('.variantepwr').change(async ev => {
+      const target = $(ev.currentTarget);
+      const header = target.parents('.summary');
+      const id = header.data('item-id');      
+      const item = this.actor.items.get(id);
+
+      item.update({[`system.effectsVarianteSelected`]:target.val()});
+    });
 
     html.find('.import').change(async ev => {
       const target = ev.target.files[0];

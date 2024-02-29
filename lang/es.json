@@ -65,14 +65,21 @@
       "CaracComp":"Características e Habilidades",
       "PouvoirsTalentsEquipements":"Poderes, Dotes & Equipos",
       "Importations":"Importar",
-      "Options":"Opciones"
+      "Options":"Opciones",
+      "Modificateurs":"Modificadores"
     },
     "BTN":{
       "Add":"Añadir",
       "AddPwr":"Añadir un poder",
       "AddCmp":"Añadir una habilidad",
       "AddTl":"Añadir una ventaja",
-      "AddEq":"Añadir un equipo"
+      "AddEq":"Añadir un equipo",
+      "AddMod":"Agregar un modificador",
+      "AddVMod":"Agregar una variante de efecto",
+      "DeleteVMod":"Eliminar una variante de efecto",
+      "EditMod":"Editar modificadores",
+      "DeleteMod":"Eliminar un modificador",      
+      "Activer":"Activar"
     },
     "CARACTERISTIQUES":{
       "Force":"Fuerza",
@@ -283,9 +290,12 @@
       "Initiative":"Iniciativa",
       "Pascritique":"No Crítico",
       "Pasattaque":"Sin tirada de ataque",
+      "Effetzone":"Área de efecto",
       "Valider":"Confirmar",
       "Annuler":"Cancelar",
       "Typeattaque":"Tipo de ataque",
+      "ModEsquive":"Mod. de esquivar",
+      "BaseEsquive":"Base de tirada de esquiva",
       "TYPE":{
         "Autre":"Other",
         "Degats":"Dañar",
@@ -311,7 +321,11 @@
       "Portfolio": "Importar un portafolio",
       "ChoosePortfolio": "Elegir Portafolio de Herolab",
       "Import": "Importar",
-      "PortfolioError": "Error al importar el portafolio, verificar archivo"
+      "PortfolioError": "Error al importar el portafolio, verificar archivo",
+      "JabsDescription":"Ingrese texto de una de las </label><a href='https://www.echoesofthemultiverse.com/viewtopic.php?t=8'>builds de Jab</a>",
+      "JabsBtn":"Importar personaje de builds de Jab",
+      "JabsValider":"Importar texto de builds de Jab",
+      "JabsTitle":"Importe todos los archivos JSON descargados a una carpeta"
     },
     "ACCESSIBILITE":{
       "Label":"Accesibilidad",
@@ -344,6 +358,24 @@
     "ASTUCE":{
       "Shift":"Puedes mantener presionada la tecla Shift al hacer clic en habilidades, destrezas y defensas para agregar una CD a la tirada.",
       "Alt":"Puedes mantener presionada la tecla Alt al hacer clic en un rollo para poder agregar un modificador."
+    },
+    "EFFECTS":{
+      "VariantesEffets":"Variantes de efectos",
+      "Bonus":"Modificador simple",
+      "Surcharge":"Reemplazo",
+      "SurchargeRanks":"Reemplazo por graduación",
+      "Ranks":"Mod. por graduación",
+      "Variante":"Variante",
+      "STRATEGIE":{
+        "AttaqueprecisionAttaque":"Límite de ataque preciso (Ataque)",
+        "AttaqueoutranceAttaque":"Límite de ataque imprudente (Ataque)",
+        "AttaquedefensiveAttaque":"Límite de ataque defensivo (ataque)",
+        "AttaquepuissanceAttaque":"Límite de ataque poderoso (ataque)",
+        "AttaqueprecisionEffet":"Límite de ataque preciso (efecto)",
+        "AttaqueoutranceDefense":"Límite de ataque imprudente (Defensa)",
+        "AttaquedefensiveDefense":"Límite de ataque defensivo (defensa)",
+        "AttaquepuissanceEffet":"Límite de ataque poderoso (efecto)"
+      }
     },
     "Nom":"Nombre",
     "Identite":"Identidad",
@@ -394,6 +426,7 @@
     "Couttotalfinal":"Costo total final",
     "Details":"Detalles",
     "Choisir":"Escoge",
+    "Min-short":"Min",
     "Max-short":"Máx",
     "Pointsequipementsused":"Puntos de equipo utilizados",
     "Coutvitesse":"Costo base del efecto de movimiento",

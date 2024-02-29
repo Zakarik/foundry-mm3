@@ -65,14 +65,21 @@
       "CaracComp":"Stats & Skills",
       "PouvoirsTalentsEquipements":"Powers, Advantages & Equipment",
       "Importations":"Import",
-      "Options":"Options"
+      "Options":"Options",
+      "Modificateurs":"Modifiers"
     },
     "BTN":{
       "Add":"Add",
       "AddPwr":"Add a power",
       "AddCmp":"Add a skill",
       "AddTl":"Add an advantage",
-      "AddEq":"Add an equipment"
+      "AddEq":"Add an equipment",
+      "AddMod":"Add a modifier",
+      "AddVMod":"Add an effect variant",
+      "DeleteVMod":"Delete an effect variant",
+      "EditMod":"Edit modifiers",
+      "DeleteMod":"Delete a modifier",      
+      "Activer":"Activate"
     },
     "CARACTERISTIQUES":{
       "Force":"Strength",
@@ -283,9 +290,12 @@
       "Initiative":"Initiative",
       "Pascritique":"No Critical",
       "Pasattaque":"No attack roll",
+      "Effetzone":"Area of effect",
       "Valider":"Confirm",
       "Annuler":"Cancel",
       "Typeattaque":"Type of attack",
+      "ModEsquive":"Dodge roll mod",
+      "BaseEsquive":"Dodge roll base",
       "TYPE":{
         "Autre":"Other",
         "Degats":"Damage",
@@ -311,7 +321,11 @@
       "Portfolio": "Import a Portfolio",
       "ChoosePortfolio": "Choose the Herolab's Portfolio",
       "Import": "Import",
-      "PortfolioError": "Portfolio import error, check file"
+      "PortfolioError": "Portfolio import error, check file",
+      "JabsDescription":"Enter plain text from one of Jab's builds found at </label><a href='https://www.echoesofthemultiverse.com/viewtopic.php?t=8'>Jab's builds</a>",
+      "JabsBtn":"Import Character from Jab's Builds",
+      "JabsValider":"Import Text From Jab's Build",
+      "JabsTitle":"Import all downloaded JSON files in a folder"
     },
     "ACCESSIBILITE":{
       "Label":"Accessibility",
@@ -344,6 +358,24 @@
     "ASTUCE":{
       "Shift":"You can hold down the Shift key when clicking on abilities, skills and defenses to add a DC to the roll.",
       "Alt":"You can hold down the Alt key when clicking on a roll to be able to add a modifier."
+    },
+    "EFFECTS":{
+      "VariantesEffets":"Effect variants",
+      "Bonus":"Simple modifier",
+      "Surcharge":"Replacement",
+      "SurchargeRanks":"Replacement by rank",
+      "Ranks":"Mod. by rank",
+      "Variante":"Variant",
+      "STRATEGIE":{
+        "AttaqueprecisionAttaque":"Accurate attack limit (Attack)",
+        "AttaqueoutranceAttaque":"All-out attack limit (Attack)",
+        "AttaquedefensiveAttaque":"Defensive attack limit (Attack)",
+        "AttaquepuissanceAttaque":"Power attack limit (Attack)",
+        "AttaqueprecisionEffet":"Accurate attack limit (Effect)",
+        "AttaqueoutranceDefense":"All-out attack limit (Defense)",
+        "AttaquedefensiveDefense":"Defensive attack limit (Defense)",
+        "AttaquepuissanceEffet":"Power attack limit (Effect)"
+      }
     },
     "Nom":"Name",
     "Identite":"Identity",
@@ -394,6 +426,7 @@
     "Couttotalfinal":"Final total cost",
     "Details":"Details",
     "Choisir":"Choose",
+    "Min-short":"Min",
     "Max-short":"Max",
     "Pointsequipementsused":"Equipment points used",
     "Coutvitesse":"Base Movement Effect cost",

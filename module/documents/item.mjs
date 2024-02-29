@@ -1,3 +1,7 @@
+import {
+    checkActiveOrUnactive,
+  } from "../helpers/common.mjs";
+
 /**
  * Extend the base Item document to support attributes and groups with a custom template creation dialog.
  * @extends {Item}
@@ -47,11 +51,24 @@ export class MM3Item extends Item {
         if (itemData.type !== 'pouvoir') return;
 
         const data = itemData.system;
+        const duration = data.duree;
         const extras = data.extras;
         const defauts = data.defauts;
         const cout = data.cout;
+        const actorType = itemData?.actor?.type ?? ''
+        let ispermanent = duration === 'permanent' ? true : false;
+        let activate = data?.activate ?? undefined;
         let modFixe = 0;
         let modRang = 0;
+
+        data.actor = actorType;
+
+        if(activate === undefined) {
+            if(ispermanent) {
+                data.activate = true;
+                activate = true;
+            } else activate = false;
+        }
 
         for(let ext in extras) {
             const dataExt = extras[ext].data.cout;
@@ -123,13 +140,19 @@ export class MM3Item extends Item {
         }
 
         if(itemData.parent !== null && data.special === 'dynamique') {
-            const rang = itemData.parent.system?.pwr?.[itemData._id]?.cout?.rang ?? 0;
+            const parent = itemData.parent.system?.pwr?.[itemData._id] ?? false;
 
-            if(coutParRang > 0) itemData.parent.system.pwr[itemData._id].cout.actuel = Number(rang)*cout.parrangtotal+cout.divers+cout.modfixe-1;
-            else if(coutParRang === 0) itemData.parent.system.pwr[itemData._id].cout.actuel = Math.floor((Number(rang)/2)+(cout.divers+cout.modfixe-1));
-            else if(coutParRang < 0) itemData.parent.system.pwr[itemData._id].cout.actuel = Math.floor((Number(rang)/((coutParRang*-1)+2))+(cout.divers+cout.modfixe-1));
+            if(parent !== false) {
+                const rang = parent?.cout?.rang ?? 0;
 
-            if(rang > cout.rangDynMax) itemData.parent.system.pwr[itemData._id].cout.rang = cout.rangDynMax;
+                if(coutParRang > 0) parent.cout.actuel = Number(rang)*cout.parrangtotal+cout.divers+cout.modfixe-1;
+                else if(coutParRang === 0) parent.cout.actuel = Math.floor((Number(rang)/2)+(cout.divers+cout.modfixe-1));
+                else if(coutParRang < 0) parent.cout.actuel = Math.floor((Number(rang)/((coutParRang*-1)+2))+(cout.divers+cout.modfixe-1));
+
+                if(rang > cout.rangDynMax) parent.cout.rang = cout.rangDynMax;
+            }
         }
+
+        //checkActiveOrUnactive(itemData, activate);
     };
 }

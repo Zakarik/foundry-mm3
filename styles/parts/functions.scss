@@ -550,6 +550,8 @@ $bgopacity:rgba(255, 255, 255, 0.5);
         padding:0px 5px 5px;
         grid-gap: 5px;
 
+        @include fakebutton('str');
+
         a {
             &.resetStrategie {
                 grid-column-start: 1;
@@ -587,6 +589,13 @@ $bgopacity:rgba(255, 255, 255, 0.5);
                 align-items: center;
                 font-family: Sriracha;
             }
+
+            &.separator {
+                grid-column: 1 / 5;
+                border-top: 1px solid $black;
+                border-bottom: 1px solid $black;
+                margin-top: 5px;
+            }
         }
 
         input {
@@ -597,6 +606,21 @@ $bgopacity:rgba(255, 255, 255, 0.5);
             font-family: Sriracha;
             height:100%;
             background:transparent;
+
+            &[disabled] {
+                border: 1px solid #7a7971;
+            }
+        }
+
+        div {
+            &.range {
+                grid-column: 1 / 5;
+                display: grid;
+                grid-gap: 5px;
+                grid-template-columns: 45px 1fr 45px;
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
     }
 }

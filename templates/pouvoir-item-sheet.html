@@ -19,6 +19,7 @@
         {{!-- Sheet Tab Navigation --}}
         <nav class="sheet-tabs tabs" data-group="primary">
             <a class="item" data-tab="pouvoirs">{{localize "TYPES.Item.pouvoir"}}</a>
+            <a class="item" data-tab="effects">{{localize "MM3.TABS.Modificateurs"}}</a>
             <a class="item" data-tab="options">{{localize "MM3.TABS.Options"}}</a>
         </nav>
 
@@ -42,29 +43,17 @@
                     <div class="data">
                         <span>{{localize "MM3.POUVOIR.ACTION.Label"}}</span>
                         <select name="system.action">
-                            {{#select systemData.action}}
-                                {{#each systemData.listActions as | key action |}}
-                                    <option value="{{action}}">{{key}}</option>
-                                {{/each}}
-                            {{/select}}
+                            {{selectOptions systemData.listActions selected=systemData.action localize=true}}
                         </select>
                     
                         <span>{{localize "MM3.POUVOIR.PORTEE.Label"}}</span>
                         <select name="system.portee">
-                            {{#select systemData.portee}}
-                                {{#each systemData.listPortees as | key portee |}}
-                                    <option value="{{portee}}">{{key}}</option>
-                                {{/each}}
-                            {{/select}}
+                            {{selectOptions systemData.listPortees selected=systemData.portee localize=true}}
                         </select>
         
                         <span>{{localize "MM3.POUVOIR.DUREE.Label"}}</span>
-                        <select name="system.duree">
-                            {{#select systemData.duree}}
-                                {{#each systemData.listDurees as | key duree |}}
-                                    <option value="{{duree}}">{{key}}</option>
-                                {{/each}}
-                            {{/select}}
+                        <select name="system.duree" class="duration">
+                            {{selectOptions systemData.listDurees selected=systemData.duree localize=true}}
                         </select>
                     </div>
         
@@ -249,6 +238,17 @@
             </div>
         </div>
 
+        <div class="tab tabeffects" data-group="primary" data-tab="effects">
+            <span class="label">            
+                <a type="action" class="btn btnEdit {{#if systemData.edit}}selected{{/if}}">
+                    {{localize 'MM3.BTN.EditMod'}}
+                </a>
+                {{localize "MM3.EFFECTS.VariantesEffets"}}
+                <i class="fa-solid fa-square-plus clickable addVMod" title="{{localize 'MM3.BTN.AddVMod'}}"></i>
+            </span>
+            {{> systems/mutants-and-masterminds-3e/templates/parts/effects.html}}
+        </div>
+
         <div class="tab options" data-group="primary" data-tab="options">
             <div class="inner">
                 <div class="block accessibility">
@@ -268,6 +268,5 @@
                 </div>
             </div>
         </div>
-        
     </section>
 </form>

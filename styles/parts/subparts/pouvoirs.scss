@@ -74,6 +74,7 @@ div {
                 grid-gap: 5px;
 
                 @include fakebutton('item-create');
+                @include fakebutton('btnHeader');
 
                 a.item-create {
                     grid-column-start: 1;
@@ -206,7 +207,7 @@ div {
                                 font-family: "Bangers";
 
                                 border-width: 2px;
-                                border-radius: 15px 15px 0px 0px;
+                                border-radius: 0px 0px 0px 0px;
                                 
                                 background-blend-mode: overlay, multiply;
                                 background-size:500px;
@@ -299,15 +300,11 @@ div {
                             width:100%;
                             grid-template-columns: 1fr;
                             position:relative;
-        
-                            &::before {
-                                content: "";
-                            }
 
                             span {
                                 &.deploy {
                                     position: absolute;
-                                    top: 3px;
+                                    top: 27px;
                                     left: 10px;
                                     z-index: 999;
 
@@ -336,6 +333,16 @@ div {
                                             }
                                         }
                                     }
+                                }
+                            }
+
+                            &.withoutVariante {
+                                div.pwrheader {
+                                    border-radius: 15px 15px 0px 0px;
+                                }
+    
+                                span.deploy {
+                                    top: 3px;
                                 }
                             }
                         }
@@ -391,6 +398,55 @@ div {
                                 border-radius: 0px 0px 15px 15px;
                                 background-blend-mode: overlay, multiply;
                                 background:$imgbg $violet;
+                            }
+                        }
+
+                        a {
+                            &.btnHeader {
+                                width:150px;
+                                border-top: 2px solid #aaa;
+                                border-left: 2px solid #aaa;
+                                border-right: 2px solid #999;
+                                border-style: outset;
+                                border-bottom: 0px;
+                                border-radius: 15px 15px 0px 0px;
+                                padding-left: 15px;
+                                padding-right: 5px;
+                                padding-bottom: 0px;
+                                justify-content: left;
+                                font-size: 14px;
+                                opacity: 0.8;
+                                padding-top: 4px;
+                                height: 24px;
+
+                                &.selected {
+                                    border-color: $red;
+                                    letter-spacing: 1px;
+                                    text-shadow: none;
+                                    border-width: 2px;
+                                    opacity: 1;
+                                }
+                            }
+                        }
+
+                        select {
+                            &.variantepwr {
+                                font-variant: small-caps;
+                                font-weight: bold;
+                                font-size: 14px;
+                                letter-spacing: 1px;
+                                border-top: 2px solid #aaa;
+                                border-left: 2px solid #aaa;
+                                border-right: 2px solid #999;
+                                border-bottom: 0px;
+                                border-radius: 15px 15px 0px 0px;
+                                border-style: outset;
+                                width: 150px;
+                                text-align: right;
+                                color: $color;
+                                height: 24px;
+                                box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+                                background-image:linear-gradient(180deg, white, #e6e6e6);
                             }
                         }
                     }

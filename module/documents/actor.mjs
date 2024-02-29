@@ -4,6 +4,7 @@ import {
   normalizeData,
   getPwr,
   getDataSubSkill,
+  getModBonus,
 } from "../helpers/common.mjs";
 
 /**
@@ -101,24 +102,83 @@ export class MM3Actor extends Actor {
     let ppEquipement = 0;
     let ppEquipementUsed = 0;
     let vitesse = 0;
+    
+    for(let str in getStr.limite) {
+      if(str !== 'query') {
+        const strData = getStr.limite[str];
+        const atkBonus = getModBonus(actorData, strData.atk, items);
+        const defBonus = getModBonus(actorData, strData.def, items);
+        const effBonus = getModBonus(actorData, strData.eff, items);
+
+        let totalAtk = 0;
+        let totalDef = 0;
+        let totalEff = 0;
+
+        totalAtk += strData?.attaque ?? 0;
+        totalAtk += atkBonus.total;
+
+        totalDef += strData?.defense ?? 0;
+        totalDef += defBonus.total;
+
+        totalEff += strData?.effet ?? 0;
+        totalEff += effBonus.total;
+
+        strData.totalAtk = atkBonus.surcharge !== false ? atkBonus.surcharge : totalAtk;
+        strData.totalDef = defBonus.surcharge !== false ? defBonus.surcharge : totalDef;
+        strData.totalEff = effBonus.surcharge !== false ? effBonus.surcharge : totalEff;
+      }
+    }
 
     for(let str of listStr) {
-      const dataStr = getStr[str];
+      if(str !== 'limite') {        
+        const dataStr = getStr[str];
+        let newValue = 0;
 
-      attaque += dataStr.attaque;
-      defense += dataStr.defense;
-      effet += dataStr.effet;
+        switch(str) {
+          case 'attaqueoutrance':
+            newValue -= parseInt(dataStr.attaque);
+
+            console.warn(newValue, getStr.limite);
+
+            dataStr.defense = Math.max(newValue, parseInt(getStr.limite[str].totalDef));
+            break;
+
+          case 'attaquedefensive':
+            newValue -= parseInt(dataStr.defense);
+
+            dataStr.attaque = Math.max(newValue, parseInt(getStr.limite[str].totalAtk));
+            break;
+            
+          case 'attaqueprecision':
+            newValue -= parseInt(dataStr.attaque);
+
+            dataStr.effet = Math.max(newValue, parseInt(getStr.limite[str].totalEff));
+            break;
+            
+          case 'attaquepuissance':
+            newValue -= parseInt(dataStr.effet);
+
+            dataStr.attaque = Math.max(newValue, parseInt(getStr.limite[str].totalAtk));
+            break;
+        }
+
+        attaque += dataStr.attaque;
+        defense += dataStr.defense;
+        effet += dataStr.effet;
+      }
     }
 
     getStr.total = {
       attaque:attaque ?? 0,
       defense:defense ?? 0,
       effet:effet ?? 0
-    };
+    };   
 
     for(let car in CONFIG.MM3.caracteristiques) {
       const carac = getCarac[car];
       const isAbs = carac?.absente ?? false;
+      const bonus = getModBonus(actorData, carac, items);
+      const isSurcharge = bonus.surcharge;
 
       if(isAbs) {
         ppCarac += -10;
@@ -128,12 +188,14 @@ export class MM3Actor extends Actor {
 
         ppCarac += cBase*2;
 
-        carac.total = cBase+carac.divers;
+        carac.total = isSurcharge !== false ? isSurcharge : cBase+carac.divers+bonus.total;
       }     
     }
 
     for(let com in getComp) {
       const comp = getComp[com];
+      const bonus = getModBonus(actorData, comp, items);
+      const isSurcharge = bonus.surcharge;
 
       if(comp.canAdd) {
         const cList = comp.list;
@@ -145,7 +207,7 @@ export class MM3Actor extends Actor {
           const isAbs = carac?.absente ?? false;
 
           listData.carac = isAbs ? 0 : scoreCarac;
-          listData.total = listData.carac+listCompRang+listData.autre;
+          listData.total = isSurcharge !== false ? isSurcharge : listData.carac+listCompRang+listData.autre+bonus.total;
           ppComp += listCompRang/2;
         }      
       } else if(comp.car !== undefined) {
@@ -154,7 +216,7 @@ export class MM3Actor extends Actor {
         const isAbs = carac?.absente ?? false;
         ppComp += compRang/2;
         comp.carac = isAbs ? 0 : carac.total;
-        comp.total = comp.carac+compRang+comp.autre;
+        comp.total = isSurcharge !== false ? isSurcharge : comp.carac+compRang+comp.autre+bonus.total;
       } else {
         comp.new = true;
       }
@@ -165,6 +227,8 @@ export class MM3Actor extends Actor {
       const defRang = defense.base;
       const carac = getCarac[getFullCarac(defense.car)];
       const isAbs = carac?.absente ?? false;
+      const bonus = getModBonus(actorData, defense, items);
+      const isSurcharge = bonus.surcharge;
       let mod = 0;
 
       if(def === 'robustesse') mod -= data.blessure;
@@ -175,7 +239,10 @@ export class MM3Actor extends Actor {
 
       ppDef += defRang;
       defense.carac = isAbs ? 0 : carac.total;
-      defense.total = defense.defenseless ? 0 : defRang+defense.carac+defense.divers+mod;
+
+      if(defense.defenseless) defense.total = 0;
+      else if(isSurcharge !== false) defense.total = isSurcharge;
+      else defense.total = defRang+defense.carac+defense.divers+mod+bonus.total;
     }
 
     for(let pouvoir of pouvoirs) {
@@ -296,12 +363,69 @@ export class MM3Actor extends Actor {
     let ppPouvoir = 0;
     let vitesse = 0;
     
-    for(let str of listStr) {
-      const dataStr = getStr[str];
+    for(let str in getStr.limite) {
+      if(str !== 'query') {
+        const strData = getStr.limite[str];
+        const atkBonus = getModBonus(actorData, strData.atk, items);
+        const defBonus = getModBonus(actorData, strData.def, items);
+        const effBonus = getModBonus(actorData, strData.eff, items);
 
-      attaque += dataStr.attaque ?? 0;
-      defense += dataStr.defense ?? 0;
-      effet += dataStr.effet ?? 0;
+        let totalAtk = 0;
+        let totalDef = 0;
+        let totalEff = 0;
+
+        totalAtk += strData?.attaque ?? 0;
+        totalAtk += atkBonus.total;
+
+        totalDef += strData?.defense ?? 0;
+        totalDef += defBonus.total;
+
+        totalEff += strData?.effet ?? 0;
+        totalEff += effBonus.total;
+
+        strData.totalAtk = atkBonus.surcharge !== false ? atkBonus.surcharge : totalAtk;
+        strData.totalDef = defBonus.surcharge !== false ? defBonus.surcharge : totalDef;
+        strData.totalEff = effBonus.surcharge !== false ? effBonus.surcharge : totalEff;
+      }
+    }
+
+    for(let str of listStr) {
+      if(str !== 'limite') {        
+        const dataStr = getStr[str];
+        let newValue = 0;
+
+        switch(str) {
+          case 'attaqueoutrance':
+            newValue -= parseInt(dataStr.attaque);
+
+            console.warn(newValue, getStr.limite);
+
+            dataStr.defense = Math.max(newValue, parseInt(getStr.limite[str].totalDef));
+            break;
+
+          case 'attaquedefensive':
+            newValue -= parseInt(dataStr.defense);
+
+            dataStr.attaque = Math.max(newValue, parseInt(getStr.limite[str].totalAtk));
+            break;
+            
+          case 'attaqueprecision':
+            newValue -= parseInt(dataStr.attaque);
+
+            dataStr.effet = Math.max(newValue, parseInt(getStr.limite[str].totalEff));
+            break;
+            
+          case 'attaquepuissance':
+            newValue -= parseInt(dataStr.effet);
+
+            dataStr.attaque = Math.max(newValue, parseInt(getStr.limite[str].totalAtk));
+            break;
+        }
+
+        attaque += dataStr.attaque;
+        defense += dataStr.defense;
+        effet += dataStr.effet;
+      }
     }
 
     getStr.total = {
@@ -320,21 +444,21 @@ export class MM3Actor extends Actor {
       case 'grand':
         getCarac.force.base = 4;
         getCarac.robustesse.base = 7;
-        getCarac.defense.base = -2;
+        getCarac.defense.base = -1;
         ppTaille = 1;
         break;
 
       case 'enorme':
         getCarac.force.base = 8;
         getCarac.robustesse.base = 9;
-        getCarac.defense.base = -4;
+        getCarac.defense.base = -2;
         ppTaille = 2;
         break;
 
       case 'gigantesque':
         getCarac.force.base = 12;
         getCarac.robustesse.base = 11;
-        getCarac.defense.base = -6;
+        getCarac.defense.base = -4;
         ppTaille = 3;
         break;
 
@@ -416,13 +540,70 @@ export class MM3Actor extends Actor {
     let ppRobustesse = 0;
     let ppPouvoir = 0;
     let vitesse = 0;
+    
+    for(let str in getStr.limite) {
+      if(str !== 'query') {
+        const strData = getStr.limite[str];
+        const atkBonus = getModBonus(actorData, strData.atk, items);
+        const defBonus = getModBonus(actorData, strData.def, items);
+        const effBonus = getModBonus(actorData, strData.eff, items);
+
+        let totalAtk = 0;
+        let totalDef = 0;
+        let totalEff = 0;
+
+        totalAtk += strData?.attaque ?? 0;
+        totalAtk += atkBonus.total;
+
+        totalDef += strData?.defense ?? 0;
+        totalDef += defBonus.total;
+
+        totalEff += strData?.effet ?? 0;
+        totalEff += effBonus.total;
+
+        strData.totalAtk = atkBonus.surcharge !== false ? atkBonus.surcharge : totalAtk;
+        strData.totalDef = defBonus.surcharge !== false ? defBonus.surcharge : totalDef;
+        strData.totalEff = effBonus.surcharge !== false ? effBonus.surcharge : totalEff;
+      }
+    }
 
     for(let str of listStr) {
-      const dataStr = getStr[str];
+      if(str !== 'limite') {        
+        const dataStr = getStr[str];
+        let newValue = 0;
 
-      attaque += dataStr.attaque ?? 0;
-      defense += dataStr.defense ?? 0;
-      effet += dataStr.effet ?? 0;
+        switch(str) {
+          case 'attaqueoutrance':
+            newValue -= parseInt(dataStr.attaque);
+
+            console.warn(newValue, getStr.limite);
+
+            dataStr.defense = Math.max(newValue, parseInt(getStr.limite[str].totalDef));
+            break;
+
+          case 'attaquedefensive':
+            newValue -= parseInt(dataStr.defense);
+
+            dataStr.attaque = Math.max(newValue, parseInt(getStr.limite[str].totalAtk));
+            break;
+            
+          case 'attaqueprecision':
+            newValue -= parseInt(dataStr.attaque);
+
+            dataStr.effet = Math.max(newValue, parseInt(getStr.limite[str].totalEff));
+            break;
+            
+          case 'attaquepuissance':
+            newValue -= parseInt(dataStr.effet);
+
+            dataStr.attaque = Math.max(newValue, parseInt(getStr.limite[str].totalAtk));
+            break;
+        }
+
+        attaque += dataStr.attaque;
+        defense += dataStr.defense;
+        effet += dataStr.effet;
+      }
     }
 
     for(let pouvoir of pouvoirs) {

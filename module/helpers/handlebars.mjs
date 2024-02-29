@@ -147,4 +147,36 @@ export const RegisterHandlebars = function () {
 
         return result;
     });
+
+    Handlebars.registerHelper('labelize', function(str) {
+        const all = Object.assign({}, 
+            CONFIG.MM3.listmods);
+
+        return game.i18n.localize(all?.[str] ?? str);
+    });
+
+    Handlebars.registerHelper('getLast', function(str) {
+        const split = str.split('.');
+        const lastValue = split[split.length-2];
+
+        return lastValue;
+    });
+
+    Handlebars.registerHelper('getLabelTranslate', function(str) {
+        let split = str !== '' ? str.split('.') : '';
+        if(str !== '') {
+            split.pop();
+            split.pop();
+        }
+
+        return str !== '' ? split.join('.') : '';
+    });
+
+    Handlebars.registerHelper('getVarianteName', function(system, name) {
+        return system?.listEffectsVariantes?.[name] ?? '';
+    });
+
+    Handlebars.registerHelper('ObjectIsEmpty', function(object) {
+        return foundry.utils.isEmpty(object);
+    });
 }

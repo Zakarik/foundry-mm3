@@ -1,5 +1,8 @@
 import {
-  accessibility
+  loadEffectsContext,
+  accessibility,
+  loadEffectsHTML,
+  loadEffectsClose
 } from "../helpers/common.mjs";
 
 /**
@@ -13,7 +16,7 @@ export class TalentItemSheet extends ItemSheet {
       classes: ["mm3", "sheet", "item", "talent"],
       template: "systems/mutants-and-masterminds-3e/templates/talent-item-sheet.html",
       width: 850,
-      height: 480,
+      height: 580,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "talent"}],
       dragDrop: [{dragSelector: ".draggable", dropSelector: null}],
     });
@@ -24,8 +27,10 @@ export class TalentItemSheet extends ItemSheet {
   /** @inheritdoc */
   getData() {
     const context = super.getData();
-
+    loadEffectsContext(context);
     context.systemData = context.data.system;
+
+    console.warn(context);
 
     return context;
   }
@@ -50,6 +55,8 @@ export class TalentItemSheet extends ItemSheet {
     // Everything below here is only needed if the sheet is editable
     if ( !this.isEditable ) return;
 
+    loadEffectsHTML(html, this.item, true, true);
+
     html.find('a.btn').click(async ev => {
       const target = $(ev.currentTarget);
       const type = target.data('type');
@@ -57,5 +64,13 @@ export class TalentItemSheet extends ItemSheet {
 
       this.item.update({[`system.${type}`]:value});
     });
+  }
+
+  /** @inheritdoc */
+  async close(options={}) {
+    loadEffectsClose(this.item);
+
+    await super.close(options);
+    delete this.object.apps?.[this.appId];
   }
 }

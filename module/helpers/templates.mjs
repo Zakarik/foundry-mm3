@@ -19,6 +19,7 @@ export const preloadHandlebarsTemplates = async function() {
     "systems/mutants-and-masterminds-3e/templates/parts/options.html",
     "systems/mutants-and-masterminds-3e/templates/parts/informations-limited.html",
     "systems/mutants-and-masterminds-3e/templates/parts/bottom.html",
+    "systems/mutants-and-masterminds-3e/templates/parts/effects.html",
     "systems/mutants-and-masterminds-3e/templates/limited-personnage-sheet.html",
     "systems/mutants-and-masterminds-3e/templates/limited-qg-sheet.html",
     "systems/mutants-and-masterminds-3e/templates/limited-vehicule-sheet.html",

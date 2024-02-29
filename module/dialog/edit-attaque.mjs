@@ -193,6 +193,7 @@ export class EditAttaque extends FormApplication {
                 mod:{
                     atk:this.data?.tempAtk?.mod?.atk ?? this.atk?.data?.mod?.atk ?? 0,
                     eff:this.data?.tempAtk?.mod?.eff ?? this.atk?.data?.mod?.eff ?? 0,
+                    area:this.data?.tempAtk?.mod?.area ?? this.atk?.data?.mod?.area ?? 0,
                 },
                 afflictionechec:{
                     e1:this.data?.tempAtk?.afflictionechec?.e1 ?? this.atk?.data?.afflictionechec?.e1 ?? [],
@@ -213,6 +214,8 @@ export class EditAttaque extends FormApplication {
                 noCrit:this.data?.tempAtk?.noCrit ?? this.atk?.data?.noCrit ?? false,
                 save:this.data?.tempAtk?.save ?? this.atk?.data?.save ?? 'robustesse',
                 saveAffliction:this.data?.tempAtk?.saveAffliction ?? this.atk?.data?.saveAffliction ?? 'volonte',
+                area:this.data?.tempAtk?.area ?? this.atk?.data?.area ?? false,
+                basearea:this.data?.tempAtk?.basearea ?? this.atk?.data?.basearea ?? 0,
             },
             atk:this.data?.atk ?? this.atk?.data ?? {},
             pwrs:this.listPwr,
@@ -366,6 +369,17 @@ export class EditAttaque extends FormApplication {
             this.render(true);
         });
         
+        html.find('a.area').click(ev => {
+            const target = $(ev.currentTarget);
+            const value = target.hasClass("selected") ? false : true;
+
+            this.dataAtk = {
+                area:value,
+            }
+
+            this.render(true);
+        });
+
         html.find('a.noAtk').click(ev => {
             const target = $(ev.currentTarget);
             const value = target.hasClass("selected") ? false : true;
@@ -405,6 +419,15 @@ export class EditAttaque extends FormApplication {
 
             this.dataAtk = {
                 basedef:value,
+            }
+        });
+
+        html.find('input.basearea').change(ev => {
+            const target = $(ev.currentTarget);
+            const value = target.val();
+
+            this.dataAtk = {
+                basearea:value,
             }
         });
 

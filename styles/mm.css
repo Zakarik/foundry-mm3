@@ -836,6 +836,53 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.strategie {
   padding: 0px 5px 5px;
   grid-gap: 5px;
 }
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie a.str {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 1px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie a.str.selected {
+  color: #363B44;
+  justify-content: left;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+  border-width: 2px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie a.str.selected i {
+  position: absolute;
+  right: 5px;
+  font-size: 20px;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie a.str.unselected {
+  justify-content: left;
+  color: #a8a8a8;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie a.str:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 div.personnage section.sheet-body div.caracteristiques div.inner div.strategie a.resetStrategie {
   grid-column-start: 1;
   grid-column-end: 5;
@@ -866,6 +913,12 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.strategie >
   align-items: center;
   font-family: Sriracha;
 }
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie > span.separator {
+  grid-column: 1/5;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-top: 5px;
+}
 div.personnage section.sheet-body div.caracteristiques div.inner div.strategie input {
   width: 100%;
   padding-right: 0px;
@@ -874,6 +927,17 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.strategie i
   font-family: Sriracha;
   height: 100%;
   background: transparent;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie input[disabled] {
+  border: 1px solid #7a7971;
+}
+div.personnage section.sheet-body div.caracteristiques div.inner div.strategie div.range {
+  grid-column: 1/5;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 45px 1fr 45px;
+  margin-left: auto;
+  margin-right: auto;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.speed {
   display: grid;
@@ -1798,6 +1862,53 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs a.item-create:hover
   letter-spacing: 1px;
   text-shadow: none;
 }
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs a.btnHeader {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 1px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs a.btnHeader.selected {
+  color: #363B44;
+  justify-content: left;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+  border-width: 2px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs a.btnHeader.selected i {
+  position: absolute;
+  right: 5px;
+  font-size: 20px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs a.btnHeader.unselected {
+  justify-content: left;
+  color: #a8a8a8;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs a.btnHeader:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs a.item-create {
   grid-column-start: 1;
   grid-column-end: 3;
@@ -1893,7 +2004,7 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr div.pwrhead
   text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
   font-family: "Bangers";
   border-width: 2px;
-  border-radius: 15px 15px 0px 0px;
+  border-radius: 0px 0px 0px 0px;
   background-blend-mode: overlay, multiply;
   background-size: 500px;
   background-repeat: no-repeat;
@@ -1967,12 +2078,9 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header {
   grid-template-columns: 1fr;
   position: relative;
 }
-div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header::before {
-  content: "";
-}
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header span.deploy {
   position: absolute;
-  top: 3px;
+  top: 27px;
   left: 10px;
   z-index: 999;
 }
@@ -1994,6 +2102,12 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header span
 }
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header span.deploy i.minus::before {
   content: "-";
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header.withoutVariante div.pwrheader {
+  border-radius: 15px 15px 0px 0px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr header.withoutVariante span.deploy {
+  top: 3px;
 }
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.blue div.pwrheader {
   background: url("../assets/fond.webp") #4E7FC8;
@@ -2036,6 +2150,48 @@ div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr.violet::aft
   border-radius: 0px 0px 15px 15px;
   background-blend-mode: overlay, multiply;
   background: url("../assets/fond.webp") #7E627F;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr a.btnHeader {
+  width: 150px;
+  border-top: 2px solid #aaa;
+  border-left: 2px solid #aaa;
+  border-right: 2px solid #999;
+  border-style: outset;
+  border-bottom: 0px;
+  border-radius: 15px 15px 0px 0px;
+  padding-left: 15px;
+  padding-right: 5px;
+  padding-bottom: 0px;
+  justify-content: left;
+  font-size: 14px;
+  opacity: 0.8;
+  padding-top: 4px;
+  height: 24px;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr a.btnHeader.selected {
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+  border-width: 2px;
+  opacity: 1;
+}
+div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.pwr select.variantepwr {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 14px;
+  letter-spacing: 1px;
+  border-top: 2px solid #aaa;
+  border-left: 2px solid #aaa;
+  border-right: 2px solid #999;
+  border-bottom: 0px;
+  border-radius: 15px 15px 0px 0px;
+  border-style: outset;
+  width: 150px;
+  text-align: right;
+  color: #363B44;
+  height: 24px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  background-image: linear-gradient(180deg, white, #e6e6e6);
 }
 div.personnage section.sheet-body div.pouvoirs div.lPouvoirs div.bottom {
   display: grid;
@@ -2773,6 +2929,53 @@ div.personnage section.sheet-body div.options div div.strategie {
   padding: 0px 5px 5px;
   grid-gap: 5px;
 }
+div.personnage section.sheet-body div.options div div.strategie a.str {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 1px;
+}
+div.personnage section.sheet-body div.options div div.strategie a.str.selected {
+  color: #363B44;
+  justify-content: left;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+  border-width: 2px;
+}
+div.personnage section.sheet-body div.options div div.strategie a.str.selected i {
+  position: absolute;
+  right: 5px;
+  font-size: 20px;
+}
+div.personnage section.sheet-body div.options div div.strategie a.str.unselected {
+  justify-content: left;
+  color: #a8a8a8;
+}
+div.personnage section.sheet-body div.options div div.strategie a.str:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 div.personnage section.sheet-body div.options div div.strategie a.resetStrategie {
   grid-column-start: 1;
   grid-column-end: 5;
@@ -2803,6 +3006,12 @@ div.personnage section.sheet-body div.options div div.strategie > span.label {
   align-items: center;
   font-family: Sriracha;
 }
+div.personnage section.sheet-body div.options div div.strategie > span.separator {
+  grid-column: 1/5;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-top: 5px;
+}
 div.personnage section.sheet-body div.options div div.strategie input {
   width: 100%;
   padding-right: 0px;
@@ -2811,6 +3020,17 @@ div.personnage section.sheet-body div.options div div.strategie input {
   font-family: Sriracha;
   height: 100%;
   background: transparent;
+}
+div.personnage section.sheet-body div.options div div.strategie input[disabled] {
+  border: 1px solid #7a7971;
+}
+div.personnage section.sheet-body div.options div div.strategie div.range {
+  grid-column: 1/5;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 45px 1fr 45px;
+  margin-left: auto;
+  margin-right: auto;
 }
 div.personnage section.sheet-body div.options div.inner {
   display: grid;
@@ -3089,6 +3309,53 @@ div.modificateur section.sheet-body div.options div div.strategie {
   padding: 0px 5px 5px;
   grid-gap: 5px;
 }
+div.modificateur section.sheet-body div.options div div.strategie a.str {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 1px;
+}
+div.modificateur section.sheet-body div.options div div.strategie a.str.selected {
+  color: #363B44;
+  justify-content: left;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+  border-width: 2px;
+}
+div.modificateur section.sheet-body div.options div div.strategie a.str.selected i {
+  position: absolute;
+  right: 5px;
+  font-size: 20px;
+}
+div.modificateur section.sheet-body div.options div div.strategie a.str.unselected {
+  justify-content: left;
+  color: #a8a8a8;
+}
+div.modificateur section.sheet-body div.options div div.strategie a.str:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 div.modificateur section.sheet-body div.options div div.strategie a.resetStrategie {
   grid-column-start: 1;
   grid-column-end: 5;
@@ -3119,6 +3386,12 @@ div.modificateur section.sheet-body div.options div div.strategie > span.label {
   align-items: center;
   font-family: Sriracha;
 }
+div.modificateur section.sheet-body div.options div div.strategie > span.separator {
+  grid-column: 1/5;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-top: 5px;
+}
 div.modificateur section.sheet-body div.options div div.strategie input {
   width: 100%;
   padding-right: 0px;
@@ -3127,6 +3400,17 @@ div.modificateur section.sheet-body div.options div div.strategie input {
   font-family: Sriracha;
   height: 100%;
   background: transparent;
+}
+div.modificateur section.sheet-body div.options div div.strategie input[disabled] {
+  border: 1px solid #7a7971;
+}
+div.modificateur section.sheet-body div.options div div.strategie div.range {
+  grid-column: 1/5;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 45px 1fr 45px;
+  margin-left: auto;
+  margin-right: auto;
 }
 div.modificateur section.sheet-body div.options div.inner {
   display: grid;
@@ -3614,6 +3898,53 @@ div.pouvoir section.sheet-body div.options div div.strategie {
   padding: 0px 5px 5px;
   grid-gap: 5px;
 }
+div.pouvoir section.sheet-body div.options div div.strategie a.str {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 1px;
+}
+div.pouvoir section.sheet-body div.options div div.strategie a.str.selected {
+  color: #363B44;
+  justify-content: left;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+  border-width: 2px;
+}
+div.pouvoir section.sheet-body div.options div div.strategie a.str.selected i {
+  position: absolute;
+  right: 5px;
+  font-size: 20px;
+}
+div.pouvoir section.sheet-body div.options div div.strategie a.str.unselected {
+  justify-content: left;
+  color: #a8a8a8;
+}
+div.pouvoir section.sheet-body div.options div div.strategie a.str:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 div.pouvoir section.sheet-body div.options div div.strategie a.resetStrategie {
   grid-column-start: 1;
   grid-column-end: 5;
@@ -3644,6 +3975,12 @@ div.pouvoir section.sheet-body div.options div div.strategie > span.label {
   align-items: center;
   font-family: Sriracha;
 }
+div.pouvoir section.sheet-body div.options div div.strategie > span.separator {
+  grid-column: 1/5;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-top: 5px;
+}
 div.pouvoir section.sheet-body div.options div div.strategie input {
   width: 100%;
   padding-right: 0px;
@@ -3652,6 +3989,17 @@ div.pouvoir section.sheet-body div.options div div.strategie input {
   font-family: Sriracha;
   height: 100%;
   background: transparent;
+}
+div.pouvoir section.sheet-body div.options div div.strategie input[disabled] {
+  border: 1px solid #7a7971;
+}
+div.pouvoir section.sheet-body div.options div div.strategie div.range {
+  grid-column: 1/5;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 45px 1fr 45px;
+  margin-left: auto;
+  margin-right: auto;
 }
 div.pouvoir section.sheet-body div.options div.inner {
   display: grid;
@@ -4490,6 +4838,53 @@ div.talent section.sheet-body div.options div div.strategie {
   padding: 0px 5px 5px;
   grid-gap: 5px;
 }
+div.talent section.sheet-body div.options div div.strategie a.str {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 1px;
+}
+div.talent section.sheet-body div.options div div.strategie a.str.selected {
+  color: #363B44;
+  justify-content: left;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+  border-width: 2px;
+}
+div.talent section.sheet-body div.options div div.strategie a.str.selected i {
+  position: absolute;
+  right: 5px;
+  font-size: 20px;
+}
+div.talent section.sheet-body div.options div div.strategie a.str.unselected {
+  justify-content: left;
+  color: #a8a8a8;
+}
+div.talent section.sheet-body div.options div div.strategie a.str:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 div.talent section.sheet-body div.options div div.strategie a.resetStrategie {
   grid-column-start: 1;
   grid-column-end: 5;
@@ -4520,6 +4915,12 @@ div.talent section.sheet-body div.options div div.strategie > span.label {
   align-items: center;
   font-family: Sriracha;
 }
+div.talent section.sheet-body div.options div div.strategie > span.separator {
+  grid-column: 1/5;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-top: 5px;
+}
 div.talent section.sheet-body div.options div div.strategie input {
   width: 100%;
   padding-right: 0px;
@@ -4528,6 +4929,17 @@ div.talent section.sheet-body div.options div div.strategie input {
   font-family: Sriracha;
   height: 100%;
   background: transparent;
+}
+div.talent section.sheet-body div.options div div.strategie input[disabled] {
+  border: 1px solid #7a7971;
+}
+div.talent section.sheet-body div.options div div.strategie div.range {
+  grid-column: 1/5;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 45px 1fr 45px;
+  margin-left: auto;
+  margin-right: auto;
 }
 div.talent section.sheet-body div.options div.inner {
   display: grid;
@@ -4932,6 +5344,53 @@ div.equipement section.sheet-body div.options div div.strategie {
   padding: 0px 5px 5px;
   grid-gap: 5px;
 }
+div.equipement section.sheet-body div.options div div.strategie a.str {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 1px;
+}
+div.equipement section.sheet-body div.options div div.strategie a.str.selected {
+  color: #363B44;
+  justify-content: left;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+  border-width: 2px;
+}
+div.equipement section.sheet-body div.options div div.strategie a.str.selected i {
+  position: absolute;
+  right: 5px;
+  font-size: 20px;
+}
+div.equipement section.sheet-body div.options div div.strategie a.str.unselected {
+  justify-content: left;
+  color: #a8a8a8;
+}
+div.equipement section.sheet-body div.options div div.strategie a.str:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 div.equipement section.sheet-body div.options div div.strategie a.resetStrategie {
   grid-column-start: 1;
   grid-column-end: 5;
@@ -4962,6 +5421,12 @@ div.equipement section.sheet-body div.options div div.strategie > span.label {
   align-items: center;
   font-family: Sriracha;
 }
+div.equipement section.sheet-body div.options div div.strategie > span.separator {
+  grid-column: 1/5;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-top: 5px;
+}
 div.equipement section.sheet-body div.options div div.strategie input {
   width: 100%;
   padding-right: 0px;
@@ -4970,6 +5435,17 @@ div.equipement section.sheet-body div.options div div.strategie input {
   font-family: Sriracha;
   height: 100%;
   background: transparent;
+}
+div.equipement section.sheet-body div.options div div.strategie input[disabled] {
+  border: 1px solid #7a7971;
+}
+div.equipement section.sheet-body div.options div div.strategie div.range {
+  grid-column: 1/5;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 45px 1fr 45px;
+  margin-left: auto;
+  margin-right: auto;
 }
 div.equipement section.sheet-body div.options div.inner {
   display: grid;
@@ -5451,6 +5927,53 @@ div.vehicule section.sheet-body div.options div div.strategie {
   padding: 0px 5px 5px;
   grid-gap: 5px;
 }
+div.vehicule section.sheet-body div.options div div.strategie a.str {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 1px;
+}
+div.vehicule section.sheet-body div.options div div.strategie a.str.selected {
+  color: #363B44;
+  justify-content: left;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+  border-width: 2px;
+}
+div.vehicule section.sheet-body div.options div div.strategie a.str.selected i {
+  position: absolute;
+  right: 5px;
+  font-size: 20px;
+}
+div.vehicule section.sheet-body div.options div div.strategie a.str.unselected {
+  justify-content: left;
+  color: #a8a8a8;
+}
+div.vehicule section.sheet-body div.options div div.strategie a.str:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 div.vehicule section.sheet-body div.options div div.strategie a.resetStrategie {
   grid-column-start: 1;
   grid-column-end: 5;
@@ -5481,6 +6004,12 @@ div.vehicule section.sheet-body div.options div div.strategie > span.label {
   align-items: center;
   font-family: Sriracha;
 }
+div.vehicule section.sheet-body div.options div div.strategie > span.separator {
+  grid-column: 1/5;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-top: 5px;
+}
 div.vehicule section.sheet-body div.options div div.strategie input {
   width: 100%;
   padding-right: 0px;
@@ -5489,6 +6018,17 @@ div.vehicule section.sheet-body div.options div div.strategie input {
   font-family: Sriracha;
   height: 100%;
   background: transparent;
+}
+div.vehicule section.sheet-body div.options div div.strategie input[disabled] {
+  border: 1px solid #7a7971;
+}
+div.vehicule section.sheet-body div.options div div.strategie div.range {
+  grid-column: 1/5;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 45px 1fr 45px;
+  margin-left: auto;
+  margin-right: auto;
 }
 div.vehicule section.sheet-body div.options div.inner {
   display: grid;
@@ -6041,6 +6581,53 @@ div.vehicule section.sheet-body div div.strategie {
   padding: 0px 5px 5px;
   grid-gap: 5px;
 }
+div.vehicule section.sheet-body div div.strategie a.str {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 1px;
+}
+div.vehicule section.sheet-body div div.strategie a.str.selected {
+  color: #363B44;
+  justify-content: left;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+  border-width: 2px;
+}
+div.vehicule section.sheet-body div div.strategie a.str.selected i {
+  position: absolute;
+  right: 5px;
+  font-size: 20px;
+}
+div.vehicule section.sheet-body div div.strategie a.str.unselected {
+  justify-content: left;
+  color: #a8a8a8;
+}
+div.vehicule section.sheet-body div div.strategie a.str:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 div.vehicule section.sheet-body div div.strategie a.resetStrategie {
   grid-column-start: 1;
   grid-column-end: 5;
@@ -6071,6 +6658,12 @@ div.vehicule section.sheet-body div div.strategie > span.label {
   align-items: center;
   font-family: Sriracha;
 }
+div.vehicule section.sheet-body div div.strategie > span.separator {
+  grid-column: 1/5;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-top: 5px;
+}
 div.vehicule section.sheet-body div div.strategie input {
   width: 100%;
   padding-right: 0px;
@@ -6079,6 +6672,17 @@ div.vehicule section.sheet-body div div.strategie input {
   font-family: Sriracha;
   height: 100%;
   background: transparent;
+}
+div.vehicule section.sheet-body div div.strategie input[disabled] {
+  border: 1px solid #7a7971;
+}
+div.vehicule section.sheet-body div div.strategie div.range {
+  grid-column: 1/5;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 45px 1fr 45px;
+  margin-left: auto;
+  margin-right: auto;
 }
 div.vehicule section.sheet-body div div.speed {
   display: grid;
@@ -7366,6 +7970,53 @@ div.qg section.sheet-body div.options div div.strategie {
   padding: 0px 5px 5px;
   grid-gap: 5px;
 }
+div.qg section.sheet-body div.options div div.strategie a.str {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 1px;
+}
+div.qg section.sheet-body div.options div div.strategie a.str.selected {
+  color: #363B44;
+  justify-content: left;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+  border-width: 2px;
+}
+div.qg section.sheet-body div.options div div.strategie a.str.selected i {
+  position: absolute;
+  right: 5px;
+  font-size: 20px;
+}
+div.qg section.sheet-body div.options div div.strategie a.str.unselected {
+  justify-content: left;
+  color: #a8a8a8;
+}
+div.qg section.sheet-body div.options div div.strategie a.str:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 div.qg section.sheet-body div.options div div.strategie a.resetStrategie {
   grid-column-start: 1;
   grid-column-end: 5;
@@ -7396,6 +8047,12 @@ div.qg section.sheet-body div.options div div.strategie > span.label {
   align-items: center;
   font-family: Sriracha;
 }
+div.qg section.sheet-body div.options div div.strategie > span.separator {
+  grid-column: 1/5;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-top: 5px;
+}
 div.qg section.sheet-body div.options div div.strategie input {
   width: 100%;
   padding-right: 0px;
@@ -7404,6 +8061,17 @@ div.qg section.sheet-body div.options div div.strategie input {
   font-family: Sriracha;
   height: 100%;
   background: transparent;
+}
+div.qg section.sheet-body div.options div div.strategie input[disabled] {
+  border: 1px solid #7a7971;
+}
+div.qg section.sheet-body div.options div div.strategie div.range {
+  grid-column: 1/5;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 45px 1fr 45px;
+  margin-left: auto;
+  margin-right: auto;
 }
 div.qg section.sheet-body div.options div.inner {
   display: grid;
@@ -7956,6 +8624,53 @@ div.qg section.sheet-body div div.strategie {
   padding: 0px 5px 5px;
   grid-gap: 5px;
 }
+div.qg section.sheet-body div div.strategie a.str {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 1px;
+}
+div.qg section.sheet-body div div.strategie a.str.selected {
+  color: #363B44;
+  justify-content: left;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+  border-width: 2px;
+}
+div.qg section.sheet-body div div.strategie a.str.selected i {
+  position: absolute;
+  right: 5px;
+  font-size: 20px;
+}
+div.qg section.sheet-body div div.strategie a.str.unselected {
+  justify-content: left;
+  color: #a8a8a8;
+}
+div.qg section.sheet-body div div.strategie a.str:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
 div.qg section.sheet-body div div.strategie a.resetStrategie {
   grid-column-start: 1;
   grid-column-end: 5;
@@ -7986,6 +8701,12 @@ div.qg section.sheet-body div div.strategie > span.label {
   align-items: center;
   font-family: Sriracha;
 }
+div.qg section.sheet-body div div.strategie > span.separator {
+  grid-column: 1/5;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-top: 5px;
+}
 div.qg section.sheet-body div div.strategie input {
   width: 100%;
   padding-right: 0px;
@@ -7994,6 +8715,17 @@ div.qg section.sheet-body div div.strategie input {
   font-family: Sriracha;
   height: 100%;
   background: transparent;
+}
+div.qg section.sheet-body div div.strategie input[disabled] {
+  border: 1px solid #7a7971;
+}
+div.qg section.sheet-body div div.strategie div.range {
+  grid-column: 1/5;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 45px 1fr 45px;
+  margin-left: auto;
+  margin-right: auto;
 }
 div.qg section.sheet-body div div.speed {
   display: grid;
@@ -9833,6 +10565,198 @@ div.edit-attaque section.window-content section.bottom button:hover {
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
+}
+
+div.tabeffects a.btn {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(180deg, white, #e6e6e6);
+  width: 100%;
+  height: 100%;
+  border: 1px solid #aaa;
+  border-bottom-color: #666;
+  border-right: 2px solid #999;
+  border-radius: 5px;
+  border-style: outset;
+  font-family: "Bangers";
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 18px;
+  cursor: pointer;
+  color: #363B44;
+  text-transform: uppercase;
+  padding: 2px 5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 1px;
+}
+div.tabeffects a.btn.selected {
+  color: #363B44;
+  justify-content: left;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+  border-width: 2px;
+}
+div.tabeffects a.btn.selected i {
+  position: absolute;
+  right: 5px;
+  font-size: 20px;
+}
+div.tabeffects a.btn.unselected {
+  justify-content: left;
+  color: #a8a8a8;
+}
+div.tabeffects a.btn:hover {
+  color: #fe8412;
+  border-color: #fe1611;
+  letter-spacing: 1px;
+  text-shadow: none;
+}
+div.tabeffects.active {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5px;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+div.tabeffects.active > span.label {
+  grid-column: 1/3;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  font-size: 16px;
+}
+div.tabeffects.active > span.label a, div.tabeffects.active > span.label i {
+  position: absolute;
+  font-size: 14px;
+}
+div.tabeffects.active > span.label a {
+  width: 250px;
+  justify-content: left;
+  height: 23px;
+}
+div.tabeffects.active > span.label a.btnEdit i {
+  font-size: 16px;
+}
+div.tabeffects.active > span.label i {
+  right: 0px;
+  font-size: 26px;
+  cursor: pointer;
+}
+div.tabeffects.active > span.label i:hover {
+  color: #fe8412;
+}
+div.tabeffects.active > a.saveMod {
+  grid-column: 1/3;
+}
+div.tabeffects div.effects {
+  border: 1px solid;
+  border-radius: 5px;
+  padding-bottom: 5px;
+}
+div.tabeffects div.effects div.header {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  font-size: 16px;
+  border-bottom: 1px solid;
+  margin-bottom: 5px;
+}
+div.tabeffects div.effects div.header input {
+  text-align: center;
+  font-variant: small-caps;
+  border: 0px;
+  border-radius: 0px;
+  padding-right: 25px;
+  padding-left: 25px;
+}
+div.tabeffects div.effects div.header a, div.tabeffects div.effects div.header i {
+  position: absolute;
+  font-size: 14px;
+}
+div.tabeffects div.effects div.header i.deleteVMod {
+  left: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+div.tabeffects div.effects div.header i.addMod {
+  right: 5px;
+  font-size: 26px;
+  cursor: pointer;
+}
+div.tabeffects div.effects div.header i:hover {
+  color: #fe8412;
+}
+div.tabeffects div.effects div.effectsBlock {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 5px;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+div.tabeffects div.effects div.effectsChanges {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding-left: 5px;
+}
+div.tabeffects div.effects div.effectsChanges i {
+  cursor: pointer;
+}
+div.tabeffects div.effects div.effectsChanges i:hover {
+  color: #fe8412;
+}
+div.tabeffects div.effects div.toEdit {
+  display: none;
+  grid-template-columns: max-content 1fr 150px 50px;
+  grid-gap: 5px;
+  align-items: center;
+  align-content: center;
+}
+div.tabeffects div.effects div.toEdit input {
+  text-align: center;
+  height: 27px;
+}
+div.tabeffects div.effects div.show {
+  display: grid;
+  grid-template-columns: 1fr 80px;
+}
+div.tabeffects div.effects div.show span {
+  display: grid;
+  align-items: center;
+  height: 27px;
+  grid-gap: 13px;
+}
+div.tabeffects div.effects div.show span.header {
+  grid-template-columns: max-content 1fr;
+}
+div.tabeffects div.effects div.show span.value {
+  text-align: center;
+  letter-spacing: 1px;
+}
+div.tabeffects div.effects.single {
+  grid-column: 1/3;
+}
+div.tabeffects div.effects.single a.btnEdit {
+  width: 250px;
+  justify-content: left;
+  height: 23px;
+  margin-left: 5px;
+}
+div.tabeffects div.effects.edit div.toEdit {
+  display: grid;
+}
+div.tabeffects div.effects.edit div.show {
+  display: none;
 }
 
 img#logo {

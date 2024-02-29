@@ -1661,6 +1661,10 @@ export async function processCharacterData(characterData) {
   await actor.update(update);
 } 
 
+export function getActor(item) {
+  return item.actor;
+}
+
 export function costCalculate(ranks, cost) {
   const calc = Math.max(Math.floor(Number(cost)/Number(ranks)), 1);
   const mod = Number(cost)-(Number(ranks)*calc);
@@ -2077,6 +2081,9 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
   const margeBrut = vs-saveTotal;
   const hasMarge = margeBrut >= 0 && !isCritique ? true : false;
   const marge = margeBrut >= 0 && !isCritique ? Math.floor(margeBrut / 5)+1 : false;
+  const dataAtk = data.atk;
+  const dataStr = data.str;
+  const token = data.tkn;
   let isSuccess = false;
 
   if(isCritique) isSuccess = true;
@@ -2096,11 +2103,51 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
   };
 
   if(typeAtk !== false && !isSuccess) {
-    const dataAtk = data.atk;
-    const token = data.tkn;
     let listEtats = [];
     let update = [];
     let blessures = {};
+
+    if(typeAtk === 'area') {
+      const isDmg = dataAtk.isDmg;
+      const isAffliction = dataAtk.isAffliction;
+      const tgt = token.id;
+      const saveAffliction = dataAtk.saveAffliction;
+      const saveType = dataAtk.save;
+      const btn = [];
+      
+      if(isDmg && isAffliction) {
+        btn.push({
+          typeAtk:'dmg',
+          target:tgt,
+          saveType:saveType,
+          vs:Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.basedef),
+        },
+        {
+          typeAtk:'affliction',
+          target:tgt,
+          saveType:saveAffliction,
+          vs:Number(dataAtk.afflictioneffet)+Number(dataStr.effet)+Number(dataAtk.afflictiondef),
+        });
+      } else if(isDmg) {
+        btn.push({
+          typeAtk:'dmg',
+          target:tgt,
+          saveType:saveType,
+          vs:Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.basedef),
+        });
+      } else if(isAffliction) {
+        btn.push({
+          typeAtk:'affliction',
+          target:tgt,
+          saveType:saveType,
+          vs:Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.basedef),
+        });
+      }
+
+      pRollSave.btn = btn;
+      pRollSave.dataAtk = JSON.stringify(dataAtk);
+      pRollSave.dataStr = JSON.stringify(dataStr);
+    }
 
     if(typeAtk === 'affliction') {      
       if(marge === 1) {
@@ -2150,6 +2197,48 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
         await token.actor.update(blessures);
       }
     }
+  } else if(typeAtk !== false && typeAtk === 'area' && isSuccess) {
+    
+    const isDmg = dataAtk.isDmg;
+    const isAffliction = dataAtk.isAffliction;
+    const tgt = token.id;
+    const saveAffliction = dataAtk.saveAffliction;
+    const saveType = dataAtk.save;
+    const dataStr = data.str;
+    const btn = [];
+    
+    if(isDmg && isAffliction) {
+      btn.push({
+        typeAtk:'dmg',
+        target:tgt,
+        saveType:saveType,
+        vs:Math.max(Math.floor(Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.basedef)/2), 1),
+      },
+      {
+        typeAtk:'affliction',
+        target:tgt,
+        saveType:saveAffliction,
+        vs:Math.max(Math.floor(Number(dataAtk.afflictioneffet)+Number(dataStr.effet)+Number(dataAtk.afflictiondef)/2), 1),
+      });
+    } else if(isDmg) {
+      btn.push({
+        typeAtk:'dmg',
+        target:tgt,
+        saveType:saveType,
+        vs:Math.max(Math.floor(Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.basedef)/2), 1),
+      });
+    } else if(isAffliction) {
+      btn.push({
+        typeAtk:'affliction',
+        target:tgt,
+        saveType:saveType,
+        vs:Math.max(Math.floor(Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.basedef)/2), 1),
+      });
+    }
+
+    pRollSave.btn = btn;
+    pRollSave.dataAtk = JSON.stringify(dataAtk);
+    pRollSave.dataStr = JSON.stringify(dataStr);
   }
 
   const saveMsgData = {
@@ -2201,11 +2290,14 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
   const esquive = Number(tokenData.ddesquive);
   const sCritique = dataCbt.critique;
   const noCrit = dataCbt.noCrit ? true : false;
+  const isArea = dataCbt?.area ?? false;
   const defpassive = dataCbt?.defpassive ?? 'parade';
   const isDmg = dataCbt.isDmg;
   const isAffliction = dataCbt.isAffliction;
   const saveAffliction = dataCbt.saveAffliction;
   const saveType = dataCbt.save;
+  const areaBase = parseInt(dataCbt?.basearea ?? 0);
+  const areaMod = parseInt(dataCbt?.mod?.area ?? 0);
 
   let ddDefense = 0;
   let traType = "";
@@ -2225,7 +2317,15 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
 
     let btn = [];
 
-    if(isDmg && isAffliction) {
+    if(isArea) {
+      btn.push({
+        typeAtk:'area',
+        target:tgt,
+        saveType:'esquive',
+        vs:dataCbt.pwr === "" ? Number(areaBase)+Number(dataStr.effet) : 10+Number(dataCbt.effet)+Number(dataStr.effet)+Number(areaMod),
+      });
+    }
+    else if(isDmg && isAffliction) {
       btn.push({
         typeAtk:'dmg',
         target:tgt,
@@ -2268,6 +2368,7 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
       text:dataCbt.text,
       tgtName:token.actor.name,
       dataAtk:JSON.stringify(dataCbt),
+      dataStr:JSON.stringify(dataStr),
       btn:btn,
     };
   } else {
@@ -2316,14 +2417,25 @@ export async function rollTgt(actor, name, data, tgt) {
   const dataStr = data.strategie;  
   const isDmg = dataCbt.isDmg;
   const isAffliction = dataCbt.isAffliction;
+  const isArea = dataCbt?.area ?? false;
   const saveAffliction = dataCbt.saveAffliction;
   const saveType = dataCbt.save;
+  const areaBase = parseInt(dataCbt?.basearea ?? 0);
+  const areaMod = parseInt(dataCbt?.mod?.area ?? 0);
 
   let pRoll = {};
 
   let btn = [];
 
-  if(isDmg && isAffliction) {
+  if(isArea) {
+    btn.push({
+      typeAtk:'area',
+      target:tgt,
+      saveType:'esquive',
+      vs:dataCbt.pwr === "" ? Number(areaBase)+Number(dataStr.effet) : 10+Number(dataCbt.effet)+Number(dataStr.effet)+Number(areaMod),
+    });
+  }
+  else if(isDmg && isAffliction) {
     btn.push({
       typeAtk:'dmg',
       target:tgt,
@@ -2359,6 +2471,7 @@ export async function rollTgt(actor, name, data, tgt) {
     text:dataCbt.text,
     tgtName:actTgt.name,
     dataAtk:JSON.stringify(dataCbt),
+    dataStr:JSON.stringify(dataStr),
     btn:btn
   };
 
@@ -2817,133 +2930,18 @@ export function commonHTML(html, origin, data={}) {
       };
 
       origin.update(update);
-    });    
+    });
 
-    html.find(data.strInput).change(async ev => {
+    html.find('div.range a.str').click(async ev => {
       const target = $(ev.currentTarget);
       const type = target.data('type');
-      const mod = target.data('value');
-      const max = target.data('max');
-      const value = Number(target.val());
-      const inpMax = Number(target.attr('max'));
-      const inpMin = Number(target.attr('min'));
-      const update = {};
+      const value = parseInt(target.data('value'));
+      const update = {}
+      update[type] = value;
 
-      let newValue = 0;
-      if((value*-1) < 0) newValue = Math.max((value*-1), max);
-      else if((value*-1) > 0) newValue = Math.min((value*-1), max);
-    
-      switch(type) {
-        case 'attaqueprecision':
-          if(mod === 'attaque') {
-            if(value > inpMax) {
-              target.val(inpMax);
-              newValue = inpMax*-1;
-            }
-            else if(value < 0) {
-              target.val(0);
-              newValue = 0;
-            }
+      console.warn(update);
 
-            update[`system.strategie.${type}.effet`] = newValue;
-          }
-          else if(mod === 'effet') {
-            if(value < inpMin) {
-              target.val(inpMin);
-              newValue = inpMin*-1;
-            } 
-            else if(value > 0) {
-              target.val(0);
-              newValue = 0;
-            }
-
-            update[`system.strategie.${type}.attaque`] = newValue;
-          }
-          break;
-
-        case 'attaquepuissance':
-          if(mod === 'attaque') {
-            if(value < inpMin) {
-              target.val(inpMin);
-              newValue = inpMin*-1;
-            } 
-            else if(value > 0) {
-              target.val(0);
-              newValue = 0;
-            }
-
-            update[`system.strategie.${type}.effet`] = newValue;
-          }
-          else if(mod === 'effet') {
-            if(value > inpMax) {
-              target.val(inpMax);
-              newValue = inpMax*-1;
-            } 
-            else if(value < 0) {
-              target.val(0);
-              newValue = 0;
-            } 
-
-            update[`system.strategie.${type}.attaque`] = newValue;
-          }
-          break;
-
-        case 'attaqueoutrance':
-          if(mod === 'attaque') {
-            if(value > inpMax) {
-              target.val(inpMax);
-              newValue = inpMax*-1;
-            } 
-            else if(value < 0) {
-              target.val(0);
-              newValue = 0;
-            } 
-
-            update[`system.strategie.${type}.defense`] = newValue;
-          } 
-          else if(mod === 'defense') {
-            if(value < inpMin) {
-              target.val(inpMin);
-              newValue = inpMin*-1;
-            } 
-            else if(value > 0) {
-              target.val(0);
-              newValue = 0;
-            }
-
-            update[`system.strategie.${type}.attaque`] = newValue;
-          }
-          break;
-
-        case 'attaquedefensive':
-          if(mod === 'attaque') {
-            if(value < inpMin) {
-              target.val(inpMin);
-              newValue = inpMin*-1;
-            } 
-            else if(value > 0) {
-              target.val(0);
-              newValue = 0;
-            }
-
-            update[`system.strategie.${type}.defense`] = newValue;
-          } 
-          else if(mod === 'defense') {
-            if(value > inpMax) {
-              target.val(inpMax);
-              newValue = inpMax*-1;
-            } 
-            else if(value < 0) {
-              target.val(0);
-              newValue = 0;
-            } 
-
-            update[`system.strategie.${type}.attaque`] = newValue;
-          }
-          break;
-      }
-
-      if(!isEmpty(update)) origin.update(update);
+      origin.update(update);
     });
   }
 
@@ -3331,147 +3329,575 @@ export function setSpeed(actor, speedId) {
 }
 
 export function normalizeData(actor, force=false) {
-  const type = actor.type;
-  const data = actor.system;
-  const atk = data.attaque;
-  const versioning = data?.version ?? 0;
+  const ownership = actor.ownership?.[game.user] ?? 0;
 
-  let update = {};
-  let hasId;
-  let rand;
-  let listDistance = [];
-  let listContact = [];
-  let listAtk = [];
+  if(game.user.isGM || actor.ownership.default === 3 || ownership === 3) {
+    const type = actor.type;
+    const data = actor.system;
+    const atk = data.attaque;
+    const versioning = data?.version ?? 0;
 
-  if(versioning < 1 || force === true) {
-    if(type === 'personnage') {
-      const contact = data.competence.combatcontact.list;
-      const distance = data.competence.combatdistance.list;
+    let update = {};
+    let hasId;
+    let rand;
+    let listDistance = [];
+    let listContact = [];
+    let listAtk = [];
 
-      for(let cc in contact) {
-        let dataCc = contact[cc];
-        hasId = dataCc?._id ?? false;
+    if(versioning < 1 || force === true) {
+      if(type === 'personnage') {
+        const contact = data.competence.combatcontact.list;
+        const distance = data.competence.combatdistance.list;
+
+        for(let cc in contact) {
+          let dataCc = contact[cc];
+          hasId = dataCc?._id ?? false;
+
+          if(hasId === false) {
+            rand = foundry.utils.randomID();
+
+            update[`system.competence.combatcontact.list.${cc}._id`] = rand;
+
+            listContact.push({
+              id:cc,
+              _id:rand,
+            });
+          }
+        }
+        
+        for(let rc in distance) {
+          let dataRc = distance[rc];
+          hasId = dataRc?._id ?? false;
+
+          if(hasId === false) {
+            rand = foundry.utils.randomID();
+
+            update[`system.competence.combatdistance.list.${rc}._id`] = rand;
+
+            listDistance.push({
+              id:rc,
+              _id:rand,
+            });
+          }
+        }
+      }
+
+      for(let i = 0;i < Object.values(atk).length; i++) {
+        let dataAtk = Object.values(atk)[i];
+        hasId = dataAtk?._id ?? false
 
         if(hasId === false) {
           rand = foundry.utils.randomID();
 
-          update[`system.competence.combatcontact.list.${cc}._id`] = rand;
+          update[`system.attaque.${Object.keys(atk)[i]}._id`] = rand;
 
-          listContact.push({
-            id:cc,
+          listAtk.push({
+            id:i,
             _id:rand,
+            type:dataAtk.type,
           });
         }
-      }
-      
-      for(let rc in distance) {
-        let dataRc = distance[rc];
-        hasId = dataRc?._id ?? false;
 
-        if(hasId === false) {
-          rand = foundry.utils.randomID();
-
-          update[`system.competence.combatdistance.list.${rc}._id`] = rand;
-
-          listDistance.push({
-            id:rc,
-            _id:rand,
-          });
-        }
-      }
-    }
-
-    for(let i = 0;i < Object.values(atk).length; i++) {
-      let dataAtk = Object.values(atk)[i];
-      hasId = dataAtk?._id ?? false
-
-      if(hasId === false) {
-        rand = foundry.utils.randomID();
-
-        update[`system.attaque.${Object.keys(atk)[i]}._id`] = rand;
-
-        listAtk.push({
-          id:i,
-          _id:rand,
-          type:dataAtk.type,
-        });
+        update[`system.attaque.${Object.keys(atk)[i]}.skill`] = dataAtk?.skill ?? '';
+        update[`system.attaque.${Object.keys(atk)[i]}.pwr`] = dataAtk?.pwr ?? '';
+        update[`system.attaque.${Object.keys(atk)[i]}.noCrit`] = dataAtk?.noCrit ?? false;
+        update[`system.attaque.${Object.keys(atk)[i]}.isAffliction`] = dataAtk?.isAffliction ?? false;
+        update[`system.attaque.${Object.keys(atk)[i]}.isDmg`] = dataAtk?.isDmg ?? false;
+        update[`system.attaque.${Object.keys(atk)[i]}.saveAffliction`] = dataAtk?.saveAffliction ?? 'volonte';
+        update[`system.attaque.${Object.keys(atk)[i]}.afflictiondef`] = dataAtk?.afflictiondef ?? 10;
+        update[`system.attaque.${Object.keys(atk)[i]}.afflictioneffet`] = dataAtk?.afflictioneffet ?? 10;
+        update[`system.attaque.${Object.keys(atk)[i]}.-=edit`] = null;
+        update[`system.attaque.${Object.keys(atk)[i]}.afflictionechec`] = {
+          e1:dataAtk?.afflictionechec?.e1 ?? [],
+          e2:dataAtk?.afflictionechec?.e2 ?? [],
+          e3:dataAtk?.afflictionechec?.e3 ?? [],
+        };
+        update[`system.attaque.${Object.keys(atk)[i]}.dmgechec`] = {
+          v1:1,
+          v2:1,
+          v3:1,
+        };
       }
 
-      update[`system.attaque.${Object.keys(atk)[i]}.skill`] = dataAtk?.skill ?? '';
-      update[`system.attaque.${Object.keys(atk)[i]}.pwr`] = dataAtk?.pwr ?? '';
-      update[`system.attaque.${Object.keys(atk)[i]}.noCrit`] = dataAtk?.noCrit ?? false;
-      update[`system.attaque.${Object.keys(atk)[i]}.isAffliction`] = dataAtk?.isAffliction ?? false;
-      update[`system.attaque.${Object.keys(atk)[i]}.isDmg`] = dataAtk?.isDmg ?? false;
-      update[`system.attaque.${Object.keys(atk)[i]}.saveAffliction`] = dataAtk?.saveAffliction ?? 'volonte';
-      update[`system.attaque.${Object.keys(atk)[i]}.afflictiondef`] = dataAtk?.afflictiondef ?? 10;
-      update[`system.attaque.${Object.keys(atk)[i]}.afflictioneffet`] = dataAtk?.afflictioneffet ?? 10;
-      update[`system.attaque.${Object.keys(atk)[i]}.-=edit`] = null;
-      update[`system.attaque.${Object.keys(atk)[i]}.afflictionechec`] = {
-        e1:dataAtk?.afflictionechec?.e1 ?? [],
-        e2:dataAtk?.afflictionechec?.e2 ?? [],
-        e3:dataAtk?.afflictionechec?.e3 ?? [],
-      };
-      update[`system.attaque.${Object.keys(atk)[i]}.dmgechec`] = {
-        v1:1,
-        v2:1,
-        v3:1,
-      };
-    }
+      if(type === 'personnage') {
+        const contact = data.competence.combatcontact.list;
+        const distance = data.competence.combatdistance.list;
 
-    if(type === 'personnage') {
-      const contact = data.competence.combatcontact.list;
-      const distance = data.competence.combatdistance.list;
+        for(let cc in contact) {
+          let dataCc = contact[cc];
+          let idAtt = dataCc.idAtt;
+          let find = listAtk.find(a => a.id === idAtt && a.type === 'combatcontact')?._id ?? -1;
 
-      for(let cc in contact) {
-        let dataCc = contact[cc];
-        let idAtt = dataCc.idAtt;
-        let find = listAtk.find(a => a.id === idAtt && a.type === 'combatcontact')?._id ?? -1;
-
-        if(find !== -1) {
-          update[`system.competence.combatcontact.list.${cc}.idAtt`] = find;
-        }        
-      }
-      
-      for(let rc in distance) {
-        let dataRc = distance[rc];
-        let idAtt = dataRc.idAtt;
-        let find = listAtk.find(a => a.id === idAtt && a.type === 'combatdistance')?._id ?? -1;
-
-        if(find !== -1) {
-          update[`system.competence.combatdistance.list.${rc}.idAtt`] = find;
-        }
-
-        
-      }
-    }
-
-    for(let a in atk) {
-      let dataAtk = atk[a];
-      let type = dataAtk.type;
-      let find;
-
-      if(type === 'combatcontact') {
-        find = listContact.find(c => c.id === `${dataAtk.id}`)?._id ?? -1;
-
-        if(find !== -1) {
-          update[`system.attaque.${a}.skill`] = find;
+          if(find !== -1) {
+            update[`system.competence.combatcontact.list.${cc}.idAtt`] = find;
+          }        
         }
         
-      } else if(type === 'combatdistance') {
-        find = listDistance.find(c => c.id === `${dataAtk.id}`)?._id ?? -1;
+        for(let rc in distance) {
+          let dataRc = distance[rc];
+          let idAtt = dataRc.idAtt;
+          let find = listAtk.find(a => a.id === idAtt && a.type === 'combatdistance')?._id ?? -1;
 
-        if(find !== -1) {
-          update[`system.attaque.${a}.skill`] = find;
+          if(find !== -1) {
+            update[`system.competence.combatdistance.list.${rc}.idAtt`] = find;
+          }
+
+          
         }
       }
 
-      update[`system.attaque.${a}.-=id`] = null;
+      for(let a in atk) {
+        let dataAtk = atk[a];
+        let type = dataAtk.type;
+        let find;
+
+        if(type === 'combatcontact') {
+          find = listContact.find(c => c.id === `${dataAtk.id}`)?._id ?? -1;
+
+          if(find !== -1) {
+            update[`system.attaque.${a}.skill`] = find;
+          }
+          
+        } else if(type === 'combatdistance') {
+          find = listDistance.find(c => c.id === `${dataAtk.id}`)?._id ?? -1;
+
+          if(find !== -1) {
+            update[`system.attaque.${a}.skill`] = find;
+          }
+        }
+
+        update[`system.attaque.${a}.-=id`] = null;
+      }
+
+      update[`system.version`] = 1;
     }
 
-    update[`system.version`] = 1;
+    if(!foundry.utils.isEmpty(update) && actor._id !== null) {
+      actor.update(update);
+    } 
+  }
+}
+
+export function getModBonus(actorData, data, items) {
+  const surcharge = data?.surcharge?.total ?? false;
+  const effects = data?.effects?.total ?? 0;
+  const effectsRanks = data?.effectsranks ?? {};
+  const surchargeRanks = data?.surchargeranks ?? {};
+  let surchargeArray = [];
+  let hasSurchargeRanks = false;
+  let surchargeTotal = false;
+  let surchargeRanksMax = 0;
+  let total = 0;
+
+  total += parseInt(effects);
+      
+  for(let e in effectsRanks) {
+    const itm = items.find(itm => itm._id === e);
+    const type = itm.type;
+    const special = itm.system.special;
+    const value = parseInt(effectsRanks[e]);
+    let rang = 0;
+
+    if(type === 'pouvoir') rang = special === 'dynamique' ? parseInt(actorData.system?.pwr?.[e]?.cout?.rang ?? 0) : parseInt(itm.system.cout.rang);
+    else if(type === 'talent') rang = parseInt(itm.system.rang);
+
+    total += value*rang;
   }
 
-  if(!foundry.utils.isEmpty(update) && actor._id !== null) {
-    actor.update(update);
-  } 
+  for(let e in surchargeRanks) {
+    const itm = items.find(itm => itm._id === e);
+    const type = itm.type;
+    const special = itm.system.special;
+    const value = parseInt(surchargeRanks[e]);
+    let rang = 0;
+
+    if(type === 'pouvoir') rang = special === 'dynamique' ? parseInt(actorData.system?.pwr?.[e]?.cout?.rang ?? 0) : parseInt(itm.system.cout.rang);
+    else if(type === 'talent') rang = parseInt(itm.system.rang);
+
+    surchargeArray.push(value*rang);
+  }
+
+  if(surchargeArray.length > 0) {
+    hasSurchargeRanks = true;
+    surchargeRanksMax = Math.max(...surchargeArray);
+  }
+
+  if(surcharge !== false && hasSurchargeRanks) surchargeTotal = Math.max(surcharge, surchargeRanksMax);
+  else if(surcharge !== false) surchargeTotal = surcharge;
+  else if(hasSurchargeRanks) surchargeTotal = surchargeRanksMax;
+
+  return {
+    total:total,
+    surcharge:surchargeTotal
+  }
+}
+
+export function prepareEffects(item, context) {
+  const system = context.data.system;
+
+  system.effects = item.effects;
+}
+
+export async function updateEffects(item, id, name, changes) {
+  const actor = getActor(item);
+
+  await item.updateEmbeddedDocuments('ActiveEffect', [{
+    "_id":id,
+    icon:'',
+    changes:changes,
+  }]);
+
+  if(actor !== null) {
+    const getActorEffects = actor.effects.contents.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` &&  (itm.name === name || itm.label === name));
+
+    await actor.updateEmbeddedDocuments('ActiveEffect', [{
+      "_id":getActorEffects._id,
+      icon:'',
+      changes:changes,
+    }]);
+  }
+}
+
+export function createEffects(item, name) {
+  const actor = getActor(item);
+  let updateItemEffects = {
+    name: name,
+    label: name,
+    icon:'',
+    changes:[],
+    parent:item,
+    disabled:true
+  };
+
+  item.createEmbeddedDocuments('ActiveEffect', [updateItemEffects]);
+
+  if(actor !== null) {
+    let updateActorEffects = {
+      name: name,
+      label: name,
+      icon:'',
+      changes:[],
+      origin:`Actor.${actor._id}.Item.${item._id}`,
+      disabled:true
+    };
+
+    actor.createEmbeddedDocuments('ActiveEffect', [updateActorEffects]);
+  }
+}
+
+export function createEffectsWithChanges(item, name, changes, disabled) {
+  const actor = getActor(item);
+  let updateItemEffects = {
+    name: name,
+    label: name,
+    icon:'',
+    changes:changes,
+    parent:item,
+    disabled:disabled
+  };
+
+  item.createEmbeddedDocuments('ActiveEffect', [updateItemEffects]);
+
+  if(actor !== null) {
+    let updateActorEffects = {
+      name: name,
+      label: name,
+      icon:'',
+      changes:changes,
+      origin:`Actor.${actor._id}.Item.${item._id}`,
+      disabled:disabled
+    };
+
+    actor.createEmbeddedDocuments('ActiveEffect', [updateActorEffects]);
+  }
+}
+
+export function deleteEffects(item, id, name) {
+  const actor = getActor(item);
+
+  item.deleteEmbeddedDocuments('ActiveEffect', [id]);
+
+  if(actor !== null) {
+    const getActorEffects = actor.effects.contents.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && (itm.name === name || itm.label === name));
+
+    actor.deleteEmbeddedDocuments('ActiveEffect', [getActorEffects._id]);
+  }
+}
+
+export function createAllEffects(item, update, updateActor) {
+  const actor = getActor(item);
+
+  item.createEmbeddedDocuments('ActiveEffect', update);
+
+  if(actor !== null) actor.createEmbeddedDocuments('ActiveEffect', updateActor);
+}
+
+export function deleteAllEffects(item, ids) {
+  const actor = getActor(item);
+
+  item.deleteEmbeddedDocuments('ActiveEffect', ids);
+
+  if(actor !== null) actor.deleteEmbeddedDocuments('ActiveEffect', ids);
+}
+
+export function checkActiveOrUnactive(item, isactive=false) {
+  const effects = item.effects.contents;
+  const variante = item.system.effectsVarianteSelected;
+  const actor = item.actor;
+  const actorType = actor?.type ?? '';
+  let actorToUpdate = [];
+  let itemToUpdate = [];
+  
+  for(let e of effects) {
+    const disabled = e.disabled;
+
+    if(isactive && disabled === true && e.name === variante) {
+      itemToUpdate.push({
+        "_id":e._id,
+        disabled:false,
+      });
+
+      if(actor !== null && actorType === 'personnage') {
+        const getActorEffects = actor.effects.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.name === variante);
+
+        actorToUpdate.push({
+          "_id":getActorEffects._id,
+          disabled:false,
+        });      
+      }
+    } else if((!isactive && !disabled) || (!disabled && e.name !== variante)) {
+      itemToUpdate.push({
+        "_id":e._id,
+        disabled:true,
+      });
+
+      if(actor !== null && actorType === 'personnage') {
+        const getActorEffects = actor.effects.filter(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}`);
+
+        for(let eff of getActorEffects) {
+          if(!eff.disabled && eff.name !== variante) {
+            actorToUpdate.push({
+              "_id":eff._id,
+              disabled:true,
+            });          
+          }
+        }
+      }
+    }
+
+    if(actor !== null && actorType !== 'personnage') {
+      const getActorEffects = actor.effects.filter(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}`);
+
+      for(let eff of getActorEffects) {
+        if(!eff.disabled) {
+          actorToUpdate.push({
+            "_id":eff._id,
+            disabled:true,
+          });          
+        }
+      }
+    }
+  }  
+
+  if(actorToUpdate.length > 0) actor.updateEmbeddedDocuments('ActiveEffect', actorToUpdate);
+  if(itemToUpdate.length > 0) item.updateEmbeddedDocuments('ActiveEffect', itemToUpdate);
+}
+
+export function loadEffectsContext(context) {
+  context.item.listMods = CONFIG.MM3.listmods;
+  context.item.listSurcharge = {
+    'surcharge':'MM3.EFFECTS.Surcharge',
+    'surchargeranks':'MM3.EFFECTS.SurchargeRanks',
+    'effectsranks':'MM3.EFFECTS.Ranks'
+  };
+}
+
+export function loadEffectsHTML(html, item, permanent=false, single=false) {
+  let disabled = permanent ? false : true;
+
+  if(single) {
+    html.find(`i.addMod`).click(async ev => {
+      ev.preventDefault();
+      const effects = item.effects;
+      const size = effects.size;
+      let effect;
+
+      if(size === 0) {
+        await createEffectsWithChanges(item, 'e0', [{
+          key: "",
+          mode: 2,
+          priority: null,
+          value: "0"
+        }], disabled);
+      } else {
+        effect = item.effects.find(itm => itm.name === 'e0');
+        const changes = effect?.changes ?? [];
+
+        changes.push({
+          key: "",
+          mode: 2,
+          priority: null,
+          value: "0"
+        });
+  
+        await updateEffects(item, effect._id, effect.name, changes);
+      }
+    });
+  } else {
+    html.find(`i.addVMod`).click(ev => {
+      ev.preventDefault();
+      const listVariante = item.system?.listEffectsVariantes ?? {'e0':''};
+      const getArray = Object.keys(listVariante).map(v => parseInt(v.replace('e', '')));
+      const max = Math.max(...getArray);
+      const name = `e${max+1}`;
+      let update = {};
+
+      console.warn(getArray, max);
+
+      if(item.effects.size === 0) update[`system.effectsVarianteSelected`] = name;
+
+      createEffects(item, name);
+      update[`system.listEffectsVariantes.${name}`] = `${game.i18n.localize('MM3.EFFECTS.Variante')} ${max+1}`;
+      item.update(update);
+    });
+
+    html.find(`i.deleteVMod`).click(ev => {
+      ev.preventDefault();
+      const target = $(ev.currentTarget);
+      const id = target.data('id');
+      const name = target.data('name');
+      const selected = item.system.effectsVarianteSelected;
+      let update = {};
+
+      deleteEffects(item, id, name);
+
+      if(name === selected) update['system.effectsVarianteSelected'] = 'e0';
+      update[`system.listEffectsVariantes.-=${name}`] = null;
+
+      item.update(update);
+    });
+
+    html.find(`i.addMod`).click(async ev => {
+      ev.preventDefault();
+      const target = $(ev.currentTarget);
+      const id = target.data('id');
+      const effect = item.effects.find(itm => itm._id === id);
+      const changes = effect?.changes ?? [];
+
+      changes.push({
+        key: "",
+        mode: 2,
+        priority: null,
+        value: "0"
+      });
+
+      await updateEffects(item, effect._id, effect.name, changes);
+    });
+  }
+
+  html.find(`div.effectsBlock select.effect`).change(async ev => {
+    ev.preventDefault();
+    const target = $(ev.currentTarget);
+    const id = target.data('id');
+    const key = target.data('key');
+    const value = target.val();
+    let effect = item.effects.find(itm => itm._id === id);
+    let changes = effect.changes;
+    let split = changes[key].key.split('.');
+    let k = `${value}.effects.total`;
+
+    if(split[split.length-2] === 'effectsranks') k = `${value}.effects.${item._id}`;
+    else if(split[split.length-2] === 'surchargeranks') k = `${value}.surchargeranks.${item._id}`;
+
+    changes[key].key = k;
+
+    await updateEffects(item, effect._id, effect.name, changes);
+  });
+
+  html.find(`div.effectsBlock select.surcharge`).change(async ev => {
+    ev.preventDefault();
+    const target = $(ev.currentTarget);
+    const id = target.data('id');
+    const key = target.data('key');
+    const value = target.val();
+    let effect = item.effects.find(itm => itm._id === id);
+    let changes = effect.changes;
+    let split = changes[key].key.split('.');
+
+    if(value === 'surcharge') {
+      split[split.length-2] = 'surcharge';
+      split[split.length-1] = 'total';
+      changes[key].mode = 5;
+    }
+    else if(value === 'surchargeranks') {
+      split[split.length-2] = 'surchargeranks';
+      split[split.length-1] = item._id;
+      changes[key].mode = 5;
+    }
+    else if(value === 'effectsranks') {
+      split[split.length-2] = 'effectsranks';
+      split[split.length-1] = item._id;
+      changes[key].mode = 2;
+    }
+    else {
+      split[split.length-2] = 'effects';
+      split[split.length-1] = 'total';
+      changes[key].mode = 2;
+    }
+
+    changes[key].key = split.join('.');
+
+    await updateEffects(item, effect._id, effect.name, changes);
+  });
+
+  html.find(`div.effectsBlock input`).blur(async ev => {
+    ev.preventDefault();
+    const target = $(ev.currentTarget);
+    const id = target.data('id');
+    const key = target.data('key');
+    const value = target.val();
+    let effect = item.effects.find(itm => itm._id === id);
+    let changes = effect.changes;
+    changes[key].value = value;
+
+    await updateEffects(item, effect._id, effect.name, changes);
+  });
+
+  html.find(`i.deleteMod`).click(ev => {
+    ev.preventDefault();
+    const header = $(ev.currentTarget).parents(".effectsChanges");
+    const key = header.data("key");
+    const id = header.data("id");
+    const effect = item.effects.find(effects => effects._id === id);
+    effect.changes.splice(key, 1);
+
+    updateEffects(item, id, effect.name, effect.changes);
+  });
+
+  html.find(`a.btnEdit`).click(ev => {
+    ev.preventDefault();
+    let edit = item.system?.edit ?? false;
+    let value = edit ? false : true;
+    let update = {};
+    update[`system.edit`] = value;
+
+    item.update({[`system.edit`]:value});
+  });
+}
+
+export async function loadEffectsClose(item) {
+  const form = item.sheet.form;
+  const input = $($(form).find('input.effect'));
+
+  for(let i of input) {
+    const id = $(i).data('id');
+    const key = $(i).data('key');
+    const name = $(i).data('name');
+    const value = $(i).val();
+    const effect = item.effects.find(itm => itm._id === id && (itm.name === name || itm.label === name));
+    let change = effect.changes[key];
+    change.value = value;
+
+    await updateEffects(item, id, name, effect.change);
+  }
 }

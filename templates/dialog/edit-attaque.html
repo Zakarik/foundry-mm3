@@ -46,17 +46,34 @@
             </select>
             {{/if}}
         </div>
-        
 
-        <a class="btn noAtk {{#if data.tempAtk.noAtk}}selected{{else}}unselected{{/if}}">{{localize "MM3.ROLL.Pasattaque"}}</a>
+        <a class="btn area {{ifThen data.tempAtk.area 'selected' 'unselected'}}">{{localize "MM3.ROLL.Effetzone"}}</a>
 
-        <a class="btn noCrit {{#if data.tempAtk.noCrit}}selected{{else}}unselected{{/if}}">{{localize "MM3.ROLL.Pascritique"}}</a>
+        {{#if data.tempAtk.area}}
+            {{#if data.tempAtk.pwr}}
+            <label class="col">
+                <span>{{localize "MM3.ROLL.ModEsquive"}} : </span>
+                <input class="mod" data-type="area" type="number" value="{{#if data.atk.mod.area}}{{data.atk.mod.area}}{{else}}0{{/if}}" />
+            </label>
+            {{else}}
+            <label class="col">
+                <span>{{localize "MM3.ROLL.BaseEsquive"}} : </span>
+                <input class="basearea" type="number" value="{{#if data.tempAtk.basearea}}{{data.tempAtk.basearea}}{{else}}0{{/if}}" min="0" />
+            </label>
+            {{/if}}
+        {{/if}}
+
+        <div class="line">
+            <a class="btn noAtk {{#if data.tempAtk.noAtk}}selected{{else}}unselected{{/if}}">{{localize "MM3.ROLL.Pasattaque"}}</a>
+
+            <a class="btn noCrit {{#if data.tempAtk.noCrit}}selected{{else}}unselected{{/if}}">{{localize "MM3.ROLL.Pascritique"}}</a>
+        </div>
 
         {{#unless (isValue data.setTypeAtk 'afflictiondmg')}}
-            <div class="col">
+            <label class="col">
                 <span>{{localize "MM3.ROLL.DEFENSE.Basedefense"}} :</span>
                 <input class="basedef" type="number" value="{{data.tempAtk.basedef}}" min="0" />
-            </div>
+            </label>
 
             <select class="defense" data-type="dmg"  title="{{localize "MM3.DEFENSE.Label"}}">
                 {{#select data.tempAtk.save}}

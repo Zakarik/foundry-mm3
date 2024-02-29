@@ -23,7 +23,19 @@
     {{#if (isValue key.system.special 'dynamique')}}violet{{/if}}
     {{#unless (hasLinkAndAlt key._id @root/actor)}}item{{/unless}}
     " data-item-id="{{key._id}}">
-        <header class="js-toggler" >
+        <header class="js-toggler 
+        {{#if (ObjectIsEmpty system.listEffectsVariantes)}}withoutVariante{{/if}}" >
+            {{#if (eq system.actor 'personnage')}}
+            {{#unless (ObjectIsEmpty system.listEffectsVariantes)}}
+            <a class="btn btnHeader pwrActivate {{#if key.system.activate}}selected{{/if}}">
+                {{localize "MM3.BTN.Activer"}}
+            </a>
+
+            <select class="variantepwr">
+                {{selectOptions system.listEffectsVariantes selected=system.effectsVarianteSelected}}
+            </select>
+            {{/unless}}
+            {{/if}}
             <span class="deploy "><i class="minus"></i></span>
             <div class="pwrheader">
                 <span class="header">{{key.name}}</span>
@@ -161,7 +173,19 @@
         {{#if (isValue kPA.system.special 'dynamique')}}violet{{/if}}
         {{#unless (hasLinkAndAlt key._id @root/actor)}}item{{/unless}}
         " data-item-id="{{kPA._id}}">
-            <header class="js-toggler" >
+            <header class="js-toggler
+            {{#if (ObjectIsEmpty kPA.system.listEffectsVariantes)}}withoutVariante{{/if}}" >
+                {{#if (eq kPA.system.actor 'personnage')}}
+                {{#unless (ObjectIsEmpty kPA.system.listEffectsVariantes)}}
+                <a class="btn btnHeader pwrActivate {{#if kPA.system.activate}}selected{{/if}}">
+                    {{localize "MM3.BTN.Activer"}}
+                </a>
+
+                <select class="variantepwr">
+                    {{selectOptions kPA.system.listEffectsVariantes selected=kPA.system.effectsVarianteSelected}}
+                </select>
+                {{/unless}}
+                {{/if}}
                 <span class="deploy "><i class="minus"></i></span>
                 <div class="pwrheader">
                     <span class="header">{{kPA.name}}</span>
@@ -281,7 +305,19 @@
         {{#if (isValue kPA.system.special 'dynamique')}}violet{{/if}}
         {{#unless (hasLinkAndAlt key._id @root/actor)}}item{{/unless}}
         " data-item-id="{{kPA._id}}">
-            <header class="js-toggler" >
+            <header class="js-toggler
+            {{#if (ObjectIsEmpty kPA.system.listEffectsVariantes)}}withoutVariante{{/if}}" >
+                {{#if (eq kPA.system.actor 'personnage')}}
+                {{#unless (ObjectIsEmpty kPA.system.listEffectsVariantes)}}
+                <a class="btn btnHeader pwrActivate {{#if kPA.system.activate}}selected{{/if}}">
+                    {{localize "MM3.BTN.Activer"}}
+                </a>
+
+                <select class="variantepwr">
+                    {{selectOptions kPA.system.listEffectsVariantes selected=kPA.system.effectsVarianteSelected}}
+                </select>
+                {{/unless}}
+                {{/if}}
                 <span class="deploy "><i class="minus"></i></span>
                 <div class="pwrheader">
                     <span class="header">{{kPA.name}}</span>
@@ -390,7 +426,19 @@
         {{#if (isValue kPA.system.special 'dynamique')}}violet{{/if}}
         {{#unless (hasLinkAndAlt key._id @root/actor)}}item{{/unless}}
         " data-item-id="{{kPA._id}}">
-            <header class="js-toggler" >
+            <header class="js-toggler
+            {{#if (ObjectIsEmpty kPA.system.listEffectsVariantes)}}withoutVariante{{/if}}" >
+                {{#if (eq kPA.system.actor 'personnage')}}
+                {{#unless (ObjectIsEmpty kPA.system.listEffectsVariantes)}}
+                <a class="btn btnHeader pwrActivate {{#if kPA.system.activate}}selected{{/if}}">
+                    {{localize "MM3.BTN.Activer"}}
+                </a>
+
+                <select class="variantepwr">
+                    {{selectOptions kPA.system.listEffectsVariantes selected=kPA.system.effectsVarianteSelected}}
+                </select>
+                {{/unless}}
+                {{/if}}
                 <span class="deploy "><i class="minus"></i></span>
                 <div class="pwrheader">
                     <span class="header">{{kPA.name}}</span>

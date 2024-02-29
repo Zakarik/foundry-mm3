@@ -1,3 +1,14 @@
+## Version 1.30.0
+### Améliorations
+- Ajout d'un onglet "Modificateurs" pour les pouvoirs et les talents, permettant de rentrer des modificateurs. 
+Les modificateurs des talents sont toujours appliqués, ceux des pouvoirs sont activable. Il est aussi possible de mettre plusieurs variantes d'effets pour le spouvoirs.
+- Amélioration de l'affichage des stratégies, pour les rendre plus simples à utiliser.
+- Ajout d'un bouton permettant l'import des builds de Jabs
+- Ajout de la possibilité de régler les attaques comme étant des effets de zone, ce qui rajoutera un jet d'esquive à faire avant le jet de robustesse, et divisera le rang d'effet si le jet d'esquive est réussi.
+
+### Bugfix
+- Correction des valeurs de défense des véhicules selon les tailles.
+
 ## Version 1.29.1
 ### Bugfix
 - Correction d'un bug rare pouvant bloquer l'importation de personnages.

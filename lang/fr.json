@@ -65,14 +65,21 @@
       "CaracComp":"Caractéristiques & Compétences",
       "PouvoirsTalentsEquipements":"Pouvoirs, Talents & Équipements",
       "Importations":"Importations",
-      "Options":"Options"
+      "Options":"Options",
+      "Modificateurs":"Modificateurs"
     },
     "BTN":{
       "Add":"Ajouter",
       "AddCmp":"Ajouter une compétence",
       "AddPwr":"Ajouter un pouvoir",
       "AddTl":"Ajouter un talent",
-      "AddEq":"Ajouter un équipement"
+      "AddEq":"Ajouter un équipement",
+      "AddMod":"Ajouter un modificateur",
+      "AddVMod":"Ajouter une variante d'effet",
+      "DeleteVMod":"Supprimer la variante d'effet",
+      "EditMod":"Editer les modificateurs",
+      "DeleteMod":"Supprimer le modificateur",      
+      "Activer":"Activé"
     },
     "CARACTERISTIQUES":{
       "Force":"Force",
@@ -283,9 +290,12 @@
       "Initiative":"Initiative",
       "Pascritique":"Aucun critique",
       "Pasattaque":"Aucun jet d'attaque",
+      "Effetzone":"Effet de zone",
       "Valider":"Valider",
       "Annuler":"Annuler",
       "Typeattaque":"Type d'attaque",
+      "ModEsquive":"Mod du jet d'esquive",
+      "BaseEsquive":"Base du jet d'esquive",
       "TYPE":{
         "Autre":"Autre",
         "Degats":"Dégâts",
@@ -311,7 +321,11 @@
       "Portfolio":"Importer un Portfolio",
       "ChoisirPortfolio":"Choisir le Portfolio d'Herolab",
       "Importer":"Importer",
-      "PortfolioError":"Erreur d'importation du Portfolio, vérifiez le fichier"
+      "PortfolioError":"Erreur d'importation du Portfolio, vérifiez le fichier",
+      "JabsDescription":"Saisissez un texte simple provenant de l'un des </label><a href='https://www.echoesofthemultiverse.com/viewtopic.php?t=8'>builds de Jab</a>",
+      "JabsBtn":"Importer depuis les builds de Jab",
+      "JabsValider":"Importer le texte depuis les builds de Jab",
+      "JabsTitle":"Importer tous les JSON télécharger dans le dossier"
     },
     "ACCESSIBILITE":{
       "Label":"Accessibilité",
@@ -344,6 +358,24 @@
     "ASTUCE":{
       "Shift":"Vous pouvez maintenir la touche Shift lors d'un clic sur les caractéristiques, compétences et défenses pour mettre un DD au jet.",
       "Alt":"Vous pouvez maintenir la touche Alt lors d'un clic sur un jet pour pouvoir ajouter un modificateur."
+    },
+    "EFFECTS":{
+      "VariantesEffets":"Variantes d'effets",
+      "Bonus":"Mod. simple",
+      "Surcharge":"Remplacement",
+      "SurchargeRanks":"Remplacement par rang",
+      "Ranks":"Mod. par rang",
+      "Variante":"Variante",
+      "STRATEGIE":{
+        "AttaqueprecisionAttaque":"Limite de l'attaque de précision (Attaque)",
+        "AttaqueoutranceAttaque":"Limite de l'attaque à outrance (Attaque)",
+        "AttaquedefensiveAttaque":"Limite de l'attaque défensive (Attaque)",
+        "AttaquepuissanceAttaque":"Limite de l'attaque en puissance (Attaque)",
+        "AttaqueprecisionEffet":"Limite de l'attaque de précision (Effet)",
+        "AttaqueoutranceDefense":"Limite de l'attaque à outrance (Défense)",
+        "AttaquedefensiveDefense":"Limite de l'attaque défensive (Défense)",
+        "AttaquepuissanceEffet":"Limite de l'attaque en puissance (Effet)"
+      }
     },
     "Nom":"Nom",
     "Identite":"Identite",
@@ -394,6 +426,7 @@
     "Couttotalfinal":"Coût total final",
     "Details":"Détails",
     "Choisir":"Choisir",
+    "Min-short":"Min",
     "Max-short":"Max",
     "Pointsequipementsused":"Points d'équipements utilisés",
     "Coutvitesse":"Cout de l'effet mouvement de base",

@@ -1,5 +1,10 @@
 import {
-  accessibility
+  accessibility,
+  prepareEffects,
+  updateEffects,
+  loadEffectsContext,
+  loadEffectsHTML,
+  loadEffectsClose,
 } from "../helpers/common.mjs";
 
 /**
@@ -12,7 +17,7 @@ export class PouvoirItemSheet extends ItemSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["mm3", "sheet", "item", "pouvoir"],
       template: "systems/mutants-and-masterminds-3e/templates/pouvoir-item-sheet.html",
-      width: 850,
+      width: 1100,
       height: 920,
       tabs: [{navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "pouvoirs"}],
       dragDrop: [{dragSelector: [".draggable"], dropSelector: null}],
@@ -25,8 +30,13 @@ export class PouvoirItemSheet extends ItemSheet {
   getData() {
     const context = super.getData();
 
+    prepareEffects(this.item, context);
+
+    loadEffectsContext(context);
     context.systemData = context.data.system;
     this._prepareList(context);
+
+    console.warn(context);
 
     return context;
   }
@@ -51,13 +61,23 @@ export class PouvoirItemSheet extends ItemSheet {
     // Everything below here is only needed if the sheet is editable
     if ( !this.isEditable ) return;
 
+    loadEffectsHTML(html, this.item);
+
+    html.find('select.duration').change(ev => {
+      const target = $(ev.currentTarget);
+      const value = target.val();
+
+      if(value === 'permanent') this.item.update({[`system.activate`]:true});
+      else this.item.update({[`system.activate`]:false});
+    });
+
     html.find('.cout details summary').click(async ev => {
       const target = $(ev.currentTarget);
       const value = target.data("value") ? false : true;
 
       this.item.update({[`system.cout.details`]:value});
     });
-    
+
     html.find('.modificateurs details summary div.before').click(async ev => {
       const target = $(ev.currentTarget);
       const mod = target.data("mod");
@@ -66,7 +86,7 @@ export class PouvoirItemSheet extends ItemSheet {
 
       this.item.update({[`system.${mod}.${id}.details`]:value});
     });
-    
+
     html.find('a.add').click(async ev => {
       const target = $(ev.currentTarget);
       const type = target.data('type');
@@ -75,7 +95,7 @@ export class PouvoirItemSheet extends ItemSheet {
         case 'descripteurs':
           const dataDescripteurs = Object.keys(this.item.system.descripteurs);
           const maxKeysComplication = dataDescripteurs.length ? Math.max(...dataDescripteurs) : 0;
-          
+
           this.item.update({[`system.descripteurs.${maxKeysComplication+1}`]:""});
           break;
       }
@@ -102,7 +122,7 @@ export class PouvoirItemSheet extends ItemSheet {
       }
     });
 
-    html.find('a.btn').click(async ev => {
+    html.find('div.pouvoirs a.btn').click(async ev => {
       const target = $(ev.currentTarget);
       const mod = target.data('mod');
       const id = target.data('id');
@@ -128,14 +148,14 @@ export class PouvoirItemSheet extends ItemSheet {
 
       if(!value) this.item.update({[`system.${mod}.${id}.data.cout.${type}`]:true});
     });
-    
+
     html.find('a.special').click(async ev => {
       const target = $(ev.currentTarget);
       const type = target.data('type');
-      
+
       this.item.update({[`system.special`]:type});
     });
-    
+
     html.find('i.create').click(async ev => {
       const target = $(ev.currentTarget);
       const mod = target.data('mod');
@@ -143,7 +163,7 @@ export class PouvoirItemSheet extends ItemSheet {
 
       const dataMod = Object.keys(data);
       const maxKeysMod = dataMod.length ? Math.max(...dataMod) : 0;
-      
+
       this.item.update({[`system.${mod}.${maxKeysMod+1}`]:{
         name:"",
         data:{
@@ -169,7 +189,7 @@ export class PouvoirItemSheet extends ItemSheet {
     if(type === 'modificateur') {
       const getType = document.system.type;
       const dataMod = Object.keys(getData[`${getType}s`]);
-      const maxKeysMod = dataMod.length ? Math.max(...dataMod) : 0;    
+      const maxKeysMod = dataMod.length ? Math.max(...dataMod) : 0;
 
       const update = {};
       update[`system.${getType}s.${maxKeysMod+1}`] = {
@@ -222,5 +242,13 @@ export class PouvoirItemSheet extends ItemSheet {
   /** @inheritdoc */
   _canDragDrop(selector) {
     return this.isEditable;
+  }
+
+  /** @inheritdoc */
+  async close(options={}) {
+    loadEffectsClose(this.item);
+
+    await super.close(options);
+    delete this.object.apps?.[this.appId];
   }
 }
