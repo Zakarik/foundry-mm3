@@ -77,9 +77,9 @@
       "AddMod":"Aggiungi un modificatore",
       "AddVMod":"Aggiungi una variante di effetto",
       "DeleteVMod":"Cancella una variante di effetto",
-      "EditMod":"Modifica modificatori",
-      "DeleteMod":"Elimina un modificatore",      
-      "Activer":"Attivare"
+      "EditMod":"Cambia modificatori",
+      "DeleteMod":"Elimina modificatore",      
+      "Activer":"Attiva"
     },
     "CARACTERISTIQUES":{
       "Force":"Forza",
@@ -294,7 +294,7 @@
       "Valider":"Conferma",
       "Annuler":"Annulla",
       "Typeattaque":"Tipo di attacco",
-      "ModEsquive":"Dodge Mod.",
+      "ModEsquive":"Mod. Schivare",
       "BaseEsquive":"Base del tiro di schivata",
       "TYPE":{
         "Autre":"Altro",
@@ -322,8 +322,8 @@
       "ChoosePortfolio": "Scegli il portafoglio di Herolab",
       "Import": "Importa",
       "PortfolioError": "Errore durante l'importazione del portafoglio, verificare il file",
-      "JabsDescription":"Inserisci il testo di uno dei </label><a href='https://www.echoesofthemultiverse.com/viewtopic.php?t=8'>build di Jab</a>",
-      "JabsBtn":"Importa ersonaggi dalle build di Jab",
+      "JabsDescription":"Inserisci il testo di una </label><a href='https://www.echoesofthemultiverse.com/viewtopic.php?t=8'>Build di Jab</a>",
+      "JabsBtn":"Importa PG dalle build di Jab",
       "JabsValider":"Importa testo dalle build di Jab",
       "JabsTitle":"Importa tutti i file JSON scaricati in una cartella"
     },
@@ -356,8 +356,8 @@
       "PwrLie":"Legato a un potere"
     },
     "ASTUCE":{
-      "Shift":"Puoi tenere premuto il tasto Shift quando fai clic su abilità, abilità e difese per aggiungere una CD al tiro.",
-      "Alt":"Puoi tenere premuto il tasto Alt quando fai clic su un rotolo per poter aggiungere un modificatore."
+      "Shift":"Puoi tenere premuto il tasto Shift quando fai clic su caratteristiche, abilità e difese per aggiungere una CD al tiro.",
+      "Alt":"Puoi tenere premuto il tasto Alt quando fai clic su un Tiro per poter aggiungere un modificatore."
     },
     "EFFECTS":{
       "VariantesEffets":"Varianti di effetti",
@@ -427,7 +427,7 @@
     "Details":"Dettagli",
     "Choisir":"Scegli",
     "Min-short":"Min",
-    "Max-short":"Massimo",
+    "Max-short":"Max",
     "Pointsequipementsused":"Punti equipaggiamento utilizzati",
     "Coutvitesse":"Costo effetto movimento base",
     "Vitesse":"Velocità",

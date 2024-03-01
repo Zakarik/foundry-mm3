@@ -1,3 +1,7 @@
+## Version 1.30.1
+### Bugfix
+- Corrections de la traduction italienne.
+
 ## Version 1.30.0
 ### Améliorations
 - Ajout d'un onglet "Modificateurs" pour les pouvoirs et les talents, permettant de rentrer des modificateurs. 
