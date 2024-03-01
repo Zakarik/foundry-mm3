@@ -153,6 +153,6 @@ export class MM3Item extends Item {
             }
         }
 
-        //checkActiveOrUnactive(itemData, activate);
+        checkActiveOrUnactive(itemData);
     };
 }

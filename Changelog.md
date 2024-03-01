@@ -1,3 +1,7 @@
+## Version 1.30.2
+### Bugfix
+- Corrections d'un bug avec le nouveau système de modificateur, qui n'activait pas / ne désactivait pas correctement les pouvoirs.
+
 ## Version 1.30.1
 ### Bugfix
 - Corrections de la traduction italienne.

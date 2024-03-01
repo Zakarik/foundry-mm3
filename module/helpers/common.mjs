@@ -2938,9 +2938,7 @@ export function commonHTML(html, origin, data={}) {
       const value = parseInt(target.data('value'));
       const update = {}
       update[type] = value;
-
-      console.warn(update);
-
+      
       origin.update(update);
     });
   }
@@ -3640,10 +3638,11 @@ export function deleteAllEffects(item, ids) {
   if(actor !== null) actor.deleteEmbeddedDocuments('ActiveEffect', ids);
 }
 
-export function checkActiveOrUnactive(item, isactive=false) {
+export function checkActiveOrUnactive(item) {
   const effects = item.effects.contents;
   const variante = item.system.effectsVarianteSelected;
   const actor = item.actor;
+  const isactive = item.system?.activate ?? false;
   const actorType = actor?.type ?? '';
   let actorToUpdate = [];
   let itemToUpdate = [];
@@ -3651,53 +3650,24 @@ export function checkActiveOrUnactive(item, isactive=false) {
   for(let e of effects) {
     const disabled = e.disabled;
 
-    if(isactive && disabled === true && e.name === variante) {
-      itemToUpdate.push({
-        "_id":e._id,
-        disabled:false,
-      });
+    if(isactive && disabled && e.name === variante) itemToUpdate.push({"_id":e._id, disabled:false});
+    else if(!isactive && !disabled) itemToUpdate.push({"_id":e._id, disabled:true});
 
-      if(actor !== null && actorType === 'personnage') {
-        const getActorEffects = actor.effects.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.name === variante);
+    if(actor !== null && actorType === 'personnage') {
+      const getActorEffects = actor.effects.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.name === variante);
 
-        actorToUpdate.push({
-          "_id":getActorEffects._id,
-          disabled:false,
-        });      
-      }
-    } else if((!isactive && !disabled) || (!disabled && e.name !== variante)) {
-      itemToUpdate.push({
-        "_id":e._id,
-        disabled:true,
-      });
-
-      if(actor !== null && actorType === 'personnage') {
-        const getActorEffects = actor.effects.filter(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}`);
-
-        for(let eff of getActorEffects) {
-          if(!eff.disabled && eff.name !== variante) {
-            actorToUpdate.push({
-              "_id":eff._id,
-              disabled:true,
-            });          
-          }
-        }
-      }
+      if(getActorEffects.disabled && isactive) actorToUpdate.push({"_id":getActorEffects._id, disabled:false});  
+      else if(!getActorEffects.disabled && !isactive) actorToUpdate.push({"_id":getActorEffects._id, disabled:true});  
     }
+  }
 
-    if(actor !== null && actorType !== 'personnage') {
-      const getActorEffects = actor.effects.filter(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}`);
+  if(actor !== null && actorType !== 'personnage') {
+    const getActorEffects = actor.effects.filter(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}`);
 
-      for(let eff of getActorEffects) {
-        if(!eff.disabled) {
-          actorToUpdate.push({
-            "_id":eff._id,
-            disabled:true,
-          });          
-        }
-      }
+    for(let eff of getActorEffects) {
+      if(!eff.disabled) actorToUpdate.push({"_id":getActorEffects._id,disabled:true});
     }
-  }  
+  }
 
   if(actorToUpdate.length > 0) actor.updateEmbeddedDocuments('ActiveEffect', actorToUpdate);
   if(itemToUpdate.length > 0) item.updateEmbeddedDocuments('ActiveEffect', itemToUpdate);
@@ -3751,8 +3721,6 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
       const max = Math.max(...getArray);
       const name = `e${max+1}`;
       let update = {};
-
-      console.warn(getArray, max);
 
       if(item.effects.size === 0) update[`system.effectsVarianteSelected`] = name;
 

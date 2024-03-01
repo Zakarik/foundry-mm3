@@ -138,8 +138,6 @@ export class MM3Actor extends Actor {
           case 'attaqueoutrance':
             newValue -= parseInt(dataStr.attaque);
 
-            console.warn(newValue, getStr.limite);
-
             dataStr.defense = Math.max(newValue, parseInt(getStr.limite[str].totalDef));
             break;
 
@@ -398,8 +396,6 @@ export class MM3Actor extends Actor {
           case 'attaqueoutrance':
             newValue -= parseInt(dataStr.attaque);
 
-            console.warn(newValue, getStr.limite);
-
             dataStr.defense = Math.max(newValue, parseInt(getStr.limite[str].totalDef));
             break;
 
@@ -575,8 +571,6 @@ export class MM3Actor extends Actor {
         switch(str) {
           case 'attaqueoutrance':
             newValue -= parseInt(dataStr.attaque);
-
-            console.warn(newValue, getStr.limite);
 
             dataStr.defense = Math.max(newValue, parseInt(getStr.limite[str].totalDef));
             break;

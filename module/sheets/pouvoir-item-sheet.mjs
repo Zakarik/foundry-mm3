@@ -36,8 +36,6 @@ export class PouvoirItemSheet extends ItemSheet {
     context.systemData = context.data.system;
     this._prepareList(context);
 
-    console.warn(context);
-
     return context;
   }
 
