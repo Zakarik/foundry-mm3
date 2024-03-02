@@ -73,8 +73,13 @@ export function parseInput(input) {
                     }
                     break;
                 case 'powers':
-                    currentParentPower = parsePowers(input, i);
-                    parsedData.powers = currentParentPower;
+                    currentParentPower = parsePowers(input, "Powers:");
+                    for(let l = 0; l < currentParentPower.powers.length; l++){  
+                        if(parsedData.powers.constructor=== Array){
+                            parsedData.powers={powers:[]}
+                        }
+                        parsedData.powers.powers.push(currentParentPower.powers[l]);
+                    }
                     currentSection = '';
                     break
                 case 'advantages':
@@ -92,7 +97,14 @@ export function parseInput(input) {
                     //parsedData.complications.push(line.trim());
                     break;
                 case 'equipment':
-                    parsedData.equipment = parseEquipment(input);
+                    currentParentPower = parsePowers(input, "Equipment:");
+                    for(let l = 0; l < currentParentPower.powers.length; l++){  
+                        if(parsedData.powers.constructor=== Array){
+                            parsedData.powers={powers:[]}
+                        }
+                        parsedData.powers.powers.push(currentParentPower.powers[l]);
+                    }
+                    
                     currentSection = ''; 
                     break; 
                 case 'offenses':
@@ -266,7 +278,7 @@ function parseSingleAdvantage(advantage) {
 }
 
 let emptyAdvantageLine = "";
-function parsePowers(input, lineNumber) {
+function parsePowers(input, powerType) {
     const separator = '--separator--';
     input = input.replace(/^\s*[\r\n]+/gm, '\n' + separator + '\n');
 
@@ -280,7 +292,7 @@ function parsePowers(input, lineNumber) {
 
         let line = lines[i].trim(); // Trim each line to remove leading and trailing whitespace
     
-        if (line === "Powers:") {
+        if (line === powerType ){//"Powers:") {
             atPower = true; // Exit the loop if the current line is exactly "Powers:"
             continue;
         }
@@ -292,7 +304,7 @@ function parsePowers(input, lineNumber) {
             continue
         }
         //test if line starts with a quoted string, and then an unquoted string, excluding brtacketed content or numbers
-        if (line.startsWith('Equipment:') || line.startsWith('Offense:') || line.startsWith('Defenses:')) {
+        if (line.startsWith('Equipment:') || line.startsWith('Offense:') || line.startsWith('Defenses:') || line.startsWith('Power:')) {
             break; // Exit the loop as we are done with powers
         }
 
@@ -342,8 +354,8 @@ function parsePowers(input, lineNumber) {
                 else{
                     if (power) {
                         powers.push(power);
-                        if (parentPower.linkedTo) {
-                            powers.push(parentPower.linkedTo);
+                        if (power.linkedTo) {
+                            powers.push(power.linkedTo);
                         }}
                 }
             }
@@ -395,13 +407,15 @@ function parsePowerName(line, alias) {
     const nameMatch = line.match(namePattern);
 
     let name="";
-    if (!nameMatch) {
-        name = alias;
-        name = name.replace(/'/g, '')
-        //throw new Error('Invalid format for power');
-    }
-    else{
-        name = nameMatch[0].trim(); // Name is the entire matched group
+    if(nameMatch!=null){
+        if (!nameMatch) {
+            name = alias;
+            name = name.replace(/'/g, '')
+            //throw new Error('Invalid format for power');
+        }
+        else{
+            name = nameMatch[0].trim(); // Name is the entire matched group
+        }
     }
     return name;
 }
@@ -744,7 +758,8 @@ function parseDefense(line) {
 
 function parseTotal(input) {
     // Adjusted regex pattern to capture and ignore the second number after "Skills"
-    const totalPattern = /^Total: Abilities: (\d+) \/ Skills: (\d+)--\d+ \/ Advantages: (\d+) \/ Powers: (\d+) \/ Defenses: (\d+) \((\d+)\)$/;
+    const totalPattern = /^Total: Abilities: (\d+) \/ Skills: (\d+)--\d+ \/ Advantages: (\d+) \/ Powers: (\d+)(?: \+ [A-Za-z &\/-]+)? \/ Defenses: (\d+) \((\d+)(?: \+ [A-Za-z &\/-]+)?\)$/
+
 
     const match = input.match(totalPattern);
     if (match) {
