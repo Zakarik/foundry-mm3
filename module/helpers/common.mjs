@@ -1163,7 +1163,7 @@ export async function processImport(actor, data, actorType='personnage') {
       }, "");
       const label = skillsTRA[search];
   
-      if(label.includes('expertise') || label.includes('combatcontact') || label.includes('combatdistance')) {
+      if(label &&(label.includes('expertise') || label.includes('combatcontact') || label.includes('combatdistance'))) {
         const length = Object.keys(listSkill[label]).length;
         let lastLabel = skill.name.replace(`${skill.name.split(":")[0]}: `, '');
         if(label.includes('expertise')) {
@@ -1226,6 +1226,7 @@ export async function processImport(actor, data, actorType='personnage') {
           alreadyAddAttack.push(lastLabel);
         }          
       } else {
+        if(label)
         update[`system.competence.${label}.rang`] = Number(skill.cost.value)*2;
       }        
     }
@@ -1557,6 +1558,10 @@ export async function processImport(actor, data, actorType='personnage') {
   }
 
   const mesures = game.settings.get("mutants-and-masterminds-3e", "measuresystem");
+  if(!data.personal.charheight){
+    data.personal.charheight = {text:"6'0\""};
+    data.personal.charweight = {text:"200 lbs"};
+  }
   const height = data.personal.charheight.text;
   const heightParts = height.split("'");
   const feet = parseInt(heightParts[0]) * 0.3048;
