@@ -1,3 +1,7 @@
+## Version 1.30.3
+### Bugfix
+- Corrections d'un bug avec l'import des builds de Jab #65
+
 ## Version 1.30.2
 ### Bugfix
 - Corrections d'un bug avec le nouveau système de modificateur, qui n'activait pas / ne désactivait pas correctement les pouvoirs.
