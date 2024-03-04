@@ -1,6 +1,6 @@
 ## Version 1.30.3
 ### Bugfix
-- Corrections d'un bug avec l'import des builds de Jab #65
+- Corrections d'un bug avec l'import des builds de Jab [#65](https://github.com/Zakarik/foundry-mm3/pull/65#issue-2165021091)
 
 ## Version 1.30.2
 ### Bugfix
