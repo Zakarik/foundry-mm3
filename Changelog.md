@@ -1,3 +1,7 @@
+## Version 1.30.4
+### Bugfix
+- Corrections d'un bug avec le nouveau système de modificateur, qui pouvait afficher des erreurs aux joueurs.
+
 ## Version 1.30.3
 ### Bugfix
 - Corrections d'un bug avec l'import des builds de Jab [#65](https://github.com/Zakarik/foundry-mm3/pull/65#issue-2165021091)
