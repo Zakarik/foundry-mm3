@@ -47,7 +47,9 @@ export class EditAttaque extends FormApplication {
     }
 
     get actor() {
-        return game.actors.get(this.object.actor);
+        const actor = this.object.token === false ? game.actors.get(this.object.actor) : game.scenes.current.tokens.find(itm => itm.id === this.object.token).actor;
+
+        return actor;
     }
 
     get label() {
@@ -240,6 +242,7 @@ export class EditAttaque extends FormApplication {
         return {
             options: this.options,
             actor:this.actor,
+            token:this.token,
             data:this.data,
         };
     }

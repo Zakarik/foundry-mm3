@@ -1,3 +1,7 @@
+## Version 1.30.5
+### Bugfix
+- Corrections d'un bug empêchant d'ouvrir les attaques sur des tokens non lié aux acteurs.
+
 ## Version 1.30.4
 ### Bugfix
 - Corrections d'un bug avec le nouveau système de modificateur, qui pouvait afficher des erreurs aux joueurs.

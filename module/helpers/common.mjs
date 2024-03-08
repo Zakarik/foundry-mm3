@@ -2837,6 +2837,7 @@ export function commonHTML(html, origin, data={}) {
     html.find('div.attaque i.editAtk').click(ev => {
       const target = $(ev.currentTarget);
       const id = target.data('id');
+      const token = origin.token === null ? false : origin.token._id;
       const dataAtk = getAtk(origin, id);
 
       if(!dataAtk) return;
@@ -2844,6 +2845,7 @@ export function commonHTML(html, origin, data={}) {
       const newAtk = new EditAttaque({
         id:id,
         actor:origin._id,
+        token:token,
       });
       newAtk.render(true);
     });
@@ -3098,6 +3100,7 @@ export function commonHTML(html, origin, data={}) {
       const id = target.data('id');
       const what = target.data('what');
       const update = {};
+      const getOrigin = origin.token === null ? origin : origin.token.actor;
 
       let confirm;
       let label;
@@ -3107,7 +3110,7 @@ export function commonHTML(html, origin, data={}) {
           confirm = await deletePrompt(origin, origin.system.complications[id].label);
           if(!confirm) return;
 
-          origin.update({[`system.complications.-=${id}`]:null});
+          getOrigin.update({[`system.complications.-=${id}`]:null});
           break;
           
         case 'competence':
@@ -3137,7 +3140,7 @@ export function commonHTML(html, origin, data={}) {
           confirm = await deletePrompt(origin, label);
           if(!confirm) return;
 
-          origin.update(update);
+          getOrigin.update(update);
           break;
       
         case 'attaque':
@@ -3146,7 +3149,7 @@ export function commonHTML(html, origin, data={}) {
 
           update[`system.attaque.-=${id}`] = null;
 
-          origin.update(update);
+          getOrigin.update(update);
           break;
 
         case 'vitesse':
@@ -3157,7 +3160,7 @@ export function commonHTML(html, origin, data={}) {
 
           if(origin.system.vitesse.list[id].selected) update[`system.vitesse.list.base.selected`] = true;
 
-          origin.update(update);
+          getOrigin.update(update);
           break;
       }
     });
@@ -3171,6 +3174,7 @@ export function commonHTML(html, origin, data={}) {
     sendInChat(actor, item);
   });  
 }
+
 
 export function getPwr(actor, id) {
   return actor.items.get(id);
