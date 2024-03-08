@@ -2164,7 +2164,9 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
       }
 
       for(let etat of listEtats) {
-        let status = await setStatus(actor, etat.id, false);
+        const eId = etat.id !== undefined ? etat.id : etat.statuses[0];
+
+        let status = await setStatus(actor, eId, false);
         if(status !== undefined) update.push(status);
       }
 

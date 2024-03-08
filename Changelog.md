@@ -1,3 +1,8 @@
+## Version 1.30.6
+### Bugfix
+- Correction d'un bug rare avec les afflictions, pouvant entraîner une erreur dans leur gestion.
+- Correction d'un bug rare dans la prise en charge des traductions des effets.
+
 ## Version 1.30.5
 ### Bugfix
 - Corrections d'un bug empêchant d'ouvrir les attaques sur des tokens non lié aux acteurs.

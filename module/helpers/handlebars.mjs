@@ -179,4 +179,71 @@ export const RegisterHandlebars = function () {
     Handlebars.registerHelper('ObjectIsEmpty', function(object) {
         return foundry.utils.isEmpty(object);
     });
+
+    Handlebars.registerHelper('translateStatues', function(str) {
+        let result = str;
+
+        if(!result.includes('MM3')) {
+            switch(result) {
+                case 'Impaired':
+                    result = `MM3.STATUS.Decreased`;
+                    break;
+                    
+                case 'Fatigued':
+                    result = `MM3.STATUS.Tired`;
+                    break;
+
+                case 'Immobile':
+                    result = `MM3.STATUS.Stuck`;
+                    break;
+
+                case 'Unaware':
+                    result = `MM3.STATUS.Insensitive`;
+                    break;
+
+                case 'Debilitated':
+                    result = `MM3.STATUS.Invalid`;
+                    break;
+
+                case 'Vulnerable':
+                    result = `MM3.STATUS.Vulnerability`;
+                    break;
+
+                case 'Staggered':
+                    result = `MM3.STATUS.Chanceling`;
+                    break;
+
+                case 'Entranced':
+                    result = `MM3.STATUS.Enthralled`;
+                    break;
+
+                case 'Compelled':
+                    result = `MM3.STATUS.Influenced`;
+                    break;
+
+                case 'Bound':
+                    result = `MM3.STATUS.Tied`;
+                    break;
+
+                case 'Incapacitated':
+                    result = `MM3.STATUS.Neutralized`;
+                    break;
+
+                case 'Weakened':
+                    result = `MM3.STATUS.Downgrade`;
+                    break;
+
+                case 'Paralyzed':
+                    result = `MM3.STATUS.Paralysis`;
+                    break;
+
+                default:
+                    result = `MM3.STATUS.${str}`;
+                    break;
+                
+            }
+        }
+
+        return game.i18n.localize(result);
+    });
 }
