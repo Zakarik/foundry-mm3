@@ -79,7 +79,10 @@
       "DeleteVMod":"Supprimer la variante d'effet",
       "EditMod":"Editer les modificateurs",
       "DeleteMod":"Supprimer le modificateur",      
-      "Activer":"Activé"
+      "Activer":"Activé",
+      "Convert":"Créer à Partir des Pouvoirs",
+      "Delete-Convert":"Supprimer & Créer à Partir des Pouvoirs"
+
     },
     "CARACTERISTIQUES":{
       "Force":"Force",
@@ -325,7 +328,8 @@
       "JabsDescription":"Saisissez un texte simple provenant de l'un des </label><a href='https://www.echoesofthemultiverse.com/viewtopic.php?t=8'>builds de Jab</a>",
       "JabsBtn":"Importer depuis les builds de Jab",
       "JabsValider":"Importer le texte depuis les builds de Jab",
-      "JabsTitle":"Importer tous les JSON télécharger dans le dossier"
+      "JabsTitle":"Importer tous les JSON télécharger dans le dossier",
+      "ConvertFrom": " Créer des Attaques à partir des Capacités"
     },
     "ACCESSIBILITE":{
       "Label":"Accessibilité",
