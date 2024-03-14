@@ -109,7 +109,7 @@ Hooks.once('init', async function() {
   };
 
   CONFIG.statusEffects = [{
-    id:'dead',
+      id:'dead',
     label:'EFFECT.StatusDead',
     icon:'icons/svg/skull.svg'
   },
@@ -525,7 +525,6 @@ Hooks.once('ready', async function () {
   $("div#interface").addClass(whatMenu);
 });
 
-
 Hooks.on('renderActorDirectory', async function () {
   if(!game.user.isGM) return;
   const setting = game.settings.get("mutants-and-masterminds-3e", "font");
@@ -594,14 +593,418 @@ Hooks.on('renderActorDirectory', async function () {
   });
 
   addJabImportButtonToActorDirectory(setting);
+  addCreateAttackFomPowerButtonToActorDirectory(settings);
 
 });
 
+async function CreateAttackForAllCharacters(){
+  // Loop through all actors in the game
+  game.actors.contents.forEach(actor => {
+    // Check if the actor is in a folder and if that folder is expanded (open)
+  if (actor.folder && actor.folder.expanded) {
+    // Assuming CreateAttacksFromPowers is a method on the actor or globally available
+    CreateAttacksFromPowers(actor,true).then(() => {
+        console.log(`CreateAttacksFromPowers applied to ${actor.name}`);
+      }).catch(err => {
+        console.error(`Error applying CreateAttacksFromPowers to ${actor.name}:`, err);
+      });
+    }
+  });
+}
+window.CreateAttackForAllCharacters = CreateAttackForAllCharacters; 
+
+async function CreateAttacksFromPowers(actor = canvas.tokens.controlled[0]?.actor, deleteExistingAttacks = true){
+  if (!actor) {
+    console.log("No actor selected.");
+    return;
+  }
+  let context={}
+  context.actor = actor;
+  context.items = actor.items;
+
+  new PersonnageActorSheet()._prepareCharacterItems(context);
+  
+  if(deleteExistingAttacks){
+    await deleteAllAttacks(actor);
+  }
+
+  
+  let characterPowers = actor.pouvoirs;
+  let linkedPowers = actor.pwrLink;
+  console.log("linked power " + linkedPowers);
+ 
+  for (let power of characterPowers) {
+    console.log("power " + power);
+    let linkedPower = actor.pwrLink[power._id]
+    if(linkedPower.length > 0 ){
+      for (let key = 0; key < linkedPower.length; key++) {
+        let childPower = linkedPower[key];
+        await createAttackDetailsFromPower(childPower,actor);
+      }
+    }
+    if(power.system.effetsprincipaux!=""){
+      await createAttackDetailsFromPower(power,actor)
+   }
+  }
+
+  await createUnarmedAttack(actor)
+}    
+window.CreateAttacksFromPowers = CreateAttacksFromPowers; 
+
+async function deleteAllAttacks(selectedActor) {
+  const attackKeys = Object.keys(selectedActor.system.attaque);
+  let updateData = {};
+  attackKeys.forEach(key => {
+    updateData[`system.attaque.-=${key}`] = null;
+  });
+  await selectedActor.update(updateData);
+  game.actors.set(selectedActor._id, selectedActor);
+}
+
+async function createUnarmedAttack(actor){
+  const attacks = actor.system.attaque;
+  let attackName ="Close Combat (Unarmed)";
+  let unarmedCombatSkill = findSkillByLabel(actor.system.competence.combatcontact, attackName);
+  if(!unarmedCombatSkill){
+    attackName ="Unarmed"
+    unarmedCombatSkill = findSkillByLabel(actor.system.competence.combatcontact, attackName);
+  }
+  let effect = actor.system.caracteristique.force.total;
+  
+  let characterPowers = actor.pouvoirs;
+  for (let power of characterPowers) {
+    let linkedPower = actor.pwrLink[power._id]
+    if(linkedPower.length > 0 ){
+      for (let key = 0; key < linkedPower.length; key++) {
+        let childPower = linkedPower[key];
+        if(childPower.system.effetsprincipaux.toLowerCase().includes("STR Strength-Damage")){
+          effect += childPower.system.cout.rang;
+        }
+      }
+    }
+    else{
+      if(power.system.effetsprincipaux.toLowerCase().includes("STR Strength-Damage")){
+        effect += power.system.cout.rang;
+      }
+    }
+  }
+  await createAttack(actor,attackName, "combatcontact", 15, effect, 'robustesse', 20, false,true, unarmedCombatSkill)
+
+}
+let linkNextPower =false;
+
+function getSaveFromPower(powerConfig)
+{
+  if(powerConfig.resistance=="Toughness")
+    {
+      return 'robustesse';
+    }
+    else {
+      if(powerConfig.resistance=="Fortitude")
+      {
+        return'vigueur';
+      }
+      else if(powerConfig.resistance=="Will"){
+        return 'volonte';
+      }
+      else if(powerConfig.resistance=="Dodge"){
+        return 'esquive';
+      }
+    }
+}
+async function createAttackDetailsFromPower( matchingPower, actor)    { 
+  let effectName = matchingPower.system.effetsprincipaux
+  if(effectName==""){
+    effectName = matchingPower.name
+  }
+  let isAffliction = false;
+  let isDamage = false;
+  let basedef = 0;
+ 
+  let type='combatcontact'
+
+  const powersConfig = [
+    { name: "Affliction", range: "Close", resistance: "Fortitude" },
+    { name: "Blast", range: "Ranged", resistance: "Toughness" },
+    { name: "Damage", range: "Close", resistance: "Toughness" },
+    { name: "Dazzle", range: "Ranged", resistance: "Will" },
+    { name: "Energy Aura", range: "Close", resistance: "Toughness" },
+    { name: "Energy Control", range: "Ranged", resistance: "Toughness" },
+    { name: "Magic", range: "Ranged", resistance: "Toughness" },
+    { name: "Mental Blast", range: "Perception", resistance: "Will" },
+    { name: "Mind Control", range: "Perception", resistance: "Will" },
+    { name: "Nullify", range: "Ranged", resistance: "Will" },
+    { name: "Sleep", range: "Ranged", resistance: "Fortitude" },
+    { name: "Snare", range: "Ranged", resistance: "Dodge" },
+    { name: "Strike", range: "Close", resistance: "Toughness" },
+    { name: "Suffocation", range: "Ranged", resistance: "Fortitude" },
+  ];
+  
+  let combatSkill = null;
+  let powerConfig = powersConfig.find(power => effectName.toLowerCase().includes(power.name.toLowerCase()));
+  let afflictions =undefined;
+  if(powerConfig){
+    let save= getSaveFromPower(powerConfig);
+    if(save=='robustesse')
+    {
+      isDamage = true;
+      basedef = 15;
+      if(linkNextPower==true)
+      {
+        saveLinkedAttack(actor, matchingPower);
+        return; 
+      }
+    }
+    else {
+      isAffliction = true;
+      basedef = 10;
+      afflictions = determineAffliction(powerConfig, matchingPower)
+      if (matchingPower.system.effets.includes("Linked to")){
+        
+        linkNextPower = true;
+      }
+    }
+    let isArea = getAreaFromPower(matchingPower);
+  
+    
+    if(powerConfig.range=="Close"){
+      type = "combatcontact"
+      combatSkill = findSkillByLabel(actor.system.competence.combatcontact, matchingPower.name);
+      if(!combatSkill){
+        if(actor.system.competence.combatcontact.list[0]!=undefined){
+        combatSkill =  actor.system.competence.combatcontact.list[0];
+        }
+      }
+    }
+    else if(powerConfig.range=="Ranged"){
+      type = "combatdistance"
+      combatSkill = findSkillByLabel(actor.system.competence.combatdistance, matchingPower.name);
+      if(!combatSkill){
+        if(actor.system.competence.combatdistance.list[0]!=undefined){
+          combatSkill = actor.system.competence.combatdistance.list[0];
+        }
+      }
+    }
+    else if(powerConfig.range=="Perception"){
+      type = "combatperception"
+    }
+    if(!isAffliction && !isDamage){
+      return;
+    }
+      await createAttack(actor,matchingPower.name, type, basedef, matchingPower.system.cout.rang, save, 20,isAffliction,isDamage, combatSkill,isArea, afflictions, matchingPower._id)
+    }
+}
+
+function saveLinkedAttack(actor, matchingPower) {
+  let lastAttackKey = findAttackLastAttackKey(actor.system.attaque);
+  let updates = {};
+  let linkedAttack = actor.system.attaque[lastAttackKey];
+  linkNextPower = true;
+  linkedAttack.isDmg = true;
+  linkedAttack.afflictioneffet = actor.system.attaque[lastAttackKey].effet;
+  linkedAttack.effet = matchingPower.system.cout.rang;
+  linkedAttack.saveAffliction = actor.system.attaque[lastAttackKey].save;
+  linkedAttack.afflictiondef = actor.system.attaque[lastAttackKey].basedef;
+  linkedAttack.basedef = 15;
+  linkedAttack.save = "robustesse";
+
+  updates[`system.attaque.${lastAttackKey}`] = linkedAttack;
+  actor.update(updates);
+  game.actors.set(actor._id, actor);
+  linkNextPower = false;
+}
+
+function findAttackLastAttackKey(attaque) {
+  const highestKey = Math.max(...Object.keys(attaque).map(key => parseInt(key)));
+  //const lastAttack = attaque[highestKey];
+  return highestKey;
+}
+
+function getAreaFromPower(matchingPower){
+  for (const key in matchingPower.system.extras) {
+          const item =  matchingPower.system.extras[key];
+          // Check if the item has a name property and if it includes "Area"
+          if (item.name && item.name.includes("Area")) {
+              return true
+          }
+    }
+    return false; // Return null if no matching item is found
+}
+
+function determineAffliction(powerConfig, matchingPower){
+  let effectName = matchingPower.system.effetsprincipaux
+    if(effectName==""){
+      effectName = matchingPower.name
+    }
+  let conditions=[];
+  const presetAfflictions = [
+    {power:"Dazzle",afflictions:{resistedBy:"Fortitude","e1":["Impaired"],"e2":["Disabled"],"e3":["Unaware"]}},
+    {power:"Mind Control",afflictions:{resistedBy:"Will","e1":["Dazed"],"e2":["Compelled"],"e3":["Controlled"]}},
+    {power:"Snare",afflictions:{resistedBy:"Dexterity", "e1":["Hindered","Vulnerable"],"e2":["Immobile","Defenseless"]}},
+    {power:"Suffocation",afflictions:{resistedBy:"Fortitude","e1":["Dazed"],"e2":["Stunned"],"e3":["Incapacitated"]}},
+  ]
+  let presetAffliction = presetAfflictions.find(affliction => effectName.toLowerCase().includes(affliction.power.toLowerCase()));
+  if(presetAffliction){
+    conditions= presetAffliction.afflictions;
+  }
+  else{
+    let details = matchingPower.system.effets;
+    details = details.replace(/<[^>]*>/g, '')
+    const pattern = /Affliction resisted by (.*?); \/([^\/\s]+)(?:\s[^\/]+)?\/([^\/\s]+)(?:\s[^\/]+)?(?:\/([^\/\s]+)(?:\s[^\/]+)?)?/;
+    const match = details.match(pattern);
+    if (match) {
+        const result = {
+            resistedBy: match[1]
+        };
+        // Assigning effects to numbered keys in the result object
+        if (match[2]) result["e1"] =[ match[2].trim()];
+        if (match[3]) result["e2"] =[ match[3].trim()];
+        if (match[4]) result["e3"] =[ match[4].trim()];
+        conditions = result;
+    }
+  }
+  ["e1", "e2", "e3"].forEach(effect => {
+    let tempConditions = []; // Temporary array to store the found status effects
+    if(conditions[effect]){
+      conditions[effect].forEach(condition => {
+        const statusEffect = findStatusEffect(condition); // Assuming findStatusEffect is defined elsewhere
+        if (statusEffect !== null) { // Check if statusEffect is not null before adding
+          tempConditions.push(statusEffect);
+        }
+      });
+    
+      conditions[effect] = tempConditions; // Update the conditions with the found status effects
+    }
+  });
+  return conditions;
+}
+
+function findStatusEffect(englishCondition) {
+	let conditionTranslations = {
+      "Controlled": "Controlled",
+      "Impaired": "Decreased",
+      "Fatigued": "Tired",
+      "Disabled": "Disabled",
+      "Dazed": "Dazed",
+      "Immobile": "Stuck",
+      "Unaware": "Insensitive",
+      "Debilitated": "Invalid",
+      "Hindered": "Slow",
+      "Defenseless": "Defenseless",
+      "Transformed": "Transformed",
+      "Vulnerable": "Vulnerability",
+      "Staggered": "Chanceling",
+      "Entranced": "Enthralled",
+      "Compelled": "Influenced",
+      "Exhausted": "Exhausted",
+      "Bound": "Tied",
+      "Dying": "Dying",
+      "Incapacitated": "Neutralized",
+      "Surprised": "Surprised",
+      "Weakened": "Downgrade",
+      "Prone": "Prone",
+      "Blind": "Blind",
+      "Asleep": "Asleep",
+      "Restrained": "Restrained",
+      "Paralyzed": "Paralysis",
+      "Deaf": "Deaf",
+      "Stunned": "Stunned"
+    };
+    
+  
+
+  // Translate English condition to French
+  const frenchCondition = conditionTranslations[englishCondition];
+  
+  // Prepare the search label by adding the prefix
+  const searchLabel = `MM3.STATUS.${frenchCondition}`;
+
+  // Find the corresponding status effect in CONFIG.statusEffects
+  const statusEffect = CONFIG.statusEffects.find(effect => effect.label === searchLabel);
+
+  // Return the found status effect, or null if not found
+  return statusEffect || null;
+}
+
+function findSkillByLabel(skills, label) {
+  for (const key in skills.list) {
+      if (skills.list[key].label === label) {
+          return skills.list[key];
+      }
+  }
+  return null; 
+}
+
+async function createAttack(actor, label, type, baseDef, effet, save, critique,isAffliction,isDamage, skill,isArea=false, afflictions={"e1":[],"e1":[],"e1":[]}, pwr="") {
+  // Create the new attack data
+  let skillId = 0;
+  let attaque = 0;
+  if(skill){
+    skillId = skill._id;
+    attaque = skill.total;
+  }  
+  else{
+    if(type == "combatcontact"){
+      attaque = actor.system.caracteristique.combativite.total;
+    }
+    if(type == "combatdistance"){
+      attaque = actor.system.caracteristique.dexterite.total;
+    } 
 
 
-//import { parseInput } from './parse_simple_character.mjs';
+  }
+
+ 
+  let newAttackData = {_id:foundry.utils.randomID(),
+    type: type,
+    skill:undefined,
+    pwr:pwr,
+    area:isArea,
+    save:save,
+    skill:skillId,
+    effet:effet,
+    attaque:attaque,
+    isAffliction:isAffliction,
+    afflictionechec: afflictions,
+    isDamage:isDamage,
+    isDmg:isDamage,
+    critique:critique,
+    text:"",
+    noAtk:false,
+    basedef:baseDef,
+    label:label,
+    defpassive:'combatcontact'
+};
 
 
+
+// If the attack exists, update it; otherwise, add a new one
+let existingAttackKey = null;
+for (const [key, attack] of Object.entries(actor.system.attaque)) {
+  if (attack.label === label) {
+    existingAttackKey = key;
+    break;
+  }
+}
+let updates = {};
+if (existingAttackKey) {
+  updates[`system.attaque.${existingAttackKey}`] = newAttackData;
+  await actor.update(updates);
+} else {
+  const attacks = actor.system.attaque;
+  let newAttack ={}
+  let attackKeys = Object.keys(attacks);
+  let newKey = attackKeys.length > 0 ? Math.max(...attackKeys) : 0;   
+  newAttack[`system.attaque.${newKey+1}`] = newAttackData
+  console.log("new attack" + newAttackData)
+  await actor.update(newAttack);
+}
+
+
+
+game.actors.set(actor._id , actor)
+
+}
 
 function addJabImportButtonToActorDirectory(setting) {
   let addHtml = ``;
@@ -679,6 +1082,36 @@ function addJabImportButtonToActorDirectory(setting) {
     },
     dOptions);
     d.render(true);
+  });
+}
+
+ 
+function addCreateAttackFomPowerButtonToActorDirectory(setting) {
+  let addHtml = ``;
+
+  if(setting !== 'default') {
+    addHtml += `style='font-family:"${setting}"'`;
+  }
+
+  $("section#actors footer.action-buttons").append(`<button class='convert-attack' ${addHtml}>${game.i18n.localize("MM3.IMPORTATIONS.ConvertFrom")}</button>`);
+
+  $("section#actors footer.action-buttons button.convert-attack").on( "click", async function() {
+    new Dialog({
+      title: "Warning",
+      content: "<p>Warning this will replace attacks in all characters in open folders with ones converted from character abilities?</p>",
+      buttons: {
+        ok: {
+          label: "OK",
+          callback: () => CreateAttackForAllCharacters() 
+        },
+        cancel: {
+          label: "Cancel",
+          callback: () => console.log("User clicked OK.")
+        }
+      },
+      default: "cancel",
+     }).render(true);
+    
   });
 }
 
