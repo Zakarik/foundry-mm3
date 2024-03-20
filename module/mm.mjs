@@ -765,9 +765,10 @@ async function createAttackDetailsFromPower( matchingPower, actor)    {
       }
     }
     let isArea = getAreaFromPower(matchingPower);
-  
+    let isRange = getRangedFromPower(matchingPower);
+    let isPerception = getPerceptionFromPower(matchingPower)
     
-    if(powerConfig.range=="Close"){
+    if(isRange ==false && powerConfig.range=="Close"){
       type = "combatcontact"
       combatSkill = findSkillByLabel(actor.system.competence.combatcontact, matchingPower.name);
       if(!combatSkill){
@@ -776,7 +777,7 @@ async function createAttackDetailsFromPower( matchingPower, actor)    {
         }
       }
     }
-    else if(powerConfig.range=="Ranged"){
+    else if(powerConfig.range=="Ranged"  || isRange== true){
       type = "combatdistance"
       combatSkill = findSkillByLabel(actor.system.competence.combatdistance, matchingPower.name);
       if(!combatSkill){
@@ -785,7 +786,7 @@ async function createAttackDetailsFromPower( matchingPower, actor)    {
         }
       }
     }
-    else if(powerConfig.range=="Perception"){
+    else if(powerConfig.range=="Perception" || isPerception){
       type = "combatperception"
     }
     if(!isAffliction && !isDamage){
@@ -823,12 +824,37 @@ function findAttackLastAttackKey(attaque) {
 function getAreaFromPower(matchingPower){
   for (const key in matchingPower.system.extras) {
           const item =  matchingPower.system.extras[key];
-          // Check if the item has a name property and if it includes "Area"
           if (item.name && item.name.includes("Area")) {
               return true
           }
     }
-    return false; // Return null if no matching item is found
+    return false; 
+}
+
+function getRangedFromPower(matchingPower){
+  for (const key in matchingPower.system.extras) {
+          const item =  matchingPower.system.extras[key];
+          if (item.name && item.name.includes("Ranged")) {
+              return true
+          }
+    }
+    if(matchingPower.system.portee=="distance"){
+      return true;
+    }
+    return false; 
+}
+
+function getPerceptionFromPower(matchingPower){
+  for (const key in matchingPower.system.extras) {
+          const item =  matchingPower.system.extras[key];
+          if (item.name && item.name.includes("Perception")) {
+              return true
+          }
+    }
+    if(matchingPower.system.portee=="perception"){
+      return true;
+    }
+    return false; 
 }
 
 function determineAffliction(powerConfig, matchingPower){
@@ -953,8 +979,14 @@ async function createAttack(actor, label, type, baseDef, effet, save, critique,i
 
 
   }
-
- 
+  let defpassive = undefined
+  if(type=="combatcontact"){
+    defpassive = "parade"
+  }
+  else if(type="combatdistance")
+  {
+    defpassive = "esquive";
+  }
   let newAttackData = {_id:foundry.utils.randomID(),
     type: type,
     skill:undefined,
@@ -963,6 +995,7 @@ async function createAttack(actor, label, type, baseDef, effet, save, critique,i
     save:save,
     skill:skillId,
     effet:effet,
+    defpassive : defpassive,
     attaque:attaque,
     isAffliction:isAffliction,
     afflictionechec: afflictions,
@@ -973,7 +1006,7 @@ async function createAttack(actor, label, type, baseDef, effet, save, critique,i
     noAtk:false,
     basedef:baseDef,
     label:label,
-    defpassive:'combatcontact'
+   
 };
 
 
@@ -1737,22 +1770,49 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
   }
 
   let result = undefined;
-
+  let token = canvas.tokens.placeables.filter(token => token.actor.id === actor.id)[0]
   if(type === 'attaque' && tgt !== undefined && atk.noAtk) {
     for(let t of game.user.targets.ids) {
       rollTgt(actor, name, {attaque:atk, strategie:strategie}, t);
     }
   } else if(type === 'attaque' && tgt !== undefined && !atk.noAtk) {
-    result = {};
-
-    for(let t of game.user.targets.ids) {
-      let roll = await rollAtkTgt(actor, name, total, {attaque:atk, strategie:strategie}, t, {alt:hasAlt});
-      result[t] = roll;
+    if(atk.area==true){
+      result = {}; 
+      if (game.modules.get('autoanimations')?.active) {
+        await triggerAnimationForAttack(atk, token);
+      }
+      for(let t of game.user.targets.ids) {
+        let roll = await rollAtkTgt(actor, name, total, {attaque:atk, strategie:strategie}, t, {alt:hasAlt});
+        result[t] = roll;
+      }
     }
-  } else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(actor, name, total, {attaque:atk, strategie:strategie}, {alt:hasAlt});
+    else{
+      result = {};  
+      for(let t of game.user.targets.ids) {
+        if (game.modules.get('autoanimations')?.active) {
+          await triggerAnimationForAttack(atk, token);
+        }
+        let roll = await rollAtkTgt(actor, name, total, {attaque:atk, strategie:strategie}, t, {alt:hasAlt});
+        result[t] = roll;
+      }
+    }
+  } else if(type === 'attaque' && tgt === undefined && !atk.noAtk) {
+    if(atk.area==true){
+      result = {}; 
+      if (game.modules.get('autoanimations')?.active) {
+        await triggerAnimationForAttack(atk, token);
+      }
+      for(let t of game.user.targets.ids) {
+        let roll = await rollAtkTgt(actor, name, total, {attaque:atk, strategie:strategie}, t, {alt:hasAlt});
+        result[t] = roll;
+      }
+    }
+    else{
+      rollAtk(actor, name, total, {attaque:atk, strategie:strategie}, {alt:hasAlt});
+    }
+  }
   else if(type === 'attaque' && atk.noAtk) rollWAtk(actor, name, {attaque:atk, strategie:strategie});
   else rollStd(actor, name, total, {shift:hasShift, alt:hasAlt});
-
   return result;
 };
 
