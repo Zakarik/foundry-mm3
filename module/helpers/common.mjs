@@ -1070,10 +1070,17 @@ export async function processImport(actor, data, actorType='personnage') {
   if(attacks !== null) {
     if(Array.isArray(attacks)) {
       for(let att of attacks) {
-        DCAttacks[att.name.split(":")[0]] = Number(att.dc)-15;
+        if(att.dc!=undefined)
+          DCAttacks[att.name.split(":")[0]] = Number(att.dc)-15;
+        else
+          DCAttacks[att.name.split(":")[0]] = att.effect;
+        
       }
     } else {
-      DCAttacks[attacks.name.split(":")[0]] = Number(attacks.dc)-15;
+        if(attacks.dc!=undefined)
+          DCAttacks[attacks.name.split(":")[0]] = Number(attacks.dc)-15;
+        else
+          DCAttacks[attacks.name.split(":")[0]] = attacks.effect;
     }
   }
 
@@ -1370,7 +1377,7 @@ export async function processImport(actor, data, actorType='personnage') {
             const lastname = att.name.replace(`${firstName}: `, '');
             const lengthAttack = Object.keys(listAttack).length;
             let randAtk = foundry.utils.randomID();
-            let isDmg = false;
+            let isDmg = true;
             let isAffliction = false;
             let lowercase = att.name.toLowerCase();
             let save = 'robustesse';
@@ -1379,6 +1386,7 @@ export async function processImport(actor, data, actorType='personnage') {
 
             if(lowercase.includes('damage') || lowercase.includes('degats')) isDmg = true;
             if(lowercase.includes('affliction')) isAffliction = true;
+            if(att.effectType.toLowerCase().includes('affliction')) isAffliction = true;
 
             if(isAffliction && !isDmg) save = 'volonte';
 
@@ -1386,7 +1394,7 @@ export async function processImport(actor, data, actorType='personnage') {
 
             listAttack[lengthAttack] = {
               _id:randAtk,
-              type:'other',
+              type:'attack',
               save:save,
               saveAffliction:saveAffliction,
               label:firstName,
@@ -2164,9 +2172,7 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
       }
 
       for(let etat of listEtats) {
-        const eId = etat.id !== undefined ? etat.id : etat.statuses[0];
-
-        let status = await setStatus(actor, eId, false);
+        let status = await setStatus(actor, etat.id, false);
         if(status !== undefined) update.push(status);
       }
 
@@ -2404,6 +2410,8 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
     rolls:[roll],
     content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
     sound: CONFIG.sounds.dice
+
+    
   };
 
   const rMode = game.settings.get("core", "rollMode");
@@ -2412,6 +2420,7 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
   await ChatMessage.create(msgData, {
     rollMode:rMode
   });
+    
 
   return result;
 }
@@ -2591,8 +2600,297 @@ export async function rollAtk(actor, name, score, data, dataKey={}) {
   await ChatMessage.create(msgData, {
     rollMode:rMode
   });
+
+
+
+
+}
+async function triggerAnimationForAttack(attaque, source){
+  let power = source.actor.items.get(attaque.pwr)
+  if(!power.system.descripteurs["1"])
+    return
+  
+  await PlaceTemplateAndTargetActors(source.actor, attaque);
+    
+  //try for power name first
+  let attackName = power.name;
+ // let attackName = power.system.descripteurs["1"] +"-" + GetRangeForPower(source.actor,attaque) + "-" + GetAttackTypeFromPower(attaque) 
+  let item = {
+    name: attackName, 
+    type: "spell" 
+  };
+
+  let options = {  
+  };
+
+  let animationEnded = false;
+  function onAnimationEnd() {
+      animationEnded = true;
+      const templateIds = canvas.scene.templates.contents.map(t => t.id);
+      canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", templateIds)
+      Hooks.off("aa.animationEnd", onAnimationEnd);
+  }
+  Hooks.on("aa.animationEnd", onAnimationEnd);
+
+  if (window.AutomatedAnimations) {
+    await window.AutomatedAnimations.playAnimation(source, item, options);
+  }
+
+  //if an animation never ran then there was no name match of power, search descripter-range-attack combination of power instead
+  setTimeout(() => {
+      if (!animationEnded) {
+        attackName = power.system.descripteurs["1"] +"-" + GetRangeForPower(source.actor, attaque) + "-" + GetAttackTypeFromPower(attaque)
+        item = {
+          name: attackName, 
+          type: "spell" 
+        };
+        window.AutomatedAnimations.playAnimation(source, item, options);
+      }
+  }, 1000); // Timeout duration in milliseconds, adjust based on expected animation duration*/
+}
+async function PlaceTemplateAndTargetActors(actor, attaque) {
+  let range = GetRangeForPower(actor, attaque)
+  if (range === 'Cone' || range === 'Burst' || range === 'Line' || range == 'Area') {
+    let templateDocument = await createPowerTemplate(actor, attaque);
+    let targetedTokens = findTokensUnderTemplate(templateDocument);
+    game.user.updateTokenTargets([]);
+    let targetedIds = [];
+    for (let token of targetedTokens) {
+      targetedIds.push(token.id);
+    }
+    game.user.updateTokenTargets(targetedIds);
+  }
 }
 
+function GetAttackTypeFromPower(attaque) {
+  let attackType = undefined;
+  if (attaque.isDmg == true) {
+    attackType = 'Damage';
+  }
+  if (attackType.isAffliction == true) {
+    attackType = 'Affliction';
+  }
+  return attackType;
+}
+function GetRangeForPower(actor,attaque) {
+  let range = undefined;
+  if (attaque.type == 'combatclose') {
+    range = 'Melee';
+  }
+  else {
+    range = 'Range';
+  }
+  if (attaque.area == true) {
+    range = 'Area';
+  }
+  if (range === 'Area') {
+    range = getAreaShape( actor.items.get(attaque.pwr));
+  }
+  return range;
+}
+
+/**
+ * Finds tokens under a given template.
+ * @param {Object} template - The template document or object with shape, position, and dimensions.
+ * @returns {Array} An array of tokens found under the template.
+ */
+function findTokensUnderTemplate(template) {
+  const tokens = canvas.tokens.placeables; // Get all tokens on the canvas
+  let targetedTokens = [];
+  const gridSize = canvas.scene.data.grid.size;
+
+  if (template.t === "circle") {
+    const radius = template.distance * gridSize; // Assuming template.distance holds the radius for circular templates
+    const centerX = template.x;
+    const centerY = template.y;
+    targetedTokens = tokens.filter(token => {
+      const distance = Math.sqrt((token.center.x - centerX) ** 2 + (token.center.y - centerY) ** 2);
+      const isWithin = distance <= radius + (token.w / 2);
+      if (isWithin) {
+        console.log("Token within circle:", token.name);
+      }
+      return isWithin;
+    
+    });
+  } else if (template.t === "rectangle") {
+    const left = template.x - ((template.width / 2) * canvas.scene.data.grid.size);
+    const top = template.y - ((template.height / 2) * canvas.scene.data.grid.size);
+    const right = template.x + ((template.width / 2) * canvas.scene.data.grid.size);
+    const bottom = template.y + ((template.width / 2) * canvas.scene.data.grid.size)
+    targetedTokens = tokens.filter(token => {
+      const tokenLeft = token.x;
+      const tokenRight = token.x + token.w;
+      const tokenTop = token.y;
+      const tokenBottom = token.y + token.h;
+      return tokenRight >= left && tokenLeft <= right && tokenBottom >= top && tokenTop <= bottom;
+    });
+  }
+   else if (template.t === "cone") {
+    targetedTokens = tokens.filter(token => {
+      const angle = Math.atan2(token.y - template.y, token.x - template.x) - toRadians(template.direction);
+      const distanceToPoint = Math.sqrt((token.x - template.x) ** 2 + (token.y - template.y) ** 2);
+      const coneAngle = toRadians(90); // Assuming a 90-degree cone angle for simplicity
+      return Math.abs(angle) <= coneAngle / 2 && distanceToPoint <= template.distance *canvas.scene.data.grid.size;
+    });
+  } 
+  else if (template.t === "ray") {
+    targetedTokens = tokens.filter(token => {
+      let point = { x: token.center.x, y: token.center.y };
+      const rayEndPoint = {
+        x: template.x + Math.cos(toRadians(template.direction)) * (template.distance *  canvas.scene.data.grid.size),
+        y: template.y + Math.sin(toRadians(template.direction)) * (template.distance * canvas.scene.data.grid.size),
+      };
+      const templateWidthInPixels = canvas.scene.data.grid.size * (template.width / 2);
+
+      const distanceToRay = distanceFromLine(point.x, point.y, template.x, template.y, rayEndPoint.x, rayEndPoint.y);
+      return distanceToRay <= templateWidthInPixels;;
+    });
+  }
+  return targetedTokens;
+}
+
+function toRadians(angle) {
+  return angle * (Math.PI / 180);
+}
+
+function distanceFromLine(px, py, x0, y0, x1, y1) {
+  let A = px - x0;
+  let B = py - y0;
+  let C = x1 - x0;
+  let D = y1 - y0;
+
+  let dot = A * C + B * D;
+  let len_sq = C * C + D * D;
+  let param = -1;
+  if (len_sq != 0) { //in case of 0 length line
+      param = dot / len_sq;
+  }
+
+  let xx, yy;
+
+  if (param < 0) {
+    xx = x0;
+    yy = y0;
+  } else if (param > 1) {
+    xx = x1;
+    yy = y1;
+  } else {
+    xx = x0 + param * C;
+    yy = y0 + param * D;
+  }
+
+  let dx = px - xx;
+  let dy = py - yy;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+window.triggerAnimationForAttack = triggerAnimationForAttack;
+
+
+
+async function createPowerTemplate(actor, attaque) {
+  
+  let extras = actor.items.get(attaque.pwr).system.extras;
+
+  let distance = 0;
+  for (const key in extras) {
+    const extra =  extras[key];
+    if (extra.name.includes("Area")){
+      const regex = /(\d+)\s*ft\./i;
+      const match = extra.name.match(regex);
+      if (match) {
+        distance =  parseInt(match[1], 10) /5; 
+        break;
+      }
+      
+    }
+  }
+  let templateDistance = distance * 1.5;
+  let warpDistance = distance * 2;
+
+  let range = GetRangeForPower(actor,attaque)
+  
+  let t = "circle";
+  if(range == "Line")
+    t = "ray"
+    warpDistance =  warpDistance /2;
+    templateDistance = templateDistance /2;
+  if(range == "Cone"){
+    t = "cone"
+    templateDistance = distance * 1.5;
+    warpDistance = distance * 2; //* 5; //22;
+   // templateDistance= distance// * 3;
+  }
+  if(range == "Burst"){
+    t = "circle"
+    templateDistance = templateDistance * 2;  //9;
+    warpDistance =  warpDistance* 2;    
+  }
+   
+    let width = undefined
+    if(t=="ray"){
+      width = 2;
+    }
+    let config = {
+      size: warpDistance,
+      icon: 'modules/jb2a_patreon/Library/1st_Level/Grease/Grease_Dark_Brown_Thumb.webp',
+      label: 'Grease',
+      tag: 'slimy',
+      width : width*2, 
+      t: t, 
+      drawIcon: true,
+      drawOutline: true,
+      interval: 0,
+      rememberControlled: true
+    };
+    let position = await warpgate.crosshairs.show(config);
+
+    if (position) {
+      const templateData = {
+        t: t, 
+        distance: templateDistance,
+        x: position.x,
+        width: width,
+        y: position.y,
+        direction: position.direction,
+        fillColor: "#FF0000",
+      };
+    
+      canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [templateData]);
+      const template = await waitForTemplatePlacement();
+      console.log("Template placement completed at crosshair location.");
+      return template;
+    } else {
+      console.log("Template placement cancelled or no position selected.");
+    }
+}
+
+
+
+function waitForTemplatePlacement() {
+  return new Promise((resolve) => {
+      // This hook is triggered once after a template is created.
+      Hooks.once("createMeasuredTemplate", (template) => {
+          console.log("Template placed:", template);
+          resolve(template);
+      });
+  });
+}
+function getAreaShape(matchingPower){
+  for (const key in matchingPower.system.extras) {
+    const item =  matchingPower.system.extras[key];
+    if (item.name && item.name.includes("Cone")) {
+        return "Cone"
+    }
+    if (item.name && item.name.includes("Line")) {
+      return "Line"
+    }
+    if (item.name && item.name.includes("Burst")) {
+      return "Burst"
+    }
+  }
+  return "Burst"
+}
 //ROLL POUVOIR
 export async function rollPwr(actor, id, dataKey={}) {
   const optDices = game.settings.get("mutants-and-masterminds-3e", "typeroll");
@@ -2839,7 +3137,6 @@ export function commonHTML(html, origin, data={}) {
     html.find('div.attaque i.editAtk').click(ev => {
       const target = $(ev.currentTarget);
       const id = target.data('id');
-      const token = origin.token === null ? false : origin.token._id;
       const dataAtk = getAtk(origin, id);
 
       if(!dataAtk) return;
@@ -2847,7 +3144,6 @@ export function commonHTML(html, origin, data={}) {
       const newAtk = new EditAttaque({
         id:id,
         actor:origin._id,
-        token:token,
       });
       newAtk.render(true);
     });
@@ -2983,16 +3279,39 @@ export function commonHTML(html, origin, data={}) {
       const hasShift = ev.shiftKey;
       const hasAlt = ev.altKey;
       let total = Number(target.data('total'));
+      let token = canvas.tokens.placeables.filter(token => token.actor === origin)[0];
+
 
       if(type === 'attaque' && tgt !== undefined && atk.noAtk) {
         for(let t of game.user.targets.ids) {
+          if (game.modules.get('autoanimations')?.active) {
+            await triggerAnimationForAttack(atk, token);
+          }
           rollTgt(origin, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, t);
         }
       } else if(type === 'attaque' && tgt !== undefined && !atk.noAtk) {
         for(let t of game.user.targets.ids) {
+          if (game.modules.get('autoanimations')?.active) {
+            await triggerAnimationForAttack(atk, token);
+          }
           rollAtkTgt(origin, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, t, {alt:hasAlt});
         }
-      } else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(origin, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, {alt:hasAlt});
+      } 
+      else if(type === 'attaque' && tgt === undefined && !atk.noAtk) {
+        if(atk.area==true){
+          result = {}; 
+          if (game.modules.get('autoanimations')?.active) {
+            await triggerAnimationForAttack(atk, token);
+          }
+          for(let t of game.user.targets.ids) {
+            let roll = await rollAtkTgt(actor, name, total, {attaque:atk, strategie:strategie}, t, {alt:hasAlt});
+            result[t] = roll;
+          }
+        }
+        else{
+        rollAtk(origin, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, {alt:hasAlt});
+        }
+      }  
       else if(type === 'attaque' && atk.noAtk) rollWAtk(origin, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}});
       else rollStd(origin, name, total, {shift:hasShift, alt:hasAlt});
     });
@@ -3102,7 +3421,6 @@ export function commonHTML(html, origin, data={}) {
       const id = target.data('id');
       const what = target.data('what');
       const update = {};
-      const getOrigin = origin.token === null ? origin : origin.token.actor;
 
       let confirm;
       let label;
@@ -3112,7 +3430,7 @@ export function commonHTML(html, origin, data={}) {
           confirm = await deletePrompt(origin, origin.system.complications[id].label);
           if(!confirm) return;
 
-          getOrigin.update({[`system.complications.-=${id}`]:null});
+          origin.update({[`system.complications.-=${id}`]:null});
           break;
           
         case 'competence':
@@ -3142,7 +3460,7 @@ export function commonHTML(html, origin, data={}) {
           confirm = await deletePrompt(origin, label);
           if(!confirm) return;
 
-          getOrigin.update(update);
+          origin.update(update);
           break;
       
         case 'attaque':
@@ -3151,7 +3469,7 @@ export function commonHTML(html, origin, data={}) {
 
           update[`system.attaque.-=${id}`] = null;
 
-          getOrigin.update(update);
+          origin.update(update);
           break;
 
         case 'vitesse':
@@ -3162,7 +3480,7 @@ export function commonHTML(html, origin, data={}) {
 
           if(origin.system.vitesse.list[id].selected) update[`system.vitesse.list.base.selected`] = true;
 
-          getOrigin.update(update);
+          origin.update(update);
           break;
       }
     });
@@ -3176,7 +3494,6 @@ export function commonHTML(html, origin, data={}) {
     sendInChat(actor, item);
   });  
 }
-
 
 export function getPwr(actor, id) {
   return actor.items.get(id);
@@ -3657,9 +3974,6 @@ export function checkActiveOrUnactive(item) {
   const actorType = actor?.type ?? '';
   let actorToUpdate = [];
   let itemToUpdate = [];
-  
-  if(actor === '') return; 
-  if(actor.permission !== 3) return;
   
   for(let e of effects) {
     const disabled = e.disabled;
