@@ -233,7 +233,6 @@ export class MM3Actor extends Actor {
       if(def === 'esquive') mod += getStr.total.defense;
       if(def === 'parade') mod += getStr.total.defense;
       mod += defense?.other ?? 0;
-      mod += getStr.total.defense;
 
       ppDef += defRang;
       defense.carac = isAbs ? 0 : carac.total;

@@ -1,3 +1,7 @@
+## Version 1.30.7
+### Bugfix
+- Correction d'un bug dans le calcul des malus en défense des stratégies.
+
 ## Version 1.30.6
 ### Bugfix
 - Correction d'un bug rare avec les afflictions, pouvant entraîner une erreur dans leur gestion.
