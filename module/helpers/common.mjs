@@ -3227,7 +3227,7 @@ export async function setStatus(actor, statusId, autoAdd=true) {
   let update = undefined;
 
   if(version < 11) {
-    hasCondition = actor.effects.find((effect) => effect.flags?.core?.statusId === statusId);
+    hasCondition = hasStatus(actor, statusId);
     
     if(!hasCondition) {
       update = {
@@ -3240,7 +3240,7 @@ export async function setStatus(actor, statusId, autoAdd=true) {
       if(changes !== false) update['changes'] = changes;
     }            
   } else {
-    hasCondition = actor.effects.find((effect) => effect.statuses.every((status) => status === statusId))
+    hasCondition = hasStatus(actor, statusId);
     
     if(!hasCondition) {
       update = {
@@ -3313,11 +3313,10 @@ export function getStatusData(statusId) {
 export function hasStatus(actor, statusId) {
   const version = game.version.split('.')[0];
   let hasCondition = false;
-
   if(version < 11) {
     hasCondition = actor.effects.find((effect) => effect.flags?.core?.statusId === statusId);
   } else {
-    hasCondition = actor.effects.find((effect) => effect.statuses.every((status) => status === statusId))
+    hasCondition = actor.effects.find((effect) => effect.statuses.has(statusId))
   }
 
   return hasCondition;
@@ -3670,8 +3669,10 @@ export function checkActiveOrUnactive(item) {
     if(actor !== null && actorType === 'personnage') {
       const getActorEffects = actor.effects.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.name === variante);
 
-      if(getActorEffects.disabled && isactive) actorToUpdate.push({"_id":getActorEffects._id, disabled:false});  
-      else if(!getActorEffects.disabled && !isactive) actorToUpdate.push({"_id":getActorEffects._id, disabled:true});  
+      if(getActorEffects !== undefined) {
+        if(getActorEffects.disabled && isactive) actorToUpdate.push({"_id":getActorEffects._id, disabled:false});  
+        else if(!getActorEffects.disabled && !isactive) actorToUpdate.push({"_id":getActorEffects._id, disabled:true});  
+      }
     }
   }
 

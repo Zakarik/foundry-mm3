@@ -1,3 +1,7 @@
+## Version 1.30.8
+### Bugfix
+- Correction d'un bug dans le gestion des modificateurs, en conjonction avec Token Action HUD.
+
 ## Version 1.30.7
 ### Bugfix
 - Correction d'un bug dans le calcul des malus en défense des stratégies.
