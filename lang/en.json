@@ -79,7 +79,9 @@
       "DeleteVMod":"Delete an effect variant",
       "EditMod":"Edit modifiers",
       "DeleteMod":"Delete a modifier",      
-      "Activer":"Activate"
+      "Activer":"Activate",
+      "Convert":"Update Attacks From Powers",
+      "Delete-Convert":"Delete Attacks & Create From Powers"
     },
     "CARACTERISTIQUES":{
       "Force":"Strength",
@@ -325,6 +327,7 @@
       "JabsDescription":"Enter plain text from one of Jab's builds found at </label><a href='https://www.echoesofthemultiverse.com/viewtopic.php?t=8'>Jab's builds</a>",
       "JabsBtn":"Import Character from Jab's Builds",
       "JabsValider":"Import Text From Jab's Build",
+      "ConvertFrom": "Create Attacks from Abilities",
       "JabsTitle":"Import all downloaded JSON files in a folder"
     },
     "ACCESSIBILITE":{

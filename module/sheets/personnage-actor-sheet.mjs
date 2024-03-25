@@ -88,6 +88,13 @@ export class PersonnageActorSheet extends ActorSheet {
     html.find('.item-create').click(this._onItemCreate.bind(this));
     commonHTML(html, this.actor, {hasItem:true, hasAtk:true, hasPwr:true, hasStr:true, hasPP:true, ppName:'pp', hasSpd:true, hasRoll:true, hasAdd:true});
 
+    html.find('.add[data-type="delete-convert"]').click(function(event) {
+      CreateAttacksFromPowers();
+      
+    });
+    html.find('.add[data-type="convert"]').click(function(event) {
+      CreateAttacksFromPowers(canvas.tokens.controlled[0]?.actor, false);
+  });
     html.find('.pwrActivate').click(async ev => {
       const target = $(ev.currentTarget);
       const header = target.parents('.summary');
