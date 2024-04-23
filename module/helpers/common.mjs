@@ -3657,7 +3657,7 @@ export function checkActiveOrUnactive(item) {
   let actorToUpdate = [];
   let itemToUpdate = [];
   
-  if(actor === '') return; 
+  if(actor === '' || actor === null) return; 
   if(actor.permission !== 3) return;
   
   for(let e of effects) {

@@ -1,3 +1,9 @@
+## Version 1.30.9
+### Bugfix
+- Correction d'un bug empêchant l'ouverture de l'éditeur d'attaque en V10.
+- Correction d'une erreur de la console n'impactant pas le jeu.
+- Correction de problèmes de traductions.
+
 ## Version 1.30.8
 ### Bugfix
 - Correction d'un bug dans le gestion des modificateurs, en conjonction avec Token Action HUD.

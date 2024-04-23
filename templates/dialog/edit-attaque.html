@@ -47,7 +47,7 @@
             {{/if}}
         </div>
 
-        <a class="btn area {{ifThen data.tempAtk.area 'selected' 'unselected'}}">{{localize "MM3.ROLL.Effetzone"}}</a>
+        <a class="btn area {{#if data.tempAtk.area}}selected{{else}}unselected{{/if}}">{{localize "MM3.ROLL.Effetzone"}}</a>
 
         {{#if data.tempAtk.area}}
             {{#if data.tempAtk.pwr}}
@@ -215,7 +215,7 @@
             {{#each data.tempAtk.afflictionechec.e1 as | key atk |}}
                 
                 <span class="etat">
-                    {{localize key.label}}
+                    {{translateStatues key.label}}
                 
                     <i class="fa-solid fa-trash-xmark delete" data-type="e1" data-id="{{key.id}}"></i>
                 </span>
@@ -237,7 +237,7 @@
             </div>
             {{#each data.tempAtk.afflictionechec.e2 as | key atk |}}
                 <span class="etat">
-                    {{localize key.label}}
+                    {{translateStatues key.label}}
 
                     <i class="fa-solid fa-trash-xmark delete" data-type="e2" data-id="{{key.id}}"></i>
                 </span>
@@ -259,7 +259,7 @@
             </div>
             {{#each data.tempAtk.afflictionechec.e3 as | key atk |}}
                 <span class="etat">
-                    {{localize key.label}}
+                    {{translateStatues key.label}}
 
                     <i class="fa-solid fa-trash-xmark delete" data-type="e3" data-id="{{key.id}}"></i>
                 </span>
