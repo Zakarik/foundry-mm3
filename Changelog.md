@@ -1,3 +1,7 @@
+## Version 1.30.10
+### Bugfix
+- Correction d'un bug rare avec la gestion des dégâts.
+
 ## Version 1.30.9
 ### Bugfix
 - Correction d'un bug empêchant l'ouverture de l'éditeur d'attaque en V10.

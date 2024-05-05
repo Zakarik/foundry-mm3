@@ -2180,12 +2180,12 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
       const allEtats = CONFIG.statusEffects;
 
       if(marge === 1) {
-        blessures[`system.blessure`] = blessure+Number(dataAtk.dmgechec.v1);
+        blessures[`system.blessure`] = blessure+Number(dataAtk?.dmgechec?.v1 ?? 1);
       } else if(marge === 2) {
-        blessures[`system.blessure`] = blessure+Number(dataAtk.dmgechec.v2);
+        blessures[`system.blessure`] = blessure+Number(dataAtk?.dmgechec?.v2 ?? 1);
         listEtats.push(allEtats.find(eta => eta.id === 'dazed'));
       } else if(marge === 3 && !hasStatus(actor, 'chanceling')) {
-        blessures[`system.blessure`] = blessure+Number(dataAtk.dmgechec.v3);
+        blessures[`system.blessure`] = blessure+Number(dataAtk?.dmgechec?.v3 ?? 1);
         listEtats.push(allEtats.find(eta => eta.id === 'chanceling'));
       } else if(marge >= 3) {
         listEtats.push(allEtats.find(eta => eta.id === 'neutralized'));
