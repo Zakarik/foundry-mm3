@@ -1,3 +1,7 @@
+## Version 1.31.0
+### Améliorations
+- Ajout de la compatibilité avec la V12.
+
 ## Version 1.30.10
 ### Bugfix
 - Correction d'un bug rare avec la gestion des dégâts.
@@ -43,7 +47,7 @@
 
 ## Version 1.30.0
 ### Améliorations
-- Ajout d'un onglet "Modificateurs" pour les pouvoirs et les talents, permettant de rentrer des modificateurs. 
+- Ajout d'un onglet "Modificateurs" pour les pouvoirs et les talents, permettant de rentrer des modificateurs.
 Les modificateurs des talents sont toujours appliqués, ceux des pouvoirs sont activable. Il est aussi possible de mettre plusieurs variantes d'effets pour le spouvoirs.
 - Amélioration de l'affichage des stratégies, pour les rendre plus simples à utiliser.
 - Ajout d'un bouton permettant l'import des builds de Jabs

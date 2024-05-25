@@ -101,7 +101,7 @@ export const parseXML = function (xml) {
     License: http://creativecommons.org/licenses/LGPL/2.1/
    Version: 0.9
     Author:  Stefan Goessner/2006
-    Web:     http://goessner.net/ 
+    Web:     http://goessner.net/
 */
 export const xml2json = function (xml, tab) {
   var X = {
@@ -262,9 +262,9 @@ function processChainedAdvantages(pwr) {
       }
     } else {
       listBonusTalent.push(pwr.chainedadvantages.chainedadvantage.name);
-    }    
+    }
   }
-  
+
   return listBonusTalent;
 }
 
@@ -294,9 +294,9 @@ function countPwr(objet, type, profondeur = 0) {
       }
     } else {
         profondeur = Math.max(profondeur, countPwr(pwr, type, profondeur + 1));
-    } 
+    }
   }
-  
+
   return profondeur;
 }
 
@@ -328,7 +328,7 @@ async function processAlternatePower(actor, pwr, itm, otherpowers=false) {
       }
     } else {
       if(itm.system.link !== "") add = false;
-      
+
       const pPowers = await processPowers(actor, alternate, add, isOtherPower, itm._id, costNull);
       listPwrDetails = foundry.utils.mergeObject(listPwrDetails, pPowers.listPwrDetails);
       listPwrName = listPwrName.concat(pPowers.listPwrName);
@@ -415,7 +415,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
               }
           }
         }
-        
+
         if(pwr.flaws?.flaw ?? null !== null) {
           if(Array.isArray(pwr.flaws.flaw)) {
             for(let xtr of pwr.flaws.flaw) {
@@ -500,9 +500,9 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
           const modPwrA = countPwr(pwr, "alternatepowers");
           const totalMod = modPwrO+modPwrA;
 
-          if(totalMod > 0 && !costNull) await itemCreate.update({[`system.cout.divers`]:itm.system.cout.divers-totalMod}); 
+          if(totalMod > 0 && !costNull) await itemCreate.update({[`system.cout.divers`]:itm.system.cout.divers-totalMod});
           else if(totalMod > 0 && link !== "") await actor.items.get(link).update({[`system.cout.divers`]:actor.items.get(link).system.cout.divers-totalMod});
-          
+
           const total = itemCreate.system.cout.total;
           if(total > 1 && (pwr?.alternatepowers?.power ?? null) == null) listPwrWhoCanLostCost.push(itemCreate._id);
 
@@ -510,7 +510,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
         } else {
           pwrName = pName;
           pwrDescription = description;
-        }        
+        }
       }
     } else {
       const pwr = pouvoirs;
@@ -566,7 +566,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
             }
         }
       }
-      
+
       if(pwr.flaws?.flaw ?? null !== null) {
         if(Array.isArray(pwr.flaws.flaw)) {
           for(let xtr of pwr.flaws.flaw) {
@@ -662,7 +662,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
       } else {
         pwrName = pwr.name;
         pwrDescription = description;
-      }    
+      }
     }
   }
 
@@ -781,14 +781,14 @@ export async function processImport(actor, data, actorType='personnage') {
   let sensibilite = 0;
   let agilite = 0;
   let totalAttrDef = {};
-  
+
   if(actorType === 'personnage') {
     for(let attr of attributes) {
       if(attributsTRA[attr.name] === 'agilite') agilite = Number(attr.modified);
       if(attributsTRA[attr.name] === 'endurance') endurance = Number(attr.modified);
       if(attributsTRA[attr.name] === 'combativite') combativite = Number(attr.modified);
       if(attributsTRA[attr.name] === 'sensibilite') sensibilite = Number(attr.modified);
-  
+
       update[`system.caracteristique.${attributsTRA[attr.name]}.base`] = Math.max(Number(attr.base), -5);
       update[`system.caracteristique.${attributsTRA[attr.name]}.divers`] = attr.text === '-' ? 0 : Number(attr.modified)-Number(attr.base);
       update[`system.caracteristique.${attributsTRA[attr.name]}.absente`] = attr.text === '-' && attr.cost.value === '-10' ? true : false;
@@ -805,7 +805,7 @@ export async function processImport(actor, data, actorType='personnage') {
         update[`system.caracteristique.${attributsTRA[attr.name]}.rang`] = Number(attr.cost.value);
       }
     }
-  }  
+  }
 
   if(actorType === 'personnage') {
     for(let def of defenses) {
@@ -881,7 +881,7 @@ export async function processImport(actor, data, actorType='personnage') {
     }
   }
 
-  if(equipements !== null && actorType === 'personnage') {        
+  if(equipements !== null && actorType === 'personnage') {
     if(Array.isArray(equipements)) {
       for(let eqp of equipements) {
         if(!eqp.name.includes('Dropped to Ground') && !eqp.name.includes('Grab') && !eqp.name.includes('Unarmed') && !eqp.name.includes('Throw')) {
@@ -913,9 +913,9 @@ export async function processImport(actor, data, actorType='personnage') {
               eqpDdescription += `<h2>${prcEqpPwrName === '' ? eqpArray.name : prcEqpPwrName}</h2><p>${prcEqpPwrDesc == '' ? eqpArray.description : prcEqpPwrDesc}</p>`;
               listBonusTalent = listBonusTalent.concat(prcEqpPwr.talents);
             }
-          } 
-                          
-          
+          }
+
+
           let itm = {
             name: eqp.name,
             type: 'equipement',
@@ -926,7 +926,7 @@ export async function processImport(actor, data, actorType='personnage') {
             }
           };
 
-          await Item.create(itm, {parent: actor});            
+          await Item.create(itm, {parent: actor});
         }
       }
     } else {
@@ -958,8 +958,8 @@ export async function processImport(actor, data, actorType='personnage') {
             eqpDdescription += `<h2>${prcEqpPwrName === '' ? eqpArray.name : prcEqpPwrName}</h2><p>${prcEqpPwrDesc == '' ? eqpArray.description : prcEqpPwrDesc}</p>`;
             listBonusTalent = listBonusTalent.concat(prcEqpPwr.talents);
           }
-        } 
-        
+        }
+
         let itm = {
           name: equipements.name,
           type: 'equipement',
@@ -970,10 +970,10 @@ export async function processImport(actor, data, actorType='personnage') {
           }
         };
 
-        await Item.create(itm, {parent: actor});            
+        await Item.create(itm, {parent: actor});
       }
     }
-  } else if((equipements !== null && actorType === 'vehicule') || (equipements !== null && actorType === 'qg')) {        
+  } else if((equipements !== null && actorType === 'vehicule') || (equipements !== null && actorType === 'qg')) {
     if(Array.isArray(equipements)) {
       for(let eqp of equipements) {
         if(!eqp.name.includes('Dropped to Ground') && !eqp.name.includes('Grab') && !eqp.name.includes('Unarmed') && !eqp.name.includes('Throw')) {
@@ -1006,7 +1006,7 @@ export async function processImport(actor, data, actorType='personnage') {
               listBonusTalent = listBonusTalent.concat(prcEqpPwr.talents);
             }
           }
-          
+
           if(update['system.particularite'] !== undefined) update[`system.particularite`] += `${eqp.name} : ${eqpDdescription}`;
           else update[`system.particularite`] = `${eqp.name} : ${eqpDdescription}`;
         }
@@ -1040,10 +1040,10 @@ export async function processImport(actor, data, actorType='personnage') {
             eqpDdescription += `<h2>${prcEqpPwrName === '' ? eqpArray.name : prcEqpPwrName}</h2><p>${prcEqpPwrDesc == '' ? eqpArray.description : prcEqpPwrDesc}</p>`;
             listBonusTalent = listBonusTalent.concat(prcEqpPwr.talents);
           }
-        } 
-        
+        }
+
         if(update['system.particularite'] !== undefined) update[`system.particularite`] += `${eqp.name} : ${eqpDdescription}`;
-        else update[`system.particularite`] = `${eqp.name} : ${eqpDdescription}`     
+        else update[`system.particularite`] = `${eqp.name} : ${eqpDdescription}`
       }
     }
   }
@@ -1100,14 +1100,14 @@ export async function processImport(actor, data, actorType='personnage') {
     "surprised":"surprised",
     "weakened":"downgrade",
     "prone":"prone",
-    "blind":"blind",    
-    "asleep":"sleep",    
-    "restrained":"restrain",    
-    "paralyzed":"paralysis",    
+    "blind":"blind",
+    "asleep":"sleep",
+    "restrained":"restrain",
+    "paralyzed":"paralysis",
     "deaf":"deaf",
     "stunned":"stun"
   };
-  
+
   const conditionsVFId = {
     "contrôlé":"controlled",
     "diminué":"decreased",
@@ -1131,10 +1131,10 @@ export async function processImport(actor, data, actorType='personnage') {
     "surpris":"surprised",
     "affaibli":"downgrade",
     "à terre":"prone",
-    "aveugle":"blind",    
-    "endormi":"sleep",    
-    "entravé":"restrain",    
-    "paralysé":"paralysis",    
+    "aveugle":"blind",
+    "endormi":"sleep",
+    "entravé":"restrain",
+    "paralysé":"paralysis",
     "sourd":"deaf",
     "étourdi":"stun"
   };
@@ -1154,7 +1154,7 @@ export async function processImport(actor, data, actorType='personnage') {
     "robustesse":"robustesse",
     "volonté":"volonte",
   };
-  
+
   if(actorType === 'personnage') {
     for(let skill of skills) {
       const skillName = skill.name.split(':')[0];
@@ -1162,7 +1162,7 @@ export async function processImport(actor, data, actorType='personnage') {
         return skillName.includes(b) ? b : a;
       }, "");
       const label = skillsTRA[search];
-  
+
       if(label &&(label.includes('expertise') || label.includes('combatcontact') || label.includes('combatdistance'))) {
         const length = Object.keys(listSkill[label]).length;
         let lastLabel = skill.name.replace(`${skill.name.split(":")[0]}: `, '');
@@ -1171,7 +1171,7 @@ export async function processImport(actor, data, actorType='personnage') {
             return skillName.includes(b) ? b : a;
           }, "INT");
           const car = attributsShort[searchcar];
-  
+
           listSkill[label][length] = {
             "label":lastLabel,
             "total":0,
@@ -1197,7 +1197,7 @@ export async function processImport(actor, data, actorType='personnage') {
           if(isAffliction && !isDmg) save = 'volonte';
 
           if(save !== 'robustesse') basedef = 10;
-  
+
           listSkill[label][length] = {
             _id:randSkill,
             label:lastLabel,
@@ -1207,7 +1207,7 @@ export async function processImport(actor, data, actorType='personnage') {
             autre:0,
             idAtt:randAtk,
           }
-  
+
           listAttack[lengthAttack] = {
             _id:randAtk,
             type:label,
@@ -1222,13 +1222,13 @@ export async function processImport(actor, data, actorType='personnage') {
             isDmg:isDmg,
             isAffliction:isAffliction,
           }
-  
+
           alreadyAddAttack.push(lastLabel);
-        }          
+        }
       } else {
         if(label)
         update[`system.competence.${label}.rang`] = Number(skill.cost.value)*2;
-      }        
+      }
     }
   }
 
@@ -1238,7 +1238,7 @@ export async function processImport(actor, data, actorType='personnage') {
         if(powerNames.includes(att.name)){
           const firstName = att.name.split(":")[0];
           const lastname = att.name.replace(`${firstName}: `, '');
-  
+
           if(!alreadyAddAttack.includes(firstName)) {
             const lengthAttack = Object.keys(listAttack).length;
             let randAtk = foundry.utils.randomID();
@@ -1284,8 +1284,8 @@ export async function processImport(actor, data, actorType='personnage') {
                     second = toArray?.find(f => f.includes('2nd degree')) ?? undefined;
                     three = toArray?.find(f => f.includes('3rd degree')) ?? undefined;
                     resist = toArray?.find(f => f.includes('Resisted by')) ?? undefined;
-                  }                  
-                  
+                  }
+
                   let fInfo = first?.info ?? null;
                   let sInfo = second?.info ?? null;
                   let tInfo = three?.info ?? null;
@@ -1302,7 +1302,7 @@ export async function processImport(actor, data, actorType='personnage') {
 
                       if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
                       if(condition !== undefined) condition = getStatusData(condition);
-                      
+
                       if(condition !== undefined) afflictionechec.e1.push(condition);
                     }
                   }
@@ -1315,7 +1315,7 @@ export async function processImport(actor, data, actorType='personnage') {
 
                       if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
                       if(condition !== undefined) condition = getStatusData(condition);
-                      
+
                       if(condition !== undefined) afflictionechec.e2.push(condition);
                     }
                   }
@@ -1328,7 +1328,7 @@ export async function processImport(actor, data, actorType='personnage') {
 
                       if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
                       if(condition !== undefined) condition = getStatusData(condition);
-                      
+
                       if(condition !== undefined) afflictionechec.e3.push(condition);
                     }
                   }
@@ -1434,7 +1434,7 @@ export async function processImport(actor, data, actorType='personnage') {
             if(elements !== null) {
               const element = elements?.element ?? null;
 
-              if(element !== null) {                            
+              if(element !== null) {
                 let first = element.find(f => f.name.includes('1st degree'));
                 let second = element.find(f => f.name.includes('2nd degree'));
                 let three = element.find(f => f.name.includes('3rd degree'));
@@ -1455,7 +1455,7 @@ export async function processImport(actor, data, actorType='personnage') {
 
                     if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
                     if(condition !== undefined) condition = getStatusData(condition);
-                    
+
                     if(condition !== undefined) afflictionechec.e1.push(condition);
                   }
                 }
@@ -1468,7 +1468,7 @@ export async function processImport(actor, data, actorType='personnage') {
 
                     if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
                     if(condition !== undefined) condition = getStatusData(condition);
-                    
+
                     if(condition !== undefined) afflictionechec.e2.push(condition);
                   }
                 }
@@ -1481,7 +1481,7 @@ export async function processImport(actor, data, actorType='personnage') {
 
                     if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
                     if(condition !== undefined) condition = getStatusData(condition);
-                    
+
                     if(condition !== undefined) afflictionechec.e3.push(condition);
                   }
                 }
@@ -1498,7 +1498,7 @@ export async function processImport(actor, data, actorType='personnage') {
           }
 
           if(save !== 'robustesse') basedef = 10;
-          
+
           listAttack[lengthAttack] = {
             _id:randAtk,
             pwr:powerDetails[att.name]?._id ?? '',
@@ -1535,7 +1535,7 @@ export async function processImport(actor, data, actorType='personnage') {
           if(isAffliction && !isDmg) save = 'volonte';
 
           if(save !== 'robustesse') basedef = 10;
-          
+
           listAttack[lengthAttack] = {
             _id:randAtk,
             type:'other',
@@ -1554,7 +1554,7 @@ export async function processImport(actor, data, actorType='personnage') {
         }
       }
     }
-    
+
   }
 
   const mesures = game.settings.get("mutants-and-masterminds-3e", "measuresystem");
@@ -1594,8 +1594,8 @@ export async function processImport(actor, data, actorType='personnage') {
   }
 
   update[`system.attaque`] = listAttack;
-  update['name'] = data.name;  
-  
+  update['name'] = data.name;
+
   await actor.update(update);
   normalizeData(actor, true);
 }
@@ -1664,7 +1664,7 @@ export async function processCharacterData(characterData) {
   update[`prototypeToken.name`] = actor.name;
 
   await actor.update(update);
-} 
+}
 
 export function getActor(item) {
   return item.actor;
@@ -1684,14 +1684,14 @@ export function getDices() {
   const optDices = game.settings.get("mutants-and-masterminds-3e", "typeroll");
 
   let dices = '1D20';
-  let formula = '1D20';  
+  let formula = '1D20';
   let critique = '20';
 
-  if(optDices === '3D20') { 
-    dices = '3D20dldh'; 
+  if(optDices === '3D20') {
+    dices = '3D20dldh';
     formula = '3D20';
     critique = '20';
-  } else if(optDices === '3D6') { 
+  } else if(optDices === '3D6') {
     dices = '3D6';
     formula = '3D6'
     critique = '18';
@@ -1751,16 +1751,16 @@ export function accessibility(actor, html) {
     if(font !== null) {
       html.find('div.editor-content').css('font-family', font);
     }
-  
+
     if(fontOther !== null || fontOther !== 'null') {
       html.find('input[type="text"]').css('font-family', fontOther);
       html.find('h4').css('font-family', fontOther);
       html.find('select').css('font-family', fontOther);
       html.find('a').css('font-family', fontOther);
       html.find('span').css('font-family', fontOther);
-  
-      
-  
+
+
+
       if(resized.includes(fontOther)) html.find('a.item').css('font-size', '11px');
     }
   } else {
@@ -1779,10 +1779,10 @@ export function accessibility(actor, html) {
   $(html.find('nav.tabs a.active')).prepend(`<i class="fa-solid fa-hexagon-check"></i>`);
   html.find('nav.tabs a').click(ev => {
     const target = $(ev.currentTarget);
-    
+
     $(html.find('nav.tabs a i')).remove();
     target.prepend(`<i class="fa-solid fa-hexagon-check"></i>`);
-  });  
+  });
 }
 
 export async function deletePrompt(actor, label) {
@@ -1863,7 +1863,7 @@ export function setCombinedEffects(token, statusId, active) {
       statusEffect = listStatusEffect.find((se) => se.id === statusId);
       if(statusEffect !== undefined) {
         const changes = statusEffect.changes;
-        
+
         if(changes !== undefined) {
           let effectData = [];
 
@@ -1871,7 +1871,7 @@ export function setCombinedEffects(token, statusId, active) {
             const idSE = c.key;
             const exist = token.effects.find((se) => se.flags.core.statusId === idSE);
             const tSE = listStatusEffect.find((se) => se.id === idSE);
-            
+
             if(exist === undefined && tSE !== undefined) {
               const dChanges = tSE?.changes ?? false;
 
@@ -1896,36 +1896,36 @@ export function setCombinedEffects(token, statusId, active) {
     } else {
       for(let s of statusId) {
         statusEffect = listStatusEffect.find((se) => se.id === s);
-        
+
         if(statusEffect !== undefined) {
           const changes = statusEffect.changes;
-          
+
           if(changes !== undefined) {
             let effectData = [];
-  
+
             for(let c of changes) {
               const idSE = c.key;
               const exist = token.statuses.has(idSE);
               const tSE = listStatusEffect.find((se) => se.id === idSE);
-    
+
               if(!exist && tSE !== undefined) {
                 const dChanges = tSE?.changes ?? false;
-  
+
                 let nEffect = {
                   name: game.i18n.localize(tSE.label),
                   label: game.i18n.localize(tSE.label),
                   icon: tSE.icon,
                   statuses:[idSE]
                 };
-  
+
                 if(dChanges !== false) {
                   nEffect['changes'] = dChanges;
                 }
-  
+
                 effectData.push(nEffect);
               }
             }
-  
+
             if(effectData.length !== 0) token.createEmbeddedDocuments("ActiveEffect", effectData);
           }
         }
@@ -1952,7 +1952,7 @@ export async function dialogAsk(data={}) {
     if(askMod) {
       title += title !== '' ? ` / ${game.i18n.localize("MM3.DIALOG.TitleMod")}` : game.i18n.localize("MM3.DIALOG.TitleMod");
       html += `<span>${game.i18n.localize("MM3.DIALOG.AskMod")}</span><input type="number" class="mod" value="0" min="0"/>`;
-    } 
+    }
 
     new Dialog({
       title: title,
@@ -1967,7 +1967,7 @@ export async function dialogAsk(data={}) {
             let result = {};
             if(askDD) result['dd'] = Number(ddfind);
             if(askMod) result['mod'] = Number(modfind);
-            
+
             resolve(result)
           },
           icon: `<i class="fas fa-check"></i>`
@@ -1978,7 +1978,7 @@ export async function dialogAsk(data={}) {
           icon: `<i class="fas fa-times"></i>`
         }
       }
-    }, askNiveauDialogOptions).render(true);  
+    }, askNiveauDialogOptions).render(true);
   });
 }
 
@@ -1990,7 +1990,7 @@ export async function rollStd(actor, name, score, dataKey={}) {
   const dicesFormula = optDices.formula;
   const shift = dataKey?.shift ?? false;
   const ruleDC = game.settings.get("mutants-and-masterminds-3e", "dcroll");
-  const rMode = game.settings.get("core", "rollMode");  
+  const rMode = game.settings.get("core", "rollMode");
   const useShift = (ruleDC === "shift" && shift) || (ruleDC !== "shift" && !shift) ? true : false;
   const alt = dataKey?.alt ?? false;
   let total = score;
@@ -2007,7 +2007,7 @@ export async function rollStd(actor, name, score, dataKey={}) {
   }
 
   const roll = new Roll(`${dicesBase} + ${total} + ${mod}`);
-  roll.evaluate({async:false});
+  await roll.evaluate();
 
   const resultDie = roll.total-total;
   let formula = mod === 0 ? `${dicesFormula} + ${total}` : `${dicesFormula} + ${total} + ${mod}`;
@@ -2041,8 +2041,8 @@ export async function rollStd(actor, name, score, dataKey={}) {
       result:roll.total,
       isCritique:resultDie >= dicesCrit ? true : false,
     };
-  }  
-  
+  }
+
   const rollMsgData = {
     user: game.user.id,
     speaker: {
@@ -2077,7 +2077,7 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
 
   let toRoll = mod === 0 ? `${optDices.dices} + ${score}` : `${optDices.dices} + ${score} + ${mod}`;
   const save = new Roll(toRoll);
-  save.evaluate({async:false});
+  await save.evaluate();
 
   const typeAtk = data?.typeAtk ?? false;
   const saveTotal = Number(save.total);
@@ -2119,7 +2119,7 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
       const saveAffliction = dataAtk.saveAffliction;
       const saveType = dataAtk.save;
       const btn = [];
-      
+
       if(isDmg && isAffliction) {
         btn.push({
           typeAtk:'dmg',
@@ -2154,7 +2154,7 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
       pRollSave.dataStr = JSON.stringify(dataStr);
     }
 
-    if(typeAtk === 'affliction') {      
+    if(typeAtk === 'affliction') {
       if(marge === 1) {
         listEtats = dataAtk.afflictionechec.e1;
       } else if(marge === 2) {
@@ -2173,8 +2173,8 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
       if(update.length > 0) {
         await token.actor.createEmbeddedDocuments("ActiveEffect", update);
       }
-    } 
-    
+    }
+
     if(typeAtk === 'dmg') {
       const blessure = Number(actor.system.blessure);
       const allEtats = CONFIG.statusEffects;
@@ -2205,7 +2205,7 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
       }
     }
   } else if(typeAtk !== false && typeAtk === 'area' && isSuccess) {
-    
+
     const isDmg = dataAtk.isDmg;
     const isAffliction = dataAtk.isAffliction;
     const tgt = token.id;
@@ -2213,7 +2213,7 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
     const saveType = dataAtk.save;
     const dataStr = data.str;
     const btn = [];
-    
+
     if(isDmg && isAffliction) {
       btn.push({
         typeAtk:'dmg',
@@ -2285,11 +2285,11 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
 
     mod = ask?.mod ?? 0;
   }
-  
+
   const dataCbt = data.attaque;
   const dataStr = data.strategie;
   const roll = new Roll(`${dicesBase} + ${total} + ${dataStr.attaque} + ${mod}`);
-  roll.evaluate({async:false});
+  await roll.evaluate();
 
   const tokenData = token.actor.system;
   const resultDie = roll.total-total-dataStr.attaque;
@@ -2311,14 +2311,14 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
   let formula = mod === 0 ? `${dicesFormula} + ${total} + ${dataStr.attaque}` : `${dicesFormula} + ${total} + ${dataStr.attaque} + ${mod}`
 
   ddDefense = defpassive === 'parade' ? parade : esquive;
-  traType = defpassive === 'parade' ? game.i18n.localize("MM3.DEFENSE.DDParade") : game.i18n.localize("MM3.DEFENSE.DDEsquive");    
+  traType = defpassive === 'parade' ? game.i18n.localize("MM3.DEFENSE.DDParade") : game.i18n.localize("MM3.DEFENSE.DDEsquive");
 
   let result = {
     hit:roll.total >= ddDefense && resultDie !== 1 ? true : false,
     crit:resultDie >= dataCbt.critique && !noCrit ? true : false,
   };
   let pRoll = {};
-  
+
   if((roll.total >= ddDefense && resultDie !== 1) || (resultDie >= sCritique && !noCrit)) {
     let dSuccess = Math.floor(((roll.total - ddDefense)/5))+1;
 
@@ -2421,7 +2421,7 @@ export async function rollTgt(actor, name, data, tgt) {
   if(tgt === undefined) return;
   const actTgt = canvas.scene.tokens.find(token => token.id === tgt);
   const dataCbt = data.attaque;
-  const dataStr = data.strategie;  
+  const dataStr = data.strategie;
   const isDmg = dataCbt.isDmg;
   const isAffliction = dataCbt.isAffliction;
   const isArea = dataCbt?.area ?? false;
@@ -2470,7 +2470,7 @@ export async function rollTgt(actor, name, data, tgt) {
       vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
     });
   }
-  
+
   pRoll = {
     flavor:name === "" ? " - " : `${name}`,
     isCombat:true,
@@ -2555,10 +2555,10 @@ export async function rollAtk(actor, name, score, data, dataKey={}) {
   }
 
   let formula = mod === 0 ? `${dicesFormula} + ${total} + ${dataStr.attaque}` : `${dicesFormula} + ${total} + ${dataStr.attaque} + ${mod}`;
-  let fRoll = mod === 0 ? `${dicesBase} + ${total} + ${dataStr.attaque}` : `${dicesBase} + ${total} + ${dataStr.attaque} + ${mod}`; 
+  let fRoll = mod === 0 ? `${dicesBase} + ${total} + ${dataStr.attaque}` : `${dicesBase} + ${total} + ${dataStr.attaque} + ${mod}`;
 
   const roll = new Roll(fRoll);
-  roll.evaluate({async:false});
+  await roll.evaluate();
 
   const resultDie = roll.total-total-dataStr.attaque;
 
@@ -2617,10 +2617,10 @@ export async function rollPwr(actor, id, dataKey={}) {
     mod = ask?.mod ?? 0;
   }
 
-  const formula = mod === 0 ? `${fDices} + ${rang}` : `${fDices} + ${rang} + ${mod}`;      
-  const fRoll = mod === 0 ? `${dices} + ${rang}` : `${dices} + ${rang} + ${mod}`;      
+  const formula = mod === 0 ? `${fDices} + ${rang}` : `${fDices} + ${rang} + ${mod}`;
+  const fRoll = mod === 0 ? `${dices} + ${rang}` : `${dices} + ${rang} + ${mod}`;
   const roll = new Roll(fRoll);
-  roll.evaluate({async:false});
+  await roll.evaluate();
   const resultDie = roll.total-rang;
 
   const pRoll = {
@@ -2881,7 +2881,7 @@ export function commonHTML(html, origin, data={}) {
       const hasShift = ev.shiftKey;
       const hasAlt = ev.altKey;
 
-      rollPwr(origin, id, {shift:hasShift, alt:hasAlt});  
+      rollPwr(origin, id, {shift:hasShift, alt:hasAlt});
     });
   }
 
@@ -2904,9 +2904,9 @@ export function commonHTML(html, origin, data={}) {
         content: game.i18n.localize('MM3.STRATEGIE.Changement'),
         sound: CONFIG.sounds.dice
       };
-    
+
       const msgData = ChatMessage.applyRollMode(rollMsgData, 'blindroll');
-    
+
       await ChatMessage.create(msgData, {
         rollMode:'blindroll'
       });
@@ -2947,7 +2947,7 @@ export function commonHTML(html, origin, data={}) {
       const value = parseInt(target.data('value'));
       const update = {}
       update[type] = value;
-      
+
       origin.update(update);
     });
   }
@@ -2965,9 +2965,9 @@ export function commonHTML(html, origin, data={}) {
     html.find('a.selectspeed').click(async ev => {
       const target = $(ev.currentTarget);
       const id = target.data('id');
-      
+
       setSpeed(origin, id);
-    });  
+    });
   }
 
   if(hasRoll) {
@@ -3010,18 +3010,18 @@ export function commonHTML(html, origin, data={}) {
         case 'complications':
           const dataComplication = Object.keys(origin.system.complications);
           const maxKeysComplication = dataComplication.length ? Math.max(...dataComplication) : 0;
-          
+
           origin.update({[`system.complications.${maxKeysComplication+1}`]:{
             label:"",
             description:""
           }});
           break;
-          
+
         case 'competence':
           const comp = origin.system.competence[what];
           const dataComp = Object.keys(comp.list);
           const maxKeysComp = dataComp.length > 0 ? Math.max(...dataComp) : 0;
-          const modele = comp.modele;          
+          const modele = comp.modele;
 
           if(what === 'combatcontact' || what === 'combatdistance') {
             const attaque = origin.system?.attaque || {};
@@ -3052,7 +3052,7 @@ export function commonHTML(html, origin, data={}) {
 
           origin.update(update);
           break;
-        
+
         case 'attaque':
           const attaque = origin.system?.attaque || {};
           const dataAttaque = Object.keys(attaque);
@@ -3114,7 +3114,7 @@ export function commonHTML(html, origin, data={}) {
 
           getOrigin.update({[`system.complications.-=${id}`]:null});
           break;
-          
+
         case 'competence':
           if(what === 'combatcontact' || what === 'combatdistance') {
             const attaque = origin.system?.attaque || {};
@@ -3144,7 +3144,7 @@ export function commonHTML(html, origin, data={}) {
 
           getOrigin.update(update);
           break;
-      
+
         case 'attaque':
           confirm = await deletePrompt(origin, origin.system.attaque[id].label);
           if(!confirm) return;
@@ -3174,7 +3174,7 @@ export function commonHTML(html, origin, data={}) {
     const item = actor.items.get(header.data("item-id"));
 
     sendInChat(actor, item);
-  });  
+  });
 }
 
 
@@ -3228,7 +3228,7 @@ export async function setStatus(actor, statusId, autoAdd=true) {
 
   if(version < 11) {
     hasCondition = hasStatus(actor, statusId);
-    
+
     if(!hasCondition) {
       update = {
         name: game.i18n.localize(status.label),
@@ -3238,10 +3238,10 @@ export async function setStatus(actor, statusId, autoAdd=true) {
       };
 
       if(changes !== false) update['changes'] = changes;
-    }            
+    }
   } else {
     hasCondition = hasStatus(actor, statusId);
-    
+
     if(!hasCondition) {
       update = {
         name: game.i18n.localize(status.label),
@@ -3257,9 +3257,9 @@ export async function setStatus(actor, statusId, autoAdd=true) {
   if(update !== undefined) {
     if(Object.entries(update).length > 0 && autoAdd) {
       await actor.createEmbeddedDocuments("ActiveEffect", [update]);
-    }  
+    }
   }
-  
+
   return update;
 }
 
@@ -3271,7 +3271,7 @@ export async function deleteStatus(actor, statusId) {
 
     for (const effect of existingEffects) {
         await effect.delete();
-    }           
+    }
   } else {
     const existingEffects = actor.effects.filter((effect) => effect.statuses.has(statusId));
 
@@ -3306,7 +3306,7 @@ export function getStatusData(statusId) {
 
     if(changes !== false) update['changes'] = changes;
   }
-  
+
   return update;
 }
 
@@ -3372,7 +3372,7 @@ export function normalizeData(actor, force=false) {
             });
           }
         }
-        
+
         for(let rc in distance) {
           let dataRc = distance[rc];
           hasId = dataRc?._id ?? false;
@@ -3438,9 +3438,9 @@ export function normalizeData(actor, force=false) {
 
           if(find !== -1) {
             update[`system.competence.combatcontact.list.${cc}.idAtt`] = find;
-          }        
+          }
         }
-        
+
         for(let rc in distance) {
           let dataRc = distance[rc];
           let idAtt = dataRc.idAtt;
@@ -3450,7 +3450,7 @@ export function normalizeData(actor, force=false) {
             update[`system.competence.combatdistance.list.${rc}.idAtt`] = find;
           }
 
-          
+
         }
       }
 
@@ -3465,7 +3465,7 @@ export function normalizeData(actor, force=false) {
           if(find !== -1) {
             update[`system.attaque.${a}.skill`] = find;
           }
-          
+
         } else if(type === 'combatdistance') {
           find = listDistance.find(c => c.id === `${dataAtk.id}`)?._id ?? -1;
 
@@ -3482,7 +3482,7 @@ export function normalizeData(actor, force=false) {
 
     if(!foundry.utils.isEmpty(update) && actor._id !== null) {
       actor.update(update);
-    } 
+    }
   }
 }
 
@@ -3498,7 +3498,7 @@ export function getModBonus(actorData, data, items) {
   let total = 0;
 
   total += parseInt(effects);
-      
+
   for(let e in effectsRanks) {
     const itm = items.find(itm => itm._id === e);
     const type = itm.type;
@@ -3656,10 +3656,10 @@ export function checkActiveOrUnactive(item) {
   const actorType = actor?.type ?? '';
   let actorToUpdate = [];
   let itemToUpdate = [];
-  
-  if(actor === '' || actor === null) return; 
+
+  if(actor === '' || actor === null) return;
   if(actor.permission !== 3) return;
-  
+
   for(let e of effects) {
     const disabled = e.disabled;
 
@@ -3670,8 +3670,8 @@ export function checkActiveOrUnactive(item) {
       const getActorEffects = actor.effects.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.name === variante);
 
       if(getActorEffects !== undefined) {
-        if(getActorEffects.disabled && isactive) actorToUpdate.push({"_id":getActorEffects._id, disabled:false});  
-        else if(!getActorEffects.disabled && !isactive) actorToUpdate.push({"_id":getActorEffects._id, disabled:true});  
+        if(getActorEffects.disabled && isactive) actorToUpdate.push({"_id":getActorEffects._id, disabled:false});
+        else if(!getActorEffects.disabled && !isactive) actorToUpdate.push({"_id":getActorEffects._id, disabled:true});
       }
     }
   }
@@ -3724,7 +3724,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
           priority: null,
           value: "0"
         });
-  
+
         await updateEffects(item, effect._id, effect.name, changes);
       }
     });
