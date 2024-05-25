@@ -7,7 +7,7 @@ export class EditAttaque extends FormApplication {
         super(object, options);
         this.origin = game.mm3.getAtk(this.actor, this.object.id);
     }
-  
+
     static get defaultOptions() {
       return mergeObject(super.defaultOptions, {
         classes: ['edit-attaque'],
@@ -43,7 +43,7 @@ export class EditAttaque extends FormApplication {
     set atk(dAtk) {
         const getAtk = game.mm3.getAtk(this.actor, this.object.id);
 
-        this.data.atk = foundry.utils.mergeObject(getAtk.data, dAtk, {overwrite: true, recursive: true, insertValues: true})            
+        this.data.atk = foundry.utils.mergeObject(getAtk.data, dAtk, {overwrite: true, recursive: true, insertValues: true})
     }
 
     get actor() {
@@ -101,7 +101,7 @@ export class EditAttaque extends FormApplication {
                     '_id':d._id,
                 });
             }
-        }        
+        }
 
         return list;
     }
@@ -157,7 +157,7 @@ export class EditAttaque extends FormApplication {
     actualise() {
         this.render(true);
     }
-  
+
     getData(options={}) {
         this.options.title = this.label;
 
@@ -238,7 +238,7 @@ export class EditAttaque extends FormApplication {
                 e4:this.data?.degreeDmg?.e4 ?? "",
             },
         };
-        
+
         return {
             options: this.options,
             actor:this.actor,
@@ -266,7 +266,7 @@ export class EditAttaque extends FormApplication {
             const value = target.hasClass("selected") ? false : true;
 
             this.data.canBeLiePwr = value;
-            
+
             if(!value) {
                 this.dataAtk = {
                     pwr:'',
@@ -278,7 +278,7 @@ export class EditAttaque extends FormApplication {
                 if(this.data.tempAtk.skill !== '' && this.data.tempAtk.type !== '' && this.data.tempAtk.skill !== undefined && this.data.tempAtk.type !== undefined) {
                     this.dataAtk = {
                         label:game.mm3.getDataSubSkill(this.actor, this.data.tempAtk.type, this.data.tempAtk.skill).label,
-                    }                
+                    }
                 }
             }
 
@@ -371,7 +371,7 @@ export class EditAttaque extends FormApplication {
 
             this.render(true);
         });
-        
+
         html.find('a.area').click(ev => {
             const target = $(ev.currentTarget);
             const value = target.hasClass("selected") ? false : true;
@@ -444,7 +444,7 @@ export class EditAttaque extends FormApplication {
                 case 'dmg':
                     defType = 'basedef';
                     break;
-                    
+
                 case 'affliction':
                     defType = 'afflictiondef';
                     break;
@@ -468,7 +468,7 @@ export class EditAttaque extends FormApplication {
                     defType = 'save';
                     basedef = 'basedef';
                     break;
-                    
+
                 case 'affliction':
                     defType = 'saveAffliction';
                     basedef = 'afflictiondef';
@@ -495,7 +495,7 @@ export class EditAttaque extends FormApplication {
                 case 'dmg':
                     defType = 'effet';
                     break;
-                    
+
                 case 'affliction':
                     defType = 'afflictioneffet';
                     break;
@@ -688,14 +688,14 @@ export class EditAttaque extends FormApplication {
         }
         return super.activateEditor(name, options, initialContent);
     }
-  
+
     async _updateObject(event, formData) {}
 
     async save(options={}) {
         const id = this.id;
         const atk = game.mm3.getAtk(this.actor, id);
         let newData = foundry.utils.mergeObject(this.data.atk, this.data.tempAtk, {overwrite:true, recursive:true});
-        
+
         this.actor.update({[`system.attaque.${atk.key}`]:newData});
     }
 

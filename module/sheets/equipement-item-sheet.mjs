@@ -36,7 +36,7 @@ export class EquipementItemSheet extends ItemSheet {
      * @override
      */
    get template() {
-    
+
     return this.options.template;
   }
 

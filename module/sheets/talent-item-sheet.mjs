@@ -30,8 +30,6 @@ export class TalentItemSheet extends ItemSheet {
     loadEffectsContext(context);
     context.systemData = context.data.system;
 
-    console.warn(context);
-
     return context;
   }
 
