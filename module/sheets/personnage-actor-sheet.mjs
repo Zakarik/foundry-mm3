@@ -91,17 +91,17 @@ export class PersonnageActorSheet extends ActorSheet {
     html.find('.pwrActivate').click(async ev => {
       const target = $(ev.currentTarget);
       const header = target.parents('.summary');
-      const id = header.data('item-id');      
+      const id = header.data('item-id');
       const item = this.actor.items.get(id);
       const isActive = item.system?.activate ?? false;
       const value = isActive ? false : true;
       const link = item.system?.link ?? '';
       let linksFilter = [];
-        
+
       if(value) {
-        linksFilter = this.actor.items.filter(itm => 
-          (itm.system.link === link && itm._id !== id && link !== '' && (item.system.special === 'alternatif' || itm.system.special === 'alternatif')) || 
-          (itm._id === item.system.link && item.system.special === 'alternatif') || 
+        linksFilter = this.actor.items.filter(itm =>
+          (itm.system.link === link && itm._id !== id && link !== '' && (item.system.special === 'alternatif' || itm.system.special === 'alternatif')) ||
+          (itm._id === item.system.link && item.system.special === 'alternatif') ||
           (itm.system.link === item._id && itm.system.special === 'alternatif'));
 
         for(let l of linksFilter) {
@@ -115,7 +115,7 @@ export class PersonnageActorSheet extends ActorSheet {
     html.find('.variantepwr').change(async ev => {
       const target = $(ev.currentTarget);
       const header = target.parents('.summary');
-      const id = header.data('item-id');      
+      const id = header.data('item-id');
       const item = this.actor.items.get(id);
 
       item.update({[`system.effectsVarianteSelected`]:target.val()});
@@ -165,7 +165,7 @@ export class PersonnageActorSheet extends ActorSheet {
     const actor = context.actor;
     const items = context.items;
     const pouvoirs = items.filter(item => item.type === 'pouvoir');
-    const pwr = [];    
+    const pwr = [];
     const talent = [];
     const equipement = [];
     const pwrStandard = {};
@@ -185,15 +185,15 @@ export class PersonnageActorSheet extends ActorSheet {
 
       switch(type) {
         case 'pouvoir':
-          if((data.special === 'standard' && data.link === "") || 
-          (data.special === 'alternatif' && data.link === "") || 
+          if((data.special === 'standard' && data.link === "") ||
+          (data.special === 'alternatif' && data.link === "") ||
           (data.special === 'dynamique' && data.link === "")) pwr.push(i);
           else if((data.special === 'standard' && data.link !== "")) {
             if(!pwrLink?.[data.link]) {
               data.link = '';
               pwr.push(i)
             }  else pwrLink[data.link].push(i);
-          } 
+          }
           else if((data.special === 'alternatif' && data.link !== "")) {
             if(!pwrAlternatif?.[data.link]) {
               data.link = '';
@@ -206,7 +206,7 @@ export class PersonnageActorSheet extends ActorSheet {
               pwr.push(i)
             }  else pwrDynamique[data.link].push(i);
           }
-          
+
           if((data.special === 'standard' && data.link === '') || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
           break;
 
@@ -255,7 +255,7 @@ export class PersonnageActorSheet extends ActorSheet {
 
       if(canAdd) {
         list[key].list = get?.list || {};
-      }      
+      }
     });
 
     const sortedList = Object.keys(list).sort((a, b) => {
@@ -266,7 +266,7 @@ export class PersonnageActorSheet extends ActorSheet {
         return 1;
       }
       return 0;
-    }).reduce((obj, key) => {      
+    }).reduce((obj, key) => {
       obj[key] = list[key];
       return obj;
     }, {});
@@ -297,12 +297,12 @@ export class PersonnageActorSheet extends ActorSheet {
 
       if(game.settings.get("mutants-and-masterminds-3e", "speedcalculate")) {
         const rang = Number(vData.rang);
-      
+
         data[v].round = speedCalc(rang).toLocaleString();
         data[v].kmh = (speedCalc(rang+9)/divide).toLocaleString();
       }
       else data[v].manuel = true;
-    }    
+    }
   }
 
   async _onItemCreate(event) {
@@ -464,10 +464,10 @@ export class PersonnageActorSheet extends ActorSheet {
         tempTgt = actor.system[data.type][sort];
 
         if(tempTgt === undefined || data.type !== dropType) return;
-        
+
         update[`system.${data.type}.${sort}`] = data.data;
         update[`system.${data.type}.${data.sort}`] = tempTgt;
-        actor.update(update);        
+        actor.update(update);
         break;
       case "competence":
         tempTgt = actor.system[data.type][data.comp].list[sort];
@@ -476,7 +476,7 @@ export class PersonnageActorSheet extends ActorSheet {
 
         update[`system.${data.type}.${data.comp}.list.${sort}`] = data.data;
         update[`system.${data.type}.${data.comp}.list.${data.sort}`] = tempTgt;
-        actor.update(update);        
+        actor.update(update);
         break;
       case 'basecompetence':
         tempTgt = actor.system.competence[sort];

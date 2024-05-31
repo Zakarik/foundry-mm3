@@ -3177,7 +3177,6 @@ export function commonHTML(html, origin, data={}) {
   });
 }
 
-
 export function getPwr(actor, id) {
   return actor.items.get(id);
 }
@@ -3556,7 +3555,7 @@ export async function updateEffects(item, id, name, changes) {
   }]);
 
   if(actor !== null) {
-    const getActorEffects = actor.effects.contents.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` &&  (itm.name === name || itm.label === name));
+    const getActorEffects = actor.effects.contents.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.flags.variante === name);
 
     await actor.updateEmbeddedDocuments('ActiveEffect', [{
       "_id":getActorEffects._id,
@@ -3566,11 +3565,33 @@ export async function updateEffects(item, id, name, changes) {
   }
 }
 
-export function createEffects(item, name) {
+export async function updateVarianteName(item, id, variante, name) {
+  const actor = getActor(item);
+
+  await item.updateEmbeddedDocuments('ActiveEffect', [{
+    "_id":id,
+    icon:'',
+    name:name
+  }]);
+
+  if(actor !== null) {
+    const getActorEffects = actor.effects.contents.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.flags.variante === variante);
+
+    await actor.updateEmbeddedDocuments('ActiveEffect', [{
+      "_id":getActorEffects._id,
+      icon:'',
+      name:name
+    }]);
+  }
+}
+
+export function createEffects(item, name, variante) {
   const actor = getActor(item);
   let updateItemEffects = {
     name: name,
-    label: name,
+    flags:{
+      variante:variante
+    },
     icon:'',
     changes:[],
     parent:item,
@@ -3582,7 +3603,9 @@ export function createEffects(item, name) {
   if(actor !== null) {
     let updateActorEffects = {
       name: name,
-      label: name,
+      flags:{
+        variante:variante
+      },
       icon:'',
       changes:[],
       origin:`Actor.${actor._id}.Item.${item._id}`,
@@ -3597,7 +3620,9 @@ export function createEffectsWithChanges(item, name, changes, disabled) {
   const actor = getActor(item);
   let updateItemEffects = {
     name: name,
-    label: name,
+    flags:{
+      variante:'e0'
+    },
     icon:'',
     changes:changes,
     parent:item,
@@ -3609,7 +3634,9 @@ export function createEffectsWithChanges(item, name, changes, disabled) {
   if(actor !== null) {
     let updateActorEffects = {
       name: name,
-      label: name,
+      flags:{
+        variante:'e0'
+      },
       icon:'',
       changes:changes,
       origin:`Actor.${actor._id}.Item.${item._id}`,
@@ -3662,25 +3689,55 @@ export function checkActiveOrUnactive(item) {
 
   for(let e of effects) {
     const disabled = e.disabled;
+    const effVariante = e.flags.variante;
 
-    if(isactive && disabled && e.name === variante) itemToUpdate.push({"_id":e._id, disabled:false});
-    else if(!isactive && !disabled) itemToUpdate.push({"_id":e._id, disabled:true});
+    let toUpdate = false;
+    let updateDisabled = true;
+
+    if(isactive && disabled && effVariante == variante) {
+      toUpdate = true;
+      updateDisabled = false;
+    } else if((isactive && !disabled && effVariante != variante) || (!isactive && !disabled)) {
+      toUpdate = true;
+      updateDisabled = true;
+    }
+
+    if(toUpdate) itemToUpdate.push({"_id":e._id, disabled:updateDisabled});
+
+
+
+
+    /*if(isactive && disabled && effVariante === variante) itemToUpdate.push({"_id":e._id, disabled:false});
+    else if(!disabled) itemToUpdate.push({"_id":e._id, disabled:true});
 
     if(actor !== null && actorType === 'personnage') {
-      const getActorEffects = actor.effects.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.name === variante);
+      const getActorEffects = actor.effects.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.flags.variante === variante);
 
       if(getActorEffects !== undefined) {
-        if(getActorEffects.disabled && isactive) actorToUpdate.push({"_id":getActorEffects._id, disabled:false});
-        else if(!getActorEffects.disabled && !isactive) actorToUpdate.push({"_id":getActorEffects._id, disabled:true});
+        if(getActorEffects.disabled && isactive && effVariante === variante) actorToUpdate.push({"_id":getActorEffects._id, disabled:false});
+        else if(!getActorEffects.disabled) actorToUpdate.push({"_id":getActorEffects._id, disabled:true});
       }
-    }
+    }*/
   }
 
-  if(actor !== null && actorType !== 'personnage') {
-    const getActorEffects = actor.effects.filter(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}`);
+  if(actor !== null) {
+    if(actorType === 'personnage') {
+      const actorEffects = actor.effects.contents;
 
-    for(let eff of getActorEffects) {
-      if(!eff.disabled) actorToUpdate.push({"_id":getActorEffects._id,disabled:true});
+      for(let e of actorEffects) {
+        const disabled = e.disabled;
+        const effVariante = e.flags.variante;
+        const itmEffects = item.effects.find(itm => itm.flags.variante === effVariante);
+
+        if(disabled !== itmEffects.disabled) actorToUpdate.push({"_id":e._id, disabled:itmEffects.disabled});
+      }
+
+    } else if(actorType !== 'personnage') {
+      const getActorEffects = actor.effects.filter(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}`);
+
+      for(let eff of getActorEffects) {
+        if(!eff.disabled) actorToUpdate.push({"_id":getActorEffects._id,disabled:true});
+      }
     }
   }
 
@@ -3708,14 +3765,14 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
       let effect;
 
       if(size === 0) {
-        await createEffectsWithChanges(item, 'e0', [{
+        await createEffectsWithChanges(item, item.name, [{
           key: "",
           mode: 2,
           priority: null,
           value: "0"
         }], disabled);
       } else {
-        effect = item.effects.find(itm => itm.name === 'e0');
+        effect = item.effects.find(itm => itm.flags.variante === 'e0');
         const changes = effect?.changes ?? [];
 
         changes.push({
@@ -3725,22 +3782,46 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
           value: "0"
         });
 
-        await updateEffects(item, effect._id, effect.name, changes);
+        await updateEffects(item, effect._id, effect.flags.variante, changes);
+      }
+    });
+
+    html.find(`input.varianteName`).blur(ev => {
+      const effects = item.effects;
+      const size = effects.size;
+      const target = $(ev.currentTarget);
+
+      if(size !== 0) {
+        const effect = item.effects.find(itm => itm.flags.variante === 'e0');
+
+        updateVarianteName(item, effect._id, effect.flags.variante, target.val());
       }
     });
   } else {
+    html.find(`input.varianteName`).blur(ev => {
+      const target = $(ev.currentTarget);
+      const variante = target.data('name');
+      const id = target.data('id');
+
+      updateVarianteName(item, id, variante, target.val());
+    });
+
     html.find(`i.addVMod`).click(ev => {
       ev.preventDefault();
-      const listVariante = item.system?.listEffectsVariantes ?? {'e0':''};
+      let listVariante = item.system?.listEffectsVariantes ?? {'e0':''};
+
+      if(foundry.utils.isEmpty(listVariante)) listVariante = {'e0':''}
+
       const getArray = Object.keys(listVariante).map(v => parseInt(v.replace('e', '')));
       const max = Math.max(...getArray);
-      const name = `e${max+1}`;
+      const variante = `e${max+1}`;
+      const name = `${game.i18n.localize('MM3.EFFECTS.Variante')} ${max+1}`;
       let update = {};
 
-      if(item.effects.size === 0) update[`system.effectsVarianteSelected`] = name;
+      if(item.effects.size === 0) update[`system.effectsVarianteSelected`] = variante;
 
-      createEffects(item, name);
-      update[`system.listEffectsVariantes.${name}`] = `${game.i18n.localize('MM3.EFFECTS.Variante')} ${max+1}`;
+      createEffects(item, name, variante);
+      update[`system.listEffectsVariantes.${variante}`] = name;
       item.update(update);
     });
 
@@ -3774,7 +3855,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
         value: "0"
       });
 
-      await updateEffects(item, effect._id, effect.name, changes);
+      await updateEffects(item, effect._id, effect.flags.variante, changes);
     });
   }
 
@@ -3794,7 +3875,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
 
     changes[key].key = k;
 
-    await updateEffects(item, effect._id, effect.name, changes);
+    await updateEffects(item, effect._id, effect.flags.variante, changes);
   });
 
   html.find(`div.effectsBlock select.surcharge`).change(async ev => {
@@ -3830,7 +3911,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
 
     changes[key].key = split.join('.');
 
-    await updateEffects(item, effect._id, effect.name, changes);
+    await updateEffects(item, effect._id, effect.flags.variante, changes);
   });
 
   html.find(`div.effectsBlock input`).blur(async ev => {
@@ -3843,7 +3924,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
     let changes = effect.changes;
     changes[key].value = value;
 
-    await updateEffects(item, effect._id, effect.name, changes);
+    await updateEffects(item, effect._id, effect.flags.variante, changes);
   });
 
   html.find(`i.deleteMod`).click(ev => {
@@ -3854,7 +3935,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
     const effect = item.effects.find(effects => effects._id === id);
     effect.changes.splice(key, 1);
 
-    updateEffects(item, id, effect.name, effect.changes);
+    updateEffects(item, id, effect.flags.variante, effect.changes);
   });
 
   html.find(`a.btnEdit`).click(ev => {
@@ -3871,16 +3952,38 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
 export async function loadEffectsClose(item) {
   const form = item.sheet.form;
   const input = $($(form).find('input.effect'));
+  const variantes = $($(form).find('input.varianteName'));
 
   for(let i of input) {
     const id = $(i).data('id');
     const key = $(i).data('key');
-    const name = $(i).data('name');
+    const variante = $(i).data('name');
     const value = $(i).val();
-    const effect = item.effects.find(itm => itm._id === id && (itm.name === name || itm.label === name));
+    const effect = item.effects.find(itm => itm._id === id && itm.flags.variante === variante);
     let change = effect.changes[key];
     change.value = value;
 
-    await updateEffects(item, id, name, effect.change);
+    await updateEffects(item, id, variante, effect.change);
+  }
+
+  for(let i of variantes) {
+    const single = $(i).data('single');
+    const value = $(i).val();
+
+    if(single) {
+      const effects = item.effects;
+      const size = effects.size;
+
+      if(size !== 0) {
+        const effect = item.effects.find(itm => itm.flags.variante === 'e0');
+
+        updateVarianteName(item, effect._id, effect.flags.variante, value);
+      }
+    } else {
+      const id = $(i).data('id');
+      const variante = $(i).data('name');
+
+      updateVarianteName(item, id, variante, value)
+    }
   }
 }

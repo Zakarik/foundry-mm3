@@ -3,7 +3,7 @@ import {
   } from "./helpers/common.mjs";
 
 export class MigrationMM3 {
-    static NEEDED_VERSION = "1.26.0";
+    static NEEDED_VERSION = "1.32.0";
 
     static needUpdate(version) {
         const currentVersion = game.settings.get("mutants-and-masterminds-3e", "systemVersion");
@@ -56,7 +56,7 @@ export class MigrationMM3 {
         });
     }
 
-    static _migrationActor(actor, options = { force:false }) {
+    static async _migrationActor(actor, options = { force:false }) {
         const update = {};
         const data = actor.system;
 
@@ -72,7 +72,7 @@ export class MigrationMM3 {
                     case 'esquive':
                         update[`system.attaque.${a}.basedef`] = 10;
                         break;
-                        
+
                     case 'parade':
                         update[`system.attaque.${a}.basedef`] = 10;
                         break;
@@ -80,11 +80,11 @@ export class MigrationMM3 {
                     case 'vigueur':
                         update[`system.attaque.${a}.basedef`] = 10;
                         break;
-                        
+
                     case 'robustesse':
                         update[`system.attaque.${a}.basedef`] = 15;
                         break;
-                        
+
                     case 'volonte':
                         update[`system.attaque.${a}.basedef`] = 10;
                         break;
@@ -113,7 +113,7 @@ export class MigrationMM3 {
         }
 
         if (options?.force || MigrationMM3.needUpdate("1.16.0")) {
-            
+
             if(actor.type === 'vehicule' || actor.type === 'qg') {
                 update[`system.initiative`] = {
                     "base":0
@@ -184,7 +184,7 @@ export class MigrationMM3 {
                         'kmh':0,
                         'selected':false
                     }
-                }                
+                }
             }
             update['system.strategie.limite'] = {
                 "attaqueprecision":{
@@ -247,7 +247,7 @@ export class MigrationMM3 {
                 for(let a in Object.values(attacks)) {
                     let exist = attacks[attEntries[a][0]]?._id ?? false;
                     let rand = foundry.utils.randomID();
-    
+
                     if(exist === false) {
                         let dazed = getStatusData('dazed');
                         let chanceling = getStatusData('chanceling');
@@ -276,50 +276,50 @@ export class MigrationMM3 {
                         listAttacks[a] = {
                             _id:rand,
                         };
-                        
+
                     }
                 }
-    
+
                 if(actor.type === 'personnage') {
                     const contact = data.competence.combatcontact.list;
                     const distance = data.competence.combatdistance.list;
-    
+
                     for(let cc in contact) {
                         let idAtt = contact[cc].idAtt;
                         let exist = contact[cc]?._id ?? false;
-    
+
                         if(exist === false) {
                             let rand = foundry.utils.randomID();
-    
+
                             update[`system.competence.combatcontact.list.${cc}._id`] = rand;
                             update[`system.competence.combatcontact.list.${cc}.idAtt`] = listAttacks[idAtt]._id;
-    
+
                             listCombatContact[cc] = {
                                 _id:rand,
                             };
-                        }                    
+                        }
                     }
-    
+
                     for(let rc in distance) {
                         let idAtt = distance[rc].idAtt;
                         let exist = distance[rc]?._id ?? false;
-    
+
                         if(exist === false) {
                             let rand = foundry.utils.randomID();
-    
+
                             update[`system.competence.combatdistance.list.${rc}._id`] = rand;
                             update[`system.competence.combatdistance.list.${rc}.idAtt`] = listAttacks[idAtt]._id;
-    
+
                             listCombatDistance[rc] = {
                                 _id:rand,
                             };
                         }
                     }
-    
+
                     for(let a in attacks) {
                         let id = attacks[a].id;
                         let type = attacks[a].type;
-    
+
                         if(type !== 'other') {
                             update[`system.attaque.${a}.skill`] = type === 'combatcontact' ? listCombatContact[id]._id : listCombatDistance[id]._id;
                             update[`system.attaque.${a}.-=id`] = null;
@@ -343,10 +343,49 @@ export class MigrationMM3 {
                 item.update(updateItm);
             }
         }
+
+        if (options?.force || MigrationMM3.needUpdate("1.32.0")) {
+
+            for (let item of actor.items) {
+                const effects = item.effects;
+                const listVariantes = item.system.listEffectsVariantes;
+                let updateActEff = [];
+                let updateItm = {};
+                let updateEff = [];
+
+                for(let e of effects) {
+                    const variante = item.type === 'talent' ? 'e0' : e.name;
+                    const name = item.type === 'talent' ? item.name : listVariantes[e.name];
+                    const find = actor.effects.contents.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.name === e.name);
+
+                    updateEff.push({
+                        "_id":e.id,
+                        icon:'',
+                        flags:{
+                            variante:variante
+                        },
+                        name:name
+                    });
+
+                    updateActEff.push({
+                        "_id":find._id,
+                        icon:'',
+                        flags:{
+                            variante:variante
+                        },
+                        name:name
+                    })
+                }
+
+                await item.updateEmbeddedDocuments('ActiveEffect', updateEff);
+                await actor.updateEmbeddedDocuments('ActiveEffect', updateActEff);
+            }
+
+        }
         return update;
     }
 
-    static _migrationItems(item, options = { force:false }) {
+    static async _migrationItems(item, options = { force:false }) {
         const update = {};
         const data = item.system;
 
@@ -354,6 +393,29 @@ export class MigrationMM3 {
             if(item.type === 'pouvoir') {
                 update[`system.effetsprincipaux`] = "";
             }
+        }
+
+        if (options?.force || MigrationMM3.needUpdate("1.32.0")) {
+            const effects = item.effects;
+            const listVariantes = data.listEffectsVariantes;
+            let updateItm = {};
+            let updateEff = [];
+
+            for(let e of effects) {
+                const variante = item.type === 'talent' ? 'e0' : e.name;
+                const name = item.type === 'talent' ? item.name : listVariantes[e.name];
+                updateEff.push({
+                    "_id":e.id,
+                    icon:'',
+                    flags:{
+                        variante:variante
+                    },
+                    name:name
+                });
+            }
+
+            await item.updateEmbeddedDocuments('ActiveEffect', updateEff);
+
         }
 
         return update;

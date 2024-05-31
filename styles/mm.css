@@ -3214,7 +3214,7 @@ div.modificateur section.window-content {
 div.modificateur section.window-content form {
   min-width: min-content;
 }
-div.modificateur section.window-content form > input {
+div.modificateur section.window-content form input.mainName {
   width: 100%;
   border-width: 2px;
   border-radius: 15px 15px 0px 0px;
@@ -3229,8 +3229,11 @@ div.modificateur section.window-content form > input {
   font-family: "Bangers";
   text-align: center;
 }
-div.modificateur section.window-content form > input::placeholder {
+div.modificateur section.window-content form input.mainName::placeholder {
   color: #EBEBEB;
+}
+div.modificateur section.window-content form #mseItemSound {
+  position: absolute;
 }
 div.modificateur section.window-content div.editor-content {
   font-family: "Kalam";
@@ -4742,7 +4745,7 @@ div.talent section.window-content {
 div.talent section.window-content form {
   min-width: min-content;
 }
-div.talent section.window-content form > input {
+div.talent section.window-content form input.mainName {
   width: 100%;
   border-width: 2px;
   border-radius: 15px 15px 0px 0px;
@@ -4757,8 +4760,11 @@ div.talent section.window-content form > input {
   font-family: "Bangers";
   text-align: center;
 }
-div.talent section.window-content form > input::placeholder {
+div.talent section.window-content form input.mainName::placeholder {
   color: #EBEBEB;
+}
+div.talent section.window-content form #mseItemSound {
+  position: absolute;
 }
 div.talent section.window-content div.editor-content {
   font-family: "Kalam";
@@ -5248,7 +5254,7 @@ div.equipement section.window-content {
 div.equipement section.window-content form {
   min-width: min-content;
 }
-div.equipement section.window-content form > input {
+div.equipement section.window-content form input.mainName {
   width: 100%;
   border-width: 2px;
   border-radius: 15px 15px 0px 0px;
@@ -5263,8 +5269,11 @@ div.equipement section.window-content form > input {
   font-family: "Bangers";
   text-align: center;
 }
-div.equipement section.window-content form > input::placeholder {
+div.equipement section.window-content form input.mainName::placeholder {
   color: #EBEBEB;
+}
+div.equipement section.window-content form #mseItemSound {
+  position: absolute;
 }
 div.equipement section.window-content div.editor-content {
   font-family: "Kalam";

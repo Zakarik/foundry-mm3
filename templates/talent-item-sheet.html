@@ -1,5 +1,5 @@
 <form class="{{cssClass}}" autocomplete="off">
-    <input name="name" type="text" value="{{data.name}}" placeholder="{{localize "MM3.Nom"}}" />
+    <input name="name" class="mainName" type="text" value="{{data.name}}" placeholder="{{localize "MM3.Nom"}}" class="varianteName" data-single="true" />
 
     <section class="sheet-body">
         {{!-- Sheet Tab Navigation --}}
@@ -13,11 +13,11 @@
             <div class="inner">
                 <div class="details">
                     <img class="profile-img" src="{{data.img}}" data-edit="img" title="{{data.name}}" />
-                    
+
                     <div class="cout">
                         <label>
                             <span>{{localize "MM3.Rang"}}</span>
-        
+
                             <input type="number" name="system.rang" value="{{systemData.rang}}" />
                         </label>
                         <a class="btn {{#if systemData.equipement}}selected{{/if}}" data-type="equipement" data-value="{{systemData.equipement}}">
@@ -25,7 +25,7 @@
                         </a>
                     </div>
                 </div>
-        
+
                 <div class="description">
                     <span class="label">{{localize "MM3.Description"}}</span>
                     {{editor systemData.description target="system.description" button=true owner=owner editable=editable}}

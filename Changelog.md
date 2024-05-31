@@ -1,3 +1,12 @@
+## Version 1.32.0
+### Améliorations
+- Amélioration de la gestion des modificateurs, afin que ce soit le nom du variant qui s'affiche lorsqu'il est activé.
+
+### Bugfix
+- Correction d'un bug rare avec la gestion des modificateurs, dans la numérotation des variants.
+- Correction d'un bug lors du changement de variant tandis que le pouvoir est actif.
+- Correction de compatibilité (uniquement pour la mise en page) avec d'autres modules existants.
+
 ## Version 1.31.0
 ### Améliorations
 - Ajout de la compatibilité avec la V12.

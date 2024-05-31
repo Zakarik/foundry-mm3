@@ -8,7 +8,7 @@ div.equipement {
         form {
             min-width: min-content;
 
-            >input {
+            input.mainName {
                 width:100%;
                 border-width: 2px;
                 border-radius: 15px 15px 0px 0px;
@@ -24,8 +24,12 @@ div.equipement {
                 text-align: center;
 
                 &::placeholder {
-                    color:$fond;                    
+                    color:$fond;
                 }
+            }
+
+            #mseItemSound {
+                position: absolute;
             }
         }
 
@@ -51,11 +55,11 @@ div.equipement {
             border-top-color: $black;
             padding: 5px;
         }
-        
+
         @import "subparts/nav";
         @import "subparts/options";
 
-        
+
 
         img.profile-img {
             object-fit: contain;
@@ -69,8 +73,8 @@ div.equipement {
                 align-items: flex-start;
                 align-content: flex-start;
                 row-gap:5px;
-                
-                div {             
+
+                div {
                     &.cout {
                         display:grid;
                         grid-template-columns: 1fr 1fr;

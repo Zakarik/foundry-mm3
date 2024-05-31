@@ -3,7 +3,7 @@ div.modificateur {
         object-fit: contain;
         width:100%;
     }
-    
+
     section.window-content {
         background:$fond;
         color:$color;
@@ -13,7 +13,7 @@ div.modificateur {
         form {
             min-width: min-content;
 
-            >input {
+            input.mainName {
                 width:100%;
                 border-width: 2px;
                 border-radius: 15px 15px 0px 0px;
@@ -29,8 +29,12 @@ div.modificateur {
                 text-align: center;
 
                 &::placeholder {
-                    color:$fond;                    
+                    color:$fond;
                 }
+            }
+
+            #mseItemSound {
+                position: absolute;
             }
         }
 
@@ -54,11 +58,11 @@ div.modificateur {
             border: 1px solid $grey;
             border-top-color: $black;
             padding: 5px;
-        }      
-        
+        }
+
         @import "subparts/nav";
         @import "subparts/options";
-        
+
 
         div {
             &.details {
