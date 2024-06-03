@@ -2085,7 +2085,7 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
   const isCritique = saveDices === optDices.critique ? true : false;
   const margeBrut = vs-saveTotal;
   const hasMarge = margeBrut >= 0 && !isCritique ? true : false;
-  const marge = margeBrut >= 0 && !isCritique ? Math.floor(margeBrut / 5)+1 : false;
+  const marge = margeBrut >= 0 && !isCritique ? Math.ceil(margeBrut / 5) : false;
   const dataAtk = data.atk;
   const dataStr = data.str;
   const token = data.tkn;
