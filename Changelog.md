@@ -1,3 +1,7 @@
+## Version 1.32.1
+### Bugfix
+- Correction d'un bug d'arrondi dans le calcul des degrés d'échecs.'
+
 ## Version 1.32.0
 ### Améliorations
 - Amélioration de la gestion des modificateurs, afin que ce soit le nom du variant qui s'affiche lorsqu'il est activé.
