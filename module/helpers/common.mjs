@@ -3729,6 +3729,8 @@ export function checkActiveOrUnactive(item) {
         const effVariante = e.flags.variante;
         const itmEffects = item.effects.find(itm => itm.flags.variante === effVariante);
 
+        if(itmEffects === undefined) continue;
+
         if(disabled !== itmEffects.disabled) actorToUpdate.push({"_id":e._id, disabled:itmEffects.disabled});
       }
 
