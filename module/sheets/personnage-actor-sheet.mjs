@@ -41,6 +41,8 @@ export class PersonnageActorSheet extends ActorSheet {
     this._prepareCompetences(context);
     actualiseWAtt();
 
+    console.warn(context);
+
     return context;
   }
 

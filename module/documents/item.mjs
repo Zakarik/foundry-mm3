@@ -43,7 +43,7 @@ export class MM3Item extends Item {
 
     prepareDerivedData() {
         const itemData = this;
-    
+
         this._preparePouvoirData(itemData);
     }
 
@@ -72,15 +72,15 @@ export class MM3Item extends Item {
 
         for(let ext in extras) {
             const dataExt = extras[ext].data.cout;
-            
-            if(dataExt.fixe) modFixe += dataExt.value; 
+
+            if(dataExt.fixe) modFixe += dataExt.value;
             else if(!dataExt.fixe) modRang += dataExt.value;
         }
-        
+
         for(let ext in defauts) {
             const dataExt = defauts[ext].data.cout;
-            
-            if(dataExt.fixe) modFixe -= dataExt.value; 
+
+            if(dataExt.fixe) modFixe -= dataExt.value;
             else if(!dataExt.fixe) modRang -= dataExt.value;
         }
 
@@ -88,7 +88,7 @@ export class MM3Item extends Item {
 
         cout.modrang = modRang;
         cout.modfixe = modFixe;
-        
+
         const coutParRang = cout.parrang+cout.modrang;
         let coutRang = 1;
 
@@ -105,10 +105,10 @@ export class MM3Item extends Item {
 
         let trueTotal = Math.max(coutRang+cout.divers+cout.modfixe, 1);
         let total = 0;
-        
+
         if(data.special === 'standard') total = trueTotal;
         else if(data.special === 'alternatif') total = 1;
-        else if(data.special === 'dynamique') { 
+        else if(data.special === 'dynamique') {
             total = 2;
         }
 
@@ -117,14 +117,14 @@ export class MM3Item extends Item {
 
         if(data.link === "" && data.special === 'dynamique') cout.rangDynMax = cout.rang;
         else if(data.link !== "" && data.special === 'dynamique') {
-            const getItem = itemData.parent.items.get(data.link);   
-            
+            const getItem = itemData.parent.items.get(data.link);
+
             let dynCoupParRang = 0;
             let dynCoutPrincipal = 0;
-            
+
             if(getItem !== undefined) {
                 if(coutParRang > 0) cout.rangDynMax = Math.floor(getItem.system.cout.totalTheorique/(cout.parrangtotal+cout.divers+cout.modfixe-1));
-                else if(coutParRang === 0) { 
+                else if(coutParRang === 0) {
                     dynCoupParRang = 2;
                     dynCoutPrincipal = getItem.system.special === 'dynamique' ? (getItem.system.cout.totalTheorique-1-cout.divers-cout.modfixe+1) : getItem.system.cout.totalTheorique-cout.divers-cout.modfixe+1;
 
@@ -133,10 +133,10 @@ export class MM3Item extends Item {
                 } else if(coutParRang < 0) {
                     dynCoupParRang = ((coutParRang*-1)+2);
                     dynCoutPrincipal = getItem.system.special === 'dynamique' ? (getItem.system.cout.totalTheorique-1-cout.divers-cout.modfixe+1) : getItem.system.cout.totalTheorique-cout.divers-cout.modfixe+1;
-                    
+
                     cout.rangDynMax = Math.floor(dynCoutPrincipal*dynCoupParRang);
                 }
-            } 
+            }
         }
 
         if(itemData.parent !== null && data.special === 'dynamique') {

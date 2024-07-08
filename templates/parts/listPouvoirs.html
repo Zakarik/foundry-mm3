@@ -5,7 +5,7 @@
             <span class="deploy "><i class="minus"></i></span>
             <h1>{{localize "MM3.POUVOIR.Eventail"}} : {{key.name}}</h1>
         </header>
-    
+
         <div class="grpPwr {{#if (hasLink key._id @root/actor)}}link{{/if}}" ">
     {{else}}
         {{#if (hasAlt key._id @root/actor)}}
@@ -23,7 +23,7 @@
     {{#if (isValue key.system.special 'dynamique')}}violet{{/if}}
     {{#unless (hasLinkAndAlt key._id @root/actor)}}item{{/unless}}
     " data-item-id="{{key._id}}">
-        <header class="js-toggler 
+        <header class="js-toggler
         {{#if (ObjectIsEmpty system.listEffectsVariantes)}}withoutVariante{{/if}}" >
             {{#if (eq system.actor 'personnage')}}
             {{#unless (ObjectIsEmpty system.listEffectsVariantes)}}
@@ -39,7 +39,7 @@
             <span class="deploy "><i class="minus"></i></span>
             <div class="pwrheader">
                 <span class="header">{{key.name}}</span>
-                
+
                 <i class="fa-solid fa-pen-to-square item-edit"></i>
                 <i class="fa-solid fa-trash-xmark item-delete"></i>
             </div>
@@ -48,7 +48,7 @@
                 <span class="header">{{key.system.effetsprincipaux}}</span>
             </div>
             {{/if}}
-            
+
             {{#if (isValue key.system.special 'alternatif')}}
                 <select class="link" data-cout="{{key.system.cout.totalTheorique}}" data-type="{{key.system.special}}">
                     {{#select key.system.link}}
@@ -189,7 +189,7 @@
                 <span class="deploy "><i class="minus"></i></span>
                 <div class="pwrheader">
                     <span class="header">{{kPA.name}}</span>
-                    
+
                     <i class="fa-solid fa-pen-to-square item-edit"></i>
                     <i class="fa-solid fa-trash-xmark item-delete"></i>
                 </div>
@@ -321,7 +321,7 @@
                 <span class="deploy "><i class="minus"></i></span>
                 <div class="pwrheader">
                     <span class="header">{{kPA.name}}</span>
-                    
+
                     <i class="fa-solid fa-pen-to-square item-edit"></i>
                     <i class="fa-solid fa-trash-xmark item-delete"></i>
                 </div>
@@ -442,7 +442,7 @@
                 <span class="deploy "><i class="minus"></i></span>
                 <div class="pwrheader">
                     <span class="header">{{kPA.name}}</span>
-                    
+
                     <i class="fa-solid fa-pen-to-square item-edit"></i>
                     <i class="fa-solid fa-trash-xmark item-delete"></i>
                 </div>
@@ -504,7 +504,7 @@
                     <div class="data"><span class="col4">{{localize "MM3.Couttotal"}} : {{kPA.system.cout.total}}</span></div>
                     {{/if}}
                 {{/unless}}
-                
+
                     <div class="descripteurs">
                         {{#each kPA.system.descripteurs as | kDesc desc |}}
                             <span>{{#unless @first}}/{{/unless}} {{kDesc}}</span>
@@ -563,7 +563,7 @@
             </div>
         </div>
         {{/if}}
-    {{/if}}    
+    {{/if}}
 {{/each}}
 
 <a class="item-create" data-type="pouvoir">{{localize "MM3.BTN.AddPwr"}}</a>

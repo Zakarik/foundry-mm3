@@ -1,3 +1,7 @@
+## Version 1.32.3
+### Bugfix
+- Correction de divers bugs sur les effets.
+
 ## Version 1.32.2
 ### Bugfix
 - Correction d'un bug dans la gestion des effets.
