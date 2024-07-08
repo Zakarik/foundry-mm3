@@ -1,6 +1,10 @@
+## Version 1.32.2
+### Bugfix
+- Correction d'un bug dans la gestion des effets.
+
 ## Version 1.32.1
 ### Bugfix
-- Correction d'un bug d'arrondi dans le calcul des degrés d'échecs.'
+- Correction d'un bug d'arrondi dans le calcul des degrés d'échecs.
 
 ## Version 1.32.0
 ### Améliorations
