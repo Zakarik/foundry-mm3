@@ -111,7 +111,7 @@ export class PersonnageActorSheet extends ActorSheet {
         }
       }
 
-      item.update({[`system.activate`]:value});
+      await item.update({[`system.activate`]:value});
     });
 
     html.find('.variantepwr').change(async ev => {

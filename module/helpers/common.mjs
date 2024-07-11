@@ -3555,7 +3555,7 @@ export async function updateEffects(item, id, name, changes) {
   }]);
 
   if(actor !== null) {
-    const getActorEffects = actor.effects.contents.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.flags.variante === name);
+    const getActorEffects = actor.effects.contents.find(itm => itm.origin.includes(item._id) && itm.flags.variante === name);
 
     await actor.updateEmbeddedDocuments('ActiveEffect', [{
       "_id":getActorEffects._id,
@@ -3575,7 +3575,7 @@ export async function updateVarianteName(item, id, variante, name) {
   }]);
 
   if(actor !== null) {
-    const getActorEffects = actor.effects.contents.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.flags.variante === name);
+    const getActorEffects = actor.effects.contents.find(itm => itm.origin.includes(item._id) && itm.flags.variante === variante);
 
     await actor.updateEmbeddedDocuments('ActiveEffect', [{
       "_id":getActorEffects._id,
@@ -3653,7 +3653,7 @@ export function deleteEffects(item, id, name) {
   item.deleteEmbeddedDocuments('ActiveEffect', [id]);
 
   if(actor !== null) {
-    const getActorEffects = actor.effects.contents.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && (itm.name === name || itm.label === name));
+    const getActorEffects = actor.effects.contents.find(itm => itm.origin.includes(item._id) && (itm.name === name || itm.label === name));
 
     actor.deleteEmbeddedDocuments('ActiveEffect', [getActorEffects._id]);
   }
@@ -3676,73 +3676,29 @@ export function deleteAllEffects(item, ids) {
 }
 
 export function checkActiveOrUnactive(item) {
-  const effects = item.effects.contents;
+  const effects = item.effects;
+  if(effects.size === 0) return;
+
   const variante = item.system.effectsVarianteSelected;
-  const actor = item.actor;
   const isactive = item.system?.activate ?? false;
-  const actorType = actor?.type ?? '';
+  const nactive = isactive ? false : true;
+  const actor = item.actor;
+
   let actorToUpdate = [];
-  let itemToUpdate = [];
 
   if(actor === '' || actor === null) return;
   if(actor.permission !== 3) return;
 
-  for(let e of effects) {
-    const disabled = e.disabled;
-    const effVariante = e.flags.variante;
+  const actorItem = actor.effects.find(itm => itm.origin.includes(item._id) && itm.flags.variante === variante && itm.disabled !== nactive);
+  const actorItems = actor.effects.filter(itm => itm.origin.includes(item._id) && itm.flags.variante !== variante && itm.disabled !== true);
 
-    let toUpdate = false;
-    let updateDisabled = true;
+  if(actorItem !== undefined) actorToUpdate.push({"_id":actorItem._id,disabled:nactive});
 
-    if(isactive && disabled && effVariante == variante) {
-      toUpdate = true;
-      updateDisabled = false;
-    } else if((isactive && !disabled && effVariante != variante) || (!isactive && !disabled)) {
-      toUpdate = true;
-      updateDisabled = true;
-    }
-
-    if(toUpdate) itemToUpdate.push({"_id":e._id, disabled:updateDisabled});
-
-
-
-
-    /*if(isactive && disabled && effVariante === variante) itemToUpdate.push({"_id":e._id, disabled:false});
-    else if(!disabled) itemToUpdate.push({"_id":e._id, disabled:true});
-
-    if(actor !== null && actorType === 'personnage') {
-      const getActorEffects = actor.effects.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.flags.variante === variante);
-
-      if(getActorEffects !== undefined) {
-        if(getActorEffects.disabled && isactive && effVariante === variante) actorToUpdate.push({"_id":getActorEffects._id, disabled:false});
-        else if(!getActorEffects.disabled) actorToUpdate.push({"_id":getActorEffects._id, disabled:true});
-      }
-    }*/
-  }
-
-  if(actor !== null) {
-    if(actorType === 'personnage') {
-      const actorEffects = actor.effects.contents;
-
-      for(let e of actorEffects) {
-        const disabled = e.disabled;
-        const effVariante = e.flags.variante;
-        const itmEffects = item.effects.find(itm => itm.flags.variante === effVariante);
-
-        if(disabled !== itmEffects.disabled) actorToUpdate.push({"_id":e._id, disabled:itmEffects.disabled});
-      }
-
-    } else if(actorType !== 'personnage') {
-      const getActorEffects = actor.effects.filter(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}`);
-
-      for(let eff of getActorEffects) {
-        if(!eff.disabled) actorToUpdate.push({"_id":getActorEffects._id,disabled:true});
-      }
-    }
+  for(let e of actorItems) {
+    actorToUpdate.push({"_id":e._id, disabled:true});
   }
 
   if(actorToUpdate.length > 0) actor.updateEmbeddedDocuments('ActiveEffect', actorToUpdate);
-  if(itemToUpdate.length > 0) item.updateEmbeddedDocuments('ActiveEffect', itemToUpdate);
 }
 
 export function loadEffectsContext(context) {
