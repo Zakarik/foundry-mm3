@@ -1,4 +1,4 @@
-## Version 1.32.4
+## Version 1.32.5
 ### Bugfix
 - Correction de divers bugs mineurs.
 
