@@ -1,3 +1,7 @@
+## Version 1.32.4
+### Bugfix
+- Annulation des modifications de la V1.32.3 et V1.32.2 qui semblaient causer certains ralentissement après quelques tests plus approfondis.
+
 ## Version 1.32.3
 ### Bugfix
 - Correction de divers bugs sur les effets.
