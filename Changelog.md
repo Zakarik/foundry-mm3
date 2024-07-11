@@ -1,3 +1,7 @@
+## Version 1.32.6
+### Bugfix
+- Retour sur une partie des changements de la V1.32.3 et V1.32.2 qui semblaient causer des ralentissement.
+
 ## Version 1.32.5
 ### Bugfix
 - Correction de divers bugs mineurs.
