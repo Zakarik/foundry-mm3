@@ -3555,7 +3555,7 @@ export async function updateEffects(item, id, name, changes) {
   }]);
 
   if(actor !== null) {
-    const getActorEffects = actor.effects.contents.find(itm => itm.origin.includes(item._id) && itm.flags.variante === name);
+    const getActorEffects = actor.effects.contents.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.flags.variante === name);
 
     await actor.updateEmbeddedDocuments('ActiveEffect', [{
       "_id":getActorEffects._id,
@@ -3575,7 +3575,7 @@ export async function updateVarianteName(item, id, variante, name) {
   }]);
 
   if(actor !== null) {
-    const getActorEffects = actor.effects.contents.find(itm => itm.origin.includes(item._id) && itm.flags.variante === variante);
+    const getActorEffects = actor.effects.contents.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && itm.flags.variante === name);
 
     await actor.updateEmbeddedDocuments('ActiveEffect', [{
       "_id":getActorEffects._id,
@@ -3653,7 +3653,7 @@ export function deleteEffects(item, id, name) {
   item.deleteEmbeddedDocuments('ActiveEffect', [id]);
 
   if(actor !== null) {
-    const getActorEffects = actor.effects.contents.find(itm => itm.origin.includes(item._id) && (itm.flags.variante === name));
+    const getActorEffects = actor.effects.contents.find(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}` && (itm.name === name || itm.label === name));
 
     actor.deleteEmbeddedDocuments('ActiveEffect', [getActorEffects._id]);
   }
@@ -3727,15 +3727,13 @@ export function checkActiveOrUnactive(item) {
       for(let e of actorEffects) {
         const disabled = e.disabled;
         const effVariante = e.flags.variante;
-        const itmEffects = item.effects.contents.find(itm => itm.flags.variante === effVariante);
+        const itmEffects = item.effects.find(itm => itm.flags.variante === effVariante);
 
-        if(itmEffects !== undefined) {
-          if(disabled !== itmEffects.disabled) actorToUpdate.push({"_id":e._id, disabled:itmEffects.disabled});
-        }
+        if(disabled !== itmEffects.disabled) actorToUpdate.push({"_id":e._id, disabled:itmEffects.disabled});
       }
 
     } else if(actorType !== 'personnage') {
-      const getActorEffects = actor.effects.contents.filter(itm => itm.origin.includes(item._id));
+      const getActorEffects = actor.effects.filter(itm => itm.origin === `Actor.${actor._id}.Item.${item._id}`);
 
       for(let eff of getActorEffects) {
         if(!eff.disabled) actorToUpdate.push({"_id":getActorEffects._id,disabled:true});
