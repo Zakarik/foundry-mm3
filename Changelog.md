@@ -1,3 +1,7 @@
+## Version 1.32.4
+### Bugfix
+- Correction de divers bugs mineurs.
+
 ## Version 1.32.3
 ### Bugfix
 - Correction de divers bugs sur les effets.
