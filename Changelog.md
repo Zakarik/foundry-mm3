@@ -1,3 +1,7 @@
+## Version 1.32.8
+### Bugfix
+- Corrections d'un bug empêchant l'enregistrement des modificateurs de pouvoirs dans certains cas..
+
 ## Version 1.32.7
 ### Bugfix
 - Corrections d'une boucle infinie arrivant dans certains cas.

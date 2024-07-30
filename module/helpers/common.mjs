@@ -3721,7 +3721,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
       let effect;
 
       if(size === 0) {
-        await createEffectsWithChanges(item, item.name, [{
+        createEffectsWithChanges(item, item.name, [{
           key: "",
           mode: 2,
           priority: null,
@@ -3916,10 +3916,11 @@ export async function loadEffectsClose(item) {
     const variante = $(i).data('name');
     const value = $(i).val();
     const effect = item.effects.find(itm => itm._id === id && itm.flags.variante === variante);
+
     let change = effect.changes[key];
     change.value = value;
 
-    await updateEffects(item, id, variante, effect.change);
+    await updateEffects(item, id, variante, effect.changes);
   }
 
   for(let i of variantes) {
