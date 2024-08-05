@@ -3,7 +3,7 @@ import {
   } from "./helpers/common.mjs";
 
 export class MigrationMM3 {
-    static NEEDED_VERSION = "1.32.0";
+    static NEEDED_VERSION = "1.32.9";
 
     static needUpdate(version) {
         const currentVersion = game.settings.get("mutants-and-masterminds-3e", "systemVersion");
@@ -380,6 +380,44 @@ export class MigrationMM3 {
                 await item.updateEmbeddedDocuments('ActiveEffect', updateEff);
                 await actor.updateEmbeddedDocuments('ActiveEffect', updateActEff);
             }
+
+        }
+
+        if (options?.force || MigrationMM3.needUpdate("1.32.9")) {
+
+            for(let effect of actor.effects) {
+                if(effect.origin !== null) {
+                    const itmId = effect.origin?.split('.') ?? null;
+
+                    if(!itmId) continue;
+
+                    const last = itmId[itmId.length-1];
+                    const item = actor.items.get(last);
+                    const eff = item.effects.find(itm => itm.flags.variante === effect.flags.variante);
+
+                    if(!eff) actor.deleteEmbeddedDocuments("ActiveEffect", [effect._id]);
+                    else {
+                        if(eff.changes !== effect.changes) item.updateEmbeddedDocuments("ActiveEffect", [{
+                            "_id":eff.id,
+                            icon:'',
+                            flags:{
+                                variante:eff.flags.variante
+                            },
+                            name:eff.name,
+                            changes:eff.changes,
+                        }])
+                    }
+
+                }
+                console.warn(effect);
+            }
+            /*for (let item of actor.items) {
+                const effects = item.effects;
+                console.warn(effects);
+
+                await item.updateEmbeddedDocuments('ActiveEffect', updateEff);
+                await actor.updateEmbeddedDocuments('ActiveEffect', updateActEff);
+            }*/
 
         }
         return update;

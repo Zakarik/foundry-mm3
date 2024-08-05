@@ -1879,7 +1879,8 @@ export function setCombinedEffects(token, statusId, active) {
                 name: game.i18n.localize(tSE.label),
                 label: game.i18n.localize(tSE.label),
                 icon: tSE.icon,
-                "flags.core.statusId":idSE
+                "flags.core.statusId":idSE,
+                origin:'status',
               };
 
               if(dChanges !== false) {

@@ -20,7 +20,7 @@ import toggler from './helpers/toggler.js';
 import { measureDistances } from "./helpers/canvas.mjs";
 
 
-import { 
+import {
   rollAtkTgt,
   rollAtk,
   rollStd,
@@ -111,27 +111,32 @@ Hooks.once('init', async function() {
   CONFIG.statusEffects = [{
     id:'dead',
     label:'EFFECT.StatusDead',
-    icon:'icons/svg/skull.svg'
+    icon:'icons/svg/skull.svg',
+    origin:'status'
   },
   {
     id:'downgrade',
     label:'MM3.STATUS.Downgrade',
-    icon:"icons/svg/downgrade.svg"
+    icon:"icons/svg/downgrade.svg",
+    origin:'status'
   },
   {
     id:'controlled',
     label:'MM3.STATUS.Controlled',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/controlled.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/controlled.svg",
+    origin:'status'
   },
   {
     id:'decreased',
     label:'MM3.STATUS.Decreased',
-    icon:"icons/svg/degen.svg"
+    icon:"icons/svg/degen.svg",
+    origin:'status'
   },
   {
     id:'tired',
     label:'MM3.STATUS.Tired',
     icon:"systems/mutants-and-masterminds-3e/assets/icons/tired.svg",
+    origin:'status',
     changes:[{
       key:'slow',
       mode:0,
@@ -141,37 +146,43 @@ Hooks.once('init', async function() {
   {
     id:'dazed',
     label:'MM3.STATUS.Dazed',
-    icon:"icons/svg/daze.svg"
+    icon:"icons/svg/daze.svg",
+    origin:'status'
   },
   {
     id:'stuck',
     label:'MM3.STATUS.Stuck',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/stuck.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/stuck.svg",
   },
   {
     id:'eye',
     label:'MM3.STATUS.Influenced',
-    icon:"icons/svg/eye.svg"
+    icon:"icons/svg/eye.svg",
+    origin:'status'
   },
   {
     id:'insensitive',
     label:'MM3.STATUS.Insensitive',
-    icon:"icons/svg/invisible.svg"
+    icon:"icons/svg/invisible.svg",
+    origin:'status'
   },
   {
     id:'invalid',
     label:'MM3.STATUS.Invalid',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/invalid.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/invalid.svg",
+    origin:'status'
   },
   {
     id:'slow',
     label:'MM3.STATUS.Slow',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/slow.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/slow.svg",
+    origin:'status'
   },
   {
     id:'defenseless',
     label:'MM3.STATUS.Defenseless',
     icon:"systems/mutants-and-masterminds-3e/assets/icons/defenseless.svg",
+    origin:'status',
     changes:[{
       key: `esquive`,
       mode: 0,
@@ -188,12 +199,14 @@ Hooks.once('init', async function() {
   {
     id:'transformed',
     label:'MM3.STATUS.Transformed',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/transformed.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/transformed.svg",
+    origin:'status'
   },
   {
     id:'vulnerability',
     label:'MM3.STATUS.Vulnerability',
     icon:"systems/mutants-and-masterminds-3e/assets/icons/vulnerability.svg",
+    origin:'status',
     changes:[{
       key: `esquive`,
       mode: 0,
@@ -211,6 +224,7 @@ Hooks.once('init', async function() {
     id:'prone',
     label:'MM3.STATUS.Prone',
     icon:"icons/svg/falling.svg",
+    origin:'status',
     changes:[{
       key:'slow',
       mode:0,
@@ -221,6 +235,7 @@ Hooks.once('init', async function() {
     id:'blind',
     label:'MM3.STATUS.Blind',
     icon:"icons/svg/blind.svg",
+    origin:'status',
     changes:[{
       key:'slow',
       mode:0,
@@ -241,6 +256,7 @@ Hooks.once('init', async function() {
     id:'chanceling',
     label:'MM3.STATUS.Chanceling',
     icon:"systems/mutants-and-masterminds-3e/assets/icons/chanceling.svg",
+    origin:'status',
     changes:[{
       key:'slow',
       mode:0,
@@ -256,6 +272,7 @@ Hooks.once('init', async function() {
     id:'sleep',
     label:'MM3.STATUS.Asleep',
     icon:"icons/svg/sleep.svg",
+    origin:'status',
     changes:[{
       key:'defenseless',
       mode:0,
@@ -276,6 +293,7 @@ Hooks.once('init', async function() {
     id:'restrain',
     label:'MM3.STATUS.Restrained',
     icon:"icons/svg/net.svg",
+    origin:'status',
     changes:[{
       key:'slow',
       mode:0,
@@ -291,6 +309,7 @@ Hooks.once('init', async function() {
     id:'enthralled',
     label:'MM3.STATUS.Enthralled',
     icon:"icons/svg/sun.svg",
+    origin:'status',
     changes:[{
       key:'stun',
       mode:0,
@@ -301,6 +320,7 @@ Hooks.once('init', async function() {
     id:'exhausted',
     label:'MM3.STATUS.Exhausted',
     icon:"icons/svg/unconscious.svg",
+    origin:'status',
     changes:[{
       key:'slow',
       mode:0,
@@ -316,6 +336,7 @@ Hooks.once('init', async function() {
     id:'tied',
     label:'MM3.STATUS.Tied',
     icon:"systems/mutants-and-masterminds-3e/assets/icons/tied.svg",
+    origin:'status',
     changes:[{
       key:'defenseless',
       mode:0,
@@ -336,6 +357,7 @@ Hooks.once('init', async function() {
     id:'dying',
     label:'MM3.STATUS.Dying',
     icon:"systems/mutants-and-masterminds-3e/assets/icons/dying.svg",
+    origin:'status',
     changes:[{
       key:'neutralized',
       mode:0,
@@ -346,6 +368,7 @@ Hooks.once('init', async function() {
     id:'neutralized',
     label:'MM3.STATUS.Neutralized',
     icon:"systems/mutants-and-masterminds-3e/assets/icons/neutralized.svg",
+    origin:'status',
     changes:[{
       key:'defenseless',
       mode:0,
@@ -366,6 +389,7 @@ Hooks.once('init', async function() {
     id:'paralysis',
     label:'MM3.STATUS.Paralysis',
     icon:"icons/svg/paralysis.svg",
+    origin:'status',
     changes:[{
       key:'defenseless',
       mode:0,
@@ -385,12 +409,14 @@ Hooks.once('init', async function() {
   {
     id:'deaf',
     label:'MM3.STATUS.Deaf',
-    icon:"icons/svg/deaf.svg"
+    icon:"icons/svg/deaf.svg",
+    origin:'status'
   },
   {
     id:'surprised',
     label:'MM3.STATUS.Surprised',
     icon:"systems/mutants-and-masterminds-3e/assets/icons/surprised.svg",
+    origin:'status',
     changes:[{
       key:'vulnerability',
       mode:0,
@@ -405,13 +431,15 @@ Hooks.once('init', async function() {
   {
     id:'stun',
     label:'MM3.STATUS.Stunned',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/stunned.svg"
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/stunned.svg",
+    origin:'status'
   },
   {
     id:'disabled',
     label:'MM3.STATUS.Disabled',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/disabled.svg"
-  }];  
+    icon:"systems/mutants-and-masterminds-3e/assets/icons/disabled.svg",
+    origin:'status'
+  }];
 
   CONFIG.specialStatusEffects = {
     BLIND:"blind",
@@ -452,12 +480,12 @@ Hooks.once('init', async function() {
     types: ["qg"],
     makeDefault: true
   });
-  
+
   Items.registerSheet("mutants-and-masterminds-3e", ModificateurItemSheet, {
     types: ["modificateur"],
     makeDefault: true
   });
-  
+
   Items.registerSheet("mutants-and-masterminds-3e", PouvoirItemSheet, {
     types: ["pouvoir"],
     makeDefault: true
@@ -471,7 +499,7 @@ Hooks.once('init', async function() {
   Items.registerSheet("mutants-and-masterminds-3e", EquipementItemSheet, {
     types: ["equipement"],
     makeDefault: true
-  });  
+  });
 
   game.settings.register("mutants-and-masterminds-3e", "systemVersion", {
     name: "Version du Système",
@@ -491,7 +519,7 @@ Hooks.once('init', async function() {
 
 Hooks.once('ready', async function () {
   let status = {};
-  
+
   for(let i of CONFIG.statusEffects) {
     status[game.i18n.localize(i.label)] = i;
   };
@@ -507,7 +535,7 @@ Hooks.once('ready', async function () {
   }
 
   CONFIG.statusEffects = sortedStatus;
-  
+
   Object.defineProperty(game.user, "isFirstGM", {
     get: function () {
         return game.user.isGM && game.user.id === game.users.find((u) => u.active && u.isGM)?.id;
@@ -538,7 +566,7 @@ Hooks.on('renderActorDirectory', async function () {
   $("section#actors footer.action-buttons").append(`<button class='import-all' ${addHtml}>${game.i18n.localize('MM3.IMPORTATIONS.Portfolio')}</button>`);
 
   $("section#actors footer.action-buttons button.import-all").on( "click", async function() {
-    const whatMenu = game.settings.get("mutants-and-masterminds-3e", "menu");    
+    const whatMenu = game.settings.get("mutants-and-masterminds-3e", "menu");
 
     const html = `
       <label for="import-portfolio" ${addHtml}>${game.i18n.localize('MM3.IMPORTATIONS.ChoisirPortfolio')}</label>
@@ -565,11 +593,11 @@ Hooks.on('renderActorDirectory', async function () {
               const file = await readTextFromFile(target);
               let temp = file.replace(/&quot;/g, '#quot;');
               temp = temp.replace(/&[^;]+;/g, '');
-          
+
               if (temp[0] == "\"") { // Remove the wrapping doublequotes
                 temp = temp.substr(1, temp.length - 2);
               }
-          
+
               const json = JSON.parse(xml2json(parseXML(temp), "\t"));
               const data = json.document.public.character;
 
@@ -579,7 +607,7 @@ Hooks.on('renderActorDirectory', async function () {
                   await processCharacterData(characterData);
                 }
               } else {
-                await processCharacterData(data);              
+                await processCharacterData(data);
               }
 
             } catch (error) {
@@ -613,16 +641,16 @@ function addJabImportButtonToActorDirectory(setting) {
   $("section#actors footer.action-buttons").append(`<button class='import-simple' ${addHtml}>${game.i18n.localize("MM3.IMPORTATIONS.JabsBtn")}</button>`);
 
   $("section#actors footer.action-buttons button.import-simple").on( "click", async function() {
-    const whatMenu = game.settings.get("mutants-and-masterminds-3e", "menu");    
+    const whatMenu = game.settings.get("mutants-and-masterminds-3e", "menu");
 
     let html = ``;
-    
+
       /*html+=`
       <label for="import-simple" ${addHtml}>Choose folder to import json files</label>
       <input type="file" id="import-simple" name="import-simple" class="import-all" accept="text/txt" webkitdirectory mozdirectory>
       </p>
       `*/
-      
+
       html+=`<label for ="import-simple-text" ${addHtml}>${game.i18n.localize("MM3.IMPORTATIONS.JabsDescription")}
       <textarea id="import-simple-text" name="import-simple-text" rows="40" cols="50"></textarea>
     `;
@@ -643,14 +671,14 @@ function addJabImportButtonToActorDirectory(setting) {
         one: {
          label: "Start Import From Folder",
          callback: async (html) => {
-        
+
             const files = html.find('#import-simple')[0].files;
-            for (let i = 0; i < files.length; i++) {  
+            for (let i = 0; i < files.length; i++) {
               try{
               const target = files[i];
               const file = await readTextFromFile(target);
-              const actorJson = JSON.parse(file, "\t");            
-              
+              const actorJson = JSON.parse(file, "\t");
+
               let characterData = convertToProcessableCharacterData(actorJson)
               await processCharacterData(characterData);
             }
@@ -659,22 +687,22 @@ function addJabImportButtonToActorDirectory(setting) {
               console.log(error + error.stack);
               console.log
               continue
-            } 
-          } 
-           
+            }
           }
-        
+
+          }
+
 
         },*/
         two:{
           label: game.i18n.localize("MM3.IMPORTATIONS.JabsValider"),
           callback: async (html) => {
             const text = html.find('#import-simple-text')[0].value;
-            const actorJson = parseInput(text);      
+            const actorJson = parseInput(text);
             let characterData = convertToProcessableCharacterData(actorJson)
             await processCharacterData(characterData);
           }
-        }        
+        }
     }
     },
     dOptions);
@@ -693,7 +721,7 @@ function convertToProcessableCharacterData(parsedData){
   characterData.type= "";
   characterData.name = parsedData.name + "(Jab's Build)";
   characterData.de
-  
+
   characterData.powerpoints={};
   if(parsedData.total==null){
     // likely a bogus file
@@ -701,7 +729,7 @@ function convertToProcessableCharacterData(parsedData){
   }
   characterData.powerpoints.text = parsedData.total.total+" PP";
   characterData.powerpoints = parsedData.total.total;
-  
+
   characterData.powerLevel = {};
   characterData.powerLevel.value = parsedData.powerLevel;
   characterData.powerLevel.text = "PL "+parsedData.powerLevel;
@@ -715,7 +743,7 @@ function convertToProcessableCharacterData(parsedData){
   characterData.resources.resource.push({name:"Defenses",spent:parsedData.total.defenses});
 
   characterData.resources.currentpl = parsedData.powerLevel;
-  
+
   characterData.personal={};
   characterData.attributes={}
   characterData.attributes.attribute=[];
@@ -723,9 +751,9 @@ function convertToProcessableCharacterData(parsedData){
     {
       name:"Strength",
       base:parsedData.strength.base,
-      text:parsedData.strength.base, 
+      text:parsedData.strength.base,
       modified:parsedData.strength.totalWithPowers ==0? parsedData.strength.base : parsedData.strength.totalWithPowers,
-      cost:{} 
+      cost:{}
   });
   characterData.attributes.attribute.push({name:"Stamina",base:parsedData.stamina.base,text:parsedData.stamina.base, modified:parsedData.stamina.totalWithPowers==null? parsedData.stamina.base : parsedData.stamina.totalWithPowers,cost:{} });
   characterData.attributes.attribute.push({name:"Agility",base:parsedData.agility.base,text:parsedData.agility.base,  modified: parsedData.agility.totalWithPowers==null? parsedData.agility.base : parsedData.agility.totalWithPowers,cost:{} });
@@ -735,7 +763,7 @@ function convertToProcessableCharacterData(parsedData){
   characterData.attributes.attribute.push({name:"Awareness",base:parsedData.awareness.base,text:parsedData.awareness.base, modified:parsedData.awareness.totalWithPowers==null? parsedData.awareness.base : parsedData.awareness.totalWithPowers,cost:{} });
   characterData.attributes.attribute.push({name:"Presence",base:parsedData.presence.base,text:parsedData.presence.base, modified:parsedData.presence.totalWithPowers==null? parsedData.presence.base : parsedData.presence.totalWithPowers,cost:{} });
   characterData.attributes.attribute.push({name:"Strength",base:parsedData.strength.base,text:parsedData.strength.base, modified:parsedData.strength.totalWithPowers==null? parsedData.strength.base : parsedData.strength.totalWithPowers,cost:{} });
-  
+
   characterData.defenses={};
   characterData.defenses.defense=[];
   //loop over parsedData.defenses and add to characterData.defenses.defense
@@ -744,7 +772,7 @@ function convertToProcessableCharacterData(parsedData){
   for (let i = 0; i < parsedData.defenses[0].defenseTypes.length; i++) {
     let cost={};
     let defense = parsedData.defenses[0].defenseTypes[i];
-    
+
     let firstDefenseNumber = defense.defenseNumber;
     let secondDefenseNumber = 0;
     let defenseModifiers = defense.defenseModifiers;
@@ -753,7 +781,7 @@ function convertToProcessableCharacterData(parsedData){
     {
         firstDefenseNumber = defenseModifiers[0].modifier;
         secondDefenseNumber = defenseModifiers[1].modifier;
-        cost.value = secondDefenseNumber - firstDefenseNumber 
+        cost.value = secondDefenseNumber - firstDefenseNumber
         cost.value = secondDefenseNumber - cost.value - defense.defenseNumber;
 
     }
@@ -764,7 +792,7 @@ function convertToProcessableCharacterData(parsedData){
           secondDefenseNumber = defenseModifiers[0].modifier;
           cost.value = secondDefenseNumber - defense.defenseNumber
           //cost.value = secondDefenseNumber - cost.value - defense.defenseNumber
-          
+
 
       }
     }
@@ -809,10 +837,10 @@ function convertToProcessableCharacterData(parsedData){
   characterData.initiative={};
   let initiative =null;
   try{
-    initiative = parsedData.offense.find(element => element.name === "Initiative"); 
+    initiative = parsedData.offense.find(element => element.name === "Initiative");
   }catch(error){
   }
-  let attackWithPower =0; 
+  let attackWithPower =0;
   if(initiative!=null){
     attackWithPower = initiative.attackWithPower;
     if(attackWithPower==0)
@@ -825,12 +853,12 @@ function convertToProcessableCharacterData(parsedData){
 
   characterData.attacks={};
   characterData.attacks.attack=[];
-  
+
   for (let i = 0; i < parsedData.offense.length; i++) {
     let attack = parsedData.offense[i];
     if(attack!=null && attack.name!="Initiative"){
 
-      characterData.attacks.attack.push({name:attack.name, attack:attack.attack, effect:attack.effect, 
+      characterData.attacks.attack.push({name:attack.name, attack:attack.attack, effect:attack.effect,
         area:attack.area, type:attack.type, range:attack.range, effectType:attack.effectType, damageClass:attack.damageClass});
     }
   }
@@ -841,7 +869,7 @@ function convertToProcessableCharacterData(parsedData){
     if(skill!=null){
       let power = skill.powerName;
       let value="";
-    
+
       if(power){
         value = "+" + skill.totalWithStat +"/" + skill.totalWithPower
       }
@@ -850,7 +878,7 @@ function convertToProcessableCharacterData(parsedData){
       }
       let cost = {};
       cost.value = skill.ranks / 2;
-      let attrbonus = skill.totalWithStat - skill.ranks;  
+      let attrbonus = skill.totalWithStat - skill.ranks;
       characterData.skills.skill.push({name:skill.name, attrbonus:attrbonus, value, base:skill.ranks, description:"", cost:cost});
     }
   }
@@ -866,9 +894,9 @@ function convertToProcessableCharacterData(parsedData){
       else{
         advantageName = advantage.name;
       }
-      
+
       let cost={ value:advantage.rank};
-    
+
       characterData.advantages.advantage.push({name:advantageName, ranks:advantage.rank, description:"", cost:cost});
     }
   }
@@ -877,15 +905,15 @@ function convertToProcessableCharacterData(parsedData){
   characterData.powers={};
   characterData.powers.power=[];
   convertPowersToCharacterData(characterData.powers.power, parsedData.powers.powers, characterData);
-  
-  
+
+
   characterData.gear={}
   characterData.gear.item=[];
 
   for (let i = 0; i < parsedData.equipment.length; i++) {
     let equipment = parsedData.equipment[i];
     if(equipment!=null){
-      
+
       characterData.gear.item.push({name:equipment.name, description:"", cost:{text:"", value:""}});
     }
   }
@@ -920,13 +948,13 @@ function convertPowersToCharacterData(powers, simplePowers, characterData){
         power.cost = {text:"", value:""};
         power.descriptors ={};
         power.descriptors.descriptor = [];
-       
+
         convertDescriptors(power, simplePower);
         if(simplePower.effect){
-          
+
           power.descriptors.descriptor.push({name:simplePower.effect.value});
           power.description = simplePower.effect.value;
-        }  
+        }
         convertExtras(power, simplePower);
         convertFlaws(power, simplePower);
         convertFeats(power, simplePower);
@@ -934,7 +962,7 @@ function convertPowersToCharacterData(powers, simplePowers, characterData){
         if(simplePower.children!=null){
           power.otherpowers = {};
           power.otherpowers.power = [];
-          
+
           convertPowersToCharacterData(power.otherpowers.power, simplePower.children , characterData);
         }
 
@@ -945,17 +973,17 @@ function convertPowersToCharacterData(powers, simplePowers, characterData){
             {
               power.description='';
             }
-            power.description+=" Affliction resisted by " + affliction.resistedBy + "; " 
+            power.description+=" Affliction resisted by " + affliction.resistedBy + "; "
             for(let k =0; k < affliction.degrees.length; k++){
               let degree = affliction.degrees[k];
               if(degree!=null){
-                power.description+="/"+ degree  
+                power.description+="/"+ degree
               }
             }
           }
-          
+
         }
-        
+
 
         if(simplePower.advantages && simplePower.advantages[0]){
           power.chainedadvantages={};
@@ -980,16 +1008,16 @@ function convertPowersToCharacterData(powers, simplePowers, characterData){
           if(!power.description){
             power.description='';
           }
-          for (let j =0; j < simplePower.childSkills.length; j++){   
+          for (let j =0; j < simplePower.childSkills.length; j++){
             let skill = simplePower.childSkills[j];
             power.description+=" "+ skill.name + " +" + skill.ranks + " (" + skill.totalWithStatAndPowers +" )";
           }
-          
+
         }
         if(simplePower.linkedTo)
         {
-          power.description +=" \n Linked to " + simplePower.linkedTo.name + " " + simplePower.linkedTo.rank 
-          
+          power.description +=" \n Linked to " + simplePower.linkedTo.name + " " + simplePower.linkedTo.rank
+
         }
         powers.push(power);
       }
@@ -1038,7 +1066,7 @@ function convertExtras(power, simplePower){
           if(flaw.modifier!=null){
             flaw.name = flaw.name + " " + flaw.modifier;
           }
-          
+
           power.flaws.flaw.push({name:flaw.name});
           power.flaws.flaw.push({ranks:flaw.modifier});
         }
@@ -1061,7 +1089,7 @@ function convertExtras(power, simplePower){
     }
   }
 }
-  
+
 Hooks.on('deleteItem', doc => toggler.clearForId(doc.id));
 Hooks.on('deleteActor', doc => toggler.clearForId(doc.id));
 
@@ -1079,11 +1107,11 @@ Hooks.on('renderChatMessage', (message, html, data) => {
       const target = $(this);
       const tgt = target.data('target');
       const scene = canvas.scene;
-  
+
       if(scene === null) return;
-  
+
       const token = scene.tokens.find(token => token.id === tgt);
-  
+
       if(token.actor.ownership[game.user.id] !== 3 && token.actor.ownership.default !== 3) target.parent().hide();
     });
   }
@@ -1113,7 +1141,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
       const saveScore = tokenData.defense[savetype].total;
       const name = `${game.i18n.localize(CONFIG.MM3.defenses[savetype])}`;
 
-      rollVs(token.actor, name, saveScore, vs, {typeAtk:typeAtk, atk:dataAtk, str:dataStr, tkn:token}, {alt:hasAlt});      
+      rollVs(token.actor, name, saveScore, vs, {typeAtk:typeAtk, atk:dataAtk, str:dataStr, tkn:token}, {alt:hasAlt});
   });
 
   if(isInitiative) {
@@ -1151,7 +1179,7 @@ Hooks.on("applyActiveEffect", async (actor, change) => {
   if(actor.type !== 'personnage' && this.permission !== 3) return;
 
   /*const scene = game.canvas.scene;
-  
+
   const tp = [{
     x:Math.floor(actor.token.x+(scene.grid.size/2)),
     y:Math.floor(actor.token.y+(scene.grid.size/2)),
@@ -1204,7 +1232,7 @@ Hooks.on("applyActiveEffect", async (actor, change) => {
 
           defense.other = -Math.floor(defTotal/2);
           break;
-        
+
         case 'defenseless':
           defense = actor.system.defense[change.key];
           defense.defenseless = true;
@@ -1255,14 +1283,14 @@ async function createMacro(bar, data, slot) {
 async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, event) {
   console.warn(actorId, sceneId, tokenId);
   const actor = tokenId === 'null' ? game.actors.get(actorId) : game.scenes.get(sceneId).tokens.find(token => token.id === tokenId).actor;
-  
+
   const data = actor.system;
   const tgt = game.user.targets.ids[0];
   const dataStr = data?.strategie?.total ?? {attaque:0, effet:0};
   const strategie = {attaque:dataStr.attaque, effet:dataStr.effet};
   const hasShift = event.shiftKey;
   const hasAlt = event.altKey;
-  
+
   const atk = id === '-1' || id === -1 ? {noAtk:false} : game.mm3.getAtk(actor, id)?.data ?? "";
   let name = "";
   let total = 0;
@@ -1272,12 +1300,12 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
       name = author === 'vehicule' ? game.i18n.localize(CONFIG.MM3.vehicule[what]) : game.i18n.localize(CONFIG.MM3.caracteristiques[what]);
       total = data.caracteristique[what].total;
       break;
-      
+
     case 'defense':
       name = game.i18n.localize(CONFIG.MM3.defenses[what]);
       total = data.defense[what].total;
       break;
-    
+
     case 'competence':
       if(what === 'combatcontact' || what === 'combatdistance' || what === 'expertise') {
         name = data[type][what].list[id].label;
@@ -1287,7 +1315,7 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
         total = data[type][what].total;
       }
       break;
-    
+
     case 'attaque':
       const typeAtk = atk.type;
       const idSkill = atk.skill;
@@ -1327,7 +1355,7 @@ async function RollMacroPwr(actorId, sceneId, tokenId, id, author, event) {
   const actor = tokenId === 'null' ? game.actors.get(actorId) : game.scenes.get(sceneId).tokens.find(token => token.id === tokenId).actor;
   const hasShift = event.shiftKey;
   const hasAlt = event.altKey;
-  
+
   rollPwr(actor, id, {shift:hasShift, alt:hasAlt});
 };
 
@@ -1337,14 +1365,14 @@ Hooks.on("renderPause", function () {
   if(whatPause !== 'default') {
     $("#pause img").remove();
     $("#pause figcaption").remove();
-    
+
     const pause = $("#pause video");
-    
+
     if(pause.length === 0) $("#pause").append(`<video width="300" height="200" loop autoplay="autoplay"><source src="systems/mutants-and-masterminds-3e/assets/pause/${whatPause}.webm" type="video/webm" /></video>`);
     else $("#pause video").attr('src', `systems/mutants-and-masterminds-3e/assets/pause/${whatPause}.webm`);
     $("#pause video")[0].load();
     $("#pause video")[0].play();
-  }  
+  }
 });
 
 Hooks.once("dragRuler.ready", (SpeedProvider) => {

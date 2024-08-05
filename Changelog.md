@@ -1,3 +1,8 @@
+## Version 1.32.9
+### Bugfix
+- Corrections d'un bug pouvant détruire les effets enregistrés sur les pouvoirs dans de rares cas, due aux états.
+J'ai mis en place une tentative de correction pour tous les acteurs, pour ceux qui sont affectés par le problème, en espérant que ça fonctionne correctement.
+
 ## Version 1.32.8
 ### Bugfix
 - Corrections d'un bug empêchant l'enregistrement des modificateurs de pouvoirs dans certains cas..
