@@ -1,3 +1,7 @@
+## Version 1.32.10
+### Bugfix
+- Corrections d'un bug avec la supression de variantes.
+
 ## Version 1.32.9
 ### Bugfix
 - Corrections d'un bug pouvant détruire les effets enregistrés sur les pouvoirs dans de rares cas, due aux états.

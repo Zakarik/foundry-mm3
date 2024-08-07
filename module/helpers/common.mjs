@@ -3654,7 +3654,7 @@ export function deleteEffects(item, id, name) {
   item.deleteEmbeddedDocuments('ActiveEffect', [id]);
 
   if(actor !== null) {
-    const getActorEffects = actor.effects.contents.find(itm => itm.origin.includes(item._id) && (itm.name === name || itm.label === name));
+    const getActorEffects = actor.effects.find(itm => itm.origin.includes(item._id) && itm.flags.variante === name);
 
     actor.deleteEmbeddedDocuments('ActiveEffect', [getActorEffects._id]);
   }
