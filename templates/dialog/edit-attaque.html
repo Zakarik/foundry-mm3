@@ -11,7 +11,7 @@
                 <option value="afflictiondmg">{{localize "MM3.ROLL.Typeattaque"}} : {{localize "MM3.ROLL.TYPE.Affliction"}} + {{localize "MM3.ROLL.TYPE.Degats"}}</option>
             {{/select}}
         </select>
-        
+
         {{#if data.skills}}
         <div class="line">
             <a class="btn linkskill {{#if data.canBeLieSkill}}selected{{else}}unselected{{/if}}" data-oldname="{{data.label}}">{{localize "MM3.SPECIAL.CompLie"}}</a>
@@ -85,12 +85,12 @@
                 {{/select}}
             </select>
         {{/unless}}
-        
+
 
         {{#if data.tempAtk.skill}}
             {{#unless data.tempAtk.noAtk}}
                 <label class="col">
-                    
+
                     <span>{{localize "MM3.ATTAQUE.ModAttaque"}}</span>
                     <input class="mod" data-type="atk" type="number" value="{{#if data.atk.mod.atk}}{{data.atk.mod.atk}}{{else}}0{{/if}}" />
                 </label>
@@ -105,7 +105,7 @@
                 </label>
             {{/unless}}
         {{/if}}
-        
+
         {{#unless data.tempAtk.noAtk}}
         <select class="selectDefense full">
             {{#select data.tempAtk.defpassive}}
@@ -123,7 +123,7 @@
                     <div class="col">
                         <span>{{localize "MM3.ROLL.DEFENSE.Basedefense"}} :</span>
                         <input class="defense" data-type="dmg" type="number" value="{{data.tempAtk.basedef}}" min="0" />
-                    </div> 
+                    </div>
                     <select class="defense" data-type="dmg"  title="{{localize "MM3.DEFENSE.Label"}}">
                         {{#select data.tempAtk.save}}
                             <option value="esquive">{{translate 'defenses' 'esquive'}}</option>
@@ -138,7 +138,7 @@
                         <span>{{localize "MM3.EFFET.Rang"}} :</span>
                         <input class="effet" data-type="dmg" type="number" value="{{data.tempAtk.effet}}" min="0" />
                     </div>
-                </div>                
+                </div>
                 {{/if}}
                 <div class="dmgdata">
                     <span class="headerdmg">{{localize "MM3.ROLL.ECHEC.Undegre"}}</span>
@@ -152,7 +152,7 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="dmgline middle">
                         <div class="col">
                             <span>{{localize "MM3.ROLL.TYPE.Degats"}} :</span>
@@ -160,7 +160,7 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="dmgline">
                         <div class="col">
                             <span>{{localize "MM3.ROLL.TYPE.Degats"}} :</span>
@@ -169,7 +169,7 @@
                     </div>
                 </div>
             </div>
-        {{/if}}        
+        {{/if}}
 
         {{#if data.tempAtk.isAffliction}}
         <div class="col2 multiline affliction">
@@ -196,7 +196,7 @@
                 </div>
             </div>
             {{/if}}
-            
+
 
             <span class="header2">{{localize "MM3.ROLL.ECHEC.Undegre"}}</span>
             <div class="line">
@@ -213,10 +213,10 @@
                 <a class="btn setDegreeAffliction" data-type="e1">{{localize "MM3.BTN.Add"}}</a>
             </div>
             {{#each data.tempAtk.afflictionechec.e1 as | key atk |}}
-                
+
                 <span class="etat">
                     {{translateStatues key.label}}
-                
+
                     <i class="fa-solid fa-trash-xmark delete" data-type="e1" data-id="{{key.id}}"></i>
                 </span>
             {{/each}}

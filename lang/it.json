@@ -47,10 +47,10 @@
       "Surprised":"Sorpreso",
       "Downgrade":"Indebolito",
       "Prone":"Prono",
-      "Blind":"Accecato",    
-      "Asleep":"Addormentato",    
-      "Restrained":"Bloccato",    
-      "Paralysis":"Paralizzato",    
+      "Blind":"Accecato",
+      "Asleep":"Addormentato",
+      "Restrained":"Bloccato",
+      "Paralysis":"Paralizzato",
       "Deaf":"Assordato",
       "Stunned":"Stordito"
     },
@@ -78,7 +78,7 @@
       "AddVMod":"Aggiungi una variante di effetto",
       "DeleteVMod":"Cancella una variante di effetto",
       "EditMod":"Cambia modificatori",
-      "DeleteMod":"Elimina modificatore",      
+      "DeleteMod":"Elimina modificatore",
       "Activer":"Attiva"
     },
     "CARACTERISTIQUES":{
@@ -353,7 +353,8 @@
       "DeplierTout":"Mostra tutto",
       "ReplierTout":"Nascondi tutto",
       "CompLie":"Legato a una competenza",
-      "PwrLie":"Legato a un potere"
+      "PwrLie":"Legato a un potere",
+      "AbyLie":"Legato a una caratteristica"
     },
     "ASTUCE":{
       "Shift":"Puoi tenere premuto il tasto Shift quando fai clic su caratteristiche, abilità e difese per aggiungere una CD al tiro.",

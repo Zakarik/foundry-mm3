@@ -81,6 +81,7 @@ div {
 
             &.limite {
                 @include fakebutton('saveLimiteStrategie');
+                grid-column: 1 / 3;
                 padding-bottom: 5px;
 
                 span.title {

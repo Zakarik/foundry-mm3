@@ -4,6 +4,98 @@ export const MM3 = {};
  * The set of Ability Scores used within the sytem.
  * @type {Object}
  */
+MM3.LIST = {
+    Base:['affiliation', 'base', 'genre', 'age', 'taille', 'poids', 'yeux', 'cheveux', 'etats'],
+    Caracteristiques:['force', 'agilite', 'combativite', 'sensibilite', 'endurance', 'dexterite', 'intelligence', 'presence'],
+    VehiculeCaracteristiques:['force', 'vitesse', 'defense', 'robustesse'],
+    Competences:['combatcontact', 'combatdistance', 'expertise', 'acrobaties', 'athletisme', 'duperie', 'perspicacite', 'intimidation', 'investigation', 'perception', 'persuasion', 'habilete', 'discretion', 'technologie', 'soins', 'vehicules'],
+    DataCompetences:{
+        acrobaties:{
+            car:'agi',
+        },
+        athletisme:{
+            car:'for',
+        },
+        duperie:{
+            car:'prs',
+        },
+        perspicacite:{
+            car:'sns',
+        },
+        intimidation:{
+            car:'prs',
+        },
+        investigation:{
+            car:'int',
+        },
+        perception:{
+            car:'sns',
+        },
+        persuasion:{
+            car:'prs',
+        },
+        habilete:{
+            car:'dex',
+        },
+        discretion:{
+            car:'agi',
+        },
+        technologie:{
+            car:'int',
+        },
+        soins:{
+            car:'int',
+        },
+        vehicules:{
+            car:'dex',
+        },
+        combatcontact:{
+            car:'cbt',
+            canAdd:true,
+        },
+        combatdistance:{
+            car:'dex',
+            canAdd:true,
+        },
+        expertise:{
+            car:'int',
+            canAdd:true,
+            carCanChange:true,
+        }
+    },
+    Defenses:['esquive', 'parade', 'vigueur', 'robustesse', 'volonte'],
+    CarDefenses:{
+        esquive:'agi',
+        parade:'cbt',
+        vigueur:'end',
+        robustesse:'end',
+        volonte:'sns',
+    },
+    Strategie:['attaqueprecision', 'attaqueoutrance', 'attaquedefensive', 'attaquepuissance'],
+    LimiteStrategie:{
+        attaqueprecision:{
+            attaque:2,
+            defense:0,
+            effet:-2
+        },
+        attaqueoutrance:{
+            attaque:2,
+            defense:-2,
+            effet:0
+        },
+        attaquedefensive:{
+            attaque:-2,
+            defense:2,
+            effet:0
+        },
+        attaquepuissance:{
+            attaque:-2,
+            defense:0,
+            effet:2
+        },
+    }
+}
+
 
 MM3.vehicule = {
     "force":"MM3.CARACTERISTIQUES.Force",
@@ -194,4 +286,89 @@ MM3.listmods = {
     'system.strategie.limite.attaquedefensive.def':"MM3.EFFECTS.STRATEGIE.AttaquedefensiveDefense",
     'system.strategie.limite.attaquepuissance.atk':"MM3.EFFECTS.STRATEGIE.AttaquepuissanceAttaque",
     'system.strategie.limite.attaquepuissance.eff':"MM3.EFFECTS.STRATEGIE.AttaquepuissanceEffet",
+};
+
+MM3.StdAtk = {
+    links:{
+        skill:'',
+        pwr:'',
+        aby:'',
+    },
+    save:{
+    dmg:{
+        type:'robustesse',
+        defense:15,
+        effet:0,
+    },
+    affliction:{
+        type:'volonte',
+        defense:10,
+        effet:0,
+    },
+    other:{
+        type:'robustesse',
+        defense:15,
+    },
+    passive:{
+        type:'parade',
+    }
+    },
+    settings:{
+    noatk:false,
+    nocrit:false,
+    },
+    area:{
+    has:false,
+    esquive:0,
+    },
+    repeat:{
+    affliction:[
+        {
+        value:0,
+        status:[]
+        },
+        {
+        value:0,
+        status:[]
+        },
+        {
+        value:0,
+        status:[]
+        },
+        {
+        value:0,
+        status:[]
+        }
+    ],
+    dmg:[
+        {
+        value:1,
+        status:[]
+        },
+        {
+        value:1,
+        status:['dazed']
+        },
+        {
+        value:1,
+        status:['chanceling']
+        },
+        {
+        value:1,
+        status:['neutralized']
+        },
+    ]
+    },
+    mod:{
+    atk:0,
+    eff:0,
+    },
+    label:'',
+    type:'combatcontact',
+    attaque:0,
+    effet:0,
+    critique:20,
+    text:"",
+    isAffliction:false,
+    isDmg:false,
 };

@@ -1,6 +1,6 @@
 import {
-  EditAttaque,
-} from "../dialog/edit-attaque.mjs";
+  editAtk,
+} from "./editAtk.mjs";
 
 export const listFont = {
   "Arial":"Arial",
@@ -1246,11 +1246,7 @@ export async function processImport(actor, data, actorType='personnage') {
             let isAffliction = false;
             let lowercase = att.name.toLowerCase();
             let pwrData = powerDetails[att.name];
-            let afflictionechec = {
-              e1:[],
-              e2:[],
-              e3:[]
-            };
+            let afflictionechec = [];
             let save = 'robustesse';
             let saveAffliction = 'volonte';
             let basedef = 15;
@@ -1303,7 +1299,14 @@ export async function processImport(actor, data, actorType='personnage') {
                       if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
                       if(condition !== undefined) condition = getStatusData(condition);
 
-                      if(condition !== undefined) afflictionechec.e1.push(condition);
+                      if(condition !== undefined) afflictionechec.push({
+                        value:0,
+                        status:condition
+                      });
+                      else afflictionechec.push({
+                        value:0,
+                        status:[]
+                      });
                     }
                   }
 
@@ -1316,7 +1319,14 @@ export async function processImport(actor, data, actorType='personnage') {
                       if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
                       if(condition !== undefined) condition = getStatusData(condition);
 
-                      if(condition !== undefined) afflictionechec.e2.push(condition);
+                      if(condition !== undefined) afflictionechec.push({
+                        value:0,
+                        status:condition
+                      });
+                      else afflictionechec.push({
+                        value:0,
+                        status:[]
+                      });
                     }
                   }
 
@@ -1329,9 +1339,21 @@ export async function processImport(actor, data, actorType='personnage') {
                       if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
                       if(condition !== undefined) condition = getStatusData(condition);
 
-                      if(condition !== undefined) afflictionechec.e3.push(condition);
+                      if(condition !== undefined) afflictionechec.push({
+                        value:0,
+                        status:condition
+                      });
+                      else afflictionechec.push({
+                        value:0,
+                        status:[]
+                      });
                     }
                   }
+
+                  afflictionechec.push({
+                    value:0,
+                    status:[]
+                  });
 
                   if(rInfo !== null) {
                     resistvs = resistVO[rInfo.toLowerCase()];
@@ -1346,23 +1368,35 @@ export async function processImport(actor, data, actorType='personnage') {
 
             if(save !== 'robustesse') basedef = 10;
 
-            listAttack[lengthAttack] = {
+            listAttack[lengthAttack] = foundry.utils.mergeObject(CONFIG.MM3.StdAtk, {
               _id:randAtk,
-              pwr:pwrData?._id ?? '',
-              type:'other',
-              save:save,
-              saveAffliction:saveAffliction,
-              afflictionechec:afflictionechec,
+              links:{
+                pwr:pwrData?._id ?? '',
+              },
+              save:{
+                dmg:{
+                  type:save,
+                  defense:basedef,
+                },
+                affliction:{
+                  type:saveAffliction,
+                },
+                other:{
+                  type:save,
+                  defense:basedef,
+                },
+              },
+              repeat:{
+                affliction:afflictionechec,
+              },
               label:firstName,
               attaque:Number(att.attack),
               effet:Number(powerDetails[att.name]?.ranks) ?? 0,
               critique:Number(att.crit),
               text:lastname,
-              noAtk:false,
-              basedef:basedef,
               isDmg:isDmg,
               isAffliction:isAffliction,
-            }
+            });
           }
         } else {
           if(!alreadyAddAttack.includes(att.name)) {
@@ -1384,21 +1418,29 @@ export async function processImport(actor, data, actorType='personnage') {
 
             if(save !== 'robustesse') basedef = 10;
 
-            listAttack[lengthAttack] = {
+            listAttack[lengthAttack] = foundry.utils.mergeObject(CONFIG.MM3.StdAtk, {
               _id:randAtk,
-              type:'other',
-              save:save,
-              saveAffliction:saveAffliction,
+              save:{
+                dmg:{
+                  type:save,
+                  defense:basedef,
+                },
+                affliction:{
+                  type:saveAffliction,
+                },
+                other:{
+                  type:save,
+                  defense:basedef,
+                },
+              },
               label:firstName,
               attaque:Number(att.attack),
               effet:Number(att.dc)-15 ?? 0,
               critique:Number(att.crit),
               text:lastname,
-              noAtk:false,
-              basedef:basedef,
               isDmg:isDmg,
               isAffliction:isAffliction,
-            }
+            });
           }
         }
       }
@@ -1414,11 +1456,7 @@ export async function processImport(actor, data, actorType='personnage') {
           let isAffliction = false;
           let lowercase = attacks.name.toLowerCase();
           let pwrData = powerDetails[att.name];
-          let afflictionechec = {
-            e1:[],
-            e2:[],
-            e3:[]
-          };
+          let afflictionechec = [];
           let save = 'robustesse';
           let saveAffliction = 'volonte';
           let basedef = 15;
@@ -1456,7 +1494,14 @@ export async function processImport(actor, data, actorType='personnage') {
                     if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
                     if(condition !== undefined) condition = getStatusData(condition);
 
-                    if(condition !== undefined) afflictionechec.e1.push(condition);
+                    if(condition !== undefined) afflictionechec.push({
+                      value:0,
+                      status:condition,
+                    });
+                    else afflictionechec.push({
+                      value:0,
+                      status:[],
+                    });
                   }
                 }
 
@@ -1469,7 +1514,14 @@ export async function processImport(actor, data, actorType='personnage') {
                     if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
                     if(condition !== undefined) condition = getStatusData(condition);
 
-                    if(condition !== undefined) afflictionechec.e2.push(condition);
+                    if(condition !== undefined) afflictionechec.push({
+                      value:0,
+                      status:condition,
+                    });
+                    else afflictionechec.push({
+                      value:0,
+                      status:[],
+                    });
                   }
                 }
 
@@ -1482,9 +1534,21 @@ export async function processImport(actor, data, actorType='personnage') {
                     if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
                     if(condition !== undefined) condition = getStatusData(condition);
 
-                    if(condition !== undefined) afflictionechec.e3.push(condition);
+                    if(condition !== undefined) afflictionechec.push({
+                      value:0,
+                      status:condition,
+                    });
+                    else afflictionechec.push({
+                      value:0,
+                      status:[],
+                    });
                   }
                 }
+
+                afflictionechec.push({
+                  value:0,
+                  status:[],
+                });
 
                 if(rInfo !== null) {
                   resistvs = resistVO[rInfo.toLowerCase()];
@@ -1499,22 +1563,33 @@ export async function processImport(actor, data, actorType='personnage') {
 
           if(save !== 'robustesse') basedef = 10;
 
-          listAttack[lengthAttack] = {
+          listAttack[lengthAttack] = foundry.utils.mergeObject(CONFIG.MM3.StdAtk, {
             _id:randAtk,
-            pwr:powerDetails[att.name]?._id ?? '',
-            type:'other',
-            save:save,
-            saveAffliction:saveAffliction,
+            type:'combatcontact',
+            links:{
+              pwr:powerDetails[att.name]?._id ?? '',
+            },
+            save:{
+              dmg:{
+                type:save,
+                defense:basedef,
+              },
+              affliction:{
+                type:saveAffliction,
+              },
+              other:{
+                type:save,
+                defense:basedef,
+              },
+            },
             label:firstName,
             attaque:Number(attacks.attack),
             effet:Number(powerDetails[attacks.name]?.ranks) ?? 0,
             critique:Number(attacks.crit),
             text:lastname,
-            noAtk:false,
-            basedef:basedef,
             isDmg:isDmg,
             isAffliction:isAffliction,
-          }
+          });
         }
       } else {
         if(!alreadyAddAttack.includes(attacks.name)) {
@@ -1536,21 +1611,32 @@ export async function processImport(actor, data, actorType='personnage') {
 
           if(save !== 'robustesse') basedef = 10;
 
-          listAttack[lengthAttack] = {
+          listAttack[lengthAttack] = foundry.utils.mergeObject(CONFIG.MM3.StdAtk, {
             _id:randAtk,
-            type:'other',
-            save:save,
-            saveAffliction:saveAffliction,
+            links:{
+              pwr:powerDetails[att.name]?._id ?? '',
+            },
+            save:{
+              dmg:{
+                type:save,
+                defense:basedef,
+              },
+              affliction:{
+                type:saveAffliction,
+              },
+              other:{
+                type:save,
+                defense:basedef,
+              },
+            },
             label:firstName,
             attaque:Number(attacks.attack),
             effet:Number(attacks.dc)-15 ?? 0,
             critique:Number(attacks.crit),
             text:lastname,
-            noAtk:false,
-            basedef:basedef,
             isDmg:isDmg,
             isAffliction:isAffliction,
-          }
+          });
         }
       }
     }
@@ -1855,12 +1941,12 @@ export function modPromptClasses(actor) {
 
 export function setCombinedEffects(token, statusId, active) {
   if(active) {
-    const version = game.version.split('.')[0];
     const listStatusEffect = CONFIG.statusEffects;
     let statusEffect;
 
-    if(version < 11) {
-      statusEffect = listStatusEffect.find((se) => se.id === statusId);
+    for(let s of statusId) {
+      statusEffect = listStatusEffect.find((se) => se.id === s);
+
       if(statusEffect !== undefined) {
         const changes = statusEffect.changes;
 
@@ -1869,17 +1955,17 @@ export function setCombinedEffects(token, statusId, active) {
 
           for(let c of changes) {
             const idSE = c.key;
-            const exist = token.effects.find((se) => se.flags.core.statusId === idSE);
+            const exist = token.statuses.has(idSE);
             const tSE = listStatusEffect.find((se) => se.id === idSE);
 
-            if(exist === undefined && tSE !== undefined) {
+            if(!exist && tSE !== undefined) {
               const dChanges = tSE?.changes ?? false;
 
               let nEffect = {
                 name: game.i18n.localize(tSE.label),
                 label: game.i18n.localize(tSE.label),
                 icon: tSE.icon,
-                "flags.core.statusId":idSE,
+                statuses:[idSE],
                 origin:'status',
               };
 
@@ -1892,43 +1978,6 @@ export function setCombinedEffects(token, statusId, active) {
           }
 
           if(effectData.length !== 0) token.createEmbeddedDocuments("ActiveEffect", effectData);
-        }
-      }
-    } else {
-      for(let s of statusId) {
-        statusEffect = listStatusEffect.find((se) => se.id === s);
-
-        if(statusEffect !== undefined) {
-          const changes = statusEffect.changes;
-
-          if(changes !== undefined) {
-            let effectData = [];
-
-            for(let c of changes) {
-              const idSE = c.key;
-              const exist = token.statuses.has(idSE);
-              const tSE = listStatusEffect.find((se) => se.id === idSE);
-
-              if(!exist && tSE !== undefined) {
-                const dChanges = tSE?.changes ?? false;
-
-                let nEffect = {
-                  name: game.i18n.localize(tSE.label),
-                  label: game.i18n.localize(tSE.label),
-                  icon: tSE.icon,
-                  statuses:[idSE]
-                };
-
-                if(dChanges !== false) {
-                  nEffect['changes'] = dChanges;
-                }
-
-                effectData.push(nEffect);
-              }
-            }
-
-            if(effectData.length !== 0) token.createEmbeddedDocuments("ActiveEffect", effectData);
-          }
         }
       }
     }
@@ -2109,7 +2158,7 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
   };
 
   if(typeAtk !== false && !isSuccess) {
-    let listEtats = [];
+    const blessure = Number(actor.system.blessure);
     let update = [];
     let blessures = {};
 
@@ -2126,27 +2175,27 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
           typeAtk:'dmg',
           target:tgt,
           saveType:saveType,
-          vs:Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.basedef),
+          vs:Number(dataAtk.save.dmg.effet)+Number(dataStr.effet)+Number(dataAtk.save.dmg.defense),
         },
         {
           typeAtk:'affliction',
           target:tgt,
           saveType:saveAffliction,
-          vs:Number(dataAtk.afflictioneffet)+Number(dataStr.effet)+Number(dataAtk.afflictiondef),
+          vs:Number(dataAtk.save.affliction.effet)+Number(dataStr.effet)+Number(dataAtk.save.affliction.defense),
         });
       } else if(isDmg) {
         btn.push({
           typeAtk:'dmg',
           target:tgt,
           saveType:saveType,
-          vs:Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.basedef),
+          vs:dataAtk.links.pwr === '' ? Number(dataAtk.save.dmg.effet)+Number(dataStr.effet)+Number(dataAtk.save.dmg.defense) : Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.save.dmg.defense),
         });
       } else if(isAffliction) {
         btn.push({
           typeAtk:'affliction',
           target:tgt,
           saveType:saveType,
-          vs:Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.basedef),
+          vs:dataAtk.links.pwr === '' ? Number(dataAtk.save.affliction.effet)+Number(dataStr.effet)+Number(dataAtk.save.affliction.defense) : Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.save.affliction.defense),
         });
       }
 
@@ -2156,91 +2205,77 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
     }
 
     if(typeAtk === 'affliction') {
-      if(marge === 1) {
-        listEtats = dataAtk.afflictionechec.e1;
-      } else if(marge === 2) {
-        listEtats = dataAtk.afflictionechec.e2;
-      } else if(marge >= 3) {
-        listEtats = dataAtk.afflictionechec.e3;
+      let valueDmg = 0;
+      let status = [];
+
+      if(marge >= 1 && marge <= dataAtk.repeat.affliction.length) {
+        valueDmg = dataAtk.repeat.affliction[marge-1].value;
+        status = dataAtk.repeat.affliction[marge-1].status;
+      } else if(marge > dataAtk.repeat.affliction.length) {
+        valueDmg = dataAtk.repeat.affliction[dataAtk.repeat.affliction.length-1].value;
+        status = dataAtk.repeat.affliction[dataAtk.repeat.affliction.length-1].status;
       }
 
-      for(let etat of listEtats) {
-        const eId = etat.id !== undefined ? etat.id : etat.statuses[0];
+      for(let s of status) {
+        let status = await setStatus(actor, s, false);
 
-        let status = await setStatus(actor, eId, false);
-        if(status !== undefined) update.push(status);
+        if(status) update.push(status);
       }
 
-      if(update.length > 0) {
-        await token.actor.createEmbeddedDocuments("ActiveEffect", update);
-      }
+      blessures[`system.blessure`] = blessure+Number(valueDmg);
+
+      if(update.length > 0) await token.actor.createEmbeddedDocuments("ActiveEffect", update);
     }
 
     if(typeAtk === 'dmg') {
-      const blessure = Number(actor.system.blessure);
-      const allEtats = CONFIG.statusEffects;
+      let valueDmg = 0;
+      let status = [];
 
-      if(marge === 1) {
-        blessures[`system.blessure`] = blessure+Number(dataAtk?.dmgechec?.v1 ?? 1);
-      } else if(marge === 2) {
-        blessures[`system.blessure`] = blessure+Number(dataAtk?.dmgechec?.v2 ?? 1);
-        listEtats.push(allEtats.find(eta => eta.id === 'dazed'));
-      } else if(marge === 3 && !hasStatus(actor, 'chanceling')) {
-        blessures[`system.blessure`] = blessure+Number(dataAtk?.dmgechec?.v3 ?? 1);
-        listEtats.push(allEtats.find(eta => eta.id === 'chanceling'));
-      } else if(marge >= 3) {
-        listEtats.push(allEtats.find(eta => eta.id === 'neutralized'));
+      if(marge >= 1 && marge <= dataAtk.repeat.dmg.length) {
+        valueDmg = dataAtk.repeat.dmg[marge-1].value;
+        status = dataAtk.repeat.dmg[marge-1].status;
+      } else if(marge > dataAtk.repeat.dmg.length) {
+        valueDmg = dataAtk.repeat.dmg[dataAtk.repeat.affliction.length-1].value;
+        status = dataAtk.repeat.dmg[dataAtk.repeat.affliction.length-1].status;
       }
 
-      for(let etat of listEtats) {
-        let status = await setStatus(actor, etat.id, false);
-        if(status !== undefined) update.push(status);
+      for(let s of status) {
+        let status = await setStatus(actor, s, false);
+
+        if(status) update.push(status);
       }
 
-      if(update.length > 0) {
-        await token.actor.createEmbeddedDocuments("ActiveEffect", update);
-      }
+      blessures[`system.blessure`] = blessure+Number(valueDmg);
 
-      if(!foundry.utils.isEmpty(blessures)) {
-        await token.actor.update(blessures);
-      }
+      if(update.length > 0) await token.actor.createEmbeddedDocuments("ActiveEffect", update);
     }
+
+    if(!foundry.utils.isEmpty(blessures)) await token.actor.update(blessures);
   } else if(typeAtk !== false && typeAtk === 'area' && isSuccess) {
 
     const isDmg = dataAtk.isDmg;
     const isAffliction = dataAtk.isAffliction;
     const tgt = token.id;
-    const saveAffliction = dataAtk.saveAffliction;
-    const saveType = dataAtk.save;
+    const saveAffliction = dataAtk.save.affliction.type;
+    const saveType = dataAtk.save.dmg.type;
     const dataStr = data.str;
     const btn = [];
 
-    if(isDmg && isAffliction) {
+    if(isDmg) {
       btn.push({
         typeAtk:'dmg',
         target:tgt,
         saveType:saveType,
-        vs:Math.max(Math.floor(Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.basedef)/2), 1),
-      },
-      {
+        vs:dataAtk.links.pwr === '' ? Math.max(Math.floor(Number(dataAtk.save.dmg.effet)+Number(dataStr.effet)+Number(dataAtk.save.dmg.defense)/2), 1) : Math.max(Math.floor(Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.save.dmg.defense)/2), 1),
+      });
+    }
+
+    if(isAffliction) {
+      btn.push({
         typeAtk:'affliction',
         target:tgt,
         saveType:saveAffliction,
-        vs:Math.max(Math.floor(Number(dataAtk.afflictioneffet)+Number(dataStr.effet)+Number(dataAtk.afflictiondef)/2), 1),
-      });
-    } else if(isDmg) {
-      btn.push({
-        typeAtk:'dmg',
-        target:tgt,
-        saveType:saveType,
-        vs:Math.max(Math.floor(Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.basedef)/2), 1),
-      });
-    } else if(isAffliction) {
-      btn.push({
-        typeAtk:'affliction',
-        target:tgt,
-        saveType:saveType,
-        vs:Math.max(Math.floor(Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.basedef)/2), 1),
+        vs:dataAtk.links.pwr === '' ? Math.max(Math.floor(Number(dataAtk.save.affliction.effet)+Number(dataStr.effet)+Number(dataAtk.save.affliction.defense)/2), 1) : Math.max(Math.floor(Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.save.affliction.defense)/2), 1),
       });
     }
 
@@ -2297,15 +2332,14 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
   const parade = Number(tokenData.ddparade);
   const esquive = Number(tokenData.ddesquive);
   const sCritique = dataCbt.critique;
-  const noCrit = dataCbt.noCrit ? true : false;
-  const isArea = dataCbt?.area ?? false;
-  const defpassive = dataCbt?.defpassive ?? 'parade';
+  const noCrit = dataCbt.settings.nocrit ? true : false;
+  const isArea = dataCbt?.area?.has ?? false;
+  const defpassive = dataCbt?.passive?.defense ?? 'parade';
   const isDmg = dataCbt.isDmg;
   const isAffliction = dataCbt.isAffliction;
-  const saveAffliction = dataCbt.saveAffliction;
-  const saveType = dataCbt.save;
-  const areaBase = parseInt(dataCbt?.basearea ?? 0);
-  const areaMod = parseInt(dataCbt?.mod?.area ?? 0);
+  const saveAffliction = dataCbt.save.affliction.type;
+  const saveType = dataCbt.save.dmg.type;
+  const areaBase = parseInt(dataCbt?.area?.esquive ?? 0);
 
   let ddDefense = 0;
   let traType = "";
@@ -2320,7 +2354,7 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
   };
   let pRoll = {};
 
-  if((roll.total >= ddDefense && resultDie !== 1) || (resultDie >= sCritique && !noCrit)) {
+  if(result.hit || result.crit) {
     let dSuccess = Math.floor(((roll.total - ddDefense)/5))+1;
 
     let btn = [];
@@ -2330,7 +2364,7 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
         typeAtk:'area',
         target:tgt,
         saveType:'esquive',
-        vs:dataCbt.pwr === "" ? Number(areaBase)+Number(dataStr.effet) : 10+Number(dataCbt.effet)+Number(dataStr.effet)+Number(areaMod),
+        vs:dataCbt.links.pwr === "" && dataCbt.links.ability === ""  ? Number(areaBase)+Number(dataStr.effet) : 10+Number(dataCbt.effet)+Number(dataStr.effet),
       });
     }
     else if(isDmg && isAffliction) {
@@ -2338,27 +2372,27 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
         typeAtk:'dmg',
         target:tgt,
         saveType:saveType,
-        vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
+        vs:Number(dataCbt.save.dmg.effet)+Number(dataStr.effet)+Number(dataCbt.save.dmg.defense),
       },
       {
         typeAtk:'affliction',
         target:tgt,
         saveType:saveAffliction,
-        vs:Number(dataCbt.afflictioneffet)+Number(dataStr.effet)+Number(dataCbt.afflictiondef),
+        vs:Number(dataCbt.save.affliction.effet)+Number(dataStr.effet)+Number(dataCbt.save.affliction.defense),
       });
     } else if(isDmg) {
       btn.push({
         typeAtk:'dmg',
         target:tgt,
         saveType:saveType,
-        vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
+        vs:dataCbt.links.pwr === "" && dataCbt.links.ability === "" ? Number(dataCbt.save.dmg.effet)+Number(dataStr.effet)+Number(dataCbt.save.dmg.defense) : Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.save.dmg.defense),
       });
     } else if(isAffliction) {
       btn.push({
         typeAtk:'affliction',
         target:tgt,
         saveType:saveType,
-        vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
+        vs:dataCbt.links.pwr === "" && dataCbt.links.ability === ""  ? Number(dataCbt.save.affliction.effet)+Number(dataStr.effet)+Number(dataCbt.save.affliction.defense) : Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.save.affliction.defense),
       });
     }
 
@@ -2425,11 +2459,10 @@ export async function rollTgt(actor, name, data, tgt) {
   const dataStr = data.strategie;
   const isDmg = dataCbt.isDmg;
   const isAffliction = dataCbt.isAffliction;
-  const isArea = dataCbt?.area ?? false;
-  const saveAffliction = dataCbt.saveAffliction;
-  const saveType = dataCbt.save;
-  const areaBase = parseInt(dataCbt?.basearea ?? 0);
-  const areaMod = parseInt(dataCbt?.mod?.area ?? 0);
+  const isArea = dataCbt?.area?.has ?? false;
+  const saveAffliction = dataCbt.save.affliction.type;
+  const saveType = dataCbt.save.dmg.type;
+  const areaBase = parseInt(dataCbt?.area?.esquive ?? 0);
 
   let pRoll = {};
 
@@ -2440,35 +2473,25 @@ export async function rollTgt(actor, name, data, tgt) {
       typeAtk:'area',
       target:tgt,
       saveType:'esquive',
-      vs:dataCbt.pwr === "" ? Number(areaBase)+Number(dataStr.effet) : 10+Number(dataCbt.effet)+Number(dataStr.effet)+Number(areaMod),
+      vs:dataCbt.pwr === "" ? Number(areaBase)+Number(dataStr.effet) : 10+Number(dataCbt.effet)+Number(dataStr.effet),
     });
   }
-  else if(isDmg && isAffliction) {
+
+  if(isDmg) {
     btn.push({
       typeAtk:'dmg',
       target:tgt,
       saveType:saveType,
-      vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
-    },
-    {
+      vs:dataCbt.pwr === "" ? Number(dataCbt.save.dmg.effet)+Number(dataStr.effet)+Number(dataCbt.save.dmg.defense) : Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.save.dmg.defense),
+    });
+  }
+
+  if(isAffliction) {
+    btn.push({
       typeAtk:'affliction',
       target:tgt,
       saveType:saveAffliction,
-      vs:Number(dataCbt.afflictioneffet)+Number(dataStr.effet)+Number(dataCbt.afflictiondef),
-    });
-  } else if(isDmg) {
-    btn.push({
-      typeAtk:'dmg',
-      target:tgt,
-      saveType:saveType,
-      vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
-    });
-  } else if(isAffliction) {
-    btn.push({
-      typeAtk:'affliction',
-      target:tgt,
-      saveType:saveType,
-      vs:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
+      vs:dataCbt.pwr === "" ? Number(dataCbt.save.affliction.effet)+Number(dataStr.effet)+Number(dataCbt.save.affliction.defense) : Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.save.affliction.defense),
     });
   }
 
@@ -2510,9 +2533,19 @@ export async function rollWAtk(actor, name, data) {
 
   const pRoll = {
     flavor:name === "" ? " - " : `${name}`,
-    effet:Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.basedef),
+    effet:'',
     text:dataCbt.text
   };
+
+  if(dataCbt.isDmg && dataCbt.links.pwr === '') pRoll.effet += Number(dataCbt.save.dmg.effet)+Number(dataStr.effet)+Number(dataCbt.dataCbt.save.dmg.defense);
+  else if(dataCbt.isDmg && !dataCbt.isAffliction) pRoll.effet += Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.dataCbt.save.dmg.defense);
+  else if(dataCbt.isDmg) pRoll.effet += Number(dataCbt.save.dmg.effet)+Number(dataStr.effet)+Number(dataCbt.dataCbt.save.dmg.defense);
+
+  if(pRoll.effet !== '') pRoll.effet += ` / `
+
+  if(dataCbt.isAffliction && dataCbt.links.pwr === '') pRoll.effet += Number(dataCbt.save.affliction.effet)+Number(dataStr.effet)+Number(dataCbt.dataCbt.save.affliction.defense);
+  else if(dataCbt.isAffliction && !dataCbt.isDmg) pRoll.effet += Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.dataCbt.save.affliction.defense);
+  else if(dataCbt.isAffliction) pRoll.effet += Number(dataCbt.save.affliction.effet)+Number(dataStr.effet)+Number(dataCbt.dataCbt.save.affliction.defense);
 
   const rollMsgData = {
     user: game.user.id,
@@ -2542,7 +2575,7 @@ export async function rollAtk(actor, name, score, data, dataKey={}) {
 
   const dataCbt = data.attaque;
   const dataStr = data.strategie;
-  const noCrit = dataCbt.noCrit ? true : false;
+  const noCrit = dataCbt.settings.nocrit ? true : false;
   const alt = dataKey?.alt ?? false;
 
   let ask = false;
@@ -2837,8 +2870,27 @@ export function commonHTML(html, origin, data={}) {
   }
 
   if(hasAtk) {
-    html.find('div.attaque i.editAtk').click(ev => {
+    html.find('div.attaque i.editAtk').click(async ev => {
       const target = $(ev.currentTarget);
+      const id = target.data('id');
+      const edit = new editAtk(origin, id, [
+        'typeAtk',
+        'skill',
+        'pwr',
+        'area',
+        'noatk',
+        'nocrit',
+        'baseDef',
+        'save',
+        'dmg',
+        'affliction',
+        'modAtk',
+        'modEff',
+        'defpassive',
+        'ability',
+      ]).handleDialog();
+
+      /*const target = $(ev.currentTarget);
       const id = target.data('id');
       const token = origin.token === null ? false : origin.token._id;
       const dataAtk = getAtk(origin, id);
@@ -2850,7 +2902,7 @@ export function commonHTML(html, origin, data={}) {
         actor:origin._id,
         token:token,
       });
-      newAtk.render(true);
+      newAtk.render(true);*/
     });
   }
 
@@ -2985,16 +3037,16 @@ export function commonHTML(html, origin, data={}) {
       const hasAlt = ev.altKey;
       let total = Number(target.data('total'));
 
-      if(type === 'attaque' && tgt !== undefined && atk.noAtk) {
+      if(type === 'attaque' && tgt !== undefined && atk.settings.noatk) {
         for(let t of game.user.targets.ids) {
           rollTgt(origin, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, t);
         }
-      } else if(type === 'attaque' && tgt !== undefined && !atk.noAtk) {
+      } else if(type === 'attaque' && tgt !== undefined && !atk.settings.noatk) {
         for(let t of game.user.targets.ids) {
           rollAtkTgt(origin, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, t, {alt:hasAlt});
         }
-      } else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(origin, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, {alt:hasAlt});
-      else if(type === 'attaque' && atk.noAtk) rollWAtk(origin, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}});
+      } else if(type === 'attaque' && tgt === undefined && !atk.settings.noatk) rollAtk(origin, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, {alt:hasAlt});
+      else if(type === 'attaque' && atk.settings.noatk) rollWAtk(origin, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}});
       else rollStd(origin, name, total, {shift:hasShift, alt:hasAlt});
     });
   }
@@ -3033,20 +3085,18 @@ export function commonHTML(html, origin, data={}) {
 
             modele['idAtt'] = randAtt;
             modele['_id'] = randSkill;
-            update[`system.attaque.${maxKeysAtt+1}`] = {
-              _id:randAtt,
-              type:what,
-              skill:randSkill,
-              pwr:'',
-              save:'robustesse',
-              effet:0,
-              critique:20,
-              text:"",
-              noAtk:false,
-              basedef:15,
+            update[`system.attaque.${maxKeysAtt+1}`] = foundry.utils.mergeObject(CONFIG.MM3.StdAtk, {
+              _id:foundry.utils.randomID(),
               label:game.i18n.localize('MM3.Adefinir'),
-              defpassive:what === 'combatcontact' ? 'parade' : 'esquive',
-            };
+              links:{
+                skill:randSkill,
+              },
+              save:{
+                passive:{
+                  type:what === 'combatcontact' ? 'parade' : 'esquive',
+                }
+              },
+            });
           }
 
           update[`system.competence.${what}.list.${maxKeysComp+1}`] = modele;
@@ -3059,23 +3109,10 @@ export function commonHTML(html, origin, data={}) {
           const dataAttaque = Object.keys(attaque);
           const maxKeysAtt = dataAttaque.length > 0 ? Math.max(...dataAttaque) : 0;
 
-          update[`system.attaque.${maxKeysAtt+1}`] = {
+          update[`system.attaque.${maxKeysAtt+1}`] = foundry.utils.mergeObject(CONFIG.MM3.StdAtk, {
             _id:foundry.utils.randomID(),
-            skill:'',
-            pwr:'',
-            type:'other',
-            save:'robustesse',
-            saveAffliction:'volonte',
             label:game.i18n.localize('MM3.Adefinir'),
-            attaque:0,
-            effet:0,
-            critique:20,
-            text:"",
-            noAtk:false,
-            afflictiondef:10,
-            basedef:15,
-            defpassive:'parade',
-          };
+          });
 
           origin.update(update);
           break;
@@ -3176,10 +3213,6 @@ export function commonHTML(html, origin, data={}) {
 
     sendInChat(actor, item);
   });
-}
-
-export function getPwr(actor, id) {
-  return actor.items.get(id);
 }
 
 export function getDataSubSkill(actor, skill, id) {
@@ -3406,25 +3439,47 @@ export function normalizeData(actor, force=false) {
           });
         }
 
-        update[`system.attaque.${Object.keys(atk)[i]}.skill`] = dataAtk?.skill ?? '';
-        update[`system.attaque.${Object.keys(atk)[i]}.pwr`] = dataAtk?.pwr ?? '';
-        update[`system.attaque.${Object.keys(atk)[i]}.noCrit`] = dataAtk?.noCrit ?? false;
+        update[`system.attaque.${Object.keys(atk)[i]}.links.skill`] = dataAtk?.skill ?? '';
+        update[`system.attaque.${Object.keys(atk)[i]}.links.pwr`] = dataAtk?.pwr ?? '';
+        update[`system.attaque.${Object.keys(atk)[i]}.settings.nocrit`] = dataAtk?.noCrit ?? false;
         update[`system.attaque.${Object.keys(atk)[i]}.isAffliction`] = dataAtk?.isAffliction ?? false;
         update[`system.attaque.${Object.keys(atk)[i]}.isDmg`] = dataAtk?.isDmg ?? false;
-        update[`system.attaque.${Object.keys(atk)[i]}.saveAffliction`] = dataAtk?.saveAffliction ?? 'volonte';
-        update[`system.attaque.${Object.keys(atk)[i]}.afflictiondef`] = dataAtk?.afflictiondef ?? 10;
-        update[`system.attaque.${Object.keys(atk)[i]}.afflictioneffet`] = dataAtk?.afflictioneffet ?? 10;
+        update[`system.attaque.${Object.keys(atk)[i]}.save.affliction.type`] = dataAtk?.saveAffliction ?? 'volonte';
+        update[`system.attaque.${Object.keys(atk)[i]}.save.affliction.defense`] = dataAtk?.afflictiondef ?? 10;
+        update[`system.attaque.${Object.keys(atk)[i]}.save.affliction.effet`] = dataAtk?.afflictioneffet ?? 10;
         update[`system.attaque.${Object.keys(atk)[i]}.-=edit`] = null;
-        update[`system.attaque.${Object.keys(atk)[i]}.afflictionechec`] = {
-          e1:dataAtk?.afflictionechec?.e1 ?? [],
-          e2:dataAtk?.afflictionechec?.e2 ?? [],
-          e3:dataAtk?.afflictionechec?.e3 ?? [],
-        };
-        update[`system.attaque.${Object.keys(atk)[i]}.dmgechec`] = {
-          v1:1,
-          v2:1,
-          v3:1,
-        };
+        update[`system.attaque.${Object.keys(atk)[i]}.repeat.affliction`] = [{
+          value:0,
+          status:dataAtk?.afflictionechec?.e1 ?? [],
+        },
+        {
+          value:0,
+          status:dataAtk?.afflictionechec?.e2 ?? [],
+        },
+        {
+          value:0,
+          status:dataAtk?.afflictionechec?.e3 ?? [],
+        },
+        {
+          value:0,
+          status:[],
+        }];
+        update[`system.attaque.${Object.keys(atk)[i]}.repeat.dmg`] = [{
+          value:0,
+          status:dataAtk?.afflictionechec?.e1 ?? [],
+        },
+        {
+          value:0,
+          status:dataAtk?.afflictionechec?.e2 ?? [],
+        },
+        {
+          value:0,
+          status:dataAtk?.afflictionechec?.e3 ?? [],
+        },
+        {
+          value:0,
+          status:[],
+        }];
       }
 
       if(type === 'personnage') {
@@ -3486,60 +3541,6 @@ export function normalizeData(actor, force=false) {
   }
 }
 
-export function getModBonus(actorData, data, items) {
-  const surcharge = data?.surcharge?.total ?? false;
-  const effects = data?.effects?.total ?? 0;
-  const effectsRanks = data?.effectsranks ?? {};
-  const surchargeRanks = data?.surchargeranks ?? {};
-  let surchargeArray = [];
-  let hasSurchargeRanks = false;
-  let surchargeTotal = false;
-  let surchargeRanksMax = 0;
-  let total = 0;
-
-  total += parseInt(effects);
-
-  for(let e in effectsRanks) {
-    const itm = items.find(itm => itm._id === e);
-    const type = itm.type;
-    const special = itm.system.special;
-    const value = parseInt(effectsRanks[e]);
-    let rang = 0;
-
-    if(type === 'pouvoir') rang = special === 'dynamique' ? parseInt(actorData.system?.pwr?.[e]?.cout?.rang ?? 0) : parseInt(itm.system.cout.rang);
-    else if(type === 'talent') rang = parseInt(itm.system.rang);
-
-    total += value*rang;
-  }
-
-  for(let e in surchargeRanks) {
-    const itm = items.find(itm => itm._id === e);
-    const type = itm.type;
-    const special = itm.system.special;
-    const value = parseInt(surchargeRanks[e]);
-    let rang = 0;
-
-    if(type === 'pouvoir') rang = special === 'dynamique' ? parseInt(actorData.system?.pwr?.[e]?.cout?.rang ?? 0) : parseInt(itm.system.cout.rang);
-    else if(type === 'talent') rang = parseInt(itm.system.rang);
-
-    surchargeArray.push(value*rang);
-  }
-
-  if(surchargeArray.length > 0) {
-    hasSurchargeRanks = true;
-    surchargeRanksMax = Math.max(...surchargeArray);
-  }
-
-  if(surcharge !== false && hasSurchargeRanks) surchargeTotal = Math.max(surcharge, surchargeRanksMax);
-  else if(surcharge !== false) surchargeTotal = surcharge;
-  else if(hasSurchargeRanks) surchargeTotal = surchargeRanksMax;
-
-  return {
-    total:total,
-    surcharge:surchargeTotal
-  }
-}
-
 export function prepareEffects(item, context) {
   const system = context.data.system;
 
@@ -3556,13 +3557,15 @@ export async function updateEffects(item, id, name, changes) {
   }]);
 
   if(actor !== null) {
-    const getActorEffects = actor.effects.contents.find(itm => itm.origin.includes(item._id) && itm.flags.variante === name);
+    const getActorEffects = actor.effects.contents.find(itm => (itm?.origin?.includes(item._id) ?? false) && itm.flags.variante === name);
 
-    await actor.updateEmbeddedDocuments('ActiveEffect', [{
-      "_id":getActorEffects._id,
-      icon:'',
-      changes:changes,
-    }]);
+    if(getActorEffects) {
+      await actor.updateEmbeddedDocuments('ActiveEffect', [{
+        "_id":getActorEffects._id,
+        icon:'',
+        changes:changes,
+      }]);
+    }
   }
 }
 
@@ -3576,13 +3579,15 @@ export async function updateVarianteName(item, id, variante, name) {
   }]);
 
   if(actor !== null) {
-    const getActorEffects = actor.effects.contents.find(itm => itm.origin.includes(item._id) && itm.flags.variante === variante);
+    const getActorEffects = actor.effects.contents.find(itm => (itm?.origin?.includes(item._id) ?? false) && itm.flags.variante === variante);
 
-    await actor.updateEmbeddedDocuments('ActiveEffect', [{
-      "_id":getActorEffects._id,
-      icon:'',
-      name:name
-    }]);
+    if(getActorEffects) {
+      await actor.updateEmbeddedDocuments('ActiveEffect', [{
+        "_id":getActorEffects._id,
+        icon:'',
+        name:name
+      }]);
+    }
   }
 }
 
@@ -3707,7 +3712,7 @@ export function loadEffectsContext(context) {
   context.item.listSurcharge = {
     'surcharge':'MM3.EFFECTS.Surcharge',
     'surchargeranks':'MM3.EFFECTS.SurchargeRanks',
-    'effectsranks':'MM3.EFFECTS.Ranks'
+    'ranks':'MM3.EFFECTS.Ranks'
   };
 }
 
@@ -3825,10 +3830,11 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
     let effect = item.effects.find(itm => itm._id === id);
     let changes = effect.changes;
     let split = changes[key].key.split('.');
-    let k = `${value}.effects.total`;
+    let k = `${value}.bonuses`;
 
-    if(split[split.length-2] === 'effectsranks') k = `${value}.effects.${item._id}`;
+    if(split[split.length-2] === 'ranks') k = `${value}.ranks.${item._id}`;
     else if(split[split.length-2] === 'surchargeranks') k = `${value}.surchargeranks.${item._id}`;
+    else if(split[split.length-1] === 'surcharge') k = `${value}.surcharge`;
 
     changes[key].key = k;
 
@@ -3845,24 +3851,27 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
     let changes = effect.changes;
     let split = changes[key].key.split('.');
 
+    if(split.includes('ranks') || split.includes('surchargeranks')) {
+      split.pop();
+      split.pop();
+    } else if(split.includes('surcharge') || split.includes('bonuses')) split.pop();
+
     if(value === 'surcharge') {
-      split[split.length-2] = 'surcharge';
-      split[split.length-1] = 'total';
+      split.push('surcharge');
       changes[key].mode = 5;
     }
     else if(value === 'surchargeranks') {
-      split[split.length-2] = 'surchargeranks';
-      split[split.length-1] = item._id;
+      split.push('surchargeranks');
+      split.push(item._id);
       changes[key].mode = 5;
     }
-    else if(value === 'effectsranks') {
-      split[split.length-2] = 'effectsranks';
-      split[split.length-1] = item._id;
+    else if(value === 'ranks') {
+      split.push('ranks');
+      split.push(item._id);
       changes[key].mode = 2;
     }
-    else {
-      split[split.length-2] = 'effects';
-      split[split.length-1] = 'total';
+    else if(value === '') {
+      split.push('bonuses');
       changes[key].mode = 2;
     }
 

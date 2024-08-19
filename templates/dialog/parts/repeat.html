@@ -1,0 +1,52 @@
+<div class="{{class}} {{object}} summary" data-type="{{object}}">
+    <header class="js-toggler">
+        <span class="deploy">
+            <i class="minus"></i>
+        </span>
+        <span class="main">
+            {{label}}
+        </span>
+    </header>
+    <div class="innerData">
+        <label class="rbasedefense">
+            <span>{{localize 'MM3.ROLL.DEFENSE.Basedefense'}} : </span>
+            <input type="number" value="{{basedefense}}" min="0" />
+        </label>
+
+        <select class="rtypedefense" title="{{localize 'MM3.DEFENSE.Label'}}">
+            {{selectOptions defenses selected=selected nameAttr="key" labelAttr="label"}}
+        </select>
+
+        <label class="rangeff">
+            <span>{{localize 'MM3.EFFET.Rang'}} : </span>
+            <input type="number" value="{{effet}}" min="0" />
+        </label>
+    </div>
+
+    <div class="data" style="display:grid;">
+        {{#each list}}
+        <div class="line l{{@index}}" data-index="{{@index}}">
+            <span class='header'>{{numRepeat @index}} {{#if @first}}{{localize "MM3.ROLL.DegreEchec"}}{{else}}{{localize "MM3.ROLL.DegresEchec"}}{{/if}}</span>
+            <div class="value">
+                <span>{{localize "MM3.ROLL.TYPE.Degats"}} :</span>
+                <input type="number" value="{{value}}" min="0" />
+            </div>
+            <div class="status" data-num="{{num}}">
+                {{#each status}}
+                    <span data-status="{{this}}">
+                        {{translateStatues this}}
+                        <i class="fa-solid fa-trash-xmark delete" data-status="{{this}}"></i>
+                    </span>
+                {{/each}}
+            </div>
+            <div class="add">
+                <select>
+                    {{selectOptions etats blank='' nameAttr="key" labelAttr="label" sort=sort localize=true}}
+                </select>
+
+                <a class="btn">{{localize "MM3.BTN.Add"}}</a>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

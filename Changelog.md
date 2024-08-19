@@ -1,3 +1,15 @@
+## Version 2.0.0
+### Améliorations
+- Passage du fonctionnement par template au fonctionnement par modèle de donnée, plus facile à maintenir et à améliorer.
+- Ajout de la possibilité de lier une attaque à une caractéristique. L'attaque prendra donc comme rang d'effet le total de la caractéristique.
+- Dorénavant, lorsqu'un état combiné est retiré, cela retire aussi tous les états qui sont liés.
+- Refonte complet de la fenêtre d'édition des attaques, pour plus de clareté.
+- Ajout de la gestion des états liés aux attaques de type dégâts. Il est dorénavant possible de modifier les états que chaque niveau de marge d'échec donne.
+- Ajout de la possibilité d'ajouter des dégâts sur les attaques de type affliction. Etant donné que j'ai rationnalisé le fonctionnement, les dégâts deviennent disponible pour les afflictions.
+- Les dégâts comme les afflictions fonctionnent à présent sur un maximum de 4 niveaux de marge d'échec, au lieu de seulement 3.
+
+Étant donné qu'il s'agit d'une grosse mise à jour du fonctionnement global, il est probable que des bugs surviennent. Si cela n'affecte que les attaques (par exemple une attaque qui ne fonctionne plus, ou qui ne s'ouvre plus), le plus simple sera sans doute de la supprimer pour la recréer. Faites bien attention à tout sauvegarder avant la mise à jour, au cas où des problèmes plus grave surviendraient.
+
 ## Version 1.32.10
 ### Bugfix
 - Corrections d'un bug avec la supression de variantes.

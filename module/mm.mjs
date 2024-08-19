@@ -11,6 +11,15 @@ import { PouvoirItemSheet } from "./sheets/pouvoir-item-sheet.mjs";
 import { TalentItemSheet } from "./sheets/talent-item-sheet.mjs";
 import { EquipementItemSheet } from "./sheets/equipement-item-sheet.mjs";
 
+// Import model classes.
+import { PersonnageDataModel } from "./documents/models/personnage-data-model.mjs";
+import { VehiculeDataModel } from "./documents/models/vehicule-data-model.mjs";
+import { QGDataModel } from "./documents/models/qg-data-model.mjs";
+import { PouvoirDataModel } from "./documents/models/pouvoir-data-model.mjs";
+import { TalentDataModel } from "./documents/models/talent-data-model.mjs";
+import { EquipementDataModel } from "./documents/models/equipement-data-model.mjs";
+import { ModificateurDataModel } from "./documents/models/modificateur-data-model.mjs";
+
 // Import helper/utility classes and constants.
 import { RegisterHandlebars } from "./helpers/handlebars.mjs";
 import { RegisterSettings } from "./settings.mjs";
@@ -43,10 +52,6 @@ import {
   xml2json,
   parseXML
 } from "./helpers/common.mjs";
-
-import {
-  EditAttaque,
-} from "./dialog/edit-attaque.mjs";
 
 import { MigrationMM3 } from "./migration.mjs";
 
@@ -90,6 +95,19 @@ Hooks.once('init', async function() {
 
   // Add custom constants for configuration.
   CONFIG.MM3 = MM3;
+
+  CONFIG.Actor.dataModels = {
+    personnage:PersonnageDataModel,
+    vehicule:VehiculeDataModel,
+    qg:QGDataModel,
+  };
+
+  CONFIG.Item.dataModels = {
+    pouvoir:PouvoirDataModel,
+    talent:TalentDataModel,
+    equipement:EquipementDataModel,
+    modificateur:ModificateurDataModel,
+  };
 
   /**
    * Set an initiative formula for the system
@@ -1188,24 +1206,23 @@ Hooks.on("applyActiveEffect", async (actor, change) => {
     height:1,
   }];
 
-  console.warn(tp);
-  console.warn(actor.token);
-  console.warn(game.canvas.scene);
-
   game.canvas.scene.createEmbeddedDocuments("MeasuredTemplate", tp)*/
 
-  const version = game.version.split('.')[0];
   let status = "";
-  if(version < 11) {
-    status = foundry.utils.getProperty(change.effect, "flags.core.statusId");
-    let defense;
 
-    switch(status) {
+  status = foundry.utils.getProperty(change.effect, "statuses");
+  let defense;
+  let carac;
+  let caracTotal;
+  let defTotal;
+
+  for(let eff of status) {
+    switch(eff) {
       case 'vulnerability':
         defense = actor.system.defense[change.key];
-        const carac = actor.system.caracteristique[getFullCarac(defense.car)];
-        const caracTotal = carac.absente ? 0 : carac.base+carac.divers;
-        const defTotal = defense.base+defense.divers+caracTotal;
+        carac = actor.system.caracteristique[getFullCarac(defense.car)];
+        caracTotal = carac.absente ? 0 : carac.base+carac.divers;
+        defTotal = defense.base+defense.divers+caracTotal;
 
         defense.other = -Math.floor(defTotal/2);
         break;
@@ -1215,40 +1232,45 @@ Hooks.on("applyActiveEffect", async (actor, change) => {
         defense.defenseless = true;
         break;
     }
-  } else {
-    status = foundry.utils.getProperty(change.effect, "statuses");
-    let defense;
-    let carac;
-    let caracTotal;
-    let defTotal;
-
-    for(let eff of status) {
-      switch(eff) {
-        case 'vulnerability':
-          defense = actor.system.defense[change.key];
-          carac = actor.system.caracteristique[getFullCarac(defense.car)];
-          caracTotal = carac.absente ? 0 : carac.base+carac.divers;
-          defTotal = defense.base+defense.divers+caracTotal;
-
-          defense.other = -Math.floor(defTotal/2);
-          break;
-
-        case 'defenseless':
-          defense = actor.system.defense[change.key];
-          defense.defenseless = true;
-          break;
-      }
-    }
   }
 });
+
+Hooks.on("deleteActiveEffect", async (effect) => {
+  if(effect.parent.permission !== 3) return;
+
+  effect.statuses.forEach(itm => {
+    const status = CONFIG.statusEffects.find(status => status.id === itm);
+
+    if(status) {
+      const changes = status.changes;
+
+      if(changes) {
+        const changes = status.changes;
+
+        if(changes !== undefined) {
+          let effectData = [];
+
+          for(let c of changes) {
+            const idSE = c.key;
+            const exist = effect.parent.statuses.has(idSE);
+            const tSE = CONFIG.statusEffects.find((se) => se.id === idSE);
+
+            if(exist && tSE) {
+              effectData.push(effect.parent.effects.find(itm => itm.statuses.has(idSE)).id);
+            }
+          }
+
+          if(effectData.length !== 0) effect.parent.deleteEmbeddedDocuments("ActiveEffect", effectData);
+      }
+    }
+  }});
+})
 
 Hooks.on("createActiveEffect", async (effect, data, id) => {
   if(effect.parent.permission !== 3) return;
   let statuses;
 
-  const version = game.version.split('.')[0];
-  if(version < 11) statuses = effect._statusId;
-  else statuses = effect.statuses;
+  statuses = effect.statuses;
 
   setCombinedEffects(effect.parent, statuses, true);
 });
@@ -1281,7 +1303,6 @@ async function createMacro(bar, data, slot) {
 }
 
 async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, event) {
-  console.warn(actorId, sceneId, tokenId);
   const actor = tokenId === 'null' ? game.actors.get(actorId) : game.scenes.get(sceneId).tokens.find(token => token.id === tokenId).actor;
 
   const data = actor.system;
@@ -1333,19 +1354,21 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
 
   let result = undefined;
 
-  if(type === 'attaque' && tgt !== undefined && atk.noAtk) {
+  console.warn(type, tgt, atk.settings.noatk);
+
+  if(type === 'attaque' && tgt !== undefined && atk.settings.noatk) {
     for(let t of game.user.targets.ids) {
       rollTgt(actor, name, {attaque:atk, strategie:strategie}, t);
     }
-  } else if(type === 'attaque' && tgt !== undefined && !atk.noAtk) {
+  } else if(type === 'attaque' && tgt !== undefined && !atk.settings.noatk) {
     result = {};
 
     for(let t of game.user.targets.ids) {
       let roll = await rollAtkTgt(actor, name, total, {attaque:atk, strategie:strategie}, t, {alt:hasAlt});
       result[t] = roll;
     }
-  } else if(type === 'attaque' && tgt === undefined && !atk.noAtk) rollAtk(actor, name, total, {attaque:atk, strategie:strategie}, {alt:hasAlt});
-  else if(type === 'attaque' && atk.noAtk) rollWAtk(actor, name, {attaque:atk, strategie:strategie});
+  } else if(type === 'attaque' && tgt === undefined && !atk.settings.noatk) rollAtk(actor, name, total, {attaque:atk, strategie:strategie}, {alt:hasAlt});
+  else if(type === 'attaque' && atk.settings.noatk) rollWAtk(actor, name, {attaque:atk, strategie:strategie});
   else rollStd(actor, name, total, {shift:hasShift, alt:hasAlt});
 
   return result;

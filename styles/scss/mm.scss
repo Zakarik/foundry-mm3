@@ -1,8 +1,8 @@
 @use "sass:map";
 
 $fonts:
-"Bangers", 
-"Sriracha", 
+"Bangers",
+"Sriracha",
 "Kalam",
 "Creepster",
 "Poppins",
@@ -43,8 +43,8 @@ $imgs:
 "compendium";
 
 $fontmap:(
-    "Bangers":"Bangers", 
-    "Sriracha":"Sriracha", 
+    "Bangers":"Bangers",
+    "Sriracha":"Sriracha",
     "Kalam":"Kalam",
     "Creepster":"Creepster",
     "Poppins":"Poppins",
@@ -69,8 +69,8 @@ $fontmap:(
 );
 
 $fontreal:(
-    "Bangers":"Bangers", 
-    "Sriracha":"Sriracha", 
+    "Bangers":"Bangers",
+    "Sriracha":"Sriracha",
     "Kalam":"Kalam",
     "Creepster":"Creepster",
     "Poppins":"Poppins",
@@ -179,7 +179,7 @@ div.mm3-dialog-delete {
             margin-bottom: 5px;
         }
     }
-    
+
     button {
         text-align: center;
         border-bottom: 2px solid #666 !important;
@@ -220,7 +220,7 @@ div.mm3-dialog-delete {
             div.dialog-content {
                 font-family:map.get($fontreal, $font);
             }
-            
+
             button {
                 font-family:map.get($fontreal, $font);
             }
@@ -251,7 +251,7 @@ div.mm3-dialog-mod {
             }
         }
     }
-    
+
     button {
         text-align: center;
         border-bottom: 2px solid #666 !important;
@@ -292,7 +292,7 @@ div.mm3-dialog-mod {
             div.dialog-content {
                 font-family:map.get($fontreal, $font);
             }
-            
+
             button {
                 font-family:map.get($fontreal, $font);
             }

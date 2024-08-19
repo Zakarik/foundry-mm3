@@ -24,6 +24,7 @@ export const preloadHandlebarsTemplates = async function() {
     "systems/mutants-and-masterminds-3e/templates/limited-qg-sheet.html",
     "systems/mutants-and-masterminds-3e/templates/limited-vehicule-sheet.html",
     "systems/mutants-and-masterminds-3e/templates/dialog/edit-attaque.html",
+    "systems/mutants-and-masterminds-3e/templates/dialog/parts/repeat.html",
   ];
 
   // Load the template parts

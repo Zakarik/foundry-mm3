@@ -47,10 +47,10 @@
       "Surprised":"Sorprendido",
       "Downgrade":"Debilitado",
       "Prone":"Caído",
-      "Blind":"Ciego",    
-      "Asleep":"Adormecido",    
-      "Restrained":"Restringido",    
-      "Paralysis":"Paralizado",    
+      "Blind":"Ciego",
+      "Asleep":"Adormecido",
+      "Restrained":"Restringido",
+      "Paralysis":"Paralizado",
       "Deaf":"Sordo",
       "Stunned":"Aturdido"
     },
@@ -78,7 +78,7 @@
       "AddVMod":"Agregar una variante de efecto",
       "DeleteVMod":"Eliminar una variante de efecto",
       "EditMod":"Editar modificadores",
-      "DeleteMod":"Eliminar un modificador",      
+      "DeleteMod":"Eliminar un modificador",
       "Activer":"Activar"
     },
     "CARACTERISTIQUES":{
@@ -353,7 +353,8 @@
       "DeplierTout":"Ocultar todo",
       "ReplierTout":"Mostrar todo",
       "CompLie":"Vinculado a una habilidad",
-      "PwrLie":"Vinculado a un poder"
+      "PwrLie":"Vinculado a un poder",
+      "AbyLie":"Vinculado a una habilidad"
     },
     "ASTUCE":{
       "Shift":"Puedes mantener presionada la tecla Shift al hacer clic en habilidades, destrezas y defensas para agregar una CD a la tirada.",

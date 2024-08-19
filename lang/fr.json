@@ -47,10 +47,10 @@
       "Surprised":"Surpris",
       "Downgrade":"Affaibli",
       "Prone":"À terre",
-      "Blind":"Aveugle",    
-      "Asleep":"Endormi",    
-      "Restrained":"Entravé",    
-      "Paralysis":"Paralysé",    
+      "Blind":"Aveugle",
+      "Asleep":"Endormi",
+      "Restrained":"Entravé",
+      "Paralysis":"Paralysé",
       "Deaf":"Sourd",
       "Stunned":"Étourdi"
     },
@@ -78,7 +78,7 @@
       "AddVMod":"Ajouter une variante d'effet",
       "DeleteVMod":"Supprimer la variante d'effet",
       "EditMod":"Editer les modificateurs",
-      "DeleteMod":"Supprimer le modificateur",      
+      "DeleteMod":"Supprimer le modificateur",
       "Activer":"Activé"
     },
     "CARACTERISTIQUES":{
@@ -284,7 +284,7 @@
       "DegresReussite":"Degrés de réussite",
       "DegreEchec":"Degré d'échec",
       "DegresEchec":"Degrés d'échec",
-      "DD":"DD",      
+      "DD":"DD",
       "Critique":"Critique",
       "Testeffet":"Test d'effet",
       "Initiative":"Initiative",
@@ -353,7 +353,8 @@
       "DeplierTout":"Déplier tout",
       "ReplierTout":"Replier tout",
       "CompLie":"Lié à une compétence",
-      "PwrLie":"Lié à un pouvoir"
+      "PwrLie":"Lié à un pouvoir",
+      "AbyLie":"Lié à une caractéristique"
     },
     "ASTUCE":{
       "Shift":"Vous pouvez maintenir la touche Shift lors d'un clic sur les caractéristiques, compétences et défenses pour mettre un DD au jet.",

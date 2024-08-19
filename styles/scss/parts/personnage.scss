@@ -54,7 +54,7 @@ div.personnage {
                     font-size:20px;
 
                     &::placeholder {
-                        color:$fond;                    
+                        color:$fond;
                     }
                 }
 
@@ -69,7 +69,7 @@ div.personnage {
                     text-align: center;
 
                     &::placeholder {
-                        color:$fond;                    
+                        color:$fond;
                     }
                 }
             }
@@ -108,7 +108,7 @@ div.personnage {
                         text-align: center;
                         background: $bgopacity;
                         cursor: pointer;
-                        margin-right:20px;         
+                        margin-right:20px;
                     }
 
                     label {
@@ -122,12 +122,12 @@ div.personnage {
                             width:100%;
                             border:none;
                             border-bottom: 1px solid #333;
-                            border-radius: 10px;           
+                            border-radius: 10px;
                             text-align: center;
-                            background:$bgopacity;             
+                            background:$bgopacity;
                         }
                     }
-                }            
+                }
             }
         }
     }
@@ -208,7 +208,7 @@ div.personnage {
                         margin-top:2px;
 
                         span {
-                        
+
                             &.label {
                                 grid-column:2;
                                 text-align: right;

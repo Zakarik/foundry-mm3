@@ -3137,6 +3137,7 @@ div.personnage section.sheet-body div.options div.accessibility select {
   text-align: center;
 }
 div.personnage section.sheet-body div.options div.limite {
+  grid-column: 1/3;
   padding-bottom: 5px;
 }
 div.personnage section.sheet-body div.options div.limite a.saveLimiteStrategie {
@@ -3520,6 +3521,7 @@ div.modificateur section.sheet-body div.options div.accessibility select {
   text-align: center;
 }
 div.modificateur section.sheet-body div.options div.limite {
+  grid-column: 1/3;
   padding-bottom: 5px;
 }
 div.modificateur section.sheet-body div.options div.limite a.saveLimiteStrategie {
@@ -4109,6 +4111,7 @@ div.pouvoir section.sheet-body div.options div.accessibility select {
   text-align: center;
 }
 div.pouvoir section.sheet-body div.options div.limite {
+  grid-column: 1/3;
   padding-bottom: 5px;
 }
 div.pouvoir section.sheet-body div.options div.limite a.saveLimiteStrategie {
@@ -5052,6 +5055,7 @@ div.talent section.sheet-body div.options div.accessibility select {
   text-align: center;
 }
 div.talent section.sheet-body div.options div.limite {
+  grid-column: 1/3;
   padding-bottom: 5px;
 }
 div.talent section.sheet-body div.options div.limite a.saveLimiteStrategie {
@@ -5561,6 +5565,7 @@ div.equipement section.sheet-body div.options div.accessibility select {
   text-align: center;
 }
 div.equipement section.sheet-body div.options div.limite {
+  grid-column: 1/3;
   padding-bottom: 5px;
 }
 div.equipement section.sheet-body div.options div.limite a.saveLimiteStrategie {
@@ -6144,6 +6149,7 @@ div.vehicule section.sheet-body div.options div.accessibility select {
   text-align: center;
 }
 div.vehicule section.sheet-body div.options div.limite {
+  grid-column: 1/3;
   padding-bottom: 5px;
 }
 div.vehicule section.sheet-body div.options div.limite a.saveLimiteStrategie {
@@ -8187,6 +8193,7 @@ div.qg section.sheet-body div.options div.accessibility select {
   text-align: center;
 }
 div.qg section.sheet-body div.options div.limite {
+  grid-column: 1/3;
   padding-bottom: 5px;
 }
 div.qg section.sheet-body div.options div.limite a.saveLimiteStrategie {
@@ -10243,16 +10250,17 @@ div.mm3-import-all.SecularOne button {
   font-family: "Secular One" !important;
 }
 
-div.edit-attaque section.window-content {
+div.dialog-edit section.window-content {
   background: #EBEBEB;
+  padding-bottom: 0px;
 }
-div.edit-attaque section.window-content form {
+div.dialog-edit section.window-content form {
   display: grid;
   align-items: flex-start;
   align-content: flex-start;
   grid-template-rows: min-content 1fr min-content;
 }
-div.edit-attaque section.window-content section.header {
+div.dialog-edit section.window-content section.header {
   width: 100%;
   border-width: 2px;
   border-radius: 15px 15px 0px 0px;
@@ -10263,8 +10271,8 @@ div.edit-attaque section.window-content section.header {
   grid-template-columns: 1fr;
   background: url("../assets/fond.webp") #4E7FC8;
 }
-div.edit-attaque section.window-content section.header input,
-div.edit-attaque section.window-content section.header span {
+div.dialog-edit section.window-content section.header input,
+div.dialog-edit section.window-content section.header span {
   font-size: 2rem;
   height: 3rem;
   line-height: 3rem;
@@ -10274,15 +10282,14 @@ div.edit-attaque section.window-content section.header span {
   text-align: center;
   border: 0px;
 }
-div.edit-attaque section.window-content section.header input::placeholder,
-div.edit-attaque section.window-content section.header span::placeholder {
+div.dialog-edit section.window-content section.header input::placeholder,
+div.dialog-edit section.window-content section.header span::placeholder {
   color: #EBEBEB;
 }
-div.edit-attaque section.window-content section.body {
+div.dialog-edit section.window-content section.body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
-  height: 100%;
   padding: 5px;
   align-items: flex-start;
   align-content: flex-start;
@@ -10290,7 +10297,7 @@ div.edit-attaque section.window-content section.body {
   border: 1px solid #a8a8a8;
   border-top-color: black;
 }
-div.edit-attaque section.window-content section.body a.btn {
+div.dialog-edit section.window-content section.body a.btn {
   display: flex;
   position: relative;
   justify-content: center;
@@ -10314,7 +10321,7 @@ div.edit-attaque section.window-content section.body a.btn {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
   letter-spacing: 1px;
 }
-div.edit-attaque section.window-content section.body a.btn.selected {
+div.dialog-edit section.window-content section.body a.btn.selected {
   color: #363B44;
   justify-content: left;
   border-color: #fe1611;
@@ -10322,22 +10329,22 @@ div.edit-attaque section.window-content section.body a.btn.selected {
   text-shadow: none;
   border-width: 2px;
 }
-div.edit-attaque section.window-content section.body a.btn.selected i {
+div.dialog-edit section.window-content section.body a.btn.selected i {
   position: absolute;
   right: 5px;
   font-size: 20px;
 }
-div.edit-attaque section.window-content section.body a.btn.unselected {
+div.dialog-edit section.window-content section.body a.btn.unselected {
   justify-content: left;
   color: #a8a8a8;
 }
-div.edit-attaque section.window-content section.body a.btn:hover {
+div.dialog-edit section.window-content section.body a.btn:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.edit-attaque section.window-content section.body select {
+div.dialog-edit section.window-content section.body select {
   -webkit-appearance: none;
   -moz-appearance: none;
   -o-appearance: none;
@@ -10350,20 +10357,32 @@ div.edit-attaque section.window-content section.body select {
   font-weight: bold;
   color: #363B44;
 }
-div.edit-attaque section.window-content section.body select.full {
+div.dialog-edit section.window-content section.body select.full {
   grid-column-start: 1;
   grid-column-end: 3;
 }
-div.edit-attaque section.window-content section.body a.btn {
-  height: 29px;
+div.dialog-edit section.window-content section.body label {
+  display: grid;
+  grid-template-columns: 1fr 42px;
+  grid-gap: 2px;
 }
-div.edit-attaque section.window-content section.body a.selected {
+div.dialog-edit section.window-content section.body i {
+  display: none;
+}
+div.dialog-edit section.window-content section.body a.btn {
+  height: 29px;
+  line-height: 29px;
+}
+div.dialog-edit section.window-content section.body a.selected {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;
   text-shadow: none;
 }
-div.edit-attaque section.window-content section.body span {
+div.dialog-edit section.window-content section.body a.selected i {
+  display: block;
+}
+div.dialog-edit section.window-content section.body span {
   display: grid;
   width: 100%;
   font-weight: bold;
@@ -10371,7 +10390,7 @@ div.edit-attaque section.window-content section.body span {
   align-items: center;
   font-family: Sriracha;
 }
-div.edit-attaque section.window-content section.body input[type=number] {
+div.dialog-edit section.window-content section.body input[type=number] {
   width: 100%;
   padding-right: 0px;
   padding-left: 0px;
@@ -10380,39 +10399,18 @@ div.edit-attaque section.window-content section.body input[type=number] {
   height: 100%;
   background: transparent;
 }
-div.edit-attaque section.window-content section.body div.line,
-div.edit-attaque section.window-content section.body label.line {
-  grid-column-start: 1;
-  grid-column-end: 3;
+div.dialog-edit section.window-content section.body div.repeat {
+  grid-column: 1/3;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 5px;
-  align-items: flex-start;
-  align-content: flex-start;
-}
-div.edit-attaque section.window-content section.body div.col,
-div.edit-attaque section.window-content section.body label.col {
-  display: grid;
-  grid-template-columns: 1fr 45px;
-  grid-gap: 5px;
-  align-items: flex-start;
-  align-content: flex-start;
-}
-div.edit-attaque section.window-content section.body div.col2,
-div.edit-attaque section.window-content section.body label.col2 {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   column-gap: 5px;
   align-items: flex-start;
   align-content: flex-start;
   border: 1px solid black;
 }
-div.edit-attaque section.window-content section.body div.col2 span.header,
-div.edit-attaque section.window-content section.body label.col2 span.header {
-  grid-column-start: 1;
-  grid-column-end: 3;
+div.dialog-edit section.window-content section.body div.repeat header {
+  display: grid;
+  grid-template-columns: 27px 1fr 27px;
   font-size: 16px;
   font-variant: small-caps;
   text-align: center;
@@ -10421,34 +10419,77 @@ div.edit-attaque section.window-content section.body label.col2 span.header {
   background: #363B44;
   color: white;
 }
-div.edit-attaque section.window-content section.body div.col2 span.header2,
-div.edit-attaque section.window-content section.body label.col2 span.header2 {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  font-size: 14px;
-  font-variant: small-caps;
-  text-align: center;
+div.dialog-edit section.window-content section.body div.repeat header span.deploy {
+  display: block;
+  width: max-content;
+}
+div.dialog-edit section.window-content section.body div.repeat header span.main {
   justify-content: center;
-  border-top: 1PX solid #a8a8a8;
-  letter-spacing: 1px;
 }
-div.edit-attaque section.window-content section.body div.col2 span.headerdmg,
-div.edit-attaque section.window-content section.body label.col2 span.headerdmg {
-  font-size: 14px;
-  font-variant: small-caps;
+div.dialog-edit section.window-content section.body div.repeat header i {
+  display: flex;
+  cursor: pointer;
+}
+div.dialog-edit section.window-content section.body div.repeat header i::before {
+  border: 2px solid #EBEBEB;
+  font-size: 13px;
+  border-radius: 30px;
+  width: 23px;
   text-align: center;
+  color: #EBEBEB;
+}
+div.dialog-edit section.window-content section.body div.repeat header i.minus::before {
+  content: "-";
+}
+div.dialog-edit section.window-content section.body div.repeat header i.plus::before {
+  content: "+";
+}
+div.dialog-edit section.window-content section.body div.repeat div.innerData {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5px;
+  padding: 5px;
+  border-bottom: 1px solid black;
+}
+div.dialog-edit section.window-content section.body div.repeat div.data {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 5px;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+div.dialog-edit section.window-content section.body div.repeat div.data span.header {
   justify-content: center;
-  border-top: 1PX solid #a8a8a8;
-  letter-spacing: 1px;
+  font-size: 17px;
+  font-variant: small-caps;
 }
-div.edit-attaque section.window-content section.body div.col2 span.headerdmg.middle,
-div.edit-attaque section.window-content section.body label.col2 span.headerdmg.middle {
-  border-left: 1px solid #363B44;
-  border-right: 1px solid #363B44;
-  padding-right: 5px;
+div.dialog-edit section.window-content section.body div.repeat div.data div.value {
+  display: grid;
+  grid-template-columns: 1fr 50px;
+  grid-gap: 2px;
 }
-div.edit-attaque section.window-content section.body div.col2 span.etat,
-div.edit-attaque section.window-content section.body label.col2 span.etat {
+div.dialog-edit section.window-content section.body div.repeat div.data div.value span {
+  font-variant: small-caps;
+  font-size: 17px;
+}
+div.dialog-edit section.window-content section.body div.repeat div.data div.line {
+  display: grid;
+  grid-template-columns: 1fr 125px;
+  grid-gap: 5px;
+  align-items: flex-start;
+  align-content: flex-start;
+  padding: 2px;
+  border-bottom: 1px solid #363B44;
+}
+div.dialog-edit section.window-content section.body div.repeat div.data div.status {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 1/3;
+}
+div.dialog-edit section.window-content section.body div.repeat div.data div.status span {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  grid-gap: 5px;
   position: relative;
   text-align: center;
   justify-content: center;
@@ -10457,99 +10498,44 @@ div.edit-attaque section.window-content section.body label.col2 span.etat {
   border: 1px solid black;
   border-radius: 20px;
   padding-left: 20px;
-  padding-right: 30px;
+  padding-right: 10px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 5px;
 }
-div.edit-attaque section.window-content section.body div.col2 span.etat i,
-div.edit-attaque section.window-content section.body label.col2 span.etat i {
-  position: absolute;
-  right: 10px;
+div.dialog-edit section.window-content section.body div.repeat div.data div.status i {
+  display: flex;
   cursor: pointer;
 }
-div.edit-attaque section.window-content section.body div.col2 span.etat i:hover,
-div.edit-attaque section.window-content section.body label.col2 span.etat i:hover {
-  cursor: pointer;
-  color: #fe8412;
-  border-color: #fe1611;
-  letter-spacing: 1px;
-  text-shadow: none;
+div.dialog-edit section.window-content section.body div.repeat div.data div.status i:hover {
+  text-shadow: 0px 0px 3px;
 }
-div.edit-attaque section.window-content section.body div.col2 div.line,
-div.edit-attaque section.window-content section.body label.col2 div.line {
-  grid-template-columns: 1fr 80px;
-  padding: 5px;
-}
-div.edit-attaque section.window-content section.body div.col2 div.line > div:nth-child(odd),
-div.edit-attaque section.window-content section.body div.col2 div.line > select:nth-child(odd),
-div.edit-attaque section.window-content section.body div.col2 div.line > label:nth-child(odd),
-div.edit-attaque section.window-content section.body label.col2 div.line > div:nth-child(odd),
-div.edit-attaque section.window-content section.body label.col2 div.line > select:nth-child(odd),
-div.edit-attaque section.window-content section.body label.col2 div.line > label:nth-child(odd) {
-  grid-column: 1;
-}
-div.edit-attaque section.window-content section.body div.col2 div.line > div:nth-child(even),
-div.edit-attaque section.window-content section.body div.col2 div.line > select:nth-child(even),
-div.edit-attaque section.window-content section.body div.col2 div.line > label:nth-child(even),
-div.edit-attaque section.window-content section.body label.col2 div.line > div:nth-child(even),
-div.edit-attaque section.window-content section.body label.col2 div.line > select:nth-child(even),
-div.edit-attaque section.window-content section.body label.col2 div.line > label:nth-child(even) {
-  grid-column: 3;
-}
-div.edit-attaque section.window-content section.body div.col2 div.dmgline,
-div.edit-attaque section.window-content section.body label.col2 div.dmgline {
-  width: 100%;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-right: 5px;
-}
-div.edit-attaque section.window-content section.body div.col2 div.dmgline.middle,
-div.edit-attaque section.window-content section.body label.col2 div.dmgline.middle {
-  border-left: 1px solid #363B44;
-  border-right: 1px solid #363B44;
-}
-div.edit-attaque section.window-content section.body div.col2 div.headerLine,
-div.edit-attaque section.window-content section.body label.col2 div.headerLine {
-  grid-template-columns: max-content 1fr 80px;
-}
-div.edit-attaque section.window-content section.body div.col2 div.headerLine > div:nth-child(odd),
-div.edit-attaque section.window-content section.body div.col2 div.headerLine > select:nth-child(odd),
-div.edit-attaque section.window-content section.body div.col2 div.headerLine > label:nth-child(odd),
-div.edit-attaque section.window-content section.body label.col2 div.headerLine > div:nth-child(odd),
-div.edit-attaque section.window-content section.body label.col2 div.headerLine > select:nth-child(odd),
-div.edit-attaque section.window-content section.body label.col2 div.headerLine > label:nth-child(odd) {
-  grid-column: 1;
-}
-div.edit-attaque section.window-content section.body div.col2 div.headerLine > div:nth-child(even),
-div.edit-attaque section.window-content section.body div.col2 div.headerLine > select:nth-child(even),
-div.edit-attaque section.window-content section.body div.col2 div.headerLine > label:nth-child(even),
-div.edit-attaque section.window-content section.body label.col2 div.headerLine > div:nth-child(even),
-div.edit-attaque section.window-content section.body label.col2 div.headerLine > select:nth-child(even),
-div.edit-attaque section.window-content section.body label.col2 div.headerLine > label:nth-child(even) {
-  grid-column: 3;
-}
-div.edit-attaque section.window-content section.body div.col2 div.dmgdata,
-div.edit-attaque section.window-content section.body label.col2 div.dmgdata {
-  grid-column-start: 1;
-  grid-column-end: 3;
+div.dialog-edit section.window-content section.body div.repeat div.data div.add {
+  grid-column: 1/3;
   display: grid;
-  column-gap: 5px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 125px;
+  grid-gap: 5px;
 }
-div.edit-attaque section.window-content section.body div.col2 select,
-div.edit-attaque section.window-content section.body label.col2 select {
-  text-transform: none;
-  font-variant: small-caps;
+div.dialog-edit section.window-content section.body .dualcol {
+  grid-column: 1/3;
 }
-div.edit-attaque section.window-content section.bottom {
+div.dialog-edit section.window-content section.body .hide {
+  visibility: hidden;
+}
+div.dialog-edit section.window-content section.body .hidden {
+  display: none !important;
+}
+div.dialog-edit section.window-content div.dialog-content {
+  flex: 0;
+}
+div.dialog-edit section.window-content div.dialog-buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 5px;
   margin-bottom: 10px;
   padding-top: 10px;
 }
-div.edit-attaque section.window-content section.bottom button {
+div.dialog-edit section.window-content div.dialog-buttons button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10568,8 +10554,10 @@ div.edit-attaque section.window-content section.bottom button {
   padding: 2px 5px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
   letter-spacing: 1px;
+  height: 29px;
+  line-height: 29px;
 }
-div.edit-attaque section.window-content section.bottom button:hover {
+div.dialog-edit section.window-content div.dialog-buttons button:hover {
   color: #fe8412;
   border-color: #fe1611;
   letter-spacing: 1px;

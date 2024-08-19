@@ -1,4 +1,4 @@
-<div class="dice-roll mm3-roll">    
+<div class="dice-roll mm3-roll">
     <div class="dice-result">
         {{#if flavor}}
         <h4 class="dice-total flavor">{{flavor}}</h4>
@@ -23,7 +23,7 @@
         {{#if isCombat}}
             {{#if result}}
             <h4 class="dice-total attack">
-                {{#if isSuccess}} 
+                {{#if isSuccess}}
                     {{localize "MM3.ROLL.AttSuccess"}}
                 {{else}}
                     {{localize "MM3.ROLL.AttFail"}}
@@ -32,10 +32,10 @@
             <div class="dice-tooltip dataAttack toHide">
                 <div class="inner">
                     <span>{{type}} : {{defense}}</span>
-                </div>            
+                </div>
             </div>
             {{/if}}
-            {{#if isSuccess}} 
+            {{#if isSuccess}}
                 {{#if degreSuccess}}
                 <div class="dice-tooltip dataAttack">
                     <div class="inner">
@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 {{/if}}
-                
+
                 {{#each btn as | key dBtn |}}
                     <div class="btn">
                         <button class="btnRoll" data-type="{{key.typeAtk}}" data-target="{{key.target}}" data-savetype="{{key.saveType}}" data-vs="{{key.vs}}" data-dAtk="{{@root/dataAtk}}" data-dStr="{{@root/dataStr}}">
@@ -55,7 +55,7 @@
         {{/if}}
         {{#if vs}}
             <h4 class="dice-total attack">
-                {{#if isSuccess}} 
+                {{#if isSuccess}}
                     {{localize "MM3.ROLL.Success"}}
                 {{else}}
                     {{localize "MM3.ROLL.Fail"}}
@@ -65,12 +65,12 @@
                 <div class="inner">
                     <span>{{localize "MM3.ROLL.DD"}} : {{vs}}</span>
                 </div>
-            </div> 
+            </div>
             {{#if hasMarge}}
             <h4 class="dice-total attack">
                 {{singularOrPlural resultMarge successOrFail}} : {{resultMarge}}
             </h4>
-            {{/if}}       
+            {{/if}}
             {{#each btn as | key dBtn |}}
                 <div class="btn">
                     <button class="btnRoll" data-type="{{key.typeAtk}}" data-target="{{key.target}}" data-savetype="{{key.saveType}}" data-vs="{{key.vs}}" data-dAtk="{{@root/dataAtk}}" data-dStr="{{@root/dataStr}}">

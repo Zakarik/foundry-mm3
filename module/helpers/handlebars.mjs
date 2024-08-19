@@ -20,7 +20,7 @@ export const RegisterHandlebars = function () {
 
     Handlebars.registerHelper('singularOrPlural', function(count, successOrFail) {
         let result = "";
-        
+
         if(count > 1) {
             if(successOrFail === 'success') result = game.i18n.localize("MM3.ROLL.DegresReussite");
             else  result = game.i18n.localize("MM3.ROLL.DegresEchec");
@@ -31,11 +31,11 @@ export const RegisterHandlebars = function () {
 
         return result;
     });
-    
+
     Handlebars.registerHelper('mm3concat', function(base, id, last) {
     return `${base}.${id}.${last}`;
     });
-    
+
     Handlebars.registerHelper('isHigherThan', function(base, compare) {
     return base > compare ? true : false;
     });
@@ -50,12 +50,12 @@ export const RegisterHandlebars = function () {
 
     Handlebars.registerHelper('isValue', function(base, compare) {
     return base === compare ? true : false;
-    }); 
+    });
 
     Handlebars.registerHelper('isNotValue', function(base, compare) {
     return base !== compare ? true : false;
-    }); 
-    
+    });
+
     Handlebars.registerHelper('hasLinkAndAlt', function(id, actor) {
     let links = actor?.pwrLink?.[id]?.length ?? 0;
     links += actor?.pwrAlternatif?.[id]?.length ?? 0;
@@ -80,10 +80,10 @@ export const RegisterHandlebars = function () {
     Handlebars.registerHelper('hasSkillLink', function(root, what, id) {
         let getSkill = false;
         let result = true;
-        
+
         if(id !== '' && what !== '' && id !== undefined && what !== undefined) getSkill = getDataSubSkill(root.actor, what, id);
         if(!getSkill) result = false;
-        
+
         return result;
     });
 
@@ -91,7 +91,7 @@ export const RegisterHandlebars = function () {
         let result = getDataSubSkill(root.actor, what, id);
         if(!result) result = '';
         else result = result[data];
-        
+
         return result;
     });
 
@@ -112,7 +112,7 @@ export const RegisterHandlebars = function () {
 
     return result;
     });
-    
+
     Handlebars.registerHelper('isTrusted', function() {
     let result = false;
 
@@ -124,52 +124,48 @@ export const RegisterHandlebars = function () {
     Handlebars.registerHelper('etatExist', function(Array, id) {
         let result = false;
         let array = Array ?? [];
-        
+
         if(array.some(etat => etat.id === id)) result = true;
-
-        return result;
-    });
-
-    Handlebars.registerHelper('isAfflictionDmg', function(attack) {
-        let result = true;
-
-        if((attack.isDmg && !attack.isAffliction) || 
-          (!attack.isDmg && attack.isAffliction) ||
-          (!attack.isDmg && !attack.isAffliction)) result = false;
 
         return result;
     });
 
     Handlebars.registerHelper('hasOptShift', function() {
         let result = false;
-        
+
         if(game.settings.get("mutants-and-masterminds-3e", "dcroll") === 'shift') result = true;
 
         return result;
     });
 
     Handlebars.registerHelper('labelize', function(str) {
-        const all = Object.assign({}, 
+        const all = Object.assign({},
             CONFIG.MM3.listmods);
 
         return game.i18n.localize(all?.[str] ?? str);
     });
 
     Handlebars.registerHelper('getLast', function(str) {
-        const split = str.split('.');
-        const lastValue = split[split.length-2];
+        let result = '';
 
-        return lastValue;
+        if(str.includes('surchargeranks')) result = 'surchargeranks';
+        else if(str.includes('surcharge')) result = 'surcharge';
+        else if(str.includes('ranks')) result = 'ranks';
+
+        return result;
     });
 
     Handlebars.registerHelper('getLabelTranslate', function(str) {
-        let split = str !== '' ? str.split('.') : '';
-        if(str !== '') {
+        let split = str.split('.');
+
+        if(split.includes('ranks') || split.includes('surchargeranks')) {
             split.pop();
+            split.pop();
+        } else if(split.includes('bonuses') || split.includes('surcharge')) {
             split.pop();
         }
 
-        return str !== '' ? split.join('.') : '';
+        return split.join('.');
     });
 
     Handlebars.registerHelper('getVarianteName', function(system, name) {
@@ -185,10 +181,15 @@ export const RegisterHandlebars = function () {
 
         if(!result.includes('MM3')) {
             switch(result) {
+                case 'Dead':
+                case 'dead':
+                    result = `EFFECT.StatusDead`;
+                    break;
+
                 case 'Impaired':
                     result = `MM3.STATUS.Decreased`;
                     break;
-                    
+
                 case 'Fatigued':
                     result = `MM3.STATUS.Tired`;
                     break;
@@ -237,13 +238,21 @@ export const RegisterHandlebars = function () {
                     result = `MM3.STATUS.Paralysis`;
                     break;
 
-                default:
-                    result = `MM3.STATUS.${str}`;
+                case 'Stun':
+                    result = `MM3.STATUS.Stunned`;
                     break;
-                
+
+                default:
+                    result = `MM3.STATUS.${str.charAt(0).toUpperCase() + str.slice(1)}`;
+                    break;
+
             }
         }
 
         return game.i18n.localize(result);
+    });
+
+    Handlebars.registerHelper('numRepeat', function(num) {
+        return parseInt(num)+1;
     });
 }

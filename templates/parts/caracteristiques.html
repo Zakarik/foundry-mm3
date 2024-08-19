@@ -29,7 +29,7 @@
                     <input type="number" name="system.pp.base" value="{{systemData.pp.base}}" min="0" />
                     <input type="number" name="system.pp.gain" value="{{systemData.pp.gain}}" min="0" />
                 </div>
-                
+
                 <div>
                     <span>{{localize "MM3.Heroisme"}}</span>
                     <span>{{localize "MM3.Blessures"}}</span>
@@ -132,8 +132,8 @@
                                 <div class="icons">
                                     <i class="fa-solid fa-arrows-up-down reorder" data-type="competence" data-comp="{{comp}}" data-sort="{{subcomp}}"></i>
                                     <i class="fa-solid fa-trash-xmark delete" data-id="{{subcomp}}" data-type="competence" data-what="{{comp}}"></i>
-                                </div>                                
-                            </div>                            
+                                </div>
+                            </div>
                             {{/each}}
 
                             <a class="add" data-type="competence" data-what="{{comp}}">
@@ -144,7 +144,7 @@
                             <a class="roll oneRoll draggable" data-what="{{comp}}" data-id="new" data-type="competence" data-name="{{key.label}}" data-total="{{key.total}}">
                                 <i class="fa-solid fa-dice-d20"></i>
                             </a>
-                            <input type="text" name="system.competence.{{comp}}.label" value="{{key.label}}" />                   
+                            <input type="text" name="system.competence.{{comp}}.label" value="{{key.label}}" />
                             {{else}}
                             <a class="roll twoRoll draggable" data-what="{{comp}}" data-type="competence" data-name="{{key.label}}" data-total="{{key.total}}">
                                 {{key.label}}
@@ -170,13 +170,13 @@
                             <span class="score">{{key.carac}}</span>
                             <input type="number" name="system.competence.{{comp}}.rang" value="{{key.rang}}" />
                             <input type="number" name="system.competence.{{comp}}.autre" value="{{key.autre}}" />
-                            
+
                             {{#if key.new}}
                             <div class="icons">
                                 <i class="fa-solid fa-arrows-up-down reorder" data-type="basecompetence" data-sort="{{comp}}"></i>
                                 <i class="fa-solid fa-trash-xmark delete" data-id="{{comp}}" data-type="competence" data-what="new"></i>
                             </div>
-                            
+
                             {{else}}
                             <span></span>
                             {{/if}}
@@ -193,5 +193,5 @@
                 <textarea name="system.etats">{{systemData.etats}}</textarea>
             </div>
         </div>
-    </div>    
+    </div>
 </div>

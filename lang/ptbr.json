@@ -47,10 +47,10 @@
       "Surprised":"Surpreso",
       "Downgrade":"Enfraquecido",
       "Prone":"Caído",
-      "Blind":"Cego",    
-      "Asleep":"Adormecido",    
-      "Restrained":"Restrito",    
-      "Paralysis":"Paralisado",    
+      "Blind":"Cego",
+      "Asleep":"Adormecido",
+      "Restrained":"Restrito",
+      "Paralysis":"Paralisado",
       "Deaf":"Surdo",
       "Stunned":"Atordoado"
     },
@@ -78,7 +78,7 @@
       "AddVMod":"Adicione uma variante de efeito",
       "DeleteVMod":"Excluir uma variante de efeito",
       "EditMod":"Editar modificadores",
-      "DeleteMod":"Excluir um modificador",      
+      "DeleteMod":"Excluir um modificador",
       "Activer":"Ativar"
     },
     "CARACTERISTIQUES":{
@@ -353,7 +353,8 @@
       "DeplierTout":"Abrir todos",
       "ReplierTout":"Fechar todos",
       "CompLie":"Ligado a uma habilidade",
-      "PwrLie":"Ligado a um poder"
+      "PwrLie":"Ligado a um poder",
+      "AbyLie":"Ligado a uma habilidade"
     },
     "ASTUCE":{
       "Shift":"Você pode manter pressionada a tecla Shift ao clicar em habilidades, perícias e defesas para adicionar uma CD à rolagem.",

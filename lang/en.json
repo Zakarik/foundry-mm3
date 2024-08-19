@@ -47,10 +47,10 @@
       "Surprised":"Surprised",
       "Downgrade":"Weakened",
       "Prone":"Prone",
-      "Blind":"Blind",    
-      "Asleep":"Asleep",    
-      "Restrained":"Restrained",    
-      "Paralysis":"Paralyzed",    
+      "Blind":"Blind",
+      "Asleep":"Asleep",
+      "Restrained":"Restrained",
+      "Paralysis":"Paralyzed",
       "Deaf":"Deaf",
       "Stunned":"Stunned"
     },
@@ -78,7 +78,7 @@
       "AddVMod":"Add an effect variant",
       "DeleteVMod":"Delete an effect variant",
       "EditMod":"Edit modifiers",
-      "DeleteMod":"Delete a modifier",      
+      "DeleteMod":"Delete a modifier",
       "Activer":"Activate"
     },
     "CARACTERISTIQUES":{
@@ -353,7 +353,8 @@
       "DeplierTout":"Hide All",
       "ReplierTout":"Show All",
       "CompLie":"Linked to a skill",
-      "PwrLie":"Linked to a power"
+      "PwrLie":"Linked to a power",
+      "AbyLie":"Linked to an ability"
     },
     "ASTUCE":{
       "Shift":"You can hold down the Shift key when clicking on abilities, skills and defenses to add a DC to the roll.",
