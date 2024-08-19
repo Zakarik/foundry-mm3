@@ -1,4 +1,4 @@
-## Version 2.0.0
+## Version 1.33.0
 ### Améliorations
 - Passage du fonctionnement par template au fonctionnement par modèle de donnée, plus facile à maintenir et à améliorer.
 - Ajout de la possibilité de lier une attaque à une caractéristique. L'attaque prendra donc comme rang d'effet le total de la caractéristique.
