@@ -649,9 +649,18 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
     }
 
     #_pp() {
-        const pouvoir = this.items.filter(item => item.type === 'pouvoir').reduce((acc, item) => acc + ((item.system.special === 'dynamique' && item.system.link !== '') || item.system.special === 'alternatif') ? item.system.cout.total : item.system.cout.totalTheorique, 0);
+        const pouvoir = this.items.filter(item => item.type === 'pouvoir').reduce((acc, item) => {
+            const coutToAdd = (item.system.special === 'dynamique' || item.system.special === 'alternatif')
+                ? item.system.cout.total
+                : item.system.cout.totalTheorique;
+
+            return acc + coutToAdd;
+        }, 0);
+        //const pouvoir = this.items.filter(item => item.type === 'pouvoir').reduce((acc, item) => acc + ((item.system.special === 'dynamique' && item.system.link !== '') || item.system.special === 'alternatif') ? item.system.cout.totalTheorique : item.system.cout.total, 0);
         const talent = this.items.filter(item => item.type === 'talent').reduce((acc, item) => acc + item.system.rang, 0);
         let pp = this.pp;
+
+        console.warn(pouvoir);
 
         Object.defineProperty(pp, 'pouvoirs', {
             value: pouvoir,

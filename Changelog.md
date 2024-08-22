@@ -1,3 +1,7 @@
+## Version 1.33.3
+### Bugfix
+- Corrections du compte des PP.
+
 ## Version 1.33.2
 ### Bugfix
 - Corrections de la gestion des diagonales intégrée au système.
