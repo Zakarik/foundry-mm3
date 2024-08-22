@@ -1,3 +1,7 @@
+## Version 1.33.1
+### Bugfix
+- Corrections d'un bug empêchant le fonctionnement du système.
+
 ## Version 1.33.0
 ### Améliorations
 - Passage du fonctionnement par template au fonctionnement par modèle de donnée, plus facile à maintenir et à améliorer.
