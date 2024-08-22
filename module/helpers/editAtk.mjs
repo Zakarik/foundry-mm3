@@ -787,8 +787,6 @@ export class editAtk {
     #toggleBtn(html) {
         const target = $(html.find('section.body a.btntoggler'));
 
-        console.warn(target);
-
         for(let btn of target) {
             const toggler = $(btn).data('toggler');
             const toToggle = $(btn).siblings(`.${toggler}`);

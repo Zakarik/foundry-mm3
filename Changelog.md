@@ -1,6 +1,7 @@
 ## Version 1.33.3
 ### Bugfix
 - Corrections du compte des PP.
+- Correction d'un problème avec les caractéristiques absentes.
 
 ## Version 1.33.2
 ### Bugfix

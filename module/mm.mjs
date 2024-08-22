@@ -1353,8 +1353,6 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
 
   let result = undefined;
 
-  console.warn(type, tgt, atk.settings.noatk);
-
   if(type === 'attaque' && tgt !== undefined && atk.settings.noatk) {
     for(let t of game.user.targets.ids) {
       rollTgt(actor, name, {attaque:atk, strategie:strategie}, t);

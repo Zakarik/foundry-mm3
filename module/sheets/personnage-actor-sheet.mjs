@@ -39,8 +39,6 @@ export class PersonnageActorSheet extends ActorSheet {
     context.systemData = context.data.system;
     this._prepareCompetences(context);
 
-    console.warn(context);
-
     return context;
   }
 
@@ -143,13 +141,16 @@ export class PersonnageActorSheet extends ActorSheet {
       this.actor.update({[`system.identite.secret`]:value});
     });
 
-    html.find('a.btnAbs').click(ev => {
+    html.find('a.btnAbs').click(async ev => {
       const target = $(ev.currentTarget);
       const type = target.data('type');
       const what = target.data('what');
       const value = target?.data('value') ?? false ? false : true;
+      let update = {};
 
-      this.actor.update({[`system.${type}.${what}.absente`]:value});
+      update[`system.${type}.${what}.absente`] = value;
+
+      await this.actor.update(update);
     });
 
     html.find('div.pouvoirs a.filtre').click(async ev => {
