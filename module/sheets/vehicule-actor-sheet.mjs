@@ -4,7 +4,6 @@ import {
   accessibility,
   speedCalc,
   commonHTML,
-  actualiseWAtt,
 } from "../helpers/common.mjs";
 
 /**
@@ -35,7 +34,6 @@ export class VehiculeActorSheet extends ActorSheet {
 
     context.systemData = context.data.system;
     this._prepareList(context);
-    actualiseWAtt();
 
     return context;
   }
@@ -94,7 +92,7 @@ export class VehiculeActorSheet extends ActorSheet {
     const pwrAlternatif = {};
     const pwrDynamique = {};
     const pwrStandard = {};
-    
+
     for(let p of pouvoirs) {
       pwrLink[p._id] = [];
       pwrAlternatif[p._id] = [];
@@ -107,13 +105,13 @@ export class VehiculeActorSheet extends ActorSheet {
 
       switch(type) {
         case 'pouvoir':
-          if((data.special === 'standard' && data.link === "") || 
-          (data.special === 'alternatif' && data.link === "") || 
+          if((data.special === 'standard' && data.link === "") ||
+          (data.special === 'alternatif' && data.link === "") ||
           (data.special === 'dynamique' && data.link === "")) pwr.push(i);
           else if((data.special === 'standard' && data.link !== "")) pwrLink[data.link].push(i);
           else if((data.special === 'alternatif' && data.link !== "")) pwrAlternatif[data.link].push(i);
           else if((data.special === 'dynamique' && data.link !== "")) pwrDynamique[data.link].push(i);
-          
+
           if((data.special === 'standard' && data.link === '') || (data.special === 'dynamique' && data.link === '')) pwrStandard[i._id] = i.name;
           break;
       }
@@ -148,12 +146,12 @@ export class VehiculeActorSheet extends ActorSheet {
 
       if(game.settings.get("mutants-and-masterminds-3e", "speedcalculate")) {
         const rang = Number(vData.rang);
-      
+
         data[v].round = speedCalc(rang).toLocaleString();
         data[v].kmh = (speedCalc(rang+9)/divide).toLocaleString();
       }
       else data[v].manuel = true;
-    }    
+    }
   }
 
   _prepareList(context) {
@@ -346,10 +344,10 @@ export class VehiculeActorSheet extends ActorSheet {
         tempTgt = actor.system[data.type][sort];
 
         if(tempTgt === undefined || data.type !== dropType) return;
-        
+
         update[`system.${data.type}.${sort}`] = data.data;
         update[`system.${data.type}.${data.sort}`] = tempTgt;
-        actor.update(update);        
+        actor.update(update);
         break;
       case "competence":
         tempTgt = actor.system[data.type][data.comp].list[sort];
@@ -358,7 +356,7 @@ export class VehiculeActorSheet extends ActorSheet {
 
         update[`system.${data.type}.${data.comp}.list.${sort}`] = data.data;
         update[`system.${data.type}.${data.comp}.list.${data.sort}`] = tempTgt;
-        actor.update(update);        
+        actor.update(update);
         break;
       case 'basecompetence':
         tempTgt = actor.system.competence[sort];

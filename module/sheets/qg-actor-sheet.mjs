@@ -4,7 +4,6 @@ import {
   accessibility,
   speedCalc,
   commonHTML,
-  actualiseWAtt,
 } from "../helpers/common.mjs";
 
 /**
@@ -35,7 +34,6 @@ export class QGActorSheet extends ActorSheet {
 
     context.systemData = context.data.system;
     this._prepareList(context);
-    actualiseWAtt();
 
     return context;
   }

@@ -81,7 +81,6 @@ Hooks.once('init', async function() {
       MM3Item,
     },
     parseInput,
-    EditAttaque,
     getDataSubSkill,
     getAtk,
     RollMacro,

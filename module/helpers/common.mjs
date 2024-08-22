@@ -2828,14 +2828,6 @@ export function speedCalc(int) {
   return result;
 }
 
-export function actualiseWAtt() {
-  let eAtt = Object.values(ui.windows).filter((app) => app instanceof game.mm3.EditAttaque);
-
-  for(let att of eAtt) {
-    att.actualise();
-  }
-}
-
 export function commonHTML(html, origin, data={}) {
   const hasItm = data?.hasItem ?? false;
   const hasAtk = data?.hasAtk ?? false;
@@ -2889,20 +2881,6 @@ export function commonHTML(html, origin, data={}) {
         'defpassive',
         'ability',
       ]).handleDialog();
-
-      /*const target = $(ev.currentTarget);
-      const id = target.data('id');
-      const token = origin.token === null ? false : origin.token._id;
-      const dataAtk = getAtk(origin, id);
-
-      if(!dataAtk) return;
-
-      const newAtk = new EditAttaque({
-        id:id,
-        actor:origin._id,
-        token:token,
-      });
-      newAtk.render(true);*/
     });
   }
 

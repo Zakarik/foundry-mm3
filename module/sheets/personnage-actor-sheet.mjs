@@ -8,7 +8,6 @@ import {
   processMinions,
   speedCalc,
   commonHTML,
-  actualiseWAtt,
 } from "../helpers/common.mjs";
 
 /**
@@ -39,7 +38,6 @@ export class PersonnageActorSheet extends ActorSheet {
 
     context.systemData = context.data.system;
     this._prepareCompetences(context);
-    actualiseWAtt();
 
     console.warn(context);
 
