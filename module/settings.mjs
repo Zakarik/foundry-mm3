@@ -4,6 +4,7 @@ import {
   } from "./helpers/common.mjs";
 
 export const RegisterSettings = function () {
+    const version = game.version.split('.')[0];
     /* ------------------------------------ */
     /* User settings                        */
     /* ------------------------------------ */
@@ -71,12 +72,12 @@ export const RegisterSettings = function () {
             "Pause_Icon_1":"MM3.SETTING.Pause1",
             "Pause_Icon_2":"MM3.SETTING.Pause2",
             "Pause_Icon_3":"MM3.SETTING.Pause3",
-        }, 
-        onChange: value => { 
+        },
+        onChange: value => {
             if(value !== 'default') {
                 $("#pause img").remove();
                 $("#pause figcaption").remove();
-                
+
                 const pause = $("#pause video");
                 if(pause.length === 0) {
                     $("#pause").append(`<video width="300" height="200" loop autoplay="autoplay"><source src="systems/mutants-and-masterminds-3e/assets/pause/${value}.webm" type="video/webm" /></video>`);
@@ -84,13 +85,13 @@ export const RegisterSettings = function () {
                     $("#pause video").attr('src', `systems/mutants-and-masterminds-3e/assets/pause/${value}.webm`);
                     $("#pause video")[0].load();
                     $("#pause video")[0].play();
-                }                
+                }
             } else {
                 $("#pause video").remove();
                 $("#pause").append(`<img src="icons/svg/clockwork.svg" class="fa-spin">`);
                 $("#pause").append(`<figcaption>Game Paused</figcaption>`);
-                
-            }            
+
+            }
         }
     });
 
@@ -107,8 +108,8 @@ export const RegisterSettings = function () {
             "violetclair":"MM3.SETTING.VioletClair",
             "violet":"MM3.SETTING.Violet",
             "bleufonce":"MM3.SETTING.BleuFonce",
-        }, 
-        onChange: value => { 
+        },
+        onChange: value => {
             $("div#interface").removeClass(listBg);
             $("div#interface").addClass(value);
         }
@@ -125,24 +126,26 @@ export const RegisterSettings = function () {
         config: true,
         default: "default",
         type: String,
-        choices:mFont, 
+        choices:mFont,
         onChange: value => {
             foundry.utils.debouncedReload();
         }
     });
 
-    game.settings.register("mutants-and-masterminds-3e", "diagonalMovement", {
-        name: "MM3.SETTING.DiagonalMovement.Name",
-        hint: "MM3.SETTING.DiagonalMovement.Hint",
-        scope: "world",
-        config: true,
-        default: "EQUIDISTANT",
-        type: String,
-        choices: {
-            "MANHATTAN": "MM3.SETTING.DiagonalMovement.Manhattan",
-            "EQUIDISTANT": "MM3.SETTING.DiagonalMovement.Equidistant",
-            "PATHFINDER": "MM3.SETTING.DiagonalMovement.Pathfinder",
-        },
-        onChange: value => canvas.grid.diagonalRule = value
-    });
+    if(version < 12) {
+        game.settings.register("mutants-and-masterminds-3e", "diagonalMovement", {
+            name: "MM3.SETTING.DiagonalMovement.Name",
+            hint: "MM3.SETTING.DiagonalMovement.Hint",
+            scope: "world",
+            config: true,
+            default: "EQUIDISTANT",
+            type: String,
+            choices: {
+                "MANHATTAN": "MM3.SETTING.DiagonalMovement.Manhattan",
+                "EQUIDISTANT": "MM3.SETTING.DiagonalMovement.Equidistant",
+                "PATHFINDER": "MM3.SETTING.DiagonalMovement.Pathfinder",
+            },
+            onChange: value => canvas.grid.diagonalRule = value
+        });
+    }
 };

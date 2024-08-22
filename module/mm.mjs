@@ -1430,6 +1430,10 @@ Hooks.on('renderTokenHUD', (hud, html, actor) => {
 });
 
 Hooks.on("canvasInit", function () {
-  canvas.grid.diagonalRule = game.settings.get("mutants-and-masterminds-3e", "diagonalMovement");
-  SquareGrid.prototype.measureDistances = measureDistances;
+  const version = game.version.split('.')[0];
+
+  if(version < 12) {
+    canvas.grid.diagonalRule = game.settings.get("mutants-and-masterminds-3e", "diagonalMovement");
+    SquareGrid.prototype.measureDistances = measureDistances;
+  }
 });

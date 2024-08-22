@@ -511,6 +511,7 @@ export class editAtk {
         this.#toggleModAtt(html);
         this.#toggleRangEff(html);
         this.#toggleMod(html);
+        this.#toggleBtn(html);
 
         html.find('.repeat div.add a.btn').click(async ev => {
             const target = $(ev.currentTarget);
@@ -780,6 +781,23 @@ export class editAtk {
                 if(modeff.hasClass('hidden')) modeff.removeClass('hidden');
                 if(modatk.hasClass('hidden')) modatk.removeClass('hidden');
                 break;
+        }
+    }
+
+    #toggleBtn(html) {
+        const target = $(html.find('section.body a.btntoggler'));
+
+        console.warn(target);
+
+        for(let btn of target) {
+            const toggler = $(btn).data('toggler');
+            const toToggle = $(btn).siblings(`.${toggler}`);
+            const clsToggle = $(btn).hasClass('realhidden') ? 'hidden' : 'hide';
+
+            if($(btn).hasClass('selected')) {
+                if(toggler === 'modatk') this.#toggleModAtt(html);
+                else $(toToggle).removeClass(clsToggle);
+            }
         }
     }
 

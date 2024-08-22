@@ -1,3 +1,8 @@
+## Version 1.33.2
+### Bugfix
+- Corrections de la gestion des diagonales intégrée au système.
+Celle-ci est désactivée en V12, vu qu'il y a une version incluse d'office dans cette version de Foundry, et que ça créait un bug avec le Drag Ruler.
+
 ## Version 1.33.1
 ### Bugfix
 - Corrections d'un bug empêchant le fonctionnement du système.
