@@ -1,3 +1,7 @@
+## Version 1.33.4
+### Bugfix
+- Corrections d'un bug avec les modificateurs concernant les compétences de combat au contact / distance et l'expertise.
+
 ## Version 1.33.3
 ### Bugfix
 - Corrections du compte des PP.

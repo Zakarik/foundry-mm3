@@ -517,9 +517,9 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
 
                         ranksValue += rDyn*ranks?.[r] ?? 0;
                     } else {
-                        const r = itm?.system?.cout?.rang ?? 0;
+                        const rnk = itm?.system?.cout?.rang ?? 0;
 
-                        ranksValue += r*ranks?.[r] ?? 0;
+                        ranksValue += rnk*ranks?.[r] ?? 0;
                     }
                 }
             }
