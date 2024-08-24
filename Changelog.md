@@ -1,3 +1,7 @@
+## Version 1.33.5
+### Bugfix
+- Corrections d'un bug avec les jets d'attaques.
+
 ## Version 1.33.4
 ### Bugfix
 - Corrections d'un bug avec les modificateurs concernant les compétences de combat au contact / distance et l'expertise.
