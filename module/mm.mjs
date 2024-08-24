@@ -1340,7 +1340,7 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
       const typeAtk = atk.type;
       const idSkill = atk.links.skill;
 
-      if(typeAtk === 'combatcontact' || typeAtk === 'combatdistance') {
+      if((typeAtk === 'combatcontact' || typeAtk === 'combatdistance') && idSkill !== '') {
         let skill = game.mm3.getDataSubSkill(actor, typeAtk, idSkill);
         name = skill.label;
         total = skill.total;

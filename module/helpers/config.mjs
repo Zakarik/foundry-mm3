@@ -364,7 +364,7 @@ MM3.StdAtk = {
     eff:0,
     },
     label:'',
-    type:'combatcontact',
+    type:'other',
     attaque:0,
     effet:0,
     critique:20,

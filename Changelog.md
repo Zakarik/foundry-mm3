@@ -1,3 +1,7 @@
+## Version 1.33.6
+### Bugfix
+- Corrections d'un bug (encore) avec les jets d'attaques et l'édition des attaques.
+
 ## Version 1.33.5
 ### Bugfix
 - Corrections d'un bug avec les jets d'attaques.
