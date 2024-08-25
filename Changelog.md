@@ -1,4 +1,4 @@
-## Version 1.33.7
+## Version 1.33.8
 ### Bugfix
 - Corrections d'un bug avec l'import des builds de Jab.
 - Correction du fonctionnement des limites des stratégies suite à la dernière mise à jour, et changement dans leur fonctionnement.
