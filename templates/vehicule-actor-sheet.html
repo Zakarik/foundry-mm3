@@ -42,7 +42,7 @@
                 <span class="label">+ {{localize "MM3.Divers"}}</span>
                 <input type="number" name="system.cout.divers" value="{{systemData.cout.divers}}" min="0"/>
             </div>
-        </details>    
+        </details>
 
         <div class="btnOC">
             <a class="closeAll">{{localize "MM3.SPECIAL.ReplierTout"}}</a>
@@ -69,18 +69,18 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="tab details" data-group="primary" data-tab="details">
             <div class="inner">
                 <div class="carac">
                     <span class="title">{{localize "MM3.Caracteristiques"}}</span>
-                    
+
                     <span class="header">{{localize "MM3.Nom"}}</span>
                     <span class="header">{{localize "MM3.Total"}}</span>
                     <span class="header">{{localize "MM3.Base"}}</span>
                     <span class="header">{{localize "MM3.Rang"}}</span>
                     <span class="header">{{localize "MM3.Divers"}}</span>
-        
+
                     {{#each systemData.caracteristique as | key carac |}}
 
                         {{#if (isValue carac 'vitesse')}}
@@ -89,7 +89,7 @@
                         <a class="roll draggable" data-author="vehicule" data-what="{{carac}}" data-type="caracteristique" data-name="{{translate 'vehicule' carac}}" data-total="{{key.total}}">
                             {{translate 'vehicule' carac}}
                         </a>
-                        {{/if}}                        
+                        {{/if}}
                         <span class="score">{{key.total}}</span>
                         <span class="score">{{key.base}}</span>
                         <input type="number" name="system.caracteristique.{{carac}}.rang" value="{{key.rang}}" />
@@ -105,11 +105,7 @@
                     <div class="taille">
                         <span class="header">{{localize "MM3.TailleQV"}}</span>
                         <select name="system.taille">
-                            {{#select systemData.taille}}
-                                {{#each systemData.listTailles as | key taille |}}
-                                    <option value="{{taille}}">{{key}}</option>
-                                {{/each}}
-                            {{/select}}
+                            {{selectOptions systemData.listTailles selected=systemData.taille localize=true}}
                         </select>
                     </div>
                 </div>
@@ -129,7 +125,7 @@
                 <div class="col">
                     {{> systems/mutants-and-masterminds-3e/templates/parts/strategie.html}}
                 </div>
-            </div>            
+            </div>
         </div>
 
         <div class="tab pouvoirs" data-group="primary" data-tab="pouvoirs">
@@ -139,35 +135,23 @@
         </div>
 
         <div class="tab options" data-group="primary" data-tab="options">
-            <div class="inner">                
+            <div class="inner">
                 <div class="block accessibility">
                     <span>{{localize "MM3.ACCESSIBILITE.Label"}}</span>
                     <div class="innerBlock accessibilityFont">
                         <label>
                             <span>{{localize "MM3.ACCESSIBILITE.Font"}}</span>
                             <select name="system.accessibility.font">
-                                {{#select systemData.accessibility.font}}
-                                    <option value="Kalam">-</option>
-                                    <option value="var(--font-primary)">{{localize "MM3.SETTING.Defaut"}}</option>
-                                    {{#each systemData.accessibility.listFont as | key font |}}
-                                        <option value="{{key}}">{{font}}</option>
-                                    {{/each}}
-                                {{/select}}
+                                {{selectOptions (listfont) selected=systemData.accessibility.font localize=true}}
                             </select>
                         </label>
                     </div>
-        
+
                     <div class="innerBlock accessibilityFont">
                         <label>
                             <span>{{localize "MM3.ACCESSIBILITE.FontOther"}}</span>
                             <select name="system.accessibility.fontOther">
-                                {{#select systemData.accessibility.fontOther}}
-                                    <option value="">-</option>
-                                    <option value="var(--font-primary)">{{localize "MM3.SETTING.Defaut"}}</option>
-                                    {{#each systemData.accessibility.listFont as | key font |}}
-                                        <option value="{{key}}">{{font}}</option>
-                                    {{/each}}
-                                {{/select}}
+                                {{selectOptions (listfontother) selected=systemData.accessibility.fontOther localize=true}}
                             </select>
                         </label>
                     </div>
@@ -176,9 +160,9 @@
                 {{#if (isOwner this)}}
                     {{#if (isTrusted)}}
                     <div class="block limite">
-                        <span class="title">Limite des stratégies</span>
+                        <span class="title">{{localize "MM3.STRATEGIE.Limite"}}</span>
                         <div class="strategie">
-                            <span class="header">Stratégie</span>
+                            <span class="header">{{localize "MM3.Nom"}}</span>
                             <span class="header">{{localize "MM3.ATTAQUE.Label"}}</span>
                             <span class="header">{{localize "MM3.DEFENSE.Label"}}</span>
                             <span class="header">{{localize "MM3.EFFET.Label"}}</span>
@@ -186,72 +170,122 @@
                             <span class="label">
                                 {{localize "MM3.STRATEGIE.Attaqueoutrance"}}
                             </span>
-                            <input 
-                                data-type="attaqueoutrance" data-value="attaque" 
-                                type="number" name="system.strategie.limite.query.attaqueoutrance.attaque" value="{{systemData.strategie.limite.query.attaqueoutrance.attaque}}"
-                                title="{{localize "MM3.BONUS.Attaque"}}"
-                                min="0"
-                            />
-                            <input 
-                                data-type="attaqueoutrance" data-value="defense" 
-                                type="number" name="system.strategie.limite.query.attaqueoutrance.defense" value="{{systemData.strategie.limite.query.attaqueoutrance.defense}}"
-                                title="{{localize "MM3.MALUS.Defense"}}"
-                                max="0"
-                            />
-                            <span></span>
-                            
+                            <div class="bLimite">
+                                <input
+                                    data-type="attaqueoutrance" data-value="atk"
+                                    type="number" name="system.strategie.limite.attaqueoutrance.atk.base" value="{{systemData.strategie.limite.attaqueoutrance.atk.base}}"
+                                    title="{{localize "MM3.BONUS.Attaque"}}"
+                                    min="0"
+                                />
+                                <span class="separator">+</span>
+                                <span class="score">{{systemData.strategie.limite.attaqueoutrance.atk.bonuses}}</span>
+                                <span class="separator">=</span>
+                                <span class="score total">{{systemData.strategie.limite.attaqueoutrance.attaque}}</span>
+                            </div>
+                            <div class="bLimite">
+                                <input
+                                    data-type="attaqueoutrance" data-value="def"
+                                    type="number" name="system.strategie.limite.attaqueoutrance.def.base" value="{{systemData.strategie.limite.attaqueoutrance.def.base}}"
+                                    title="{{localize "MM3.MALUS.Defense"}}"
+                                    max="0"
+                                />
+                                <span class="separator">+</span>
+                                <span class="score">{{systemData.strategie.limite.attaqueoutrance.def.bonuses}}</span>
+                                <span class="separator">=</span>
+                                <span class="score total">{{systemData.strategie.limite.attaqueoutrance.defense}}</span>
+                            </div>
+                            <div class="bLimite"></div>
+
                             <span class="label">
                                 {{localize "MM3.STRATEGIE.Attaquedefensive"}}
                             </span>
-                            <input 
-                                data-type="attaquedefensive" data-value="attaque"
-                                type="number" name="system.strategie.limite.query.attaquedefensive.attaque" value="{{systemData.strategie.limite.query.attaquedefensive.attaque}}"
-                                title="{{localize "MM3.MALUS.Attaque"}}"
-                                max="0"
-                            />
-                            <input 
-                                data-type="attaquedefensive" data-value="defense"
-                                type="number" name="system.strategie.limite.query.attaquedefensive.defense" value="{{systemData.strategie.limite.query.attaquedefensive.defense}}"
-                                title="{{localize "MM3.BONUS.Defense"}}"
-                                min="0"
-                            />
-                            <span></span>
-                        
+                            <div class="bLimite">
+                                <input
+                                    data-type="attaquedefensive" data-value="atk"
+                                    type="number" name="system.strategie.limite.attaquedefensive.atk.base" value="{{systemData.strategie.limite.attaquedefensive.atk.base}}"
+                                    title="{{localize "MM3.MALUS.Attaque"}}"
+                                    max="0"
+                                />
+                                <span class="separator">+</span>
+                                <span class="score">{{systemData.strategie.limite.attaquedefensive.atk.bonuses}}</span>
+                                <span class="separator">=</span>
+                                <span class="score total">{{systemData.strategie.limite.attaquedefensive.attaque}}</span>
+                            </div>
+                            <div class="bLimite">
+                                <input
+                                    data-type="attaquedefensive" data-value="def"
+                                    type="number" name="system.strategie.limite.attaquedefensive.def.base" value="{{systemData.strategie.limite.attaquedefensive.def.base}}"
+                                    title="{{localize "MM3.BONUS.Defense"}}"
+                                    min="0"
+                                />
+                                <span class="separator">+</span>
+                                <span class="score">{{systemData.strategie.limite.attaquedefensive.def.bonuses}}</span>
+                                <span class="separator">=</span>
+                                <span class="score total">{{systemData.strategie.limite.attaquedefensive.defense}}</span>
+                            </div>
+                            <div class="bLimite"></div>
+
                             <span class="label">
                                 {{localize "MM3.STRATEGIE.Attaqueprecision"}}
                             </span>
-                            <input 
-                                data-type="attaqueprecision" data-value="attaque" 
-                                type="number" name="system.strategie.limite.query.attaqueprecision.attaque" value="{{systemData.strategie.limite.query.attaqueprecision.attaque}}"
-                                title="{{localize "MM3.BONUS.Attaque"}}"
-                                min="0"
-                            />
-                            <span></span>
-                            <input 
-                                data-type="attaqueprecision" data-value="effet" 
-                                type="number" name="system.strategie.limite.query.attaqueprecision.effet" value="{{systemData.strategie.limite.query.attaqueprecision.effet}}"
-                                title="{{localize "MM3.MALUS.Effet"}}"
-                                max="0"
-                            />
-                        
+                            <div class="bLimite">
+                                <input
+                                    data-type="attaqueprecision" data-value="atk"
+                                    type="number" name="system.strategie.limite.attaqueprecision.atk.base" value="{{systemData.strategie.limite.attaqueprecision.atk.base}}"
+                                    title="{{localize "MM3.BONUS.Attaque"}}"
+                                    min="0"
+                                />
+                                <span class="separator">+</span>
+                                <span class="score">{{systemData.strategie.limite.attaqueprecision.atk.bonuses}}</span>
+                                <span class="separator">=</span>
+                                <span class="score total">{{systemData.strategie.limite.attaqueprecision.attaque}}</span>
+                            </div>
+
+                            <div class="bLimite"></div>
+
+                            <div class="bLimite">
+                                <input
+                                    data-type="attaqueprecision"data-value="eff"
+                                    type="number" name="system.strategie.limite.attaqueprecision.eff.base" value="{{systemData.strategie.limite.attaqueprecision.eff.base}}"
+                                    title="{{localize "MM3.MALUS.Effet"}}"
+                                    max="0"
+                                />
+                                <span class="separator">+</span>
+                                <span class="score">{{systemData.strategie.limite.attaqueprecision.eff.bonuses}}</span>
+                                <span class="separator">=</span>
+                                <span class="score total">{{systemData.strategie.limite.attaqueprecision.effet}}</span>
+                            </div>
+
                             <span class="label">
                                 {{localize "MM3.STRATEGIE.Attaquepuissance"}}
                             </span>
-                            <input 
-                                data-type="attaquepuissance" data-value="attaque" 
-                                type="number" name="system.strategie.limite.query.attaquepuissance.attaque" value="{{systemData.strategie.limite.query.attaquepuissance.attaque}}"
-                                title="{{localize "MM3.MALUS.Attaque"}}"
-                                max="0"
-                            />
-                            <span></span>
-                            <input 
-                                data-type="attaquepuissance" data-value="effet" 
-                                type="number" name="system.strategie.limite.query.attaquepuissance.effet" value="{{systemData.strategie.limite.query.attaquepuissance.effet}}"
-                                title="{{localize "MM3.BONUS.Effet"}}"
-                                min="0"
-                            />
+
+                            <div class="bLimite">
+                                <input
+                                    data-type="attaquepuissance" data-value="atk"
+                                    type="number" name="system.strategie.limite.attaquepuissance.atk.base" value="{{systemData.strategie.limite.attaquepuissance.atk.base}}"
+                                    title="{{localize "MM3.MALUS.Attaque"}}"
+                                    max="0"
+                                />
+                                <span class="separator">+</span>
+                                <span class="score">{{systemData.strategie.limite.attaquepuissance.atk.bonuses}}</span>
+                                <span class="separator">=</span>
+                                <span class="score total">{{systemData.strategie.limite.attaquepuissance.attaque}}</span>
+                            </div>
+                            <div class="bLimite"></div>
+                            <div class="bLimite">
+                                <input
+                                    data-type="attaquepuissance"data-value="eff"
+                                    type="number" name="system.strategie.limite.attaquepuissance.eff.base" value="{{systemData.strategie.limite.attaquepuissance.eff.base}}"
+                                    title="{{localize "MM3.BONUS.Effet"}}"
+                                    min="0"
+                                />
+                                <span class="separator">+</span>
+                                <span class="score">{{systemData.strategie.limite.attaquepuissance.eff.bonuses}}</span>
+                                <span class="separator">=</span>
+                                <span class="score total">{{systemData.strategie.limite.attaquepuissance.effet}}</span>
+                            </div>
                         </div>
-                        <a class="saveLimiteStrategie">Enregistrer les limites des stratégies</a> 
                     </div>
                     {{/if}}
                 {{/if}}

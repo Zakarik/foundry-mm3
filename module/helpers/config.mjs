@@ -93,9 +93,13 @@ MM3.LIST = {
             defense:0,
             effet:2
         },
-    }
+    },
 }
 
+MM3.ModType = {
+    'extra':'MM3.Extra',
+    'defaut':'MM3.Defaut',
+}
 
 MM3.vehicule = {
     "force":"MM3.CARACTERISTIQUES.Force",

@@ -1,5 +1,6 @@
 import {
     getDataSubSkill,
+    listFont,
 } from "./common.mjs";
 
 export const RegisterHandlebars = function () {
@@ -254,5 +255,41 @@ export const RegisterHandlebars = function () {
 
     Handlebars.registerHelper('numRepeat', function(num) {
         return parseInt(num)+1;
+    });
+
+    Handlebars.registerHelper('listcarac', function() {
+        return CONFIG.MM3.caracteristiquesshort;
+    });
+
+    Handlebars.registerHelper('listfont', function() {
+        return foundry.utils.mergeObject({
+            'Kalam':'-',
+            'var(--font-primary)':'MM3.SETTING.Defaut',
+        }, listFont);
+    });
+
+    Handlebars.registerHelper('listfontother', function() {
+        return foundry.utils.mergeObject({
+            '':'-',
+            'var(--font-primary)':'MM3.SETTING.Defaut',
+        }, listFont);
+    });
+
+    Handlebars.registerHelper('listmodtype', function() {
+        return CONFIG.MM3.ModType;
+    });
+
+    Handlebars.registerHelper('listpwr', function(pwr, id, choisir=false) {
+        let empty = {};
+        let data = {};
+
+        if(choisir) empty[''] = `${game.i18n.localize('MM3.POUVOIR.Principal')} : ${game.i18n.localize('MM3.Choisir')}`;
+        else empty[''] = `${game.i18n.localize('MM3.POUVOIR.Principal')}`;
+
+        for(let p in pwr) {
+            if(id !== p) data[p] = `${game.i18n.localize('MM3.POUVOIR.Principal')} : ${pwr[p]}`;
+        }
+
+        return foundry.utils.mergeObject(empty, data);
     });
 }

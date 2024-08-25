@@ -465,6 +465,8 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
           const mod = costCalc.mod;
           let name = pwr.name.split(':');
 
+          console.warn(costCalc);
+
           let itm = {
             name: name[0],
             type: 'pouvoir',
@@ -616,6 +618,8 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
         const calc = costCalc.parrang;
         const mod = costCalc.mod;
         let name = pwr.name.split(':');
+
+        console.warn(costCalc);
 
         let itm = {
           name: name[0],
@@ -798,6 +802,8 @@ export async function processImport(actor, data, actorType='personnage') {
     totalAttrDef['Parry'] = combativite;
     totalAttrDef['Fort'] = endurance;
     totalAttrDef['Tou'] = endurance;
+    totalAttrDef['Fortitude'] = endurance;
+    totalAttrDef['Toughness'] = endurance;
     totalAttrDef['Will'] = sensibilite;
   } else if(actorType === 'vehicule') {
     for(let attr of attributes) {
@@ -1666,7 +1672,7 @@ export async function processImport(actor, data, actorType='personnage') {
     update[`system.historique`] = data.personal.description;
     update[`system.yeux`] = data.personal.eyes;
     update[`system.cheveux`] = data.personal.hair;
-    update[`system.pp.base`] = Number(data.resources.startingpp);
+    update[`system.pp.base`] = Number(data.resources?.startingpp ?? 0);
     update[`system.puissance`] = Number(data.resources.currentpl);
     update[`system.initiative.base`] = Number(data.initiative.total)-agilite;
   } else {
@@ -1757,8 +1763,11 @@ export function getActor(item) {
 }
 
 export function costCalculate(ranks, cost) {
-  const calc = Math.max(Math.floor(Number(cost)/Number(ranks)), 1);
-  const mod = Number(cost)-(Number(ranks)*calc);
+  let r = ranks ? ranks : 1;
+  let c = cost ? cost : 1;
+
+  const calc = Math.max(Math.floor(Number(r)/Number(c)), 1);
+  const mod = Number(c)-(Number(r)*calc);
 
   return {
     parrang:calc,
@@ -2334,7 +2343,7 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
   const sCritique = dataCbt.critique;
   const noCrit = dataCbt.settings.nocrit ? true : false;
   const isArea = dataCbt?.area?.has ?? false;
-  const defpassive = dataCbt?.passive?.defense ?? 'parade';
+  const defpassive = dataCbt?.save.passive?.type ?? 'parade';
   const isDmg = dataCbt.isDmg;
   const isAffliction = dataCbt.isAffliction;
   const saveAffliction = dataCbt.save.affliction.type;
@@ -2917,32 +2926,6 @@ export function commonHTML(html, origin, data={}) {
   }
 
   if(hasStr) {
-    html.find('a.saveLimiteStrategie').click(async ev => {
-      let update = {};
-
-      update['system.strategie.limite'] = origin.system.strategie.limite.query;
-
-      origin.update(update);
-
-      const rollMsgData = {
-        user: game.user.id,
-        speaker: {
-          actor: origin?.id || null,
-          token: origin?.token?.id || null,
-          alias: origin?.name || null,
-        },
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-        content: game.i18n.localize('MM3.STRATEGIE.Changement'),
-        sound: CONFIG.sounds.dice
-      };
-
-      const msgData = ChatMessage.applyRollMode(rollMsgData, 'blindroll');
-
-      await ChatMessage.create(msgData, {
-        rollMode:'blindroll'
-      });
-    });
-
     html.find('a.resetStrategie').click(async ev => {
       const update = {}
 
@@ -3074,6 +3057,7 @@ export function commonHTML(html, origin, data={}) {
                   type:what === 'combatcontact' ? 'parade' : 'esquive',
                 }
               },
+              type:what,
             });
           }
 

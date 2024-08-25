@@ -1,3 +1,11 @@
+## Version 1.33.7
+### Bugfix
+- Corrections d'un bug avec l'import des builds de Jab.
+- Correction du fonctionnement des limites des stratégies suite à la dernière mise à jour, et changement dans leur fonctionnement.
+- Correction des attaques qui ne se faisaient que vs Parade, quel que soit le paramétrage.
+Fini le bouton "Enregistrer les modificateurs des stratégies", à présent, les changements sont fait en direct et il est plus facile de voir les limites réelles actuelle, modifiée par les talents et les pouvoirs, dans un but de clarté.
+Il s'agit d'un oubli de la dernière mise à jour. Ce devait déjà être ainsi depuis cell-ci, mais il manquait des morceaux que j'avais oublié de modifier.
+
 ## Version 1.33.6
 ### Bugfix
 - Corrections d'un bug (encore) avec les jets d'attaques et l'édition des attaques.

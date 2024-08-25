@@ -1,7 +1,3 @@
-import {
-  listFont,
-} from "../helpers/common.mjs";
-
 /**
  * Extend the base Actor document to support attributes and groups with a custom template creation dialog.
  * @extends {Actor}
@@ -58,7 +54,6 @@ export class MM3Actor extends Actor {
     const actorData = this;
 
     actorData.system.accessibility = {
-      listFont:listFont,
       font:actorData.system?.accessibility?.font ?? "",
       fontOther:actorData.system?.accessibility?.fontOther ?? "",
     };

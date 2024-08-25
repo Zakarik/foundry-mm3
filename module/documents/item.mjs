@@ -41,15 +41,5 @@ export class MM3Item extends Item {
         await super.create(data, options);
     }
 
-    prepareDerivedData() {
-        const itemData = this;
-
-        this._preparePouvoirData(itemData);
-    }
-
-    _preparePouvoirData(itemData) {
-        if (itemData.type !== 'pouvoir') return;
-
-        //checkActiveOrUnactive(itemData);
-    };
+    prepareDerivedData() {}
 }

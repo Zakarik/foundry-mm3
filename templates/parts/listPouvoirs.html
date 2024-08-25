@@ -49,38 +49,19 @@
             </div>
             {{/if}}
 
+
             {{#if (isValue key.system.special 'alternatif')}}
                 <select class="link" data-cout="{{key.system.cout.totalTheorique}}" data-type="{{key.system.special}}">
-                    {{#select key.system.link}}
-                    <option value="">{{localize "MM3.POUVOIR.Principal"}} : {{localize "MM3.Choisir"}}</option>
-                        {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
-                            {{#if (isNotValue pwrStand key._id)}}
-                                <option value="{{pwrStand}}">{{localize "MM3.POUVOIR.Principal"}} : {{kStan}}</option>
-                            {{/if}}
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions (listpwr @root/actor/pwrStandard key._id) selected=key.system.link localize=true}}
                 </select>
             {{else}} {{#if (isValue key.system.special 'dynamique')}}
                 <select class="link" data-cout="{{key.system.cout.totalTheorique}}" data-type="{{key.system.special}}">
-                    {{#select key.system.link}}
-                    <option value="">{{localize "MM3.POUVOIR.Principal"}}</option>
-                        {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
-                            {{#if (isNotValue pwrStand key._id)}}
-                                <option value="{{pwrStand}}">{{localize "MM3.POUVOIR.Principal"}} : {{kStan}}</option>
-                            {{/if}}
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions (listpwr @root/actor/pwrStandard key._id) selected=key.system.link localize=true}}
                 </select>
             {{else}}
+
             <select class="link" data-cout="0" data-type="{{key.system.special}}">
-                {{#select key.system.link}}
-                <option value="">{{localize "MM3.POUVOIR.Principal"}}</option>
-                    {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
-                        {{#if (isNotValue pwrStand key._id)}}
-                            <option value="{{pwrStand}}">{{localize "MM3.POUVOIR.Principal"}} : {{kStan}}</option>
-                        {{/if}}
-                    {{/each}}
-                {{/select}}
+                {{selectOptions (listpwr @root/actor/pwrStandard key._id) selected=key.system.link localize=true}}
             </select>
             {{/if}} {{/if}}
             <div class="data black">
@@ -201,36 +182,15 @@
 
                 {{#if (isValue kPA.system.special 'alternatif')}}
                     <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
-                        {{#select kPA.system.link}}
-                        <option value="">{{localize "MM3.POUVOIR.Principal"}} : {{localize "MM3.Choisir"}}</option>
-                            {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
-                                {{#if (isNotValue pwrStand kPA._id)}}
-                                    <option value="{{pwrStand}}">{{localize "MM3.POUVOIR.Principal"}} : {{kStan}}</option>
-                                {{/if}}
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
                     </select>
                 {{else}} {{#if (isValue kPA.system.special 'dynamique')}}
                     <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
-                        {{#select kPA.system.link}}
-                        <option value="">{{localize "MM3.POUVOIR.Principal"}} : {{localize "MM3.Choisir"}}</option>
-                            {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
-                                {{#if (isNotValue pwrStand kPA._id)}}
-                                    <option value="{{pwrStand}}">{{localize "MM3.POUVOIR.Principal"}} : {{kStan}}</option>
-                                {{/if}}
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
                     </select>
                 {{else}}
                 <select class="link" data-cout="0" data-type="{{kPA.system.special}}">
-                    {{#select kPA.system.link}}
-                    <option value="">{{localize "MM3.POUVOIR.Principal"}}</option>
-                        {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
-                            {{#if (isNotValue pwrStand kPA._id)}}
-                                <option value="{{pwrStand}}">{{localize "MM3.POUVOIR.Principal"}} : {{kStan}}</option>
-                            {{/if}}
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
                 </select>
                 {{/if}} {{/if}}
                 <div class="data black">
@@ -333,25 +293,11 @@
 
                 {{#if (isValue kPA.system.special 'alternatif')}}
                     <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
-                        {{#select kPA.system.link}}
-                        <option value="">{{localize "MM3.POUVOIR.Principal"}} : {{localize "MM3.Choisir"}}</option>
-                            {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
-                                {{#if (isNotValue pwrStand kPA._id)}}
-                                    <option value="{{pwrStand}}">{{localize "MM3.POUVOIR.Principal"}} : {{kStan}}</option>
-                                {{/if}}
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
                     </select>
                 {{else}} {{#if (isValue kPA.system.special 'dynamique')}}
                     <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
-                        {{#select kPA.system.link}}
-                        <option value="">{{localize "MM3.POUVOIR.Principal"}} : {{localize "MM3.Choisir"}}</option>
-                            {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
-                                {{#if (isNotValue pwrStand kPA._id)}}
-                                    <option value="{{pwrStand}}">{{localize "MM3.POUVOIR.Principal"}} : {{kStan}}</option>
-                                {{/if}}
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
                     </select>
                 {{/if}} {{/if}}
                 <div class="data black">
@@ -454,25 +400,11 @@
 
                 {{#if (isValue kPA.system.special 'alternatif')}}
                     <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
-                        {{#select kPA.system.link}}
-                        <option value="">{{localize "MM3.POUVOIR.Principal"}}</option>
-                            {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
-                                {{#if (isNotValue pwrStand kPA._id)}}
-                                    <option value="{{pwrStand}}">{{localize "MM3.POUVOIR.Principal"}} : {{kStan}}</option>
-                                {{/if}}
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
                     </select>
                 {{else}} {{#if (isValue kPA.system.special 'dynamique')}}
                     <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
-                        {{#select kPA.system.link}}
-                        <option value="">{{localize "MM3.POUVOIR.Principal"}}</option>
-                            {{#each @root/actor/pwrStandard as | kStan pwrStand |}}
-                                {{#if (isNotValue pwrStand kPA._id)}}
-                                    <option value="{{pwrStand}}">{{localize "MM3.POUVOIR.Principal"}} : {{kStan}}</option>
-                                {{/if}}
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
                     </select>
                 {{/if}} {{/if}}
                 <div class="data black">

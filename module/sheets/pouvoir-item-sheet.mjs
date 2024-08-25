@@ -227,7 +227,7 @@ export class PouvoirItemSheet extends ItemSheet {
       toAdd[`list${l}`] = sortedList;
     }
 
-    context.systemData = mergeObject(context.systemData, toAdd);
+    context.systemData = foundry.utils.mergeObject(context.systemData, toAdd);
   }
 
   /** @inheritdoc */

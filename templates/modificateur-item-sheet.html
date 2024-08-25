@@ -14,10 +14,7 @@
                     <label class="type">
                         <span>{{localize "MM3.Type"}}</span>
                         <select name="system.type">
-                            {{#select systemData.type}}
-                                <option value="extra">{{localize "MM3.Extra"}}</option>
-                                <option value="defaut">{{localize "MM3.Defaut"}}</option>
-                            {{/select}}
+                            {{selectOptions (listmodtype) selected=systemData.type localize=true}}
                         </select>
                     </label>
 
@@ -55,11 +52,7 @@
                         <label>
                             <span>{{localize "MM3.ACCESSIBILITE.Font"}}</span>
                             <select name="system.accessibility.font">
-                                {{#select systemData.accessibility.font}}
-                                    <option value="Kalam">-</option>
-                                    <option value="Arial">Arial</option>
-                                    <option value="Signika">Signika</option>
-                                {{/select}}
+                                {{selectOptions (listfont) selected=systemData.accessibility.font localize=true}}
                             </select>
                         </label>
                     </div>

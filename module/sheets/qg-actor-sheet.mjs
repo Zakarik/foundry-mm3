@@ -133,7 +133,7 @@ export class QGActorSheet extends ActorSheet {
       toAdd[`list${l}`] = list;
     }
 
-    context.systemData = mergeObject(context.systemData, toAdd);
+    context.systemData = foundry.utils.mergeObject(context.systemData, toAdd);
   }
 
   _prepareSpeed(context) {

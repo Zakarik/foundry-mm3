@@ -111,16 +111,7 @@
                                 <input type="text" name="system.competence.{{comp}}.list.{{subcomp}}.label" value="{{kscomp.label}}" />
                                 {{#if carCanChange}}
                                 <select name="system.competence.{{comp}}.list.{{subcomp}}.car">
-                                    {{#select kscomp.car}}
-                                        <option value="for">{{translate 'caracteristiquesshort' 'for'}}</option>
-                                        <option value="agi">{{translate 'caracteristiquesshort' 'agi'}}</option>
-                                        <option value="cbt">{{translate 'caracteristiquesshort' 'cbt'}}</option>
-                                        <option value="sns">{{translate 'caracteristiquesshort' 'sns'}}</option>
-                                        <option value="end">{{translate 'caracteristiquesshort' 'end'}}</option>
-                                        <option value="dex">{{translate 'caracteristiquesshort' 'dex'}}</option>
-                                        <option value="int">{{translate 'caracteristiquesshort' 'int'}}</option>
-                                        <option value="prs">{{translate 'caracteristiquesshort' 'prs'}}</option>
-                                    {{/select}}
+                                    {{selectOptions (listcarac) selected=kscomp.car localize=true}}
                                 </select>
                                 {{else}}
                                 <span class="carac"></span>
@@ -152,16 +143,7 @@
                             {{/if}}
                             {{#if carCanChange}}
                             <select name="system.competence.{{comp}}.car">
-                                {{#select key.car}}
-                                    <option value="for">{{translate 'caracteristiquesshort' 'for'}}</option>
-                                    <option value="agi">{{translate 'caracteristiquesshort' 'agi'}}</option>
-                                    <option value="cbt">{{translate 'caracteristiquesshort' 'cbt'}}</option>
-                                    <option value="sns">{{translate 'caracteristiquesshort' 'sns'}}</option>
-                                    <option value="end">{{translate 'caracteristiquesshort' 'end'}}</option>
-                                    <option value="dex">{{translate 'caracteristiquesshort' 'dex'}}</option>
-                                    <option value="int">{{translate 'caracteristiquesshort' 'int'}}</option>
-                                    <option value="prs">{{translate 'caracteristiquesshort' 'prs'}}</option>
-                                {{/select}}
+                                {{selectOptions (listcarac) selected=key.car localize=true}}
                             </select>
                             {{else}}
                             <span class="carac">{{translate 'caracteristiquesshort' key.car}}</span>

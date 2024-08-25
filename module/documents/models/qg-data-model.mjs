@@ -135,6 +135,10 @@ export class QGDataModel extends foundry.abstract.TypeDataModel {
 
             switch(s) {
                 case 'attaqueoutrance':
+                    Object.defineProperty(strategie[s], 'attaque', {
+                        value: Math.min(tAtk, strategie[s].attaque),
+                    });
+
                     newValue -= strategie[s].attaque;
 
                     Object.defineProperty(strategie[s], 'defense', {
@@ -143,6 +147,10 @@ export class QGDataModel extends foundry.abstract.TypeDataModel {
                     break;
 
                 case 'attaquedefensive':
+                    Object.defineProperty(strategie[s], 'defense', {
+                        value: Math.min(tDef, strategie[s].defense),
+                    });
+
                     newValue -= strategie[s].defense;
 
                     Object.defineProperty(strategie[s], 'attaque', {
@@ -151,6 +159,10 @@ export class QGDataModel extends foundry.abstract.TypeDataModel {
                     break;
 
                 case 'attaqueprecision':
+                    Object.defineProperty(strategie[s], 'attaque', {
+                        value: Math.min(tAtk, strategie[s].attaque),
+                    });
+
                     newValue -= strategie[s].attaque;
 
                     Object.defineProperty(strategie[s], 'effet', {
@@ -159,6 +171,10 @@ export class QGDataModel extends foundry.abstract.TypeDataModel {
                     break;
 
                 case 'attaquepuissance':
+                    Object.defineProperty(strategie[s], 'effet', {
+                        value: Math.min(tEff, strategie[s].effet),
+                    });
+
                     newValue -= strategie[s].effet;
 
                     Object.defineProperty(strategie[s], 'attaque', {

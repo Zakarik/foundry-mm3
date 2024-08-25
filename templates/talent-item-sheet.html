@@ -44,11 +44,7 @@
                         <label>
                             <span>{{localize "MM3.ACCESSIBILITE.Font"}}</span>
                             <select name="system.accessibility.font">
-                                {{#select systemData.accessibility.font}}
-                                    <option value="Kalam">-</option>
-                                    <option value="Arial">Arial</option>
-                                    <option value="Signika">Signika</option>
-                                {{/select}}
+                                {{selectOptions (listfont) selected=systemData.accessibility.font localize=true}}
                             </select>
                         </label>
                     </div>

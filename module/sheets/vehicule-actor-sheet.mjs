@@ -182,7 +182,7 @@ export class VehiculeActorSheet extends ActorSheet {
       toAdd[`list${l}`] = list;
     }
 
-    context.systemData = mergeObject(context.systemData, toAdd);
+    context.systemData = foundry.utils.mergeObject(context.systemData, toAdd);
   }
 
   async _onItemCreate(event) {

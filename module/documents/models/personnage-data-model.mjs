@@ -42,6 +42,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                     competence[c] = new SchemaField({
                         canAdd:new BooleanField({ initial: true}),
                         modele:new SchemaField(foundry.utils.mergeObject({
+                            carCanChange:new BooleanField({ initial: true}),
                             label:new StringField({ initial: ""}),
                             carac:new NumberField({ initial: 0}),
                         }, baseSchema)),
@@ -105,6 +106,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                     surcharge:new NumberField({ initial: 0}),
                     ranks:new ObjectField(),
                     surchargeranks:new ObjectField(),
+                    allbonuses:new NumberField({ initial: 0}),
                 }),
                 eff:new SchemaField({
                     base:new NumberField({ initial: CONFIG.MM3.LIST.LimiteStrategie[s].effet}),
@@ -112,6 +114,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                     surcharge:new NumberField({ initial: 0}),
                     ranks:new ObjectField(),
                     surchargeranks:new ObjectField(),
+                    allbonuses:new NumberField({ initial: 0}),
                 }),
                 def:new SchemaField({
                     base:new NumberField({ initial: CONFIG.MM3.LIST.LimiteStrategie[s].defense}),
@@ -119,6 +122,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                     surcharge:new NumberField({ initial: 0}),
                     ranks:new ObjectField(),
                     surchargeranks:new ObjectField(),
+                    allbonuses:new NumberField({ initial: 0}),
                 }),
                 attaque:new NumberField({ initial: CONFIG.MM3.LIST.LimiteStrategie[s].attaque}),
                 defense:new NumberField({ initial: CONFIG.MM3.LIST.LimiteStrategie[s].defense}),
@@ -247,42 +251,6 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
         this.#_atk();
     }
 
-    static migrateData(source) {
-        if('strategie' in source) {
-            const strategie = source.strategie.limite;
-
-            for(let s in source.strategie.limite) {
-                if(s === 'query') continue;
-
-                if('atk' in strategie[s]) {
-                    const cAtk = strategie[s].atk.base;
-                    const bAtk = strategie[s].atk.bonus;
-                    const tAtk = strategie[s].attaque;
-
-                    if(tAtk !== (bAtk+cAtk)) strategie[s].atk.base = tAtk;
-                }
-
-                if('eff' in strategie[s]) {
-                    const cEff = strategie[s].eff.base;
-                    const bEff = strategie[s].eff.bonus;
-                    const tEff = strategie[s].effet;
-
-                    if(tEff !== (bEff+cEff)) strategie[s].eff.base = tEff;
-                }
-
-                if('def' in strategie[s]) {
-                    const cDef = strategie[s].def.base;
-                    const bDef = strategie[s].def.bonus;
-                    const tDef = strategie[s].defense;
-
-                    if(tDef !== (bDef+cDef)) strategie[s].def.base = tDef;
-                }
-
-            }
-        }
-		return source;
-	}
-
     #_strValue() {
         let attaque = 0;
         let defense = 0;
@@ -308,78 +276,103 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
             for(let r in atkRangs) {
                 const itm = this.items.get(r);
 
-                if(itm) {
+                if(itm && itm.type === 'pouvoir') {
                     if(itm.system.special === 'dynamique') {
                         atkRangsValue += itm.system.cout.rangDyn*atkRangs[r];
                     } else {
                         atkRangsValue += itm.system.cout.rang*atkRangs[r];
                     }
+                } else if(itm) {
+                    atkRangsValue += itm.system.rang*atkRangs[r];
                 }
             }
 
             for(let r in effRangs) {
                 const itm = this.items.get(r);
 
-                if(itm) {
+                if(itm && itm.type === 'pouvoir') {
                     if(itm.system.special === 'dynamique') {
-                        effRangsValue += itm.system.cout.rangDyn*atkRangs[r];
+                        effRangsValue += itm.system.cout.rangDyn*effRangs[r];
                     } else {
-                        effRangsValue += itm.system.cout.rang*atkRangs[r];
+                        effRangsValue += itm.system.cout.rang*effRangs[r];
                     }
+                } else if(itm) {
+                    effRangsValue += itm.system.rang*effRangs[r];
                 }
             }
 
             for(let r in defRangs) {
                 const itm = this.items.get(r);
 
-                if(itm) {
+                if(itm && itm.type === 'pouvoir') {
                     if(itm.system.special === 'dynamique') {
-                        defRangsValue += itm.system.cout.rangDyn*atkRangs[r];
+                        defRangsValue += itm.system.cout.rangDyn*defRangs[r];
                     } else {
-                        defRangsValue += itm.system.cout.rang*atkRangs[r];
+                        defRangsValue += itm.system.cout.rang*defRangs[r];
                     }
+                } else if(itm) {
+                    effRangsValue += itm.system.rang*defRangs[r];
                 }
             }
 
             for(let r in surchargeAtkRangs) {
                 const itm = this.items.get(r);
 
-                if(itm) {
+                if(itm && itm.type === 'pouvoir') {
                     if(itm.system.special === 'dynamique') {
                         surchargeAtkRangsValue = Math.max(itm.system.cout.rangDyn*surchargeAtkRangs[r], surchargeAtkRangsValue);
                     } else {
                         surchargeAtkRangsValue = Math.max(itm.system.cout.rang*surchargeAtkRangs[r], surchargeAtkRangsValue);
                     }
+                } else if(itm) {
+                    surchargeAtkRangsValue = Math.max(itm.system.rang*surchargeAtkRangs[r], surchargeAtkRangsValue);
                 }
             }
 
             for(let r in surchargeEffRangs) {
                 const itm = this.items.get(r);
 
-                if(itm) {
+                if(itm && itm.type === 'pouvoir') {
                     if(itm.system.special === 'dynamique') {
                         surchargeEffRangsValue = Math.max(itm.system.cout.rangDyn*surchargeEffRangs[r], surchargeEffRangsValue);
                     } else {
                         surchargeEffRangsValue = Math.max(itm.system.cout.rang*surchargeEffRangs[r], surchargeEffRangsValue);
                     }
+                } else if(itm) {
+                    surchargeEffRangsValue = Math.max(itm.system.rang*surchargeEffRangs[r], surchargeEffRangsValue);
                 }
             }
 
             for(let r in surchargeDefRangs) {
                 const itm = this.items.get(r);
 
-                if(itm) {
+                if(itm && itm.type === 'pouvoir') {
                     if(itm.system.special === 'dynamique') {
                         surchargeDefRangsValue = Math.max(itm.system.cout.rangDyn*surchargeDefRangs[r], surchargeDefRangsValue);
                     } else {
                         surchargeDefRangsValue = Math.max(itm.system.cout.rang*surchargeDefRangs[r], surchargeDefRangsValue);
                     }
+                } else if(itm) {
+                    surchargeDefRangsValue = Math.max(itm.system.rang*surchargeDefRangs[r], surchargeDefRangsValue);
                 }
             }
 
-            const tAtk = isSurcharge(Math.max(limite.atk.surcharge, surchargeAtkRangsValue), limite.atk.base, limite.atk.bonuses, atkRangsValue);
-            const tDef = isSurcharge(Math.max(limite.def.surcharge, surchargeDefRangsValue), limite.def.base, limite.def.bonuses, defRangsValue);
-            const tEff = isSurcharge(Math.max(limite.eff.surcharge, surchargeEffRangsValue), limite.eff.base, limite.eff.bonuses, effRangsValue);
+
+            Object.defineProperty(limite.atk, 'allbonuses', {
+				value: limite.atk.bonuses+atkRangsValue,
+			});
+
+            Object.defineProperty(limite.def, 'allbonuses', {
+				value: limite.def.bonuses+defRangsValue,
+			});
+
+            Object.defineProperty(limite.eff, 'allbonuses', {
+				value: limite.eff.bonuses+effRangsValue,
+			});
+
+            const tAtk = isSurcharge(Math.max(limite.atk.surcharge, surchargeAtkRangsValue), limite.atk.base, limite.atk.allbonuses);
+            const tDef = isSurcharge(Math.max(limite.def.surcharge, surchargeDefRangsValue), limite.def.base, limite.def.allbonuses);
+            const tEff = isSurcharge(Math.max(limite.eff.surcharge, surchargeEffRangsValue), limite.eff.base, limite.eff.allbonuses);
 
             Object.defineProperty(limite, 'attaque', {
 				value: tAtk,
@@ -395,6 +388,10 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
 
             switch(s) {
                 case 'attaqueoutrance':
+                    Object.defineProperty(strategie[s], 'attaque', {
+                        value: Math.min(tAtk, strategie[s].attaque),
+                    });
+
                     newValue -= strategie[s].attaque;
 
                     Object.defineProperty(strategie[s], 'defense', {
@@ -403,6 +400,10 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                     break;
 
                 case 'attaquedefensive':
+                    Object.defineProperty(strategie[s], 'defense', {
+                        value: Math.min(tDef, strategie[s].defense),
+                    });
+
                     newValue -= strategie[s].defense;
 
                     Object.defineProperty(strategie[s], 'attaque', {
@@ -411,6 +412,10 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                     break;
 
                 case 'attaqueprecision':
+                    Object.defineProperty(strategie[s], 'attaque', {
+                        value: Math.min(tAtk, strategie[s].attaque),
+                    });
+
                     newValue -= strategie[s].attaque;
 
                     Object.defineProperty(strategie[s], 'effet', {
@@ -419,6 +424,10 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                     break;
 
                 case 'attaquepuissance':
+                    Object.defineProperty(strategie[s], 'effet', {
+                        value: Math.min(tEff, strategie[s].effet),
+                    });
+
                     newValue -= strategie[s].effet;
 
                     Object.defineProperty(strategie[s], 'attaque', {
@@ -540,7 +549,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                 const cList = currentCmp.list;
 
                 for(let list in cList) {
-                    const getCarac = dataCmp.carCanChange ? this.caracteristique[getFullCarac(cList[list].car)].total : this.caracteristique[getFullCarac(dataCmp.car)].total;
+                    const getCarac = cList[list].carCanChange ? this.caracteristique[getFullCarac(cList[list].car)].total : this.caracteristique[getFullCarac(dataCmp.car)].total;
 
 
                     ppComp += cList[list].rang/2;
@@ -716,7 +725,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
               if(!dataPwr) atkData.links.pwr = '';
             }
 
-            if(skill !== '') {
+            if(skill !== '' && type !== 'other') {
                 dataSkill = Object.values(this.skills[type]).find(itm => itm._id === skill);
 
                 if(!dataSkill) atkData.links.skill = '';
