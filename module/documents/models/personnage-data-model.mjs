@@ -718,17 +718,26 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
             let type = atkData?.type ?? 'combatcontact';
             let dataPwr = undefined;
             let dataSkill = null;
+            let effet = 0;
 
             if(pwr !== '') {
               dataPwr = this.items.get(pwr);
 
-              if(!dataPwr) atkData.links.pwr = '';
+              if(!dataPwr) {
+                Object.defineProperty(atkData.links, 'pwr', {
+                    value: '',
+                });
+              }
             }
 
             if(skill !== '' && type !== 'other') {
                 dataSkill = Object.values(this.skills[type]).find(itm => itm._id === skill);
 
-                if(!dataSkill) atkData.links.skill = '';
+                if(!dataSkill) {
+                    Object.defineProperty(atkData.links, 'skill', {
+                        value: '',
+                    });
+                }
             }
 
             if(ability !== '') {
@@ -738,9 +747,11 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
 
                     let modEff = Number(atkData?.mod?.eff ?? 0);
 
-                    atkData.effet = Number(this.caracteristique[ability].total)+modEff;
+                    effet += Number(this.caracteristique[ability].total)+modEff;
                 }
-            } else if(pwr !== '') {
+            }
+
+            if(pwr !== '') {
                 if((atkData.isDmg && !atkData.isAffliction) ||
                     (!atkData.isDmg && atkData.isAffliction) ||
                     (!atkData.isDmg && !atkData.isAffliction)) {
@@ -750,14 +761,22 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
 
                     if(dataPwr.system.special === 'dynamique') rang = this.pwr?.[pwr]?.cout?.rang ?? 0;
 
-                    atkData.effet = rang+modEff;
+                    effet += rang+modEff;
                 }
+            }
+
+            if(effet) {
+                Object.defineProperty(atkData, 'effet', {
+                    value: effet,
+                });
             }
 
             if(skill !== '') {
                 let modAtk = Number(atkData?.mod?.atk ?? 0);
 
-                atkData.attaque = Number(dataSkill?.total ?? 0)+Number(modAtk);
+                Object.defineProperty(atkData, 'attaque', {
+                    value: Number(dataSkill?.total ?? 0)+Number(modAtk),
+                });
             }
         }
     }

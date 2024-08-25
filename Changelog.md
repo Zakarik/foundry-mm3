@@ -1,3 +1,11 @@
+## Version 1.34.0
+### Améliorations
+- Amélioration des attaques. Auparavant, lier une caractéristique et un pouvoir à une attaque faisait que l'effet ne prenait en compte que la caractéristique. Dorénavant, ça provoque l'addition de la caractéristique et du pouvoir pour le rang de l'effet.
+
+### Bugfix
+- Corrections d'un bug dans la liaison des pouvoirs des véhicules et des QG.
+- Correction d'un bug avec les attaques sur les véhicules et les QG. Les calculs n'étaient pas correctement effecté.
+
 ## Version 1.33.8
 ### Bugfix
 - Corrections d'un bug avec l'import des builds de Jab.

@@ -4,7 +4,7 @@
         <a class="filtre {{#if (isValue systemData.filtre 'pouvoirs')}}selected{{else}}unselected{{/if}}" data-type="pouvoirs">{{localize "MM3.FILTRE.Pouvoirs"}}</a>
         <a class="filtre {{#if (isValue systemData.filtre 'talents')}}selected{{else}}unselected{{/if}}" data-type="talents">{{localize "MM3.FILTRE.Talents"}}</a>
         <a class="filtre {{#if (isValue systemData.filtre 'equipements')}}selected{{else}}unselected{{/if}}" data-type="equipements">{{localize "MM3.FILTRE.Equipements"}}</a>
-    </div>    
+    </div>
 
     <div class="lPouvoirs {{#if (isValue systemData.filtre 'tous')}}show{{/if}}  {{#if (isValue systemData.filtre 'pouvoirs')}}show{{/if}} item-list">
         {{> systems/mutants-and-masterminds-3e/templates/parts/listPouvoirs.html}}

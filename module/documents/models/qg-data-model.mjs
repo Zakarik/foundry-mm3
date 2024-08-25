@@ -106,6 +106,7 @@ export class QGDataModel extends foundry.abstract.TypeDataModel {
         this.#_initiative();
         this.#_cout();
         this.#_vitesse();
+        this.#_atk();
     }
 
     #_strValue() {
@@ -285,5 +286,79 @@ export class QGDataModel extends foundry.abstract.TypeDataModel {
         Object.defineProperty(this.vitesse, 'actuel', {
             value: game.settings.get("mutants-and-masterminds-3e", "speedcalculate") ? find.rang : find.round,
         });
+    }
+
+    #_atk() {
+        const atk = this.attaque;
+
+        for(let a in atk) {
+            let atkData = atk[a];
+            let pwr = atkData?.links?.pwr ?? '';
+            let skill = atkData?.links?.skill ?? '';
+            let ability = atkData?.links?.ability ?? '';
+            let type = atkData?.type ?? 'combatcontact';
+            let dataPwr = undefined;
+            let dataSkill = null;
+            let effet = 0;
+
+            if(pwr !== '') {
+              dataPwr = this.items.get(pwr);
+
+              if(!dataPwr) {
+                Object.defineProperty(atkData.links, 'pwr', {
+                    value: '',
+                });
+              }
+            }
+
+            if(skill !== '' && type !== 'other') {
+                dataSkill = Object.values(this.skills[type]).find(itm => itm._id === skill);
+
+                if(!dataSkill) {
+                    Object.defineProperty(atkData.links, 'skill', {
+                        value: '',
+                    });
+                }
+            }
+
+            if(ability !== '') {
+                if((atkData.isDmg && !atkData.isAffliction) ||
+                    (!atkData.isDmg && atkData.isAffliction) ||
+                    (!atkData.isDmg && !atkData.isAffliction)) {
+
+                    let modEff = Number(atkData?.mod?.eff ?? 0);
+
+                    effet += Number(this.caracteristique[ability].total)+modEff;
+                }
+            }
+
+            if(pwr !== '') {
+                if((atkData.isDmg && !atkData.isAffliction) ||
+                    (!atkData.isDmg && atkData.isAffliction) ||
+                    (!atkData.isDmg && !atkData.isAffliction)) {
+
+                    let rang = Number(dataPwr?.system?.cout?.rang ?? 1)
+                    let modEff = Number(atkData?.mod?.eff ?? 0);
+
+                    if(dataPwr.system.special === 'dynamique') rang = this.pwr?.[pwr]?.cout?.rang ?? 0;
+
+                    effet += rang+modEff;
+                }
+            }
+
+            if(effet) {
+                Object.defineProperty(atkData, 'effet', {
+                    value: effet,
+                });
+            }
+
+            if(skill !== '') {
+                let modAtk = Number(atkData?.mod?.atk ?? 0);
+
+                Object.defineProperty(atkData, 'attaque', {
+                    value: Number(dataSkill?.total ?? 0)+Number(modAtk),
+                });
+            }
+        }
     }
 }
