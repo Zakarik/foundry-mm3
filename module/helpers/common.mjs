@@ -465,8 +465,6 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
           const mod = costCalc.mod;
           let name = pwr.name.split(':');
 
-          console.warn(costCalc);
-
           let itm = {
             name: name[0],
             type: 'pouvoir',
@@ -619,8 +617,6 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
         const mod = costCalc.mod;
         let name = pwr.name.split(':');
 
-        console.warn(costCalc);
-
         let itm = {
           name: name[0],
           type: 'pouvoir',
@@ -652,13 +648,6 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
         listPwrDetails = foundry.utils.mergeObject(listPwrDetails, aPwr.powerDetails);
         listBonusTalent = listBonusTalent.concat(oPwr.talents);
         listBonusTalent = listBonusTalent.concat(aPwr.talents);
-
-        const modPwrO = countPwr(pwr, "otherpowers");
-        const modPwrA = countPwr(pwr, "alternatepowers");
-        const totalMod = modPwrO+modPwrA;
-
-        if(totalMod > 0 && !costNull) itemCreate.update({[`system.cout.divers`]:itemCreate.system.cout.divers-totalMod});
-        else if(totalMod > 0 && link !== "") actor.items.get(link).update({[`system.cout.divers`]:actor.items.get(link).system.cout.divers-totalMod});
 
         const total = itemCreate.system.cout.total;
         if(total > 5 && (pwr?.alternatepowers?.power ?? null) == null) listPwrWhoCanLostCost.push(itemCreate._id);

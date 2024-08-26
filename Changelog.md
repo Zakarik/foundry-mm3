@@ -1,3 +1,7 @@
+## Version 1.34.1
+### Bugfix
+- Correction du calcul du coût lors de l'importation d'un personnage de Hero Lab.
+
 ## Version 1.34.0
 ### Améliorations
 - Amélioration des attaques. Auparavant, lier une caractéristique et un pouvoir à une attaque faisait que l'effet ne prenait en compte que la caractéristique. Dorénavant, ça provoque l'addition de la caractéristique et du pouvoir pour le rang de l'effet.
