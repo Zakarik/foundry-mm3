@@ -2389,7 +2389,7 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
       btn.push({
         typeAtk:'affliction',
         target:tgt,
-        saveType:saveType,
+        saveType:saveAffliction,
         vs:dataCbt.links.pwr === "" && dataCbt.links.ability === ""  ? Number(dataCbt.save.affliction.effet)+Number(dataStr.effet)+Number(dataCbt.save.affliction.defense) : Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.save.affliction.defense),
       });
     }

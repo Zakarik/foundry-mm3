@@ -1,3 +1,7 @@
+## Version 1.34.2
+### Bugfix
+- Correction d'un bug ne mettant pas le bon jet de sauvegarde lors d'une attaque de type affliction.
+
 ## Version 1.34.1
 ### Bugfix
 - Correction du calcul du coût lors de l'importation d'un personnage de Hero Lab.
