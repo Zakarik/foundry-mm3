@@ -1,3 +1,7 @@
+## Version 1.34.3
+### Bugfix
+- Correction d'un bug empêchant le fonctionnement des attaques sans jet d'attaque.
+
 ## Version 1.34.2
 ### Bugfix
 - Correction d'un bug ne mettant pas le bon jet de sauvegarde lors d'une attaque de type affliction.

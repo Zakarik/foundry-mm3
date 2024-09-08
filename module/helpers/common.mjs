@@ -2535,15 +2535,15 @@ export async function rollWAtk(actor, name, data) {
     text:dataCbt.text
   };
 
-  if(dataCbt.isDmg && dataCbt.links.pwr === '') pRoll.effet += Number(dataCbt.save.dmg.effet)+Number(dataStr.effet)+Number(dataCbt.dataCbt.save.dmg.defense);
-  else if(dataCbt.isDmg && !dataCbt.isAffliction) pRoll.effet += Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.dataCbt.save.dmg.defense);
-  else if(dataCbt.isDmg) pRoll.effet += Number(dataCbt.save.dmg.effet)+Number(dataStr.effet)+Number(dataCbt.dataCbt.save.dmg.defense);
+  if(dataCbt.isDmg && dataCbt.links.pwr === '') pRoll.effet += Number(dataCbt.save.dmg.effet)+Number(dataStr.effet)+Number(dataCbt.save.dmg.defense);
+  else if(dataCbt.isDmg && !dataCbt.isAffliction) pRoll.effet += Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.save.dmg.defense);
+  else if(dataCbt.isDmg) pRoll.effet += Number(dataCbt.save.dmg.effet)+Number(dataStr.effet)+Number(dataCbt.save.dmg.defense);
 
   if(pRoll.effet !== '') pRoll.effet += ` / `
 
-  if(dataCbt.isAffliction && dataCbt.links.pwr === '') pRoll.effet += Number(dataCbt.save.affliction.effet)+Number(dataStr.effet)+Number(dataCbt.dataCbt.save.affliction.defense);
-  else if(dataCbt.isAffliction && !dataCbt.isDmg) pRoll.effet += Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.dataCbt.save.affliction.defense);
-  else if(dataCbt.isAffliction) pRoll.effet += Number(dataCbt.save.affliction.effet)+Number(dataStr.effet)+Number(dataCbt.dataCbt.save.affliction.defense);
+  if(dataCbt.isAffliction && dataCbt.links.pwr === '') pRoll.effet += Number(dataCbt.save.affliction.effet)+Number(dataStr.effet)+Number(dataCbt.save.affliction.defense);
+  else if(dataCbt.isAffliction && !dataCbt.isDmg) pRoll.effet += Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.save.affliction.defense);
+  else if(dataCbt.isAffliction) pRoll.effet += Number(dataCbt.save.affliction.effet)+Number(dataStr.effet)+Number(dataCbt.save.affliction.defense);
 
   const rollMsgData = {
     user: game.user.id,
