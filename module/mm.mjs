@@ -62,8 +62,10 @@ import { parseInput, } from "./parse_simple_character.mjs";
 /*  Init Hook                                   */
 /* -------------------------------------------- */
 
-Hooks.once('init', async function() {
 
+Hooks.once('init', async function() {
+ 
+  
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
   game.mm3 = {
@@ -1353,6 +1355,8 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
 
   let result = undefined;
 
+  let token = canvas.tokens.placeables.filter(token => token.actor === origin)[0];
+  Hooks.CallAll('rollAttack', atk, token)  
   if(type === 'attaque' && tgt !== undefined && atk.settings.noatk) {
     for(let t of game.user.targets.ids) {
       rollTgt(actor, name, {attaque:atk, strategie:strategie}, t);
