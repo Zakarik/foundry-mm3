@@ -2959,7 +2959,7 @@ export function commonHTML(html, origin, data={}) {
     html.find('div.totalpp summary').click(async ev => {
       const target = $(ev.currentTarget);
       const value = target.data('value') ? false : true;
-
+  
       origin.update({[`system.${data.ppName}.opened`]:value})
     });
   }
@@ -2986,7 +2986,10 @@ export function commonHTML(html, origin, data={}) {
       const hasShift = ev.shiftKey;
       const hasAlt = ev.altKey;
       let total = Number(target.data('total'));
-
+      
+      let token = canvas.tokens.placeables.filter(token => token.actor === origin)[0];
+      Hooks.callAll('rollAttack', atk, token) 
+      
       if(type === 'attaque' && tgt !== undefined && atk.settings.noatk) {
         for(let t of game.user.targets.ids) {
           rollTgt(origin, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, t);
