@@ -1,3 +1,7 @@
+## Version 1.35.0
+### Bugfix
+- Ajout d'un hook pour les attaques.
+
 ## Version 1.34.3
 ### Bugfix
 - Correction d'un bug empêchant le fonctionnement des attaques sans jet d'attaque.
