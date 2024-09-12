@@ -2981,15 +2981,18 @@ export function commonHTML(html, origin, data={}) {
       const id = target.data('id');
       const strattaque = target.data('strattaque');
       const streffet = target.data('streffet');
-      const tgt = game.user.targets.ids[0];
+      
       const atk = game.mm3.getAtk(origin, id)?.data ?? {noAtk:true};
       const hasShift = ev.shiftKey;
       const hasAlt = ev.altKey;
       let total = Number(target.data('total'));
       
       let token = canvas.tokens.placeables.filter(token => token.actor === origin)[0];
-      Hooks.callAll('rollAttack', atk, token) 
-      
+      await Hooks.call('rollAttack', atk, token) 
+      if(atk.area.has == true && game.waitForTemplatePlacementLater){ //the only way to wait for  mm3e-better-attacks to be finish targeting only runs if that module is installed
+        await game.waitForTemplatePlacementLater();
+      }
+      const tgt = game.user.targets.ids[0];
       if(type === 'attaque' && tgt !== undefined && atk.settings.noatk) {
         for(let t of game.user.targets.ids) {
           rollTgt(origin, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, t);
