@@ -1,5 +1,9 @@
-## Version 1.35.0
+## Version 1.35.1
 ### Bugfix
+- Correction du hook.
+
+## Version 1.35.0
+### Améliorations
 - Ajout d'un hook pour les attaques.
 
 ## Version 1.34.3
