@@ -1307,7 +1307,7 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
   const actor = tokenId === 'null' ? game.actors.get(actorId) : game.scenes.get(sceneId).tokens.find(token => token.id === tokenId).actor;
 
   const data = actor.system;
-  const tgt = game.user.targets.ids[0];
+  
   const dataStr = data?.strategie?.total ?? {attaque:0, effet:0};
   const strategie = {attaque:dataStr.attaque, effet:dataStr.effet};
   const hasShift = event.shiftKey;
@@ -1355,8 +1355,12 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
 
   let result = undefined;
 
-  let token = canvas.tokens.placeables.filter(token => token.actor === origin)[0];
-  Hooks.CallAll('rollAttack', atk, token)  
+ let token = canvas.tokens.placeables.filter(token => token.actor.id === actor.id)[0];
+  await Hooks.call('rollAttack', atk, token,strategie, hasAlt); 
+  if(atk.area.has == true && game.waitForTemplatePlacementLater){ //the only way to wait for  mm3e-better-attacks to be finish targeting only runs if that module is installed
+    await game.waitForTemplatePlacementLater();
+  }
+  const tgt = game.user.targets.ids[0];
   if(type === 'attaque' && tgt !== undefined && atk.settings.noatk) {
     for(let t of game.user.targets.ids) {
       rollTgt(actor, name, {attaque:atk, strategie:strategie}, t);
