@@ -1181,7 +1181,7 @@ export async function processImport(actor, data, actorType='personnage') {
           let randSkill = foundry.utils.randomID();
           let randAtk = foundry.utils.randomID();
           let lowercase = label.toLowerCase();
-          let isDmg = false;
+          let isDmg = true;
           let isAffliction = false;
           let save = 'robustesse';
           let basedef = 15;
@@ -1203,20 +1203,29 @@ export async function processImport(actor, data, actorType='personnage') {
             idAtt:randAtk,
           }
 
-          listAttack[lengthAttack] = {
+          listAttack[lengthAttack] = foundry.utils.mergeObject(foundry.utils.deepClone(CONFIG.MM3.StdAtk), {
             _id:randAtk,
+            links:{
+              skill:randSkill,
+            },
+            save:{
+              dmg:{
+                type:save,
+                defense:basedef,
+              },
+              other:{
+                type:save,
+                defense:basedef,
+              },
+            },
             type:label,
-            skill:randSkill,
             label:lastLabel,
-            save:save,
             effet:DCAttacks?.[lastLabel] ?? undefined !== undefined ? DCAttacks[lastLabel] : 0,
             critique:20,
             text:"",
-            noAtk:false,
-            basedef:basedef,
             isDmg:isDmg,
             isAffliction:isAffliction,
-          }
+          });
 
           alreadyAddAttack.push(lastLabel);
         }
@@ -1292,7 +1301,7 @@ export async function processImport(actor, data, actorType='personnage') {
                       condition = conditionsVOId[s.toLowerCase()];
 
                       if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
-                      if(condition !== undefined) condition = getStatusData(condition);
+                      if(condition !== undefined) condition = getStatusData(condition).statuses;
 
                       if(condition !== undefined) afflictionechec.push({
                         value:0,
@@ -1312,7 +1321,7 @@ export async function processImport(actor, data, actorType='personnage') {
                       condition = conditionsVOId[s.toLowerCase()];
 
                       if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
-                      if(condition !== undefined) condition = getStatusData(condition);
+                      if(condition !== undefined) condition = getStatusData(condition).statuses;
 
                       if(condition !== undefined) afflictionechec.push({
                         value:0,
@@ -1320,7 +1329,7 @@ export async function processImport(actor, data, actorType='personnage') {
                       });
                       else afflictionechec.push({
                         value:0,
-                        status:[]
+                        status:afflictionechec[afflictionechec.length - 1].status
                       });
                     }
                   }
@@ -1332,22 +1341,34 @@ export async function processImport(actor, data, actorType='personnage') {
                       condition = conditionsVOId[s.toLowerCase()];
 
                       if(condition === undefined) condition = conditionsVFId[s.toLowerCase()];
-                      if(condition !== undefined) condition = getStatusData(condition);
+                      if(condition !== undefined) condition = getStatusData(condition).statuses;
 
                       if(condition !== undefined) afflictionechec.push({
+                        value:0,
+                        status:condition
+                      },
+                      {
                         value:0,
                         status:condition
                       });
                       else afflictionechec.push({
                         value:0,
-                        status:[]
+                        status:afflictionechec[afflictionechec.length - 1].status
+                      },
+                      {
+                        value:0,
+                        status:afflictionechec[afflictionechec.length - 1].status
                       });
                     }
                   }
 
                   afflictionechec.push({
                     value:0,
-                    status:[]
+                    status:afflictionechec[afflictionechec.length - 1].status
+                  },
+                  {
+                    value:0,
+                    status:afflictionechec[afflictionechec.length - 1].status
                   });
 
                   if(rInfo !== null) {
@@ -1361,9 +1382,11 @@ export async function processImport(actor, data, actorType='personnage') {
               }
             }
 
+            console.warn(afflictionechec)
+
             if(save !== 'robustesse') basedef = 10;
 
-            listAttack[lengthAttack] = foundry.utils.mergeObject(CONFIG.MM3.StdAtk, {
+            listAttack[lengthAttack] = foundry.utils.mergeObject(foundry.utils.deepClone(CONFIG.MM3.StdAtk), {
               _id:randAtk,
               links:{
                 pwr:pwrData?._id ?? '',
@@ -1413,7 +1436,7 @@ export async function processImport(actor, data, actorType='personnage') {
 
             if(save !== 'robustesse') basedef = 10;
 
-            listAttack[lengthAttack] = foundry.utils.mergeObject(CONFIG.MM3.StdAtk, {
+            listAttack[lengthAttack] = foundry.utils.mergeObject(foundry.utils.deepClone(CONFIG.MM3.StdAtk), {
               _id:randAtk,
               save:{
                 dmg:{
@@ -1558,7 +1581,7 @@ export async function processImport(actor, data, actorType='personnage') {
 
           if(save !== 'robustesse') basedef = 10;
 
-          listAttack[lengthAttack] = foundry.utils.mergeObject(CONFIG.MM3.StdAtk, {
+          listAttack[lengthAttack] = foundry.utils.mergeObject(foundry.utils.deepClone(CONFIG.MM3.StdAtk), {
             _id:randAtk,
             type:'combatcontact',
             links:{
@@ -1606,7 +1629,8 @@ export async function processImport(actor, data, actorType='personnage') {
 
           if(save !== 'robustesse') basedef = 10;
 
-          listAttack[lengthAttack] = foundry.utils.mergeObject(CONFIG.MM3.StdAtk, {
+
+          listAttack[lengthAttack] = foundry.utils.mergeObject(foundry.utils.deepClone(CONFIG.MM3.StdAtk), {
             _id:randAtk,
             links:{
               pwr:powerDetails[att.name]?._id ?? '',
@@ -1635,7 +1659,6 @@ export async function processImport(actor, data, actorType='personnage') {
         }
       }
     }
-
   }
 
   const mesures = game.settings.get("mutants-and-masterminds-3e", "measuresystem");
@@ -1678,7 +1701,6 @@ export async function processImport(actor, data, actorType='personnage') {
   update['name'] = data.name;
 
   await actor.update(update);
-  normalizeData(actor, true);
 }
 
 export async function processMinions(actor, data) {
@@ -2959,7 +2981,7 @@ export function commonHTML(html, origin, data={}) {
     html.find('div.totalpp summary').click(async ev => {
       const target = $(ev.currentTarget);
       const value = target.data('value') ? false : true;
-  
+
       origin.update({[`system.${data.ppName}.opened`]:value})
     });
   }
@@ -2981,14 +3003,14 @@ export function commonHTML(html, origin, data={}) {
       const id = target.data('id');
       const strattaque = target.data('strattaque');
       const streffet = target.data('streffet');
-      
+
       const atk = game.mm3.getAtk(origin, id)?.data ?? {noAtk:true};
       const hasShift = ev.shiftKey;
       const hasAlt = ev.altKey;
       let total = Number(target.data('total'));
-      
+
       let token = canvas.tokens.placeables.filter(token => token.actor === origin)[0];
-      await Hooks.call('rollAttack', atk, token) 
+      await Hooks.call('rollAttack', atk, token)
       if(atk.area.has == true && game.waitForTemplatePlacementLater){ //the only way to wait for  mm3e-better-attacks to be finish targeting only runs if that module is installed
         await game.waitForTemplatePlacementLater();
       }
@@ -3041,7 +3063,7 @@ export function commonHTML(html, origin, data={}) {
 
             modele['idAtt'] = randAtt;
             modele['_id'] = randSkill;
-            update[`system.attaque.${maxKeysAtt+1}`] = foundry.utils.mergeObject(CONFIG.MM3.StdAtk, {
+            update[`system.attaque.${maxKeysAtt+1}`] = foundry.utils.mergeObject(foundry.utils.deepClone(CONFIG.MM3.StdAtk), {
               _id:foundry.utils.randomID(),
               label:game.i18n.localize('MM3.Adefinir'),
               links:{
@@ -3066,7 +3088,7 @@ export function commonHTML(html, origin, data={}) {
           const dataAttaque = Object.keys(attaque);
           const maxKeysAtt = dataAttaque.length > 0 ? Math.max(...dataAttaque) : 0;
 
-          update[`system.attaque.${maxKeysAtt+1}`] = foundry.utils.mergeObject(CONFIG.MM3.StdAtk, {
+          update[`system.attaque.${maxKeysAtt+1}`] = foundry.utils.mergeObject(foundry.utils.deepClone(CONFIG.MM3.StdAtk), {
             _id:foundry.utils.randomID(),
             label:game.i18n.localize('MM3.Adefinir'),
           });
@@ -3419,7 +3441,7 @@ export function normalizeData(actor, force=false) {
         },
         {
           value:0,
-          status:[],
+          status:dataAtk?.afflictionechec?.e3 ?? [],
         }];
         update[`system.attaque.${Object.keys(atk)[i]}.repeat.dmg`] = [{
           value:0,
@@ -3491,6 +3513,8 @@ export function normalizeData(actor, force=false) {
 
       update[`system.version`] = 1;
     }
+
+    console.warn(update);
 
     if(!foundry.utils.isEmpty(update) && actor._id !== null) {
       actor.update(update);

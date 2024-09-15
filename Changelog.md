@@ -1,3 +1,7 @@
+## Version 1.35.2
+### Bugfix
+- Correction de plusieurs problèmes sur les importations de portfolio.
+
 ## Version 1.35.1
 ### Bugfix
 - Correction du hook.
