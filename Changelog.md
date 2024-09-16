@@ -1,3 +1,7 @@
+## Version 1.35.3
+### Bugfix
+- Correction d'un bug empêchant les jets de compétence.
+
 ## Version 1.35.2
 ### Bugfix
 - Correction de plusieurs problèmes sur les importations de portfolio.

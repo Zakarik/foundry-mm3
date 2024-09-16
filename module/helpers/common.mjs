@@ -3007,11 +3007,12 @@ export function commonHTML(html, origin, data={}) {
       const atk = game.mm3.getAtk(origin, id)?.data ?? {noAtk:true};
       const hasShift = ev.shiftKey;
       const hasAlt = ev.altKey;
+      const isArea = atk?.area?.has ?? false;
       let total = Number(target.data('total'));
 
       let token = canvas.tokens.placeables.filter(token => token.actor === origin)[0];
       await Hooks.call('rollAttack', atk, token)
-      if(atk.area.has == true && game.waitForTemplatePlacementLater){ //the only way to wait for  mm3e-better-attacks to be finish targeting only runs if that module is installed
+      if(isArea == true && game.waitForTemplatePlacementLater){ //the only way to wait for  mm3e-better-attacks to be finish targeting only runs if that module is installed
         await game.waitForTemplatePlacementLater();
       }
       const tgt = game.user.targets.ids[0];
