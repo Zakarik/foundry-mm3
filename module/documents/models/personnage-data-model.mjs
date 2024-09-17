@@ -575,7 +575,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
         }
 
         Object.defineProperty(this.pp, 'competences', {
-            value: ppComp,
+            value: Math.ceil(ppComp),
         });
     }
 

@@ -610,8 +610,8 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
       };
 
       if(createItm) {
-        const ranks = pwr.ranks;
-        const cost = pwr.cost.value;
+        const ranks = parseInt(pwr.ranks);
+        const cost = parseInt(pwr.cost.value);
         const costCalc = costCalculate(ranks, cost);
         const calc = costCalc.parrang;
         const mod = costCalc.mod;
@@ -1776,6 +1776,8 @@ export function getActor(item) {
 export function costCalculate(ranks, cost) {
   let r = ranks ? ranks : 1;
   let c = cost ? cost : 1;
+
+  console.warn(ranks, cost);
 
   const calc = Math.max(Math.floor(Number(r)/Number(c)), 1);
   const mod = Number(c)-(Number(r)*calc);

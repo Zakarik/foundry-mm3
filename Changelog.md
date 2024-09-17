@@ -1,3 +1,7 @@
+## Version 1.35.4
+### Bugfix
+- Correction d'un bug rare d'importation depuis les portfolios et d'une erreur de calcul des PP.
+
 ## Version 1.35.3
 ### Bugfix
 - Correction d'un bug empêchant les jets de compétence.
