@@ -2653,7 +2653,10 @@ export async function rollAtk(actor, name, score, data, dataKey={}) {
 export async function rollPwr(actor, id, dataKey={}) {
   const optDices = game.settings.get("mutants-and-masterminds-3e", "typeroll");
   const pwr = actor.items.filter(item => item.id === id)[0];
+  let token = canvas.tokens.placeables.find(t=>t.actor.id == actor.id);
+  await Hooks.call('rollPower', pwr, token) 
   const type = pwr.system.special;
+  
   const rang = type === 'dynamique' ? actor.system.pwr[id].cout.rang : pwr.system.cout.rang;
   const name = pwr.name;
   const baseCrit = optDices === '3D6' ? 18 : 20;
