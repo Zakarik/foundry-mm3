@@ -1,3 +1,7 @@
+## Version 1.36
+### Bugfix
+- Ajout d'un hook sur les jets de pouvoirs
+
 ## Version 1.35.4
 ### Bugfix
 - Correction d'un bug rare d'importation depuis les portfolios et d'une erreur de calcul des PP.
