@@ -1,5 +1,9 @@
-## Version 1.36
+## Version 1.36.1
 ### Bugfix
+- Correction du calcul sur les jets de défense contre les attaques de zone.
+
+## Version 1.36
+### Améliorations
 - Ajout d'un hook sur les jets de pouvoirs
 
 ## Version 1.35.4

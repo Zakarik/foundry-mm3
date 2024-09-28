@@ -2349,7 +2349,7 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
   const roll = new Roll(`${dicesBase} + ${total} + ${dataStr.attaque} + ${mod}`);
   await roll.evaluate();
 
-  const tokenData = token.actor.system;
+  const tokenData = token?.actor?.system ?? {ddparade:0, ddesquive:0};
   const resultDie = roll.total-total-dataStr.attaque;
   const parade = Number(tokenData.ddparade);
   const esquive = Number(tokenData.ddesquive);
@@ -2386,7 +2386,7 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
         typeAtk:'area',
         target:tgt,
         saveType:'esquive',
-        vs:dataCbt.links.pwr === "" && dataCbt.links.ability === ""  ? Number(areaBase)+Number(dataStr.effet) : 10+Number(dataCbt.effet)+Number(dataStr.effet),
+        vs:10+Number(areaBase)+Number(dataCbt.effet)+Number(dataStr.effet),
       });
     }
     else if(isDmg && isAffliction) {
@@ -2654,9 +2654,9 @@ export async function rollPwr(actor, id, dataKey={}) {
   const optDices = game.settings.get("mutants-and-masterminds-3e", "typeroll");
   const pwr = actor.items.filter(item => item.id === id)[0];
   let token = canvas.tokens.placeables.find(t=>t.actor.id == actor.id);
-  await Hooks.call('rollPower', pwr, token) 
+  await Hooks.call('rollPower', pwr, token)
   const type = pwr.system.special;
-  
+
   const rang = type === 'dynamique' ? actor.system.pwr[id].cout.rang : pwr.system.cout.rang;
   const name = pwr.name;
   const baseCrit = optDices === '3D6' ? 18 : 20;
