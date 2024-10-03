@@ -251,6 +251,226 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
         this.#_atk();
     }
 
+    static migrateData(source) {
+        const attaque = source.attaque;
+
+        let atk = {};
+
+        for(let a in attaque) {
+            const dAtt = attaque[a];
+            let update = {};
+            if(
+                dAtt.dmgechec ||
+                !dAtt.repeat ||
+                dAtt.afflictionechec ||
+                !dAtt.save ||
+                dAtt.saveAffliction ||
+                dAtt.afflictiondef ||
+                dAtt.afflictioneffet ||
+                dAtt.defpassive ||
+                dAtt.basedef ||
+                dAtt.skill ||
+                dAtt.pwr ||
+                dAtt.nocrit
+            ) update = foundry.utils.mergeObject(CONFIG.MM3.StdAtk, {
+                _id:dAtt._id,
+                type:dAtt.type,
+                label:dAtt.label,
+                text:dAtt.text,
+                isDmg:dAtt?.isDmg ?? false,
+                attaque:dAtt?.attaque ?? 0,
+                critique:dAtt?.critique ?? 20,
+                effet:dAtt?.effet ?? 0,
+                isAffliction:dAtt?.isAffliction ?? false
+            });
+            else continue;
+
+            if(dAtt.dmgechec) {
+                const dmg1 = dAtt.dmgechec?.v1 ?? 1;
+                const dmg2 = dAtt.dmgechec?.v2 ?? 1;
+                const dmg3 = dAtt.dmgechec?.v3 ?? 1;
+                const dmg4 = dAtt.dmgechec?.v4 ?? 1;
+
+                update.repeat.dmg = [{
+                    value:dmg1,
+                    status:[]
+                },
+                {
+                    value:dmg2,
+                    status:['dazed']
+                },
+                {
+                    value:dmg3,
+                    status:['chanceling']
+                },
+                {
+                    value:dmg4,
+                    status:['neutralized']
+                }];
+
+                delete dAtt.dmgechec;
+            } else if(!dAtt.repeat) {
+                update.repeat.dmg = [{
+                    value:1,
+                    status:[]
+                },
+                {
+                    value:1,
+                    status:['dazed']
+                },
+                {
+                    value:1,
+                    status:['chanceling']
+                },
+                {
+                    value:1,
+                    status:['neutralized']
+                }];
+            }
+
+            if(dAtt.afflictionechec) {
+                update.repeat.affliction = [{
+                    value:0,
+                    status:dAtt.afflictionechec.e1.map(e => e.label)
+                },
+                {
+                    value:0,
+                    status:dAtt.afflictionechec.e2.map(e => e.label)
+                },
+                {
+                    value:0,
+                    status:dAtt.afflictionechec.e3.map(e => e.label)
+                },
+                {
+                    value:0,
+                    status:[]
+                }];
+
+                delete dAtt.afflictionechec;
+            } else if(!dAtt.repeat) {
+                update.repeat.affliction = [{
+                    value:0,
+                    status:[]
+                },
+                {
+                    value:0,
+                    status:[]
+                },
+                {
+                    value:0,
+                    status:[]
+                },
+                {
+                    value:0,
+                    status:[]
+                }]
+
+            }
+
+            if(typeof dAtt.save === 'string' || dAtt.save instanceof String) {
+                update.save.dmg.type = dAtt.save;
+                update.save.other.type = dAtt.save;
+            } else if(!dAtt.save) {
+                update.save.dmg.type = 'robustesse';
+                update.save.other.type = 'robustesse';
+            }
+
+            if(typeof dAtt.saveAffliction === 'string' || dAtt.saveAffliction instanceof String) {
+                update.save.affliction.type = dAtt.saveAffliction;
+
+                delete dAtt.saveAffliction;
+            } else if(!dAtt.saveAffliction) update.save.affliction.type = 'volonte';
+
+            if(dAtt.afflictiondef) {
+                update.save.affliction.defense = dAtt.afflictiondef;
+
+                delete dAtt.afflictiondef;
+            } else if(!dAtt.afflictiondef) update.save.affliction.defense = 10;
+
+            if(dAtt.afflictioneffet) {
+                update.save.affliction.effet = dAtt.afflictioneffet;
+
+                delete dAtt.afflictioneffet;
+            } else if(!dAtt.afflictioneffet) update.save.affliction.effet = 0;
+
+            if(dAtt.defpassive) {
+                update.save.passive.type = dAtt.defpassive;
+
+                delete dAtt.defpassive;
+            } else if(!dAtt.defpassive) update.save.passive.type = 'parade';
+
+            if(dAtt.basedef) {
+                update.save.dmg.defense = dAtt.basedef;
+                update.save.other.defense = dAtt.basedef;
+
+                delete dAtt.basedef;
+            } else if(!dAtt.basedef) {
+                update.save.dmg.defense = 15;
+                update.save.other.defense = 15;
+            }
+
+            if(dAtt.effet) {
+                update.save.dmg.effet = dAtt.effet;
+            } else if(!dAtt.effet) update.save.dmg.effet = 0;
+
+            if(dAtt.skill) {
+                update.links.skill = dAtt.skill;
+
+                delete dAtt.skill;
+            } else if(!dAtt.skill) update.links.skill = '';
+
+            if(dAtt.pwr) {
+                update.links.pwr = dAtt.pwr;
+
+                delete dAtt.pwr;
+            } else if(!dAtt.pwr) {
+                update.links.pwr = '';
+            }
+
+            if(dAtt.noatk) {
+                update.settings.noatk = dAtt.noatk;
+
+                delete dAtt.noatk;
+            } else if(!dAtt.noatk) {
+                update.settings.noatk = false;
+            }
+
+            if(dAtt.nocrit) {
+                update.settings.nocrit = dAtt.nocrit;
+
+                delete dAtt.nocrit;
+            } else if(!dAtt.nocrit) {
+                update.settings.nocrit = false;
+            }
+
+            if(typeof dAtt.area === 'boolean' || dAtt.area instanceof Boolean) {
+                update.area.has = dAtt.area;
+
+                delete dAtt.area;
+            } else if(!dAtt.area) {
+                update.area.has = false;
+            }
+
+            if(typeof (dAtt?.mod?.area ?? false) === 'number' || (dAtt?.mod?.area ?? false) instanceof Number) {
+                update.area.esquive = dAtt?.mod?.area ?? 0;
+
+                delete dAtt.mod.area;
+            } else if(!dAtt?.mod?.area ?? false) update.area.esquive = 0;
+
+            if(!dAtt?.save?.other?.defense ?? false) update.save.other.defense = 15;
+            if(!dAtt?.links?.ability ?? false) update.links.ability = '';
+
+            atk[a] = Object.assign(atk[a] || {}, update);
+        }
+
+        if(Object.keys(atk).length > 0 && source.version < 2) {
+            source.attaque = atk;
+            source.version = 2;
+        }
+
+        return super.migrateData(source);
+    }
+
     #_strValue() {
         let attaque = 0;
         let defense = 0;

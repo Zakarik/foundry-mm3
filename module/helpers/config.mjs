@@ -299,31 +299,31 @@ MM3.StdAtk = {
         aby:'',
     },
     save:{
-    dmg:{
-        type:'robustesse',
-        defense:15,
-        effet:0,
-    },
-    affliction:{
-        type:'volonte',
-        defense:10,
-        effet:0,
-    },
-    other:{
-        type:'robustesse',
-        defense:15,
-    },
-    passive:{
-        type:'parade',
-    }
+        dmg:{
+            type:'robustesse',
+            defense:15,
+            effet:0,
+        },
+        affliction:{
+            type:'volonte',
+            defense:10,
+            effet:0,
+        },
+        other:{
+            type:'robustesse',
+            defense:15,
+        },
+        passive:{
+            type:'parade',
+        }
     },
     settings:{
-    noatk:false,
-    nocrit:false,
+        noatk:false,
+        nocrit:false,
     },
     area:{
-    has:false,
-    esquive:0,
+        has:false,
+        esquive:0,
     },
     repeat:{
     affliction:[
@@ -364,8 +364,8 @@ MM3.StdAtk = {
     ]
     },
     mod:{
-    atk:0,
-    eff:0,
+        atk:0,
+        eff:0,
     },
     label:'',
     type:'other',
