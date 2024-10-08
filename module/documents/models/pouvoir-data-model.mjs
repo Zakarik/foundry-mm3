@@ -199,6 +199,8 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
     }
 
     #_effects() {
+        if(this.actor.permission !== 3) return;
+
         const isactive = this.activate;
         const nactive = isactive ? false : true;
         const actor = this.actor;

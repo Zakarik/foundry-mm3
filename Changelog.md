@@ -1,3 +1,9 @@
+## Version 1.36.2
+### Bugfix
+- Correction d'un bug avec de compatibilité avec d'anciennes versions de personnages.
+- Correction d'un bug affichant des erreurs avec les modificateurs.
+- Correction d'un bug empêchant les jets de dés dans certains cas.
+
 ## Version 1.36.1
 ### Bugfix
 - Correction du calcul sur les jets de défense contre les attaques de zone.

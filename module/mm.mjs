@@ -1356,8 +1356,11 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
   let result = undefined;
 
  let token = canvas.tokens.placeables.filter(token => token.actor.id === actor.id)[0];
+
   await Hooks.call('rollAttack', atk, token,strategie, hasAlt);
-  if(atk.area.has == true && game.waitForTemplatePlacementLater){ //the only way to wait for  mm3e-better-attacks to be finish targeting only runs if that module is installed
+  const hasArea = atk?.area?.has ?? false;
+
+  if(hasArea == true && game.waitForTemplatePlacementLater){ //the only way to wait for  mm3e-better-attacks to be finish targeting only runs if that module is installed
     await game.waitForTemplatePlacementLater();
   }
   const tgt = game.user.targets.ids[0];
