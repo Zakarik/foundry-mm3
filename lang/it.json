@@ -40,6 +40,7 @@
       "Chanceling":"Barcollante",
       "Enthralled":"In Trance",
       "Influenced":"Sottomesso",
+      "Eye":"Sottomesso",
       "Exhausted":"Esausto",
       "Tied":"Legato",
       "Dying":"Morente",
@@ -49,7 +50,9 @@
       "Prone":"Prono",
       "Blind":"Accecato",
       "Asleep":"Addormentato",
+      "Sleep":"Addormentato",
       "Restrained":"Bloccato",
+      "Restrain":"Bloccato",
       "Paralysis":"Paralizzato",
       "Deaf":"Assordato",
       "Stunned":"Stordito"
@@ -141,7 +144,7 @@
       "ModEffet":"Modificatore di effetti"
     },
     "STRATEGIE":{
-      "Attaqueprecision":"Attacco Preciso",
+      "Attaqueprecision":"Attacco Accurato",
       "Attaqueoutrance":"Attacco Pieno",
       "Attaquedefensive":"Attacco Difensivo",
       "Attaquepuissance":"Attacco Poderoso",
@@ -182,7 +185,7 @@
         "Attaque":"Attacco",
         "Controle":"Controllo",
         "Defense":"Difesa",
-        "Generaux":"Generale",
+        "Generaux":"Generico",
         "Mouvement":"Movimento",
         "Sensoriels":"Sensoriale"
       },
@@ -368,11 +371,11 @@
       "Ranks":"Mod. per grado",
       "Variante":"Variante",
       "STRATEGIE":{
-        "AttaqueprecisionAttaque":"Limite di attacco preciso (Attacco)",
+        "AttaqueprecisionAttaque":"Limite di attacco accurato (Attacco)",
         "AttaqueoutranceAttaque":"Limite di attacco pieno (Attacco)",
         "AttaquedefensiveAttaque":"Limite di attacco difensivo (Attacco)",
         "AttaquepuissanceAttaque":"Limite di attacco poderoso (Attacco)",
-        "AttaqueprecisionEffet":"Limite di Attacco preciso (Effetto)",
+        "AttaqueprecisionEffet":"Limite di Attacco accurato (Effetto)",
         "AttaqueoutranceDefense":"Limite di attacco pieno (Difesa)",
         "AttaquedefensiveDefense":"Limite di attacco difensivo (Difesa)",
         "AttaquepuissanceEffet":"Limite di attacco poderoso (effetto)"
@@ -394,7 +397,7 @@
     "Talents":"Vantaggi",
     "Equipements":"Equipaggiamento",
     "Competences":"Abilità",
-    "Attaques":"Attacchi",
+    "Attaques":"Attacco",
     "Strategies":"Manovre",
     "Defenses":"Difese",
     "Description":"Descrizione",

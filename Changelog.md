@@ -1,3 +1,7 @@
+## Version 1.36.3
+### Bugfix
+- Correction d'un bug dans la localisation italienne.
+
 ## Version 1.36.2
 ### Bugfix
 - Correction d'un bug avec de compatibilité avec d'anciennes versions de personnages.
