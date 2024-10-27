@@ -624,7 +624,12 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                 const itm = this.items.get(r);
 
                 if(itm) {
-                    if(itm.system.special === 'dynamique') {
+                    if(itm.type === 'talent') {
+                        const rnk = itm?.system?.rang ?? 0;
+
+                        ranksValue += rnk*ranks?.[r] ?? 0;
+                    }
+                    else if(itm.system.special === 'dynamique') {
                         const rDyn = itm?.system?.cout?.rangDyn ?? 0;
 
                         ranksValue += rDyn*ranks?.[r] ?? 0;
@@ -640,9 +645,13 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                 const itm = this.items.get(r);
 
                 if(itm) {
-                    if(itm.system.special === 'dynamique') {
+                    if(itm.type === 'talent') {
+                        surchargeRanksValue = Math.max(itm.system.rang*surchargeRanks[r], surchargeRanksValue);
+                    }
+                    else if(itm.system.special === 'dynamique') {
                         surchargeRanksValue = Math.max(itm.system.cout.rangDyn*surchargeRanks[r], surchargeRanksValue);
-                    } else {
+                    }
+                    else {
                         surchargeRanksValue = Math.max(itm.system.cout.rang*surchargeRanks[r], surchargeRanksValue);
                     }
                 }

@@ -1,3 +1,7 @@
+## Version 1.36.4
+### Bugfix
+- Correction d'un bug dans les modificateurs pour les talents.
+
 ## Version 1.36.3
 ### Bugfix
 - Correction d'un bug dans la localisation italienne.
