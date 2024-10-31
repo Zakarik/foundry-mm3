@@ -1,3 +1,8 @@
+## Version 1.36.5
+### Bugfix
+- Correction d'un bug de migration que je n'avais pas vu jusqu'à présent.
+- Correction d'un bug d'affichage, qui n'affichait pas correctement le "/ rangs" dans les modificateurs.
+
 ## Version 1.36.4
 ### Bugfix
 - Correction d'un bug dans les modificateurs pour les talents.

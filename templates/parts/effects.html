@@ -28,7 +28,12 @@
                             <i class="fa-solid fa-trash deleteMod clickable" title="{{localize 'CNK.TRAIT.SupprimerBonus'}}"></i>
                             {{labelize (getLabelTranslate change.key)}}
                         </span>
-                        <span class="value">{{ifThen (eq (getLast change.key) 'surcharge') (numberFormat change.value sign=false) (numberFormat change.value sign=true)}}</span>
+                        <span class="value">
+                            {{ifThen (or (eq (getLast change.key) 'surcharge') (eq (getLast change.key) 'surchargeranks')) (numberFormat change.value sign=false) (numberFormat change.value sign=true)}}
+                            {{#if (or (eq (getLast change.key) 'ranks') (eq (getLast change.key) 'surchargeranks'))}}
+                            / {{localize 'MM3.Rang'}}
+                            {{/if}}
+                        </span>
                     </div>
                 </div>
                 {{/each}}
@@ -65,7 +70,7 @@
                     </span>
                     <span class="value">
                         {{ifThen (or (eq (getLast change.key) 'surcharge') (eq (getLast change.key) 'surchargeranks')) (numberFormat change.value sign=false) (numberFormat change.value sign=true)}}
-                        {{#if (or (eq (getLast change.key) 'effectsranks') (eq (getLast change.key) 'surchargeranks'))}}
+                        {{#if (or (eq (getLast change.key) 'ranks') (eq (getLast change.key) 'surchargeranks'))}}
                         / {{localize 'MM3.Rang'}}
                         {{/if}}
                     </span>

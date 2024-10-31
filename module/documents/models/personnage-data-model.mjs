@@ -145,7 +145,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
         strategie['limite'] = new SchemaField(limite);
 
         let data = {
-            version:new NumberField({ initial: 1}),
+            version:new NumberField({ initial: 2}),
             identite:new SchemaField({
                 name:new StringField({ initial: ""}),
                 secret:new BooleanField({ initial: false}),
@@ -264,92 +264,95 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                 const dmg3 = dAtt.dmgechec?.v3 ?? 1;
                 const dmg4 = dAtt.dmgechec?.v4 ?? 1;
 
-                let update = {
-                    _id:dAtt._id,
-                    label:dAtt.label,
-                    text:dAtt.text,
-                    isDmg:dAtt?.isDmg ?? false,
-                    isAffliction:dAtt?.isAffliction ?? false,
-                    attaque:dAtt?.attaque ?? 0,
-                    critique:dAtt?.critique ?? 20,
-                    effet:dAtt?.effet ?? 0,
-                    repeat:{
-                        dmg:[{
-                            value:dmg1,
-                            status:[]
+                if(!dAtt?.repeat) {
+                    let update = {
+                        _id:dAtt._id,
+                        label:dAtt.label,
+                        text:dAtt.text,
+                        isDmg:dAtt?.isDmg ?? false,
+                        isAffliction:dAtt?.isAffliction ?? false,
+                        attaque:dAtt?.attaque ?? 0,
+                        critique:dAtt?.critique ?? 20,
+                        effet:dAtt?.effet ?? 0,
+                        repeat:{
+                            dmg:[{
+                                value:dmg1,
+                                status:[]
+                            },
+                            {
+                                value:dmg2,
+                                status:['dazed']
+                            },
+                            {
+                                value:dmg3,
+                                status:['chanceling']
+                            },
+                            {
+                                value:dmg4,
+                                status:['neutralized']
+                            }],
+                            affliction:[{
+                                value:0,
+                                status:dAtt.afflictionechec.e1.map(e => e.label)
+                            },
+                            {
+                                value:0,
+                                status:dAtt.afflictionechec.e2.map(e => e.label)
+                            },
+                            {
+                                value:0,
+                                status:dAtt.afflictionechec.e3.map(e => e.label)
+                            },
+                            {
+                                value:0,
+                                status:[]
+                            }],
                         },
-                        {
-                            value:dmg2,
-                            status:['dazed']
+                        links:{
+                            skill:dAtt?.skill ?? '',
+                            pwr:dAtt?.pwr ?? '',
+                            aby:'',
+                            ability:''
                         },
-                        {
-                            value:dmg3,
-                            status:['chanceling']
+                        save:{
+                            dmg:{
+                                type:dAtt?.save ?? 'robustesse',
+                                defense:dAtt?.basedef ?? 15,
+                                effet:dAtt?.effet ?? 0,
+                            },
+                            other:{
+                                type:dAtt?.save ?? 'robustesse',
+                                defense:dAtt?.basedef ?? 15,
+                            },
+                            aflliction:{
+                                type:dAtt?.saveAffliction ?? 'volonte',
+                                defense:dAtt?.afflictiondef ?? 10,
+                                effet:dAtt?.afflictioneffet ?? 0,
+                            },
+                            passive:{
+                                type:dAtt?.defpassive ?? 'parade',
+                            }
                         },
-                        {
-                            value:dmg4,
-                            status:['neutralized']
-                        }],
-                        affliction:[{
-                            value:0,
-                            status:dAtt.afflictionechec.e1.map(e => e.label)
+                        area:{
+                            has:dAtt?.area ?? false,
+                            esquive:dAtt?.mod?.area ?? 0,
                         },
-                        {
-                            value:0,
-                            status:dAtt.afflictionechec.e2.map(e => e.label)
-                        },
-                        {
-                            value:0,
-                            status:dAtt.afflictionechec.e3.map(e => e.label)
-                        },
-                        {
-                            value:0,
-                            status:[]
-                        }],
-                    },
-                    links:{
-                        skill:dAtt?.skill ?? '',
-                        pwr:dAtt?.pwr ?? '',
-                        aby:'',
-                        ability:''
-                    },
-                    save:{
-                        dmg:{
-                            type:dAtt?.save ?? 'robustesse',
-                            defense:dAtt?.basedef ?? 15,
-                            effet:dAtt?.effet ?? 0,
-                        },
-                        other:{
-                            type:dAtt?.save ?? 'robustesse',
-                            defense:dAtt?.basedef ?? 15,
-                        },
-                        aflliction:{
-                            type:dAtt?.saveAffliction ?? 'volonte',
-                            defense:dAtt?.afflictiondef ?? 10,
-                            effet:dAtt?.afflictioneffet ?? 0,
-                        },
-                        passive:{
-                            type:dAtt?.defpassive ?? 'parade',
+                        settings:{
+                            noatk:dAtt?.noatk ?? false,
+                            nocrit:dAtt?.nocrit ?? false,
                         }
-                    },
-                    area:{
-                        has:dAtt?.area ?? false,
-                        esquive:dAtt?.mod?.area ?? 0,
-                    },
-                    settings:{
-                        noatk:dAtt?.noatk ?? false,
-                        nocrit:dAtt?.nocrit ?? false,
-                    }
-                };
+                    };
 
-                atk[a] = Object.assign(atk[a] || {}, update);
+                    atk[a] = Object.assign(atk[a] || {}, update);
+                }
             }
         }
 
         if(Object.keys(atk).length > 0 && source.version < 2) {
             source.attaque = atk;
-            source.version = 2;
         }
+
+        if(source.version < 2) source.version = 2;
 
         return super.migrateData(source);
     }
