@@ -874,7 +874,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                     let rang = Number(dataPwr?.system?.cout?.rang ?? 1)
                     let modEff = Number(atkData?.mod?.eff ?? 0);
 
-                    if(dataPwr.system.special === 'dynamique') rang = this.pwr?.[pwr]?.cout?.rang ?? 0;
+                    if(dataPwr?.system.special === 'dynamique') rang = this.pwr?.[pwr]?.cout?.rang ?? 0;
 
                     effet += rang+modEff;
                 }
