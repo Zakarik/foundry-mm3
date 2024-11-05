@@ -1,3 +1,7 @@
+## Version 1.36.6
+### Bugfix
+- Correction d'un bug affichant des erreurs lorsqu'une attaque était liée a un pouvoir n'existant plus.
+
 ## Version 1.36.5
 ### Bugfix
 - Correction d'un bug de migration que je n'avais pas vu jusqu'à présent.
