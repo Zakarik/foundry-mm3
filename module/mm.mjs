@@ -1355,7 +1355,7 @@ async function RollMacro(actorId, sceneId, tokenId, type, what, id, author, even
 
   let result = undefined;
 
- let token = canvas.tokens.placeables.filter(token => token.actor.id === actor.id)[0];
+ let token = canvas.tokens.placeables.filter(token => token.actor && token.actor.id === actor.id)[0];
 
   await Hooks.call('rollAttack', atk, token,strategie, hasAlt);
   const hasArea = atk?.area?.has ?? false;
