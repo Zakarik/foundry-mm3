@@ -1156,11 +1156,12 @@ Hooks.on('renderChatMessage', (message, html, data) => {
 
       if(token.actor.ownership[game.user.id] !== 3 && token.actor.ownership.default !== 3) return;
 
-      const tokenData = token.actor.system;
-      const saveScore = tokenData.defense[savetype].total;
+      const tokenActor = token.actor;
+      const tokenData = tokenActor.system;
+      const saveScore = tokenActor.type === 'vehicule' ? tokenData.caracteristique[savetype].total : tokenData.defense[savetype].total;
       const name = `${game.i18n.localize(CONFIG.MM3.defenses[savetype])}`;
 
-      rollVs(token.actor, name, saveScore, vs, {typeAtk:typeAtk, atk:dataAtk, str:dataStr, tkn:token}, {alt:hasAlt});
+      rollVs(tokenActor, name, saveScore, vs, {typeAtk:typeAtk, atk:dataAtk, str:dataStr, tkn:token}, {alt:hasAlt});
   });
 
   if(isInitiative) {

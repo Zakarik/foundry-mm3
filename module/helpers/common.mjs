@@ -2349,10 +2349,11 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
   const roll = new Roll(`${dicesBase} + ${total} + ${dataStr.attaque} + ${mod}`);
   await roll.evaluate();
 
-  const tokenData = token?.actor?.system ?? {ddparade:0, ddesquive:0};
+  const tokenActor = token?.actor ?? {};
+  const tokenData = tokenActor?.system ?? {ddparade:0, ddesquive:0};
   const resultDie = roll.total-total-dataStr.attaque;
-  const parade = Number(tokenData.ddparade);
-  const esquive = Number(tokenData.ddesquive);
+  const parade = tokenActor.type === 'vehicule' ? Number(tokenData.caracteristique.defense.total) : Number(tokenData.ddparade);
+  const esquive = tokenActor.type === 'vehicule' ? Number(tokenData.caracteristique.defense.total) : Number(tokenData.ddesquive);
   const sCritique = dataCbt.critique;
   const noCrit = dataCbt.settings.nocrit ? true : false;
   const isArea = dataCbt?.area?.has ?? false;
@@ -2381,35 +2382,57 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
 
     let btn = [];
 
-    if(isArea) {
+    console.warn(isDmg, tokenActor.type, saveType)
+
+    if(isArea && tokenActor.type !== 'vehicule') {
       btn.push({
         typeAtk:'area',
         target:tgt,
         saveType:'esquive',
         vs:10+Number(areaBase)+Number(dataCbt.effet)+Number(dataStr.effet),
       });
-    }
-    else if(isDmg && isAffliction) {
-      btn.push({
-        typeAtk:'dmg',
-        target:tgt,
-        saveType:saveType,
-        vs:Number(dataCbt.save.dmg.effet)+Number(dataStr.effet)+Number(dataCbt.save.dmg.defense),
-      },
-      {
-        typeAtk:'affliction',
-        target:tgt,
-        saveType:saveAffliction,
-        vs:Number(dataCbt.save.affliction.effet)+Number(dataStr.effet)+Number(dataCbt.save.affliction.defense),
-      });
-    } else if(isDmg) {
+    } else if(isDmg && isAffliction) {
+      if(tokenActor.type === 'vehicule') {
+        if(saveType === 'robustesse') {
+          btn.push({
+            typeAtk:'dmg',
+            target:tgt,
+            saveType:saveType,
+            vs:Number(dataCbt.save.dmg.effet)+Number(dataStr.effet)+Number(dataCbt.save.dmg.defense),
+          });
+        }
+
+        if(saveAffliction === 'robustesse') {
+          btn.push(
+          {
+              typeAtk:'affliction',
+              target:tgt,
+              saveType:saveAffliction,
+              vs:Number(dataCbt.save.affliction.effet)+Number(dataStr.effet)+Number(dataCbt.save.affliction.defense),
+          });
+        }
+      } else {
+        btn.push({
+          typeAtk:'dmg',
+          target:tgt,
+          saveType:saveType,
+          vs:Number(dataCbt.save.dmg.effet)+Number(dataStr.effet)+Number(dataCbt.save.dmg.defense),
+        },
+        {
+          typeAtk:'affliction',
+          target:tgt,
+          saveType:saveAffliction,
+          vs:Number(dataCbt.save.affliction.effet)+Number(dataStr.effet)+Number(dataCbt.save.affliction.defense),
+        });
+      }
+    } else if(isDmg && (tokenActor.type !== 'vehicule' || (tokenActor.type === 'vehicule' && saveType === 'robustesse'))) {
       btn.push({
         typeAtk:'dmg',
         target:tgt,
         saveType:saveType,
         vs:dataCbt.links.pwr === "" && dataCbt.links.ability === "" ? Number(dataCbt.save.dmg.effet)+Number(dataStr.effet)+Number(dataCbt.save.dmg.defense) : Number(dataCbt.effet)+Number(dataStr.effet)+Number(dataCbt.save.dmg.defense),
       });
-    } else if(isAffliction) {
+    } else if(isAffliction && (tokenActor.type !== 'vehicule' || (tokenActor.type === 'vehicule' && saveAffliction === 'robustesse'))) {
       btn.push({
         typeAtk:'affliction',
         target:tgt,

@@ -1,3 +1,7 @@
+## Version 1.36.8
+### Bugfix
+- Correction d'un bug empêchant le fonctionnement normal des attaques contre les véhicules.
+
 ## Version 1.36.7
 ### Bugfix
 - Correction d'un bug empêchant les jets d'attaques dans certains cas.
