@@ -26,11 +26,11 @@ export const measureDistances = function (segments, options = {}) {
         let spaces = (nd10 * 2) + (nd - nd10) + ns;
         return spaces * canvas.dimensions.distance;
       } else if (rule == "EQUIDISTANT") {
-        return (ns + nd) * canvas.scene.data.gridDistance;
+        return (ns + nd) * canvas.scene.data.grid.distance;
       }
   
       // Standard Manhattan Movement
-      return (ns + nd + nDiagonal) * canvas.scene.data.gridDistance;
+      return (ns + nd + nDiagonal) * canvas.scene.data.grid.distance;
     });
   };
   
