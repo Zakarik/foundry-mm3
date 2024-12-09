@@ -1,7 +1,7 @@
 {
-  "id": "mutants-and-masterminds-3e-sb",
-  "title": "Mutants and Masterminds 3E-sb",
-  "description": "Fiche non officielle Mutants & Masterminds 3E-sb",
+  "id": "mutants-and-masterminds-3e",
+  "title": "Mutants and Masterminds 3E",
+  "description": "Fiche non officielle Mutants & Masterminds 3E",
   "version": "#{VERSION}#",
   "esmodules": ["module/mm.mjs"],
   "styles": ["styles/mm.css"],
