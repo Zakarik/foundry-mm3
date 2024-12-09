@@ -1,0 +1,195 @@
+div.tabeffects {
+    @include fakebutton('btn');
+
+    &.active {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 5px;
+
+        align-items: flex-start;
+        align-content: flex-start;
+
+        >span {
+            &.label {
+                grid-column: 1 / 3;
+
+                display: grid;
+                grid-template-columns: 1fr;
+                justify-content: center;
+                position: relative;
+                text-align: center;
+                align-items: center;
+                align-content:center;
+                font-size: 16px;
+    
+                a, i {
+                    position: absolute;
+                    font-size: 14px;
+                }
+    
+                a {
+                    width: 250px;
+                    justify-content: left;
+                    height: 23px;
+    
+                    &.btnEdit {
+                        i {
+                            font-size: 16px;
+                        }
+                    }
+                }
+    
+                i {
+                    right: 0px;
+                    font-size: 26px;
+                    cursor: pointer;
+    
+                    &:hover {
+                        color: $lightOrange;
+                    }
+                }
+            }
+        }
+
+        >a {
+            &.saveMod {
+                grid-column: 1 / 3;
+            }
+        }
+    }
+
+    div.effects {
+        border: 1px solid;
+        border-radius: 5px;
+        padding-bottom: 5px;
+
+        div {
+            &.header {
+                display: grid;
+                grid-template-columns: 1fr;
+                justify-content: center;
+                position: relative;
+                text-align: center;
+                align-items: center;
+                align-content:center;
+                font-size: 16px;
+                border-bottom: 1px solid;
+                margin-bottom: 5px;
+
+                input {
+                    text-align: center;
+                    font-variant: small-caps;
+                    border: 0px;
+                    border-radius: 0px;
+                    padding-right: 25px;
+                    padding-left: 25px;
+                }
+    
+                a, i {
+                    position: absolute;
+                    font-size: 14px;
+                }
+
+                i {
+                    &.deleteVMod {
+                        left: 5px;
+                        font-size: 16px;
+                        cursor: pointer;
+                    }
+                    
+                    &.addMod {
+                        right: 5px;
+                        font-size: 26px;
+                        cursor: pointer;
+                    }
+    
+                    &:hover {
+                        color: $lightOrange;
+                    }
+                }
+            }
+
+            &.effectsBlock {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-gap: 5px;
+                align-items: flex-start;
+                align-content: flex-start;
+            }
+    
+            &.effectsChanges {
+                display: grid;
+                grid-template-columns: 1fr;     
+                padding-left: 5px;
+      
+                i {
+                    cursor: pointer;
+    
+                    &:hover {
+                        color: $lightOrange;
+                    }
+                }
+            }
+    
+    
+            &.toEdit {
+                display: none;
+                grid-template-columns: max-content 1fr 150px 50px;
+                grid-gap: 5px;
+                align-items: center;
+                align-content: center;
+    
+                input {
+                    text-align: center;
+                    height: 27px;
+                }
+            }
+    
+            &.show {
+                display: grid;
+                grid-template-columns: 1fr 80px;
+    
+                span {
+                    display: grid;
+                    align-items: center;
+                    height: 27px;
+                    grid-gap: 13px;
+    
+                    &.header {
+                        grid-template-columns: max-content 1fr;
+                    }
+    
+                    &.value {
+                        text-align: center;
+                        letter-spacing: 1px;
+                    }
+                }
+            }
+        }
+
+        &.single {
+            grid-column: 1 / 3;
+
+            a {
+                &.btnEdit {
+                    width: 250px;
+                    justify-content: left;
+                    height: 23px;
+                    margin-left: 5px;
+                }
+            }
+        }
+    
+        &.edit {
+            div {
+                &.toEdit {
+                    display: grid;
+                }
+    
+                &.show {
+                    display: none;
+                }
+            }
+        }
+    }
+}

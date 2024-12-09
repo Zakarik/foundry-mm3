@@ -1,0 +1,92 @@
+<div class="dice-roll mm3-roll">
+    <div class="dice-result">
+        {{#if flavor}}
+        <h4 class="dice-total flavor">{{flavor}}</h4>
+        {{/if}}
+        {{#if tgtName}}
+            <h4 class="dice-total formula tgtName">{{localize "MM3.Cible"}} : {{tgtName}}</h4>
+        {{/if}}
+        {{#if formula}}
+            <h4 class="dice-total formula">{{formula}}</h4>
+        {{/if}}
+        {{#if tooltip}} {{{tooltip}}} {{/if}}
+        {{#if result}}
+        <h4 class="dice-total result">
+            {{result}}
+        </h4>
+        {{/if}}
+        {{#if isCritique}}
+        <h4 class="dice-total result critique">
+            {{localize "MM3.ROLL.Critique"}} !
+        </h4>
+        {{/if}}
+        {{#if isCombat}}
+            {{#if result}}
+            <h4 class="dice-total attack">
+                {{#if isSuccess}}
+                    {{localize "MM3.ROLL.AttSuccess"}}
+                {{else}}
+                    {{localize "MM3.ROLL.AttFail"}}
+                {{/if}}
+            </h4>
+            <div class="dice-tooltip dataAttack toHide">
+                <div class="inner">
+                    <span>{{type}} : {{defense}}</span>
+                </div>
+            </div>
+            {{/if}}
+            {{#if isSuccess}}
+                {{#if degreSuccess}}
+                <div class="dice-tooltip dataAttack">
+                    <div class="inner">
+                        <span>{{singularOrPlural degreSuccess 'success'}} : {{degreSuccess}}</span>
+                    </div>
+                </div>
+                {{/if}}
+
+                {{#each btn as | key dBtn |}}
+                    <div class="btn">
+                        <button class="btnRoll" data-type="{{key.typeAtk}}" data-target="{{key.target}}" data-savetype="{{key.saveType}}" data-vs="{{key.vs}}" data-dAtk="{{@root/dataAtk}}" data-dStr="{{@root/dataStr}}">
+                            {{translate 'jetdefenses' key.saveType}}
+                        </button>
+                    </div>
+                {{/each}}
+            {{/if}}
+        {{/if}}
+        {{#if vs}}
+            <h4 class="dice-total attack">
+                {{#if isSuccess}}
+                    {{localize "MM3.ROLL.Success"}}
+                {{else}}
+                    {{localize "MM3.ROLL.Fail"}}
+                {{/if}}
+            </h4>
+            <div class="dice-tooltip dataAttack toHide">
+                <div class="inner">
+                    <span>{{localize "MM3.ROLL.DD"}} : {{vs}}</span>
+                </div>
+            </div>
+            {{#if hasMarge}}
+            <h4 class="dice-total attack">
+                {{singularOrPlural resultMarge successOrFail}} : {{resultMarge}}
+            </h4>
+            {{/if}}
+            {{#each btn as | key dBtn |}}
+                <div class="btn">
+                    <button class="btnRoll" data-type="{{key.typeAtk}}" data-target="{{key.target}}" data-savetype="{{key.saveType}}" data-vs="{{key.vs}}" data-dAtk="{{@root/dataAtk}}" data-dStr="{{@root/dataStr}}">
+                        {{translate 'jetdefenses' key.saveType}}
+                    </button>
+                </div>
+            {{/each}}
+        {{/if}}
+        {{#if effet}}
+            <h4 class="dice-total attack">
+                {{localize "MM3.DEFENSE.DDDefense"}} : {{effet}}
+            </h4>
+        {{/if}}
+        {{#if text}}
+            <span class="text">{{text}}</span>
+        {{/if}}
+        <h4 class="bottom"></h4>
+    </div>
+</div>

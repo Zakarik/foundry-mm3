@@ -1,0 +1,177 @@
+div {
+    &.informations {
+        border:1px solid $grey;
+        border-top-color:$black;
+        padding: 5px;
+
+        img.profile-img {
+            object-fit: contain;
+        }
+
+        div {
+            &.inner {
+                display:grid;
+                grid-template-columns: 200px 1fr;
+                grid-gap:5px;
+            }
+
+            &.block,
+            &.complications {
+                display:grid;
+                grid-template-columns: 100%;
+                grid-template-rows: max-content;
+                border:2px solid $black;
+
+                >span {
+                    font-variant: small-caps;
+                    font-size: 15px;
+                    padding-left: 15px;
+                }
+
+                div.editor {
+                    min-height:50px;
+                    border-top:1px solid;
+                    border-top-color: $color;
+
+                    a.editor-edit {
+                        height: 30px;
+                        width: 30px;
+                        text-align: center;
+                    }
+
+                    div {
+                        &.editor-content {
+                            padding-left: 5px;
+                            padding-right: 5px;
+                        }
+
+                        &.tox-tinymce {
+                            min-height:300px;
+                        }
+                    }
+                }
+            }
+
+            &.subBlock {
+                display:grid;
+                grid-template-columns: 100%;
+                grid-template-rows: max-content;
+            }
+
+            &.complications {
+                input {
+                    border-radius:0px;
+                    border:0px;
+                    padding-left:35px;
+                    font-variant: small-caps;
+                    font-size: 17px;
+                    font-weight: bold;
+                    color:$color;
+                }
+
+                div {
+                    &.header {
+                        width:100%;
+                        position:relative;
+
+                        i.delete {
+                            cursor:pointer;
+                            position:absolute;
+                            right:5px;
+                            top:6px;
+
+                            &:hover {
+                                text-shadow: 0px 0px 3px;
+                            }
+                        }
+
+                        &:first-of-type {
+                            border-top:1px solid;
+                            border-top-color: $color;
+                        }
+                    }
+
+                    &.editor {
+                        border-top-style: dashed;
+
+                        &:last-of-type {
+                            border-bottom:1px solid;
+                            border-bottom-color: $color;
+                        }
+                    }
+                }
+
+                a.add {
+                    text-align: center;
+                    width:calc(100% - 4px);
+                    border-bottom: 2px solid #666;
+                    border-color: #aaa;
+                    border-radius: 5px;
+                    border-right: 3px solid #999;
+                    border-style: outset;
+                    font-family: "Bangers";
+                    font-size: 13px;
+                    font-weight: normal;
+                    line-height: 18px;
+                    cursor: pointer;
+                    color: $color;
+                    text-transform: uppercase;
+                    padding: 2px 5px;
+                    margin-top: 2px;
+                    margin-left:2px;
+                    margin-bottom:2px;
+
+                    &:hover {
+                        color: $lightOrange;
+                        border-color:$red;
+                        letter-spacing: 1px;
+                        text-shadow:none;
+                    }
+                }
+            }
+
+            &.twoBlock {
+                grid-column-start: 1;
+                grid-column-end:3;
+            }
+
+            span {
+                &.deploy {
+                    display: flex;
+                    align-items: center;
+                    position: absolute;
+                    top: 1px;
+                    left: 5px;
+
+                    i {
+                        left:5px;
+                        cursor:pointer;
+
+                        &::before {
+                            border: 1px solid $black;
+                            font-size: 13px;
+                            border-radius: 30px;
+                            width: 23px;
+                            text-align: center;
+                            color: $black;
+                            height: 23px;
+                            display:block;
+                        }
+
+                        &.plus {
+                            &::before {
+                                content: "+";
+                            }
+                        }
+
+                        &.minus {
+                            &::before {
+                                content: "-";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

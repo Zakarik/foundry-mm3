@@ -1,0 +1,109 @@
+<div class="attaque">
+    <span class="header">{{localize "MM3.Attaques"}}</span>
+
+    <div class="line">
+        <span></span>
+        <span class="label">
+            {{localize "MM3.ATTAQUE.Initiative"}}
+        </span>
+        <span class="score total">{{systemData.initiative.total}}</span>
+        <span class="carac">=</span>
+        <input type="number" name="system.initiative.base" value="{{systemData.initiative.base}}" />
+        <span class="carac">+</span>
+        <span class="score totalInitiative">{{systemData.initiative.carac}}</span>
+        <span></span>
+    </div>
+
+    {{#each systemData.attaque as | key att |}}
+    <div class="reorderDrop" data-type="attaque" data-sort="{{att}}">
+        <span class="label {{#if key.settings.noatk}}large{{/if}}  {{#if key.settings.noCrit}}large{{/if}} {{#if key.settings.noatk}}{{#if key.settings.noCrit}}verylarge{{/if}}{{/if}}"></span>
+        <span class="label {{#if key.settings.noatk}}hide{{/if}}">{{localize "MM3.Attaques"}}</span>
+        <span class="label {{#if key.settings.noCrit}}hide{{/if}}">{{localize "MM3.ROLL.Critique"}}</span>
+        <span class="label">{{localize "MM3.EFFET.Label"}}</span>
+        <span class="label"></span>
+        <span class="label"></span>
+
+        <a class="roll draggable {{#if key.settings.noatk}}large{{/if}} {{#if key.settings.noCrit}}large{{/if}} {{#if key.settings.noatk}}{{#if key.noCrit}}verylarge{{/if}}{{/if}}"
+        data-type="attaque"
+        data-name="{{key.label}}"
+        data-total="{{key.attaque}}"
+        data-id="{{key._id}}"
+        data-strattaque="{{@root/systemData/strategie/total/attaque}}"
+        data-streffet="{{@root/systemData/strategie/total/effet}}">
+            {{key.label}}
+        </a>
+
+        {{#unless key.links.skill}}
+            <input class="{{#if key.settings.noatk}}hide{{/if}}" type="number" name="system.attaque.{{att}}.attaque" title="{{localize "MM3.ATTAQUE.Label"}}" value="{{key.attaque}}" />
+        {{else}}
+            <span class="score {{#if key.settings.noatk}}hide{{/if}}" title="{{localize "MM3.ATTAQUE.Label"}}">{{key.attaque}}</span>
+        {{/unless}}
+
+        <input class="{{#if key.settings.noCrit}}hide{{/if}}" type="number" name="system.attaque.{{att}}.critique" value="{{key.critique}}" min="0" title="{{localize "MM3.ROLL.Critique"}}"/>
+
+        {{#if (and (eq key.isAffliction true) (eq key.isDmg false))}}
+            {{#unless (or key.links.pwr key.links.ability)}}
+                <input type="number" name="system.attaque.{{att}}.save.affliction.effet" value="{{key.save.affliction.effet}}" min="0" title="{{localize "MM3.EFFET.Label"}}"/>
+            {{else}}
+                <span class="score">{{key.effet}}</span>
+            {{/unless}}
+        {{/if}}
+
+        {{#if (and (eq key.isAffliction false) (eq key.isDmg true))}}
+            {{#unless (or key.links.pwr key.links.ability)}}
+                <input type="number" name="system.attaque.{{att}}.save.dmg.effet" value="{{key.save.dmg.effet}}" min="0" title="{{localize "MM3.EFFET.Label"}}"/>
+            {{else}}
+                <span class="score">{{key.effet}}</span>
+            {{/unless}}
+        {{/if}}
+
+        {{#if (and (eq key.isAffliction false) (eq key.isDmg false))}}
+            {{#unless (or key.links.pwr key.links.ability)}}
+                <input type="number" name="system.attaque.{{att}}.effet" value="{{key.effet}}" min="0" title="{{localize "MM3.EFFET.Label"}}"/>
+            {{else}}
+                <span class="score">{{key.effet}}</span>
+            {{/unless}}
+        {{/if}}
+
+        {{#if (and (eq key.isAffliction true) (eq key.isDmg true))}}
+            <span class="score" title="{{localize "MM3.ROLL.TYPE.Degats"}} / {{localize "MM3.ROLL.TYPE.Affliction"}}">{{key.save.dmg.effet}}/{{key.save.affliction.effet}}</span>
+        {{/if}}
+
+
+        {{#if (and (eq key.isAffliction true) (eq key.isDmg true))}}
+            <span class="score" title="{{localize "MM3.ROLL.TYPE.Degats"}} / {{localize "MM3.ROLL.TYPE.Affliction"}}">
+                {{translate 'defenses' key.save.dmg.type}} / {{translate 'defenses' key.save.affliction.type}}
+            </span>
+        {{/if}}
+
+        {{#if (and (eq key.isAffliction true) (eq key.isDmg false))}}
+            <span class="score">
+                {{translate 'defenses' key.save.affliction.type}}
+            </span>
+        {{/if}}
+
+        {{#if (and (eq key.isAffliction false) (eq key.isDmg true))}}
+            <span class="score">
+                {{translate 'defenses' key.save.dmg.type}}
+            </span>
+        {{/if}}
+
+        {{#if (and (eq key.isAffliction false) (eq key.isDmg false))}}
+            <span class="score">
+                {{translate 'defenses' key.save.other.type}}
+            </span>
+        {{/if}}
+
+        <i class="fa-solid fa-pen-to-square editAtk" data-label="" data-id="{{key._id}}" data-value="{{key.edit}}" title="{{localize "MM3.Editadvanced"}}"></i>
+        <textarea class="{{#if (isValue key.type 'other')}}short{{/if}}" name="system.attaque.{{att}}.text">{{key.text}}</textarea>
+        <div class="icons">
+            <i class="fa-solid fa-arrows-up-down reorder" data-sort="{{att}}" data-type="attaque"></i>
+            <i class="fa-solid fa-trash-xmark delete" data-id="{{att}}" data-type="attaque"></i>
+        </div>
+    </div>
+    {{/each}}
+
+    <a class="add" data-type="attaque">
+        {{localize "MM3.BTN.Add"}}
+    </a>
+</div>

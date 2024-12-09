@@ -1,0 +1,15 @@
+{
+  "Actor": {
+    "types": ["personnage", "vehicule", "qg"],
+    "personnage": {},
+    "vehicule":{},
+    "qg":{}
+  },
+  "Item": {
+    "types": ["pouvoir", "modificateur", "talent", "equipement"],
+    "pouvoir":{},
+    "modificateur":{},
+    "talent":{},
+    "equipement":{}
+  }
+}

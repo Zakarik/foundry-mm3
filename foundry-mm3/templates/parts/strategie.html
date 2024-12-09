@@ -1,0 +1,152 @@
+<div class="strategie">
+    <span class="title">{{localize "MM3.Strategies"}}</span>
+
+    <span class="header first">{{localize "MM3.Nom"}}</span>
+    <span class="header">{{localize "MM3.ATTAQUE.Label"}}</span>
+    <span class="header">{{localize "MM3.DEFENSE.Label"}}</span>
+    <span class="header">{{localize "MM3.EFFET.Label"}}</span>
+
+    <span class="label">
+        {{localize "MM3.STRATEGIE.Attaqueoutrance"}}
+    </span>
+    <input
+        data-type="attaqueoutrance" data-value="attaque" data-max="{{systemData.strategie.limite.attaqueoutrance.defense}}"
+        type="number" value="{{systemData.strategie.attaqueoutrance.attaque}}"
+        title="{{localize "MM3.BONUS.Attaque"}}"
+        min="0"
+        max="{{systemData.strategie.limite.attaqueoutrance.attaque}}"
+        disabled
+    />
+    <input
+        data-type="attaqueoutrance" data-value="defense" data-max="{{systemData.strategie.limite.attaqueoutrance.attaque}}"
+        type="number" name="system.strategie.attaqueoutrance.defense" value="{{systemData.strategie.attaqueoutrance.defense}}"
+        title="{{localize "MM3.MALUS.Defense"}}"
+        max="0"
+        min="{{systemData.strategie.limite.attaqueoutrance.defense}}"
+        disabled
+    />
+    <span></span>
+
+    <div class="range">
+        <a class="str min" data-type="system.strategie.attaqueoutrance.attaque" data-value="0">{{localize 'MM3.Min-short'}}</a>
+        <input type="range" name="system.strategie.attaqueoutrance.attaque" data-type="attaqueoutrance" data-value="attaque" class="sliderStr"
+        value="{{systemData.strategie.attaqueoutrance.attaque}}"
+        min="0" max="{{systemData.strategie.limite.attaqueoutrance.attaque}}" step="1">
+        <a class="str max" data-type="system.strategie.attaqueoutrance.attaque" data-value="{{systemData.strategie.limite.attaqueoutrance.attaque}}">{{localize 'MM3.Max-short'}}</a>
+    </div>
+
+    <span class="separator"></span>
+
+    <span class="label">
+        {{localize "MM3.STRATEGIE.Attaquedefensive"}}
+    </span>
+    <input
+        data-type="attaquedefensive" data-value="attaque" data-max="{{systemData.strategie.limite.attaquedefensive.defense}}"
+        type="number" name="system.strategie.attaquedefensive.attaque" value="{{systemData.strategie.attaquedefensive.attaque}}"
+        title="{{localize "MM3.MALUS.Attaque"}}"
+        max="0"
+        min="{{systemData.strategie.limite.attaquedefensive.attaque}}"
+        disabled
+    />
+    <input
+        data-type="attaquedefensive" data-value="defense" data-max="{{systemData.strategie.limite.attaquedefensive.attaque}}"
+        type="number" value="{{systemData.strategie.attaquedefensive.defense}}"
+        title="{{localize "MM3.BONUS.Defense"}}"
+        min="0"
+        max="{{systemData.strategie.limite.attaquedefensive.defense}}"
+        disabled
+    />
+    <span></span>
+
+    <div class="range">
+        <a class="str min" data-type="system.strategie.attaquedefensive.defense" data-value="0">{{localize 'MM3.Min-short'}}</a>
+        <input type="range" name="system.strategie.attaquedefensive.defense" data-type="attaquedefensive" data-value="defense" class="sliderStr"
+        value="{{systemData.strategie.attaquedefensive.defense}}"
+        min="0" max="{{systemData.strategie.limite.attaquedefensive.defense}}" step="1">
+        <a class="str max" data-type="system.strategie.attaquedefensive.defense" data-value="{{systemData.strategie.limite.attaquedefensive.defense}}">{{localize 'MM3.Max-short'}}</a>
+    </div>
+
+    <span class="separator"></span>
+
+    <span class="label">
+        {{localize "MM3.STRATEGIE.Attaqueprecision"}}
+    </span>
+    <input
+        data-type="attaqueprecision" data-value="attaque" data-max="{{systemData.strategie.limite.attaqueprecision.effet}}"
+        type="number" value="{{systemData.strategie.attaqueprecision.attaque}}"
+        title="{{localize "MM3.BONUS.Attaque"}}"
+        min="0"
+        max="{{systemData.strategie.limite.attaqueprecision.attaque}}"
+        disabled
+    />
+    <span></span>
+    <input
+        data-type="attaqueprecision" data-value="effet" data-max="{{systemData.strategie.limite.attaqueprecision.attaque}}"
+        type="number" name="system.strategie.attaqueprecision.effet" value="{{systemData.strategie.attaqueprecision.effet}}"
+        title="{{localize "MM3.MALUS.Effet"}}"
+        max="0"
+        min="{{systemData.strategie.limite.attaqueprecision.effet}}"
+        disabled
+    />
+
+    <div class="range">
+        <a class="str min" data-type="system.strategie.attaqueprecision.attaque" data-value="0">{{localize 'MM3.Min-short'}}</a>
+        <input type="range" name="system.strategie.attaqueprecision.attaque" data-type="attaqueprecision" data-value="attaque" class="sliderStr"
+        value="{{systemData.strategie.attaqueprecision.attaque}}"
+        min="0" max="{{systemData.strategie.limite.attaqueprecision.attaque}}" step="1">
+        <a class="str max" data-type="system.strategie.attaqueprecision.attaque" data-value="{{systemData.strategie.limite.attaqueoutrance.attaque}}">{{localize 'MM3.Max-short'}}</a>
+    </div>
+
+    <span class="separator"></span>
+
+    <span class="label">
+        {{localize "MM3.STRATEGIE.Attaquepuissance"}}
+    </span>
+    <input
+        data-type="attaquepuissance" data-value="attaque" data-max="{{systemData.strategie.limite.attaquepuissance.effet}}"
+        type="number" name="system.strategie.attaquepuissance.attaque" value="{{systemData.strategie.attaquepuissance.attaque}}"
+        title="{{localize "MM3.MALUS.Attaque"}}"
+        max="0"
+        min="{{systemData.strategie.limite.attaquepuissance.attaque}}"
+        disabled
+    />
+    <span></span>
+    <input
+        data-type="attaquepuissance" data-value="effet" data-max="{{systemData.strategie.limite.attaquepuissance.attaque}}"
+        type="number" value="{{systemData.strategie.attaquepuissance.effet}}"
+        title="{{localize "MM3.BONUS.Effet"}}"
+        min="0"
+        max="{{systemData.strategie.limite.attaquepuissance.effet}}"
+        disabled
+    />
+
+    <div class="range">
+        <a class="str min" data-type="system.strategie.attaquepuissance.effet" data-value="0">{{localize 'MM3.Min-short'}}</a>
+        <input type="range" name="system.strategie.attaquepuissance.effet" data-type="attaquepuissance" data-value="effet" class="sliderStr"
+        value="{{systemData.strategie.attaquepuissance.effet}}"
+        min="0" max="{{systemData.strategie.limite.attaquepuissance.effet}}" step="1">
+        <a class="str max" data-type="system.strategie.attaquepuissance.effet" data-value="{{systemData.strategie.limite.attaquepuissance.effet}}">{{localize 'MM3.Max-short'}}</a>
+    </div>
+
+    <span class="separator"></span>
+
+    <span class="label">
+        {{localize "MM3.STRATEGIE.Etats"}}
+    </span>
+    <input
+        data-type="etats" data-value="attaque"
+        type="number" name="system.strategie.etats.attaque" value="{{systemData.strategie.etats.attaque}}"
+        title="{{localize "MM3.MOD.Attaque"}}"
+    />
+    <input
+        data-type="etats" data-value="defense"
+        type="number" name="system.strategie.etats.defense" value="{{systemData.strategie.etats.defense}}"
+        title="{{localize "MM3.MOD.Defense"}}"
+    />
+    <input
+        data-type="etats" data-value="effet"
+        type="number" name="system.strategie.etats.effet" value="{{systemData.strategie.etats.effet}}"
+        title="{{localize "MM3.MOD.Effet"}}"
+    />
+    <a class="resetStrategie">{{localize "MM3.STRATEGIE.Reset"}}</a>
+</div>

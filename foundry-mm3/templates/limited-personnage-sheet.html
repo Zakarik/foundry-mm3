@@ -1,0 +1,13 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        {{#unless systemData.identite.secret}}
+        <input name="system.identite.name" class="identite" type="text" value="{{systemData.identite.name}}" placeholder="{{localize "MM3.Identite"}}" />
+        {{/unless}}
+        <input name="name" class="hero" type="text" value="{{data.name}}" placeholder="{{localize "MM3.Hero"}}" />
+
+        <img class="logo-img" src="systems/mutants-and-masterminds-3e/assets/logo.webp" />
+    </header>
+    <section class="sheet-body">
+        {{> systems/mutants-and-masterminds-3e/templates/parts/informations-limited.html}}
+    </section>
+</form>

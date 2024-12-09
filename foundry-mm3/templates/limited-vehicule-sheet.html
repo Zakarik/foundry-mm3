@@ -1,0 +1,21 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <input name="name" type="text" value="{{data.name}}" placeholder="{{localize "MM3.Hero"}}" />
+
+        <img class="logo-img" src="systems/mutants-and-masterminds-3e/assets/logo.webp" />
+    </header>
+
+    <section class="sheet-body">
+
+        <div class="informations">
+            <div class="inner">
+                <img class="profile-img" src="{{data.img}}" data-edit="img" title="{{data.name}}" />
+
+                <div class="block">
+                    <span>{{localize "MM3.Description"}}</span>
+                    {{editor systemData.description target="system.description" button=true owner=owner editable=editable}}
+                </div>
+            </div>
+        </div>    
+    </section>
+</form>

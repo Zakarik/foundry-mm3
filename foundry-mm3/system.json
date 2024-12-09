@@ -1,0 +1,64 @@
+{
+  "id": "mutants-and-masterminds-3e",
+  "title": "Mutants and Masterminds 3E",
+  "description": "Fiche non officielle Mutants & Masterminds 3E",
+  "version": "#{VERSION}#",
+  "esmodules": [
+    "module/mm.mjs"
+  ],
+  "styles": [
+    "styles/mm.css"
+  ],
+  "languages": [
+    {
+      "lang": "fr",
+      "name": "French",
+      "path": "lang/fr.json",
+      "flags": {}
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    },
+    {
+      "lang": "es",
+      "name": "Español",
+      "path": "lang/es.json",
+      "flags": {}
+    },
+    {
+      "lang": "it",
+      "name": "Italian",
+      "path": "lang/it.json",
+      "flags": {}
+    },
+    {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
+      "path": "lang/ptbr.json",
+      "flags": {}
+    }
+  ],
+  "authors": [
+    {
+      "name": "Zakarik",
+      "url": "https://fr.tipeee.com/zakarik",
+      "discord": "Zakarik#9006",
+      "flags": {}
+    }
+  ],
+  "compatibility": {
+    "minimum": "11",
+    "verified": "12"
+  },
+  "gridDistance": 1.5,
+  "gridUnits": "m",
+  "primaryTokenAttribute": "blessure",
+  "url": "#{URL}#",
+  "manifest": "#{MANIFEST}#",
+  "download": "#{DOWNLOAD}#",
+  "changelog": "https://raw.githubusercontent.com/Zakarik/foundry-knight/main/changelog.md",
+  "readme": "https://raw.githubusercontent.com/Zakarik/foundry-mm3/main/readme.md"
+}

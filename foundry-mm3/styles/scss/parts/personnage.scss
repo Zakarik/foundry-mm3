@@ -1,0 +1,278 @@
+div.personnage {
+    section.window-content {
+        background:$fond;
+        color:$color;
+        font-family: Sriracha;
+        font-weight: bold;
+
+        form {
+            min-width: min-content;
+        }
+
+        div {
+            &.editor-content {
+                font-family: "Kalam";
+                letter-spacing: 0.5px;
+            }
+        }
+    }
+
+    header {
+        &.sheet-header {
+            display:grid;
+            grid-template-columns: 1fr 240px 85px;
+            grid-gap:5px;
+            border-style: solid;
+            border-width: 2px;
+            border-radius: 15px 15px 0px 0px;
+            background:$imgbg $yellow;
+            background-blend-mode: overlay, multiply, multiply;
+
+            >input {
+                grid-column:1;
+
+                &[type=number] {
+                    grid-column: 3;
+                    background:$imgbg2;
+                    width:80px;
+                    height:calc(100% - 20px);
+                    text-align: center;
+                    border:2px solid $color;
+                    font-size:48px;
+                    margin-right:5px;
+                    font-family: Sriracha;
+                }
+
+                &.identite {
+                    background: linear-gradient(60deg, $color 60%, rgba(0, 0, 0, 0) 90%);
+                    color:$fond;
+                    border-radius: 10px 0px 0px 0px;
+                    border:none;
+                    border-bottom:1px solid #333;
+                    font-family: "Bangers";
+                    text-align: center;
+                    font-size:20px;
+
+                    &::placeholder {
+                        color:$fond;
+                    }
+                }
+
+                &.hero {
+                    font-size: 4rem;
+                    height: 4rem;
+                    border: none;
+                    background: none;
+                    color: $fond;
+                    text-shadow: 2px 2px 0px $orange, 1px 1px 0px $color;
+                    font-family: "Bangers";
+                    text-align: center;
+
+                    &::placeholder {
+                        color:$fond;
+                    }
+                }
+            }
+
+            >img {
+                grid-column-start:2;
+                grid-column-end:4;
+                grid-row-start:1;
+                grid-row-end:3;
+                border:0px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            div {
+                &.block {
+                    display:grid;
+                    grid-template-columns: 1fr repeat(3, min-content);
+                    grid-column-start:1;
+                    grid-column-end:3;
+                    background:$bgopacity;
+                    grid-gap: 5px;
+                    padding: 10px;
+                    margin:10px;
+                    width:min-content;
+
+                    >span {
+                        grid-column:1;
+                        grid-row-start:1;
+                        grid-row-end:3;
+                        width: min-content;
+                        padding: 5px 20px;
+                        border: none;
+                        border-bottom: 1px solid #333;
+                        border-radius: 10px;
+                        text-align: center;
+                        background: $bgopacity;
+                        cursor: pointer;
+                        margin-right:20px;
+                    }
+
+                    label {
+                        display:grid;
+                        grid-template-columns: min-content 1fr;
+                        grid-gap: 5px;
+                        justify-content: space-between;
+
+                        input {
+                            min-width:100px;
+                            width:100%;
+                            border:none;
+                            border-bottom: 1px solid #333;
+                            border-radius: 10px;
+                            text-align: center;
+                            background:$bgopacity;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    div {
+        &.totalpp {
+            display:grid;
+            grid-template-columns: min-content;
+            width:100%;
+            background:$color;
+            color:$fond;
+            padding:5px;
+            position: relative;
+
+            details {
+                width:max-content;
+
+                span {
+                    display: grid;
+                    align-self: center;
+                    width:100%;
+                    height: 100%;
+                    align-items: center;
+
+                    &.score,
+                    &.max {
+                        color:$color;
+                    }
+
+                    &.red {
+                        color:$red;
+                    }
+                }
+
+                summary {
+                    display:grid;
+                    width:100%;
+                    grid-template-columns: 25px 1fr 45px 8px 45px;
+                    grid-gap:2px;
+                    cursor:pointer;
+
+                    &::before {
+                        content: "+";
+                        border: 1px solid $white;
+                        font-size: 13px;
+                        border-radius: 30px;
+                        width: 100%;
+                        text-align: center;
+                    }
+
+                    span {
+                        &.label {
+                            padding-left:5px;
+                        }
+
+                        &.label,
+                        &.separation {
+                            font-weight:normal;
+                        }
+
+                        &.score,
+                        &.max {
+                            border: none;
+                            border-bottom: 1px solid #333;
+                            border-radius: 10px;
+                            background: $bgopacity;
+                            text-align: center;
+                        }
+                    }
+                }
+
+                div {
+                    &.line {
+                        display:grid;
+                        width:100%;
+                        grid-template-columns: 25px 1fr 45px 8px 45px;
+                        grid-gap:2px;
+                        margin-top:2px;
+
+                        span {
+
+                            &.label {
+                                grid-column:2;
+                                text-align: right;
+                                font-weight:normal;
+                            }
+
+                            &.score {
+                                grid-column:3;
+                                border: none;
+                                border-bottom: 1px solid #333;
+                                border-radius: 10px;
+                                background: $bgopacity;
+                                text-align: center;
+                            }
+                        }
+
+                        input {
+                            width:100%;
+                            grid-column:3;
+                            border: none;
+                            border-bottom: 1px solid #333;
+                            border-radius: 10px;
+                            background: $bgopacity;
+                            text-align: center;
+                        }
+                    }
+                }
+
+                &[open] {
+                    summary {
+                        &::before {
+                            content:"-";
+                        }
+
+                        border-bottom:1px dashed $bgopacity;
+                        padding-bottom:5px;
+                        margin-bottom:3px;
+                    }
+                }
+            }
+
+            @include btnOC('btnOC');
+
+            div {
+                &.btnOC {
+                    position: absolute;
+                    right: 5px;
+                    display: grid;
+                    grid-template-columns: max-content max-content;
+                    grid-gap: 5px;
+                    top: 5px;
+                }
+            }
+        }
+    }
+
+    section {
+        &.sheet-body {
+            @import "subparts/nav";
+            @import "subparts/informations";
+            @import "subparts/caracteristiques";
+            @import "subparts/pouvoirs";
+            @import "subparts/importations";
+            @import "subparts/options";
+        }
+    }
+}

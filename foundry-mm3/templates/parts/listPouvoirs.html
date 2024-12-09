@@ -1,0 +1,501 @@
+{{#each actor.pouvoirs as | key pwr |}}
+    {{#if (hasLink key._id @root/actor)}}
+    <div class="outerGrpPwr item" data-item-id="{{key._id}}"">
+        <header class="grpSep js-toggler" >
+            <span class="deploy "><i class="minus"></i></span>
+            <h1>{{localize "MM3.POUVOIR.Eventail"}} : {{key.name}}</h1>
+        </header>
+
+        <div class="grpPwr {{#if (hasLink key._id @root/actor)}}link{{/if}}" ">
+    {{else}}
+        {{#if (hasAlt key._id @root/actor)}}
+        <div class="outerGrpPwr item" data-item-id="{{key._id}}">
+            <header class="grpSep js-toggler" >
+                <span class="deploy "><i class="minus"></i></span>
+                <h1>{{localize "MM3.POUVOIR.Eventail"}} : {{key.name}}</h1>
+            </header>
+            <div class="grpPwrAlt">
+        {{/if}}
+    {{/if}}
+        <div class="pwr summary
+    {{#if (isValue key.system.special 'standard')}}blue{{/if}}
+    {{#if (isValue key.system.special 'alternatif')}}red{{/if}}
+    {{#if (isValue key.system.special 'dynamique')}}violet{{/if}}
+    {{#unless (hasLinkAndAlt key._id @root/actor)}}item{{/unless}}
+    " data-item-id="{{key._id}}">
+        <header class="js-toggler
+        {{#if (ObjectIsEmpty system.listEffectsVariantes)}}withoutVariante{{/if}}" >
+            {{#if (eq ../actor.type 'personnage')}}
+            {{#unless (ObjectIsEmpty system.listEffectsVariantes)}}
+            <a class="btn btnHeader pwrActivate {{#if key.system.activate}}selected{{/if}}">
+                {{localize "MM3.BTN.Activer"}}
+            </a>
+
+            <select class="variantepwr">
+                {{selectOptions system.listEffectsVariantes selected=system.effectsVarianteSelected}}
+            </select>
+            {{/unless}}
+            {{/if}}
+            <span class="deploy "><i class="minus"></i></span>
+            <div class="pwrheader">
+                <span class="header">{{key.name}}</span>
+
+                <i class="fa-solid fa-pen-to-square item-edit"></i>
+                <i class="fa-solid fa-trash-xmark item-delete"></i>
+            </div>
+            {{#if key.system.effetsprincipaux}}
+            <div class="pwreffects">
+                <span class="header">{{key.system.effetsprincipaux}}</span>
+            </div>
+            {{/if}}
+
+
+            {{#if (isValue key.system.special 'alternatif')}}
+                <select class="link" data-cout="{{key.system.cout.totalTheorique}}" data-type="{{key.system.special}}">
+                    {{selectOptions (listpwr @root/actor/pwrStandard key._id) selected=key.system.link localize=true}}
+                </select>
+            {{else}} {{#if (isValue key.system.special 'dynamique')}}
+                <select class="link" data-cout="{{key.system.cout.totalTheorique}}" data-type="{{key.system.special}}">
+                    {{selectOptions (listpwr @root/actor/pwrStandard key._id) selected=key.system.link localize=true}}
+                </select>
+            {{else}}
+
+            <select class="link" data-cout="0" data-type="{{key.system.special}}">
+                {{selectOptions (listpwr @root/actor/pwrStandard key._id) selected=key.system.link localize=true}}
+            </select>
+            {{/if}} {{/if}}
+            <div class="data black">
+                <span>{{translate 'pouvoirs.factions' key.system.action}}</span>
+                <span>{{localize "MM3.POUVOIR.PORTEE.Label"}} : {{translate 'pouvoirs.portees' key.system.portee}}</span>
+                <span>{{localize "MM3.POUVOIR.DUREE.Label"}} : {{translate 'pouvoirs.durees' key.system.duree}}</span>
+                <a class="rollPwr oneRoll draggable" data-id="{{key._id}}" data-type="pouvoir" data-name="{{key.name}}">
+                    <i class="fa-solid fa-dice-d20"></i>
+                </a>
+            </div>
+            {{#if (isValue key.system.special 'dynamique')}}
+            <div class="dataSpecial black">
+                {{#if (isValue key.system.special 'dynamique')}}
+                    <span>{{localize "MM3.Rang"}} : </span>
+                    <input class="rangDyn" type="number" name="system.pwr.{{key._id}}.cout.rang" value="{{getPwr @root key._id 'rang'}}" min="0" max="{{key.system.cout.rangDynMax}}" />
+                    <span>({{localize "MM3.Max-short"}} {{key.system.cout.rangDynMax}}) / {{localize "MM3.Coutactuel"}} : {{getPwr @root key._id 'actuel'}}</span>
+                {{/if}}
+                </div>
+            {{/if}}
+        </header>
+        <div class="allData">
+            <div class="data">
+                <span class="typePwr">{{localize "MM3.Type"}} : {{translate 'pouvoirs.types' key.system.type}}</span>
+                {{#unless (isValue key.system.special 'dynamique')}}
+                    <span class="col4">{{localize "MM3.Rang"}} : {{key.system.cout.rang}} / {{localize "MM3.Couttotal"}} : {{key.system.cout.total}}</span>
+                    {{else}}
+                    {{#if (isValue key.system.special 'dynamique')}}
+                    {{#if (isValue key.system.link '')}}
+                        <span class="col4">{{localize "MM3.Couttotal"}} : {{key.system.cout.totalTheorique}}</span>
+                    {{else}}
+                        <span class="col4">{{localize "MM3.Couttotal"}} : {{key.system.cout.total}}</span>
+                    {{/if}}
+                    {{/if}}
+                {{/unless}}
+                </div>
+                <div class="descripteurs">
+                    {{#each key.system.descripteurs as | kDesc desc |}}
+                        <span>{{#unless @first}}/{{/unless}} {{kDesc}}</span>
+                    {{/each}}
+                </div>
+                <div class="details">
+                    <span class="label">
+                        {{localize "MM3.Description"}}
+                    </span>
+                    <span class="text">
+                        {{{key.system.notes}}}
+                    </span>
+                </div>
+                <div class="details">
+                    <span class="label">
+                        {{localize "MM3.Details"}}
+                    </span>
+                    <span class="text">
+                        {{{key.system.effets}}}
+                    </span>
+                </div>
+                <div class="mod borderLeft">
+                    <span class="label">
+                        {{localize "MM3.Extras"}}
+                    </span>
+                    {{#each key.system.extras as | kExt ext |}}
+                    <span class="text">
+                    {{kExt.name}}
+                    <i class="fa-solid fa-circle-info">
+                        <div class="infoExt">{{{kExt.data.description}}}</div>
+                    </i>
+                </span>
+                    {{/each}}
+                </div>
+                <div class="mod borderRight borderLightLeft">
+                    <span class="label">
+                        {{localize "MM3.Defauts"}}
+                    </span>
+                    {{#each key.system.defauts as | kExt ext |}}
+                    <span class="text">
+                    {{kExt.name}}
+                    <i class="fa-solid fa-circle-info">
+                        <div class="infoExt">{{{kExt.data.description}}}</div>
+                    </i>
+                </span>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+
+        {{#each (getPwrAlt @root 'pwrLink' key._id) as | kPA pwrAlt |}}
+        <div class="pwr summary
+        {{#if (isValue kPA.system.special 'standard')}}blue{{/if}}
+        {{#if (isValue kPA.system.special 'alternatif')}}red{{/if}}
+        {{#if (isValue kPA.system.special 'dynamique')}}violet{{/if}}
+        {{#unless (hasLinkAndAlt key._id @root/actor)}}item{{/unless}}
+        " data-item-id="{{kPA._id}}">
+            <header class="js-toggler
+            {{#if (ObjectIsEmpty kPA.system.listEffectsVariantes)}}withoutVariante{{/if}}" >
+                {{#if (eq ../../actor.type 'personnage')}}
+                {{#unless (ObjectIsEmpty kPA.system.listEffectsVariantes)}}
+                <a class="btn btnHeader pwrActivate {{#if kPA.system.activate}}selected{{/if}}">
+                    {{localize "MM3.BTN.Activer"}}
+                </a>
+
+                <select class="variantepwr">
+                    {{selectOptions kPA.system.listEffectsVariantes selected=kPA.system.effectsVarianteSelected}}
+                </select>
+                {{/unless}}
+                {{/if}}
+                <span class="deploy "><i class="minus"></i></span>
+                <div class="pwrheader">
+                    <span class="header">{{kPA.name}}</span>
+
+                    <i class="fa-solid fa-pen-to-square item-edit"></i>
+                    <i class="fa-solid fa-trash-xmark item-delete"></i>
+                </div>
+                {{#if kPA.system.effetsprincipaux}}
+                    <div class="pwreffects">
+                        <span class="header">{{kPA.system.effetsprincipaux}}</span>
+                    </div>
+                {{/if}}
+
+                {{#if (isValue kPA.system.special 'alternatif')}}
+                    <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
+                        {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
+                    </select>
+                {{else}} {{#if (isValue kPA.system.special 'dynamique')}}
+                    <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
+                        {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
+                    </select>
+                {{else}}
+                <select class="link" data-cout="0" data-type="{{kPA.system.special}}">
+                    {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
+                </select>
+                {{/if}} {{/if}}
+                <div class="data black">
+                    <span>{{translate 'pouvoirs.factions' kPA.system.action}}</span>
+                    <span>{{localize "MM3.POUVOIR.PORTEE.Label"}} : {{translate 'pouvoirs.portees' kPA.system.portee}}</span>
+                    <span>{{localize "MM3.POUVOIR.DUREE.Label"}} : {{translate 'pouvoirs.durees' kPA.system.duree}}</span>
+                    <a class="rollPwr oneRoll draggable" data-id="{{kPA._id}}" data-type="pouvoir" data-name="{{kPA.name}}">
+                        <i class="fa-solid fa-dice-d20"></i>
+                    </a>
+                </div>
+            </header>
+            <div class="allData">
+                <div class="data">
+                    <span class="typePwr">{{localize "MM3.Type"}} : {{translate 'pouvoirs.types' key.system.type}}</span>
+                    <span class="col4">{{localize "MM3.Rang"}} : {{kPA.system.cout.rang}} / {{localize "MM3.Couttotal"}} : {{kPA.system.cout.total}}</span>
+                    </div>
+                    <div class="descripteurs">
+                        {{#each kPA.system.descripteurs as | kDesc desc |}}
+                            <span>{{#unless @first}}/{{/unless}} {{kDesc}}</span>
+                        {{/each}}
+                    </div>
+                    <div class="details">
+                        <span class="label">
+                            {{localize "MM3.Description"}}
+                        </span>
+                        <span class="text">
+                            {{{kPA.system.notes}}}
+                        </span>
+                    </div>
+                    <div class="details">
+                        <span class="label">
+                            {{localize "MM3.Details"}}
+                        </span>
+                        <span class="text">
+                            {{{kPA.system.effets}}}
+                        </span>
+                    </div>
+                    <div class="mod borderLeft">
+                        <span class="label">
+                            {{localize "MM3.Extras"}}
+                        </span>
+                        {{#each kPA.system.extras as | kExt ext |}}
+                        <span class="text">
+                        {{kExt.name}}
+                        <i class="fa-solid fa-circle-info">
+                            <div class="infoExt">{{{kExt.data.description}}}</div>
+                        </i>
+                    </span>
+                        {{/each}}
+                    </div>
+                    <div class="mod borderRight borderLightLeft">
+                        <span class="label">
+                            {{localize "MM3.Defauts"}}
+                        </span>
+                        {{#each kPA.system.defauts as | kExt ext |}}
+                        <span class="text">
+                        {{kExt.name}}
+                        <i class="fa-solid fa-circle-info">
+                            <div class="infoExt">{{{kExt.data.description}}}</div>
+                        </i>
+                    </span>
+                        {{/each}}
+                    </div>
+            </div>
+        </div>
+        {{/each}}
+
+        {{#each (getPwrAlt @root 'pwrAlternatif' key._id) as | kPA pwrAlt |}}
+        <div class="pwr summary
+        {{#if (isValue kPA.system.special 'standard')}}blue{{/if}}
+        {{#if (isValue kPA.system.special 'alternatif')}}red{{/if}}
+        {{#if (isValue kPA.system.special 'dynamique')}}violet{{/if}}
+        {{#unless (hasLinkAndAlt key._id @root/actor)}}item{{/unless}}
+        " data-item-id="{{kPA._id}}">
+            <header class="js-toggler
+            {{#if (ObjectIsEmpty kPA.system.listEffectsVariantes)}}withoutVariante{{/if}}" >
+                {{#if (eq ../../actor.type 'personnage')}}
+                {{#unless (ObjectIsEmpty kPA.system.listEffectsVariantes)}}
+                <a class="btn btnHeader pwrActivate {{#if kPA.system.activate}}selected{{/if}}">
+                    {{localize "MM3.BTN.Activer"}}
+                </a>
+
+                <select class="variantepwr">
+                    {{selectOptions kPA.system.listEffectsVariantes selected=kPA.system.effectsVarianteSelected}}
+                </select>
+                {{/unless}}
+                {{/if}}
+                <span class="deploy "><i class="minus"></i></span>
+                <div class="pwrheader">
+                    <span class="header">{{kPA.name}}</span>
+
+                    <i class="fa-solid fa-pen-to-square item-edit"></i>
+                    <i class="fa-solid fa-trash-xmark item-delete"></i>
+                </div>
+                {{#if kPA.system.effetsprincipaux}}
+                    <div class="pwreffects">
+                        <span class="header">{{kPA.system.effetsprincipaux}}</span>
+                    </div>
+                {{/if}}
+
+                {{#if (isValue kPA.system.special 'alternatif')}}
+                    <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
+                        {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
+                    </select>
+                {{else}} {{#if (isValue kPA.system.special 'dynamique')}}
+                    <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
+                        {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
+                    </select>
+                {{/if}} {{/if}}
+                <div class="data black">
+                    <span>{{translate 'pouvoirs.factions' kPA.system.action}}</span>
+                    <span>{{localize "MM3.POUVOIR.PORTEE.Label"}} : {{translate 'pouvoirs.portees' kPA.system.portee}}</span>
+                    <span>{{localize "MM3.POUVOIR.DUREE.Label"}} : {{translate 'pouvoirs.durees' kPA.system.duree}}</span>
+                    <a class="rollPwr oneRoll draggable" data-id="{{kPA._id}}" data-type="pouvoir" data-name="{{kPA.name}}">
+                        <i class="fa-solid fa-dice-d20"></i>
+                    </a>
+                </div>
+            </header>
+            <div class="allData">
+                <div class="data">
+                    <span class="typePwr">{{localize "MM3.Type"}} : {{translate 'pouvoirs.types' key.system.type}}</span>
+                    <span class="col4">{{localize "MM3.Rang"}} : {{kPA.system.cout.rang}} / {{localize "MM3.Couttotal"}} : {{kPA.system.cout.total}}</span>
+                </div>
+                    <div class="descripteurs">
+                        {{#each kPA.system.descripteurs as | kDesc desc |}}
+                            <span>{{#unless @first}}/{{/unless}} {{kDesc}}</span>
+                        {{/each}}
+                    </div>
+                    <div class="details">
+                        <span class="label">
+                            {{localize "MM3.Description"}}
+                        </span>
+                        <span class="text">
+                            {{{kPA.system.notes}}}
+                        </span>
+                    </div>
+                    <div class="details">
+                        <span class="label">
+                            {{localize "MM3.Details"}}
+                        </span>
+                        <span class="text">
+                            {{{kPA.system.effets}}}
+                        </span>
+                    </div>
+                    <div class="mod borderLeft">
+                        <span class="label">
+                            {{localize "MM3.Extras"}}
+                        </span>
+                        {{#each kPA.system.extras as | kExt ext |}}
+                        <span class="text">
+                        {{kExt.name}}
+                        <i class="fa-solid fa-circle-info">
+                            <div class="infoExt">{{{kExt.data.description}}}</div>
+                        </i>
+                    </span>
+                        {{/each}}
+                    </div>
+                    <div class="mod borderRight borderLightLeft">
+                        <span class="label">
+                            {{localize "MM3.Defauts"}}
+                        </span>
+                        {{#each kPA.system.defauts as | kExt ext |}}
+                        <span class="text">
+                        {{kExt.name}}
+                        <i class="fa-solid fa-circle-info">
+                            <div class="infoExt">{{{kExt.data.description}}}</div>
+                        </i>
+                    </span>
+                        {{/each}}
+                    </div>
+            </div>
+        </div>
+        {{/each}}
+
+        {{#each (getPwrAlt @root 'pwrDynamique' key._id) as | kPA pwrAlt |}}
+        <div class="pwr summary
+        {{#if (isValue kPA.system.special 'standard')}}blue{{/if}}
+        {{#if (isValue kPA.system.special 'alternatif')}}red{{/if}}
+        {{#if (isValue kPA.system.special 'dynamique')}}violet{{/if}}
+        {{#unless (hasLinkAndAlt key._id @root/actor)}}item{{/unless}}
+        " data-item-id="{{kPA._id}}">
+            <header class="js-toggler
+            {{#if (ObjectIsEmpty kPA.system.listEffectsVariantes)}}withoutVariante{{/if}}" >
+                {{#if (eq ../../actor.type 'personnage')}}
+                {{#unless (ObjectIsEmpty kPA.system.listEffectsVariantes)}}
+                <a class="btn btnHeader pwrActivate {{#if kPA.system.activate}}selected{{/if}}">
+                    {{localize "MM3.BTN.Activer"}}
+                </a>
+
+                <select class="variantepwr">
+                    {{selectOptions kPA.system.listEffectsVariantes selected=kPA.system.effectsVarianteSelected}}
+                </select>
+                {{/unless}}
+                {{/if}}
+                <span class="deploy "><i class="minus"></i></span>
+                <div class="pwrheader">
+                    <span class="header">{{kPA.name}}</span>
+
+                    <i class="fa-solid fa-pen-to-square item-edit"></i>
+                    <i class="fa-solid fa-trash-xmark item-delete"></i>
+                </div>
+                {{#if kPA.system.effetsprincipaux}}
+                    <div class="pwreffects">
+                        <span class="header">{{kPA.system.effetsprincipaux}}</span>
+                    </div>
+                {{/if}}
+
+                {{#if (isValue kPA.system.special 'alternatif')}}
+                    <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
+                        {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
+                    </select>
+                {{else}} {{#if (isValue kPA.system.special 'dynamique')}}
+                    <select class="link" data-cout="{{kPA.system.cout.totalTheorique}}" data-type="{{kPA.system.special}}">
+                        {{selectOptions (listpwr @root/actor/pwrStandard kPA._id true) selected=kPA.system.link localize=true}}
+                    </select>
+                {{/if}} {{/if}}
+                <div class="data black">
+                    <span>{{translate 'pouvoirs.factions' kPA.system.action}}</span>
+                    <span>{{localize "MM3.POUVOIR.PORTEE.Label"}} : {{translate 'pouvoirs.portees' kPA.system.portee}}</span>
+                    <span>{{localize "MM3.POUVOIR.DUREE.Label"}} : {{translate 'pouvoirs.durees' kPA.system.duree}}</span>
+                    <a class="rollPwr oneRoll draggable" data-id="{{kPA._id}}" data-type="pouvoir" data-name="{{kPA.name}}">
+                        <i class="fa-solid fa-dice-d20"></i>
+                    </a>
+                </div>
+                {{#if (isValue kPA.system.special 'dynamique')}}
+                <div class="dataSpecial black">
+                    {{#if (isValue kPA.system.special 'dynamique')}}
+                        <span>{{localize "MM3.Rang"}} : </span>
+                        <input class="rangDyn" type="number" name="system.pwr.{{kPA._id}}.cout.rang" value="{{getPwr @root kPA._id 'rang'}}" min="0" max="{{kPA.system.cout.rangDynMax}}" />
+                    <span>({{localize "MM3.Max-short"}} {{kPA.system.cout.rangDynMax}})  / {{localize "MM3.Coutactuel"}} : {{getPwr @root kPA._id 'actuel'}}</span>
+                    {{/if}}
+                    </div>
+                {{/if}}
+            </header>
+            <div class="allData">
+                {{#unless (isValue kPA.system.special 'dynamique')}}
+                <div class="data">
+                    <span class="typePwr">{{localize "MM3.Type"}} : {{translate 'pouvoirs.types' key.system.type}}</span>
+                    <span class="col4">{{localize "MM3.Rang"}} : {{kPA.system.cout.rang}} / {{localize "MM3.Couttotal"}} : {{kPA.system.cout.total}}</span>
+                    </div>
+                    {{else}}
+                    {{#if (isValue kPA.system.special 'dynamique')}}
+                    <div class="data"><span class="col4">{{localize "MM3.Couttotal"}} : {{kPA.system.cout.total}}</span></div>
+                    {{/if}}
+                {{/unless}}
+
+                    <div class="descripteurs">
+                        {{#each kPA.system.descripteurs as | kDesc desc |}}
+                            <span>{{#unless @first}}/{{/unless}} {{kDesc}}</span>
+                        {{/each}}
+                    </div>
+                    <div class="details">
+                        <span class="label">
+                            {{localize "MM3.Description"}}
+                        </span>
+                        <span class="text">
+                            {{{kPA.system.notes}}}
+                        </span>
+                    </div>
+                    <div class="details">
+                        <span class="label">
+                            {{localize "MM3.Details"}}
+                        </span>
+                        <span class="text">
+                            {{{kPA.system.effets}}}
+                        </span>
+                    </div>
+                    <div class="mod borderLeft">
+                        <span class="label">
+                            {{localize "MM3.Extras"}}
+                        </span>
+                        {{#each kPA.system.extras as | kExt ext |}}
+                        <span class="text">
+                        {{kExt.name}}
+                        <i class="fa-solid fa-circle-info">
+                            <div class="infoExt">{{{kExt.data.description}}}</div>
+                        </i>
+                    </span>
+                        {{/each}}
+                    </div>
+                    <div class="mod borderRight borderLightLeft">
+                        <span class="label">
+                            {{localize "MM3.Defauts"}}
+                        </span>
+                        {{#each kPA.system.defauts as | kExt ext |}}
+                        <span class="text">
+                        {{kExt.name}}
+                        <i class="fa-solid fa-circle-info">
+                            <div class="infoExt">{{{kExt.data.description}}}</div>
+                        </i>
+                    </span>
+                        {{/each}}
+                    </div>
+            </div>
+        </div>
+        {{/each}}
+    {{#if (hasLink key._id @root/actor)}}
+    </div>
+    </div>
+    {{else}}
+        {{#if (hasAlt key._id @root/actor)}}
+            </div>
+        </div>
+        {{/if}}
+    {{/if}}
+{{/each}}
+
+<a class="item-create" data-type="pouvoir">{{localize "MM3.BTN.AddPwr"}}</a>
