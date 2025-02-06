@@ -1,3 +1,7 @@
+## Version 1.36.9
+### Bugfix
+- Correction d'un bug d'affichage sur le PP/Rang des pouvoirs
+
 ## Version 1.36.8
 ### Bugfix
 - Correction d'un bug empêchant le fonctionnement normal des attaques contre les véhicules.

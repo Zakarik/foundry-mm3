@@ -112,7 +112,7 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
             coutParRangTotal = `1:${((coutParRang*-1)+2)}`
             coutRang = Math.ceil(cout.rang/((coutParRang*-1)+2));
         } else {
-            cout.parrangtotal = coutParRang;
+            coutParRangTotal = coutParRang;
             coutRang = cout.rang*coutParRang;
         }
 
@@ -199,6 +199,7 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
     }
 
     #_effects() {
+        if(!this.actor) return;
         if(this.actor.permission !== 3) return;
 
         const isactive = this.activate;
