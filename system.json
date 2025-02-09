@@ -3,12 +3,8 @@
   "title": "Mutants and Masterminds 3E",
   "description": "Fiche non officielle Mutants & Masterminds 3E",
   "version": "#{VERSION}#",
-  "esmodules": [
-    "module/mm.mjs"
-  ],
-  "styles": [
-    "styles/mm.css"
-  ],
+  "esmodules": ["module/mm.mjs"],
+  "styles": ["styles/mm.css"],
   "languages": [
     {
       "lang": "fr",
@@ -53,8 +49,10 @@
     "minimum": "11",
     "verified": "12"
   },
-  "gridDistance": 1.5,
-  "gridUnits": "m",
+  "grid": {
+    "distance": 1.5,
+    "units": "m"
+  },
   "primaryTokenAttribute": "blessure",
   "url": "#{URL}#",
   "manifest": "#{MANIFEST}#",
