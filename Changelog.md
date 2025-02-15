@@ -1,3 +1,12 @@
+## Version 1.37.0
+### Améliorations
+- Ajout de l'initiative dans les modificateurs.
+- Ajout d'un intitulé pour chaque modificateur, afin de rendre le tout plus clair.
+- Ajout des attaques vs Volonté, Vigueur et Robustesse.
+
+### Bugfix
+- Correction d'un bug affichant échec sur une jet faisant pile le DD.
+
 ## Version 1.36.9
 ### Bugfix
 - Correction d'un bug d'affichage sur le PP/Rang des pouvoirs

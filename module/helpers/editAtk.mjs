@@ -274,6 +274,18 @@ export class editAtk {
                     {
                     key:'parade',
                     label:`${game.i18n.localize("MM3.DEFENSE.Jetattaquevs")} ${game.i18n.localize("MM3.DEFENSE.Parade")}`,
+                    },
+                    {
+                    key:'volonte',
+                    label:`${game.i18n.localize("MM3.DEFENSE.Jetattaquevs")} ${game.i18n.localize("MM3.DEFENSE.Volonte")}`,
+                    },
+                    {
+                    key:'vigueur',
+                    label:`${game.i18n.localize("MM3.DEFENSE.Jetattaquevs")} ${game.i18n.localize("MM3.DEFENSE.Vigueur")}`,
+                    },
+                    {
+                    key:'robustesse',
+                    label:`${game.i18n.localize("MM3.DEFENSE.Jetattaquevs")} ${game.i18n.localize("MM3.DEFENSE.Robustesse")}`,
                     }
                 ]
             });

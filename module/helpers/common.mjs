@@ -2156,15 +2156,15 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
   const saveDices = saveTotal-score;
   const isCritique = saveDices === optDices.critique ? true : false;
   const margeBrut = vs-saveTotal;
-  const hasMarge = margeBrut >= 0 && !isCritique ? true : false;
-  const marge = margeBrut >= 0 && !isCritique ? Math.ceil(margeBrut / 5) : false;
+  const hasMarge = margeBrut > 0 && !isCritique ? true : false;
+  const marge = margeBrut > 0 && !isCritique ? Math.ceil(margeBrut / 5) : false;
   const dataAtk = data.atk;
   const dataStr = data.str;
   const token = data.tkn;
   let isSuccess = false;
 
   if(isCritique) isSuccess = true;
-  else if(margeBrut < 0) isSuccess = true;
+  else if(margeBrut <= 0) isSuccess = true;
 
   const pRollSave = {
     flavor:name === "" ? " - " : `${name}`,
@@ -2354,6 +2354,9 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
   const resultDie = roll.total-total-dataStr.attaque;
   const parade = tokenActor.type === 'vehicule' ? Number(tokenData.caracteristique.defense.total) : Number(tokenData.ddparade);
   const esquive = tokenActor.type === 'vehicule' ? Number(tokenData.caracteristique.defense.total) : Number(tokenData.ddesquive);
+  const robustesse = tokenActor.type === 'vehicule' ? Number(tokenData.caracteristique.defense.total) : Number(tokenData.defense.robustesse.total)+10;
+  const vigueur = tokenActor.type === 'vehicule' ? Number(tokenData.caracteristique.defense.total) : Number(tokenData.defense.vigueur.total)+10;
+  const volonte = tokenActor.type === 'vehicule' ? Number(tokenData.caracteristique.defense.total) : Number(tokenData.defense.volonte.total)+10;
   const sCritique = dataCbt.critique;
   const noCrit = dataCbt.settings.nocrit ? true : false;
   const isArea = dataCbt?.area?.has ?? false;
@@ -2368,8 +2371,32 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
   let traType = "";
   let formula = mod === 0 ? `${dicesFormula} + ${total} + ${dataStr.attaque}` : `${dicesFormula} + ${total} + ${dataStr.attaque} + ${mod}`
 
-  ddDefense = defpassive === 'parade' ? parade : esquive;
-  traType = defpassive === 'parade' ? game.i18n.localize("MM3.DEFENSE.DDParade") : game.i18n.localize("MM3.DEFENSE.DDEsquive");
+  switch(defpassive) {
+    case 'parade':
+      ddDefense = parade;
+      traType = game.i18n.localize("MM3.DEFENSE.DDParade");
+      break;
+
+    case 'robustesse':
+      ddDefense = robustesse;
+      traType = game.i18n.localize("MM3.DEFENSE.Robustesse");
+      break;
+
+    case 'vigueur':
+      ddDefense = vigueur;
+      traType = game.i18n.localize("MM3.DEFENSE.Vigueur");
+      break;
+
+    case 'volonte':
+      ddDefense = volonte;
+      traType = game.i18n.localize("MM3.DEFENSE.Volonte");
+      break;
+
+    default:
+      ddDefense = esquive;
+      traType = game.i18n.localize("MM3.DEFENSE.DDEsquive");
+      break;
+  }
 
   let result = {
     hit:roll.total >= ddDefense && resultDie !== 1 ? true : false,
@@ -2381,8 +2408,6 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
     let dSuccess = Math.floor(((roll.total - ddDefense)/5))+1;
 
     let btn = [];
-
-    console.warn(isDmg, tokenActor.type, saveType)
 
     if(isArea && tokenActor.type !== 'vehicule') {
       btn.push({
@@ -3718,7 +3743,28 @@ export function checkActiveOrUnactive(item) {
 }
 
 export function loadEffectsContext(context) {
-  context.item.listMods = CONFIG.MM3.listmods;
+  const mods = CONFIG.MM3.listmods;
+  let effects = {};
+
+  for(let m in mods) {
+    let label = ``;
+
+    if(m.includes('caracteristique')) {
+      label = `${game.i18n.localize('MM3.Caracteristique')} : `;
+    } else if(m.includes('defense')) {
+      label = `${game.i18n.localize('MM3.DEFENSE.Label')} : `;
+    } else if(m.includes('competence')) {
+      label = `${game.i18n.localize('MM3.Competence')} : `;
+    } else if(m.includes('strategie')) {
+      label = `${game.i18n.localize('MM3.STRATEGIE.Limite')} : `;
+    } else {
+      label = `${game.i18n.localize('MM3.Autre')} : `;
+    }
+
+    effects[m] = `${label}${game.i18n.localize(mods[m])}`;
+  }
+
+  context.item.listMods = effects;
   context.item.listSurcharge = {
     'surcharge':'MM3.EFFECTS.Surcharge',
     'surchargeranks':'MM3.EFFECTS.SurchargeRanks',

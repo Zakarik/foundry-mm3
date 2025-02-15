@@ -290,6 +290,7 @@ MM3.listmods = {
     'system.strategie.limite.attaquedefensive.def':"MM3.EFFECTS.STRATEGIE.AttaquedefensiveDefense",
     'system.strategie.limite.attaquepuissance.atk':"MM3.EFFECTS.STRATEGIE.AttaquepuissanceAttaque",
     'system.strategie.limite.attaquepuissance.eff':"MM3.EFFECTS.STRATEGIE.AttaquepuissanceEffet",
+    'system.initiative':"MM3.ATTAQUE.Initiative",
 };
 
 MM3.StdAtk = {

@@ -65,6 +65,10 @@ export class QGDataModel extends foundry.abstract.TypeDataModel {
             initiative:new SchemaField({
                 base:new NumberField({ initial: 0}),
                 carac:new NumberField({ initial: 0}),
+                bonuses:new NumberField({ initial: 0}),
+                surcharge:new NumberField({ initial: 0}),
+                ranks:new ObjectField(),
+                surchargeranks:new ObjectField(),
                 total:new NumberField({ initial: 0}),
             }),
             strategie:new SchemaField(strategie),
@@ -257,8 +261,31 @@ export class QGDataModel extends foundry.abstract.TypeDataModel {
     }
 
     #_initiative() {
-        Object.defineProperty(this.initiative, 'total', {
-            value: this.initiative.base+this.initiative.carac,
+        const initiative = this.initiative;
+        const ranks = initiative.ranks;
+        const surchargeRanks = initiative.surchargeranks;
+        let ranksValue = 0;
+        let surchargeRanksValue = 0;
+
+        for(let r in ranks) {
+            const itm = this.items.get(r);
+            console.warn(r);
+
+            if(itm) {
+                ranksValue += itm.system.rang*ranks[r];
+            }
+        }
+
+        for(let r in surchargeRanks) {
+            const itm = this.items.get(r);
+
+            if(itm) {
+                surchargeRanksValue += Math.max(itm.system.rang*surchargeRanks[r], surchargeRanksValue);
+            }
+        }
+
+        Object.defineProperty(initiative, 'total', {
+            value: isSurcharge(Math.max(initiative.surcharge, surchargeRanksValue), initiative.carac, initiative.base, initiative.bonuses, ranksValue),
         });
     }
 
