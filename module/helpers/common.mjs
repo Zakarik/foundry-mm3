@@ -1808,6 +1808,10 @@ export function getDices() {
   return {dices:dices, formula:formula, critique:critique};
 }
 
+export function isStackedDmg() {
+  return game.settings.get("mutants-and-masterminds-3e", "stackeddmg");
+}
+
 export function getFullCarac(carac){
     let result = "";
 
@@ -2137,6 +2141,7 @@ export async function rollStd(actor, name, score, dataKey={}) {
 //ROLL VS DD
 export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
   const optDices = getDices();
+  const isStacked = isStackedDmg();
   const alt = dataKey?.alt ?? false;
   let ask = false;
   let mod = 0;
@@ -2162,6 +2167,7 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
   const dataStr = data.str;
   const token = data.tkn;
   let isSuccess = false;
+  let flags = {};
 
   if(isCritique) isSuccess = true;
   else if(margeBrut <= 0) isSuccess = true;
@@ -2231,11 +2237,23 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
       let status = [];
 
       if(marge >= 1 && marge <= dataAtk.repeat.affliction.length) {
-        valueDmg = dataAtk.repeat.affliction[marge-1].value;
         status = dataAtk.repeat.affliction[marge-1].status;
+
+        if(isStacked) {
+          for(let n = 0;n < marge;n++) {
+            valueDmg += dataAtk.repeat.affliction?.[n]?.value ?? 0;
+          }
+        } else valueDmg = dataAtk.repeat.affliction[marge-1].value;
+
       } else if(marge > dataAtk.repeat.affliction.length) {
         valueDmg = dataAtk.repeat.affliction[dataAtk.repeat.affliction.length-1].value;
         status = dataAtk.repeat.affliction[dataAtk.repeat.affliction.length-1].status;
+
+        if(isStacked) {
+          for(let n = 0;n < marge;n++) {
+            valueDmg += dataAtk.repeat.affliction?.[n]?.value ?? 0;
+          }
+        } else valueDmg = dataAtk.repeat.affliction[dataAtk.repeat.affliction.length-1].value
       }
 
       for(let s of status) {
@@ -2254,11 +2272,22 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
       let status = [];
 
       if(marge >= 1 && marge <= dataAtk.repeat.dmg.length) {
-        valueDmg = dataAtk.repeat.dmg[marge-1].value;
         status = dataAtk.repeat.dmg[marge-1].status;
+
+        if(isStacked) {
+          for(let n = 0;n < marge;n++) {
+            valueDmg += dataAtk.repeat.dmg?.[n]?.value ?? 0;
+          }
+        } else valueDmg = dataAtk.repeat.dmg[marge-1].value;
+
       } else if(marge > dataAtk.repeat.dmg.length) {
-        valueDmg = dataAtk.repeat.dmg[dataAtk.repeat.affliction.length-1].value;
         status = dataAtk.repeat.dmg[dataAtk.repeat.affliction.length-1].status;
+
+        if(isStacked) {
+          for(let n = 0;n < marge;n++) {
+            valueDmg += dataAtk.repeat.dmg?.[n]?.value ?? 0;
+          }
+        } else valueDmg = dataAtk.repeat.dmg[dataAtk.repeat.affliction.length-1].value;
       }
 
       for(let s of status) {
@@ -2272,7 +2301,24 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
       if(update.length > 0) await token.actor.createEmbeddedDocuments("ActiveEffect", update);
     }
 
-    if(!foundry.utils.isEmpty(blessures)) await token.actor.update(blessures);
+    if(!foundry.utils.isEmpty(blessures) && !isStacked) await token.actor.update(blessures);
+    else if(!foundry.utils.isEmpty(blessures) && isStacked) {
+      const tgt = token.id;
+      flags['mutants-and-masterminds-3e.blessures'] = true;
+      flags['mutants-and-masterminds-3e.value'] = blessures['system.blessure'];
+      pRollSave.specialBtn = [
+        {
+          type:'NL',
+          label:game.i18n.localize("MM3.DegatsNL"),
+          tgt:tgt,
+        },
+        {
+          type:'L',
+          label:game.i18n.localize("MM3.DegatsL"),
+          tgt:tgt,
+        }
+      ]
+    }
   } else if(typeAtk !== false && typeAtk === 'area' && isSuccess) {
 
     const isDmg = dataAtk.isDmg;
@@ -2317,8 +2363,11 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
     content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRollSave),
     sound: CONFIG.sounds.dice
   };
+  saveMsgData.flags = flags;
   const rMode = game.settings.get("core", "rollMode");
   const msgDataSave = ChatMessage.applyRollMode(saveMsgData, rMode);
+
+  console.warn(saveMsgData);
 
   await ChatMessage.create(msgDataSave, {
     rollMode:rMode

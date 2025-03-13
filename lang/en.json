@@ -267,6 +267,8 @@
       "MeasureSystemHint":"Choose between the metric or imperial system.",
       "Metric":"Metric",
       "Imperial":"Imperial",
+      "StackedDmg":"Using Valiant's stacked damage rule",
+      "StackedDmgHint":"Allows you to apply the optional stacked damage rule presented in Valiant, as well as lethal / non-lethal damage.",
       "DiagonalMovement":{
         "Name": "Diagonal Movement",
         "Hint": "Configures which diagonal movement rule will be used in the system.",
@@ -296,6 +298,9 @@
       "Typeattaque":"Type of attack",
       "ModEsquive":"Dodge roll mod",
       "BaseEsquive":"Dodge roll base",
+      "SubitBlessure":"Suffers {value} injury(ies) {type}",
+      "TypeBlessureNL":"non-lethal",
+      "TypeBlessureL":"lethal",
       "TYPE":{
         "Autre":"Other",
         "Degats":"Damage",
@@ -412,6 +417,9 @@
     "Etats":"Notes & Conditions",
     "Heroisme":"Hero Points",
     "Blessures":"Injuries",
+    "BlessuresStacked":"Lethal / Non-lethal wounds",
+    "BlessuresL":"Lethal wounds",
+    "BlessuresNL":"Non-lethal wounds",
     "Type":"Type",
     "Extra":"Extra",
     "Extras":"Extras",

@@ -1116,13 +1116,29 @@ Hooks.on('renderChatMessage', (message, html, data) => {
   const isInitiative = message?.flags?.core?.initiativeRoll ?? false;
   const toHide = $(html.find('div.toHide'));
   const btn = $(html.find('button.btnRoll'));
+  const btnBlessure = $(html.find('button.btnBlessure'));
   const isExist = btn.length > 0 ? true : false;
+  const isExistBlessure = btnBlessure.length > 0 ? true : false;
   const user = game.user;
 
   accessibility(null, html)
 
   if(isExist && !user.isGM) {
     html.find('button.btnRoll').each(function() {
+      const target = $(this);
+      const tgt = target.data('target');
+      const scene = canvas.scene;
+
+      if(scene === null) return;
+
+      const token = scene.tokens.find(token => token.id === tgt);
+
+      if(token.actor.ownership[game.user.id] !== 3 && token.actor.ownership.default !== 3) target.parent().hide();
+    });
+  }
+
+  if(isExistBlessure && !user.isGM) {
+    html.find('button.btnBlessure').each(function() {
       const target = $(this);
       const tgt = target.data('target');
       const scene = canvas.scene;
@@ -1162,6 +1178,59 @@ Hooks.on('renderChatMessage', (message, html, data) => {
       const name = `${game.i18n.localize(CONFIG.MM3.defenses[savetype])}`;
 
       rollVs(tokenActor, name, saveScore, vs, {typeAtk:typeAtk, atk:dataAtk, str:dataStr, tkn:token}, {alt:hasAlt});
+  });
+
+  html.find('button.btnBlessure').click(async ev => {
+      ev.stopPropagation();
+      const target = $(ev.currentTarget);
+      const tgt = target.data('target');
+      const type = target.data('type');
+      const token = canvas.scene.tokens.find(token => token.id === tgt);
+      const isBlessure = message?.flags?.['mutants-and-masterminds-3e']?.blessures ?? false;
+
+      if(token.actor.ownership[game.user.id] !== 3 && token.actor.ownership.default !== 3) return;
+      if(!isBlessure) return;
+      const value = message?.flags?.['mutants-and-masterminds-3e']?.value ?? 0;
+      let update = {};
+      let txtType = '';
+
+      switch(type) {
+        case 'NL':
+          update['system.blessureNL'] = value;
+          txtType = game.i18n.localize('MM3.ROLL.TypeBlessureNL');
+          break;
+
+        case 'L':
+          update['system.blessure'] = value;
+          txtType = game.i18n.localize('MM3.ROLL.TypeBlessureL');
+          break
+      }
+
+      token.actor.update(update);
+
+      let pMsg = {
+        flavor:token?.name,
+        text:game.i18n.format('MM3.ROLL.SubitBlessure', {value:value, type:txtType}),
+      }
+
+      const saveMsgData = {
+        speaker: {
+          actor: token.actor?.id || null,
+          token: token?.id || null,
+          alias: token?.name || null,
+        },
+        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+        content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pMsg),
+        sound: CONFIG.sounds.dice
+      };
+      const rMode = game.settings.get("core", "rollMode");
+      const msgDataSave = ChatMessage.applyRollMode(saveMsgData, rMode);
+
+      console.warn(saveMsgData);
+
+      await ChatMessage.create(msgDataSave, {
+        rollMode:rMode
+      });
   });
 
   if(isInitiative) {

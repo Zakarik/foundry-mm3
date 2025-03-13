@@ -29,12 +29,20 @@
                     <input type="number" name="system.pp.base" value="{{systemData.pp.base}}" min="0" />
                     <input type="number" name="system.pp.gain" value="{{systemData.pp.gain}}" min="0" />
                 </div>
-
                 <div>
                     <span>{{localize "MM3.Heroisme"}}</span>
-                    <span>{{localize "MM3.Blessures"}}</span>
+                    <span>{{localize (ifThen systemData.stackeddmg "MM3.BlessuresStacked" "MM3.Blessures")}}</span>
                     <input type="number" name="system.heroisme" value="{{systemData.heroisme}}" min="0" />
+
+                    {{#if systemData.stackeddmg}}
+                    <div class="double">
+                        <input type="number" name="system.blessure" value="{{systemData.blessure}}" min="0" title="{{localize "MM3.BlessuresL"}}" />
+                        <span>/</span>
+                        <input type="number" name="system.blessureNL" value="{{systemData.blessureNL}}" min="0" title="{{localize "MM3.BlessuresNL"}}" />
+                    </div>
+                    {{else}}
                     <input type="number" name="system.blessure" value="{{systemData.blessure}}" min="0" />
+                    {{/if}}
                 </div>
             </div>
 

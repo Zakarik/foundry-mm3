@@ -84,6 +84,15 @@
                 {{localize "MM3.DEFENSE.DDDefense"}} : {{effet}}
             </h4>
         {{/if}}
+        {{#if specialBtn}}
+            <div class="btn special">
+                {{#each specialBtn}}
+                    <button class="btnBlessure" data-type="{{type}}" data-target="{{tgt}}">
+                        {{label}}
+                    </button>
+                {{/each}}
+            </div>
+        {{/if}}
         {{#if text}}
             <span class="text">{{text}}</span>
         {{/if}}

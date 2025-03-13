@@ -1,7 +1,7 @@
 .mm3-roll {
     cursor:pointer;
     background:$fond;
-  
+
     h4 {
         &.flavor {
             box-shadow: none;
@@ -52,7 +52,7 @@
             border-left: 1px solid $black;;
             border-right: 1px solid $black;
         }
-        
+
         &.attack {
             box-shadow: none;
             font-family: "Sriracha";
@@ -134,7 +134,7 @@
                     }
                 }
             }
-            
+
         }
 
         &.btn {
@@ -171,6 +171,17 @@
                 background-blend-mode: overlay, multiply;
                 text-shadow: 2px 2px 0px $orange, 1px 1px 0px $color;
                 background-size: 500px;
+            }
+
+            &.special {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-gap: 5px;
+
+                button {
+                    width: 100%;
+                    padding: 0px;
+                }
             }
         }
     }
@@ -303,7 +314,7 @@
                 }
             }
         }
-        
+
         &.data {
             display:grid;
             grid-template-columns: 1fr 1fr;
@@ -326,7 +337,7 @@
                 }
             }
         }
-        
+
         &.descripteurs {
             display:block;
             grid-template-columns: 1fr 1fr;
@@ -438,7 +449,7 @@
     background:$fond;
 
     &.whisper {
-        
+
         filter:hue-rotate(50deg);
     }
 

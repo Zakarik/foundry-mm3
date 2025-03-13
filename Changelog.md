@@ -1,3 +1,8 @@
+## Version 1.38.0
+### Améliorations
+- Ajout des dégâts cumulatif de Valiant, activable dans les options.
+Cela signifie que chaque degré de réussite supplémentaire ne se contentera pas d'infliger les dégâts indiqués par celui-ci, mais l'additionnera aux degrés de réussites inférieurs.
+
 ## Version 1.37.0
 ### Améliorations
 - Ajout de l'initiative dans les modificateurs.

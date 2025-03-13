@@ -267,6 +267,8 @@
       "MeasureSystemHint":"Elige entre el sistema métrico o imperial.",
       "Metric":"Métrico",
       "Imperial":"Imperial",
+      "StackedDmg":"Utilice la regla de daño acumulativo de Valiant",
+      "StackedDmgHint":"Permite aplicar la regla de daño acumulativo opcional introducida en Valiant, así como daño letal/no letal.",
       "DiagonalMovement":{
         "Name": "Movimiento Diagonal",
         "Hint": "Configura qué regla de movimiento diagonal se usará en el sistema.",
@@ -296,6 +298,9 @@
       "Typeattaque":"Tipo de ataque",
       "ModEsquive":"Mod. de esquivar",
       "BaseEsquive":"Base de tirada de esquiva",
+      "SubitBlessure":"Sufre {value} lesión(es) {type}",
+      "TypeBlessureNL":"no letal(es)",
+      "TypeBlessureL":"letal(es)",
       "TYPE":{
         "Autre":"Other",
         "Degats":"Dañar",
@@ -412,6 +417,9 @@
     "Etats":"Notas & Condiciones",
     "Heroisme":"Puntos de Héroe",
     "Blessures":"Lesiones",
+    "BlessuresStacked":"Lesiones letales/no letales",
+    "BlessuresL":"Lesiones letales",
+    "BlessuresNL":"Lesiones no letales",
     "Type":"Tipo",
     "Extra":"Extra",
     "Extras":"Extras",

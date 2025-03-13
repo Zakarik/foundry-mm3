@@ -1623,6 +1623,14 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.points div:
   padding-right: 5px;
   border-left: 2px solid black;
 }
+div.personnage section.sheet-body div.caracteristiques div.inner div.points div.double {
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
+  grid-gap: 2px;
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+}
 div.personnage section.sheet-body div.caracteristiques div.inner div.defense {
   display: grid;
   grid-template-columns: 1fr 45px repeat(3, 45px 5px) 45px;
@@ -9107,6 +9115,15 @@ section.sheet-bottom {
   background-blend-mode: overlay, multiply;
   text-shadow: 2px 2px 0px #DA3A2F, 1px 1px 0px #363B44;
   background-size: 500px;
+}
+.mm3-roll div.btn.special {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5px;
+}
+.mm3-roll div.btn.special button {
+  width: 100%;
+  padding: 0px;
 }
 .mm3-roll span.text {
   display: block;

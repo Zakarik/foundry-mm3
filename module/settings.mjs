@@ -22,6 +22,18 @@ export const RegisterSettings = function () {
         }
     });
 
+    game.settings.register("mutants-and-masterminds-3e", "stackeddmg", {
+        name: "MM3.SETTING.StackedDmg",
+        hint: "MM3.SETTING.StackedDmgHint",
+        scope: "world",
+        config: true,
+        type: Boolean,
+        default:false,
+        onChange: value => {
+            foundry.utils.debouncedReload();
+        }
+    });
+
     game.settings.register("mutants-and-masterminds-3e", "dcroll", {
         name: "MM3.SETTING.DCRoll",
         hint: "MM3.SETTING.DCRollHint",

@@ -39,6 +39,8 @@ export class PersonnageActorSheet extends ActorSheet {
     context.systemData = context.data.system;
     this._prepareCompetences(context);
 
+    if(game.settings.get("mutants-and-masterminds-3e", "stackeddmg")) context.systemData.stackeddmg = true;
+
     console.warn(context);
 
     return context;
@@ -48,7 +50,7 @@ export class PersonnageActorSheet extends ActorSheet {
      * Return a light sheet if in "limited" state
      * @override
      */
-   get template() {
+  get template() {
     if (!game.user.isGM && this.actor.limited) {
       return "systems/mutants-and-masterminds-3e/templates/limited-personnage-sheet.html";
     }

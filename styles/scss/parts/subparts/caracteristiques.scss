@@ -22,7 +22,7 @@ div {
                         align-items:flex-start;
                         align-content: flex-start;
                         grid-template-rows: max-content;
-                    }                    
+                    }
 
                     &.carac {
                         display:grid;
@@ -78,7 +78,7 @@ div {
                             background:transparent;
                         }
                     }
-                    
+
                     &.comp {
                         display:grid;
                         grid-template-columns: 29px 1fr repeat(5, 42.55px) 12.25px;
@@ -125,7 +125,7 @@ div {
                                 grid-column-start: 1;
                                 grid-column-end: 3;
                             }
-                            
+
                             &.label {
                                 display:grid;
                                 grid-column-start: 1;
@@ -186,7 +186,7 @@ div {
                             margin-top: 2px;
                             margin-left:2px;
                             margin-bottom:2px;
-        
+
                             &:hover {
                                 color: $lightOrange;
                                 border-color:$red;
@@ -264,7 +264,7 @@ div {
                                     grid-column-start: 1;
                                     grid-column-end: 3;
                                 }
-                                
+
                                 &.label {
                                     display:grid;
                                     grid-column-start: 1;
@@ -325,7 +325,7 @@ div {
                                 margin-top: 2px;
                                 margin-left:2px;
                                 margin-bottom:2px;
-            
+
                                 &:hover {
                                     color: $lightOrange;
                                     border-color:$red;
@@ -390,7 +390,7 @@ div {
                             width:100%;
                             padding-left:15px;
                         }
-    
+
                         textarea {
                             border-left:0px;
                             border-right:0px;
@@ -399,12 +399,12 @@ div {
                             border-radius:0px;
                             min-height:100px;
                             font-family: Sriracha;
-    
+
                             &:last-of-type {
                                 border-bottom:1px solid;
                                 border-bottom-color: $color;
                             }
-                        }        
+                        }
                     }
 
                     &.points {
@@ -444,6 +444,15 @@ div {
                                 padding-left:5px;
                                 padding-right:5px;
                                 border-left:2px solid $black;
+                            }
+
+                            &.double {
+                                display: grid;
+                                grid-template-columns: 1fr max-content 1fr;
+                                grid-gap: 2px;
+                                border: 0px;
+                                padding: 0px;
+                                margin: 0px;
                             }
                         }
                     }

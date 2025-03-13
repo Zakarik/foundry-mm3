@@ -155,6 +155,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
             puissance:new NumberField({ initial: 0, min:0}),
             heroisme:new NumberField({ initial: 0, min:0}),
             blessure:new NumberField({ initial: 0, min:0}),
+            blessureNL:new NumberField({ initial: 0, min:0}),
             ddparade:new NumberField({ initial: 0, min:0}),
             ddesquive:new NumberField({ initial: 0, min:0}),
             ptsEquipements:new SchemaField({
@@ -742,7 +743,11 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                 }
             }
 
-            if(d === 'robustesse') mod -= this.blessure;
+            if(d === 'robustesse') {
+                mod -= this.blessure;
+
+                if(game.settings.get("mutants-and-masterminds-3e", "stackeddmg")) mod -= this.blessureNL;
+            }
             if(d === 'esquive') mod += this.strategie.total.defense;
             if(d === 'parade') mod += this.strategie.total.defense;
             ppDef += defRang;
