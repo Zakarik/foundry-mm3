@@ -420,6 +420,8 @@
     "BlessuresStacked":"Lethal / Non-lethal wounds",
     "BlessuresL":"Lethal wounds",
     "BlessuresNL":"Non-lethal wounds",
+    "DegatsL":"Lethal damage",
+    "DegatsNL":"Non-lethal damage",
     "Type":"Type",
     "Extra":"Extra",
     "Extras":"Extras",

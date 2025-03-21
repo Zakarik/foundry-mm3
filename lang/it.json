@@ -420,6 +420,8 @@
     "BlessuresStacked":"Ferite letali/non letali",
     "BlessuresL":"Ferite letali",
     "BlessuresNL":"Ferite non letali",
+    "DegatsL":"Danno letale",
+    "DegatsNL":"Danno non letali",
     "Type":"Tipo",
     "Extra":"Extra",
     "Extras":"Extra",

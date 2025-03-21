@@ -1,3 +1,7 @@
+## Version 1.38.1
+### Bugfix
+- Correction d'un oubli dans les traductions non-francophones du système.
+
 ## Version 1.38.0
 ### Améliorations
 - Ajout des dégâts cumulatif de Valiant, activable dans les options.
