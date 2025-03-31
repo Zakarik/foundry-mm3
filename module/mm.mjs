@@ -844,7 +844,11 @@ function convertToProcessableCharacterData(parsedData){
           defenseBaseStat = characterData.attributes.attribute.find(element => element.name === "Awareness");
       }
       //secondDefenseNumber = defenseBaseStat.modified;
-      cost.value =   defense.defenseNumber - defenseBaseStat.modified
+      if(defenseBaseStat){
+        cost.value =   defense.defenseNumber - defenseBaseStat.modified
+        characterData.defenses.defense.push({name:defense.defenseType,  abbr: defense.defenseType, base: firstDefenseNumber, modified: secondDefenseNumber, impervious: 0, text: firstDefenseNumber+"/"+secondDefenseNumber, cost: cost});
+  
+      }
 
 
     }
