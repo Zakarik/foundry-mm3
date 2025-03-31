@@ -637,7 +637,12 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
             }
           }
         };
-
+        if(isNaN(itm.system.cout.rang)){
+          itm.system.cout.rang=0
+        }
+         if(isNaN(itm.system.cout.divers)){
+          itm.system.cout.divers=0 
+        }
         const itemCreate = await Item.create(itm, {parent: actor});
 
         const oPwr = link === "" ? await processAlternatePower(actor, pwr, itemCreate, true) : await processAlternatePower(actor, pwr, itemCreate, true);
