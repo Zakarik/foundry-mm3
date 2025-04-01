@@ -1,3 +1,7 @@
+## Version 1.38.2
+### Bugfix
+- Correction de bugs avec l'import.
+
 ## Version 1.38.1
 ### Bugfix
 - Correction d'un oubli dans les traductions non-francophones du système.
