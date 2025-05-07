@@ -25,7 +25,7 @@ export class editAtk {
         const getData = CONFIG.statusEffects.map(effect => ({
             key:effect.id,
             label:game.i18n.localize(effect.label),
-        })).sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: 'accent' }));
+        })).sort((a, b) => a.label?.localeCompare(b.label, undefined, { sensitivity: 'accent' }));
 
         return getData;
     }
