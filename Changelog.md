@@ -1,3 +1,7 @@
+## Version 1.38.3
+### Bugfix
+- Correction d'un bug pouvant empêcher d'éditer les attaques.
+
 ## Version 1.38.2
 ### Bugfix
 - Correction de bugs avec l'import.
