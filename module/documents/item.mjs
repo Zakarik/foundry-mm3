@@ -1,8 +1,4 @@
-import {
-    checkActiveOrUnactive,
-  } from "../helpers/common.mjs";
-
-/**
+ /**
  * Extend the base Item document to support attributes and groups with a custom template creation dialog.
  * @extends {Item}
  */

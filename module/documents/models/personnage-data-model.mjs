@@ -244,6 +244,12 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
         }
     }
 
+    get isVersion12() {
+        const version = game.version.split('.')[0];
+
+        return version <= 12 ? true : false;
+    }
+
     prepareDerivedData() {
         this.#_strValue();
         this.#_carValue();

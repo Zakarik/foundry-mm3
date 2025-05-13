@@ -10089,6 +10089,7 @@ section#actors footer.action-buttons button {
   letter-spacing: 2px;
   display: flex;
   align-items: center;
+  background: rgba(255, 255, 240, 0.8);
 }
 
 div.mm3-dialog-delete .window-content {

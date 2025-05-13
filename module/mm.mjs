@@ -1350,6 +1350,45 @@ Hooks.on("createActiveEffect", async (effect, data, id) => {
   setCombinedEffects(effect.parent, statuses, true);
 });
 
+Hooks.on("updateActor", async (actor, data, id) => {
+  const version = game.version.split('.')[0];
+  const isVersion12 = version <= 12 ? true : false;
+  const effects = data?.effects?.length ?? 0;
+  const items = data?.items?.length ?? 0;
+
+  if(effects > 0 && !isVersion12) {
+    const actorItems = actor.getEmbeddedCollection('ActiveEffect');
+    const actorToUpdate = [];
+
+    for(let e of actorItems) {
+        actorToUpdate.push(e.id);
+    }
+
+    if(actorToUpdate.length > 0) await actor.deleteEmbeddedDocuments('ActiveEffect', actorToUpdate);
+  };
+
+  /*if(items > 0) {
+    const actorItems = actor.getEmbeddedCollection('Item');
+
+    for(let i of actorItems) {
+      if(i.type === 'pouvoir') {
+        const effects = i.getEmbeddedCollection('ActiveEffect');
+        const listVariante = i.system.listEffectsVariantes;
+        const keysVariante = Object.keys(listVariante);
+        const effectsToUpdate = [];
+
+        for(let e of effects) {
+            effectsToUpdate.push({"_id":e.id, 'flags.-=variante':null});
+            effectsToUpdate.push({"_id":e.id, 'flags.mutants-and-masterminds-3e.variante':keysVariante.find(key => listVariante[key] === e.name)});
+        }
+
+        if(effectsToUpdate.length > 0) await i.updateEmbeddedDocuments('ActiveEffect', effectsToUpdate);
+      }
+    }
+  }*/
+
+});
+
 async function createMacro(bar, data, slot) {
   if(data.type === 'Item' || foundry.utils.isEmpty(data)) return;
   // Create the macro command

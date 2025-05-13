@@ -52,6 +52,12 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
         return this.item.effects;
     }
 
+    get isVersion12() {
+        const version = game.version.split('.')[0];
+
+        return version <= 12 ? true : false;
+    }
+
     prepareDerivedData() {
         this.#_activate();
         this.#_cout();
@@ -198,27 +204,59 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
         }
     }
 
-    #_effects() {
-        if(!this.actor) return;
-        if(this.actor.permission !== 3) return;
-
+    async #_effects() {
+        const item = this.item;
+        const actor = this.actor;
+        const effects = this.effects;
         const isactive = this.activate;
         const nactive = isactive ? false : true;
-        const actor = this.actor;
         const variante = this.effectsVarianteSelected === "" ? Object.keys(this.listEffectsVariantes)[0] : this.effectsVarianteSelected;
-        const actorToUpdate = [];
+        const effectsToUpdate = [];
 
-        if(!actor) return;
+        await this.#_updateV13(effects);
 
-        const actorItem = actor.effects.find(itm => (itm?.origin?.includes(this.item.id) ?? false) && itm.flags.variante === variante && itm.disabled !== nactive);
-        const actorItems = actor.effects.filter(itm => (itm?.origin?.includes(this.item._id) ?? false) && itm.flags.variante !== variante && itm.disabled !== true);
+        const effectItem = this.effects.find(itm => itm.getFlag('mutants-and-masterminds-3e', 'variante') === variante && itm.disabled !== nactive);
+        const effectsItem = this.effects.filter(itm => itm.getFlag('mutants-and-masterminds-3e', 'variante') !== variante && itm.disabled !== true);
 
-        if(actorItem !== undefined) actorToUpdate.push({"_id":actorItem.id, disabled:nactive});
+        if(effectItem !== undefined) effectsToUpdate.push({"_id":effectItem.id, disabled:nactive});
 
-        for(let e of actorItems) {
-            actorToUpdate.push({"_id":e.id, disabled:true});
+        for(let e of effectsItem) {
+            effectsToUpdate.push({"_id":e.id, disabled:true});
         }
 
-        actor.updateEmbeddedDocuments('ActiveEffect', actorToUpdate);
+        if(effectsToUpdate.length > 0) await item.updateEmbeddedDocuments('ActiveEffect', effectsToUpdate);
+
+        if(this.isVersion12) {
+            if(!this.actor) return;
+            if(this.actor.permission !== 3) return;
+            const actorToUpdate = [];
+            const actorItem = actor.effects.find(itm => (itm?.origin?.includes(this.item.id) ?? false) && itm.flags.variante === variante && itm.disabled !== nactive);
+            const actorItems = actor.effects.filter(itm => (itm?.origin?.includes(this.item._id) ?? false) && itm.flags.variante !== variante && itm.disabled !== true);
+
+            if(actorItem !== undefined) actorToUpdate.push({"_id":actorItem.id, disabled:nactive});
+
+            for(let e of actorItems) {
+                actorToUpdate.push({"_id":e.id, disabled:true});
+            }
+
+            if(actorToUpdate.length > 0) await actor.updateEmbeddedDocuments('ActiveEffect', actorToUpdate);
+        }
+    }
+
+    async #_updateV13(effects) {
+        const filter = effects.filter(itm => !itm.getFlag('mutants-and-masterminds-3e', 'variante'))
+
+        if(filter.length === 0) return;
+
+        const listVariante = this.listEffectsVariantes;
+        const keysVariante = Object.keys(listVariante);
+        const effectsToUpdate = [];
+
+        for(let e of filter) {
+            effectsToUpdate.push({"_id":e.id, 'flags.-=variante':null});
+            effectsToUpdate.push({"_id":e.id, 'flags.mutants-and-masterminds-3e.variante':keysVariante.find(key => listVariante[key] === e.name)});
+        }
+
+        await this.item.updateEmbeddedDocuments('ActiveEffect', effectsToUpdate);
     }
 }

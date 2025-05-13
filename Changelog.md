@@ -1,3 +1,7 @@
+## Version 1.39.0
+### Améliorations
+- Compatibilité V13.
+
 ## Version 1.38.3
 ### Bugfix
 - Correction d'un bug pouvant empêcher d'éditer les attaques.

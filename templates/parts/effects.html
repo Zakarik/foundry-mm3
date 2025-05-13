@@ -1,6 +1,6 @@
 
 {{#if single}}
-    <div class="effects {{#if systemData.edit}}edit{{/if}} single" data-name="{{effect.flags.variante}}">
+    <div class="effects {{#if systemData.edit}}edit{{/if}} single" data-name="{{effect.flags.mutants-and-masterminds-3e.variante}}">
         <div class="header">
             <a type="action" class="btn btnEdit {{#if systemData.edit}}selected{{/if}}">
                 {{localize 'MM3.BTN.EditMod'}}
@@ -21,7 +21,7 @@
                         <select name="item.effects.{{kE}}.changes.{{kC}}.surcharge" data-key="{{kC}}" data-id="{{effect._id}}" class="surcharge">
                             {{selectOptions ../../item.listSurcharge selected=(getLast change.key) blank='MM3.EFFECTS.Bonus' localize=true sort=true}}
                         </select>
-                        <input type="number" name="item.effects.{{kE}}.changes.{{kC}}.key" data-name="{{effect.flags.variante}}" value="{{change.value}}" data-key="{{kC}}" data-id="{{effect._id}}" class="effect" />
+                        <input type="number" name="item.effects.{{kE}}.changes.{{kC}}.key" data-name="{{effect.flags.mutants-and-masterminds-3e.variante}}" value="{{change.value}}" data-key="{{kC}}" data-id="{{effect._id}}" class="effect" />
                     </div>
                     <div class="show">
                         <span class="header">
@@ -43,10 +43,10 @@
     </div>
 {{else}}
     {{#each item.effects as | effect kE|}}
-    <div class="effects {{#if ../systemData.edit}}edit{{/if}}" data-name="{{effect.flags.variante}}">
+    <div class="effects {{#if ../systemData.edit}}edit{{/if}}" data-name="{{effect.flags.mutants-and-masterminds-3e.variante}}">
         <div class="header">
             <i class="fa-solid fa-trash deleteVMod clickable" data-id="{{effect._id}}" data-name="{{effect.flags.variante}}" title="{{localize 'MM3.BTN.DeleteVMod'}}"></i>
-            <input type="text" class="varianteName" data-id="{{effect._id}}" data-name="{{effect.flags.variante}}" name="system.listEffectsVariantes.{{effect.flags.variante}}" value="{{getVarianteName ../item.system effect.flags.variante}}" placeholder="{{localize 'MM3.TABS.Modificateurs'}}" />
+            <input type="text" class="varianteName" data-id="{{effect._id}}" data-name="{{effect.flags.mutants-and-masterminds-3e.variante}}" name="system.listEffectsVariantes.{{effect.flags.mutants-and-masterminds-3e.variante}}" value="{{getVarianteName ../item.system effect.flags.mutants-and-masterminds-3e.variante}}" placeholder="{{localize 'MM3.TABS.Modificateurs'}}" />
             <i class="fa-solid fa-square-plus clickable addMod" title="{{localize 'MM3.BTN.AddMod'}}" data-id="{{effect._id}}"></i>
         </div>
         {{#if effect.changes}}
@@ -61,7 +61,7 @@
                     <select name="item.effects.{{kE}}.changes.{{kC}}.surcharge" data-key="{{kC}}" data-id="{{effect._id}}" class="surcharge">
                         {{selectOptions ../../item.listSurcharge selected=(getLast change.key) blank='MM3.EFFECTS.Bonus' localize=true sort=true}}
                     </select>
-                    <input type="number" name="item.effects.{{kE}}.changes.{{kC}}.key" value="{{change.value}}" data-key="{{kC}}" data-id="{{effect._id}}" data-name="{{effect.flags.variante}}" class="effect" />
+                    <input type="number" name="item.effects.{{kE}}.changes.{{kC}}.key" value="{{change.value}}" data-key="{{kC}}" data-id="{{effect._id}}" data-name="{{effect.flags.mutants-and-masterminds-3e.variante}}" class="effect" />
                 </div>
                 <div class="show">
                     <span class="header">

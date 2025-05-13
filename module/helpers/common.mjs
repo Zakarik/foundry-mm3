@@ -35,6 +35,12 @@ export const listBg = [
   "bleufonce"
 ];
 
+function isVersion12() {
+  const version = game.version.split('.')[0];
+
+  return version <= 12 ? true : false;
+}
+
 // Changes XML to JSON
 export const xmlToJson = function (xml) {
   // Create the return object
@@ -3644,9 +3650,8 @@ export async function updateEffects(item, id, name, changes) {
     icon:'',
     changes:changes,
   }]);
-
-  if(actor !== null) {
-    const getActorEffects = actor.effects.contents.find(itm => (itm?.origin?.includes(item._id) ?? false) && itm.flags.variante === name);
+  if(actor !== null && isVersion12()) {
+    const getActorEffects = actor.effects.contents.find(itm => (itm?.origin?.includes(item._id) ?? false) && itm.getFlag('mutants-and-masterminds-3e', 'variante') === name);
 
     if(getActorEffects) {
       await actor.updateEmbeddedDocuments('ActiveEffect', [{
@@ -3667,8 +3672,8 @@ export async function updateVarianteName(item, id, variante, name) {
     name:name
   }]);
 
-  if(actor !== null) {
-    const getActorEffects = actor.effects.contents.find(itm => (itm?.origin?.includes(item._id) ?? false) && itm.flags.variante === variante);
+  if(actor !== null && isVersion12()) {
+    const getActorEffects = actor.effects.contents.find(itm => (itm?.origin?.includes(item._id) ?? false) && itm.getFlag('mutants-and-masterminds-3e', 'variante') === variante);
 
     if(getActorEffects) {
       await actor.updateEmbeddedDocuments('ActiveEffect', [{
@@ -3685,7 +3690,9 @@ export function createEffects(item, name, variante) {
   let updateItemEffects = {
     name: name,
     flags:{
-      variante:variante
+      'mutants-and-masterminds-3e':{
+        variante:variante
+      }
     },
     icon:'',
     changes:[],
@@ -3695,11 +3702,13 @@ export function createEffects(item, name, variante) {
 
   item.createEmbeddedDocuments('ActiveEffect', [updateItemEffects]);
 
-  if(actor !== null) {
+  if(actor !== null && isVersion12()) {
     let updateActorEffects = {
       name: name,
       flags:{
-        variante:variante
+        'mutants-and-masterminds-3e':{
+          variante:variante
+        }
       },
       icon:'',
       changes:[],
@@ -3716,7 +3725,9 @@ export function createEffectsWithChanges(item, name, changes, disabled) {
   let updateItemEffects = {
     name: name,
     flags:{
-      variante:'e0'
+      'mutants-and-masterminds-3e':{
+        variante:'e0'
+      }
     },
     icon:'',
     changes:changes,
@@ -3726,11 +3737,13 @@ export function createEffectsWithChanges(item, name, changes, disabled) {
 
   item.createEmbeddedDocuments('ActiveEffect', [updateItemEffects]);
 
-  if(actor !== null) {
+  if(actor !== null && isVersion12()) {
     let updateActorEffects = {
       name: name,
       flags:{
+      'mutants-and-masterminds-3e':{
         variante:'e0'
+      }
       },
       icon:'',
       changes:changes,
@@ -3746,54 +3759,12 @@ export function deleteEffects(item, id, name) {
   const actor = getActor(item);
 
   item.deleteEmbeddedDocuments('ActiveEffect', [id]);
-
-  if(actor !== null) {
-    const getActorEffects = actor.effects.find(itm => itm.origin.includes(item._id) && itm.flags.variante === name);
+  console.warn(isVersion12());
+  if(actor !== null && isVersion12()) {
+    const getActorEffects = actor.effects.find(itm => itm.origin.includes(item._id) && itm.getFlag('mutants-and-masterminds-3e', 'variante') === name);
 
     actor.deleteEmbeddedDocuments('ActiveEffect', [getActorEffects._id]);
   }
-}
-
-export function createAllEffects(item, update, updateActor) {
-  const actor = getActor(item);
-
-  item.createEmbeddedDocuments('ActiveEffect', update);
-
-  if(actor !== null) actor.createEmbeddedDocuments('ActiveEffect', updateActor);
-}
-
-export function deleteAllEffects(item, ids) {
-  const actor = getActor(item);
-
-  item.deleteEmbeddedDocuments('ActiveEffect', ids);
-
-  if(actor !== null) actor.deleteEmbeddedDocuments('ActiveEffect', ids);
-}
-
-export function checkActiveOrUnactive(item) {
-  const effects = item.effects;
-  if(effects.size === 0) return;
-
-  const variante = item.system.effectsVarianteSelected;
-  const isactive = item.system?.activate ?? false;
-  const nactive = isactive ? false : true;
-  const actor = item.actor;
-
-  let actorToUpdate = [];
-
-  if(actor === '' || actor === null) return;
-  if(actor.permission !== 3) return;
-
-  const actorItem = actor.effects.find(itm => itm.origin.includes(item._id) && itm.flags.variante === variante && itm.disabled !== nactive);
-  const actorItems = actor.effects.filter(itm => itm.origin.includes(item._id) && itm.flags.variante !== variante && itm.disabled !== true);
-
-  if(actorItem !== undefined) actorToUpdate.push({"_id":actorItem._id,disabled:nactive});
-
-  for(let e of actorItems) {
-    actorToUpdate.push({"_id":e._id, disabled:true});
-  }
-
-  if(actorToUpdate.length > 0) actor.updateEmbeddedDocuments('ActiveEffect', actorToUpdate);
 }
 
 export function loadEffectsContext(context) {
@@ -3844,7 +3815,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
           value: "0"
         }], disabled);
       } else {
-        effect = item.effects.find(itm => itm.flags.variante === 'e0');
+        effect = item.effects.find(itm => itm.getFlag('mutants-and-masterminds-3e', 'variante') === 'e0');
         const changes = effect?.changes ?? [];
 
         changes.push({
@@ -3854,7 +3825,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
           value: "0"
         });
 
-        await updateEffects(item, effect._id, effect.flags.variante, changes);
+        await updateEffects(item, effect._id, effect.getFlag('mutants-and-masterminds-3e', 'variante'), changes);
       }
     });
 
@@ -3864,9 +3835,9 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
       const target = $(ev.currentTarget);
 
       if(size !== 0) {
-        const effect = item.effects.find(itm => itm.flags.variante === 'e0');
+        const effect = item.effects.find(itm => itm.getFlag('mutants-and-masterminds-3e', 'variante') === 'e0');
 
-        updateVarianteName(item, effect._id, effect.flags.variante, target.val());
+        updateVarianteName(item, effect._id, effect.getFlag('mutants-and-masterminds-3e', 'variante'), target.val());
       }
     });
   } else {
@@ -3927,7 +3898,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
         value: "0"
       });
 
-      await updateEffects(item, effect._id, effect.flags.variante, changes);
+      await updateEffects(item, effect._id, effect.getFlag('mutants-and-masterminds-3e', 'variante'), changes);
     });
   }
 
@@ -3948,7 +3919,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
 
     changes[key].key = k;
 
-    await updateEffects(item, effect._id, effect.flags.variante, changes);
+    await updateEffects(item, effect._id, effect.getFlag('mutants-and-masterminds-3e', 'variante'), changes);
   });
 
   html.find(`div.effectsBlock select.surcharge`).change(async ev => {
@@ -3987,7 +3958,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
 
     changes[key].key = split.join('.');
 
-    await updateEffects(item, effect._id, effect.flags.variante, changes);
+    await updateEffects(item, effect._id, effect.getFlag('mutants-and-masterminds-3e', 'variante'), changes);
   });
 
   html.find(`div.effectsBlock input`).blur(async ev => {
@@ -4000,7 +3971,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
     let changes = effect.changes;
     changes[key].value = value;
 
-    await updateEffects(item, effect._id, effect.flags.variante, changes);
+    await updateEffects(item, effect._id, effect.getFlag('mutants-and-masterminds-3e', 'variante'), changes);
   });
 
   html.find(`i.deleteMod`).click(ev => {
@@ -4011,7 +3982,7 @@ export function loadEffectsHTML(html, item, permanent=false, single=false) {
     const effect = item.effects.find(effects => effects._id === id);
     effect.changes.splice(key, 1);
 
-    updateEffects(item, id, effect.flags.variante, effect.changes);
+    updateEffects(item, id, effect.getFlag('mutants-and-masterminds-3e', 'variante'), effect.changes);
   });
 
   html.find(`a.btnEdit`).click(ev => {
@@ -4035,8 +4006,7 @@ export async function loadEffectsClose(item) {
     const key = $(i).data('key');
     const variante = $(i).data('name');
     const value = $(i).val();
-    const effect = item.effects.find(itm => itm._id === id && itm.flags.variante === variante);
-
+    const effect = item.effects.find(itm => itm._id === id && itm.getFlag('mutants-and-masterminds-3e', 'variante') === variante);
     let change = effect.changes[key];
     change.value = value;
 
@@ -4052,9 +4022,9 @@ export async function loadEffectsClose(item) {
       const size = effects.size;
 
       if(size !== 0) {
-        const effect = item.effects.find(itm => itm.flags.variante === 'e0');
+        const effect = item.effects.find(itm => itm.getFlag('mutants-and-masterminds-3e', 'variante') === 'e0');
 
-        updateVarianteName(item, effect._id, effect.flags.variante, value);
+        updateVarianteName(item, effect._id, effect.getFlag('mutants-and-masterminds-3e', 'variante'), value);
       }
     } else {
       const id = $(i).data('id');
