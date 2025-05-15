@@ -9148,6 +9148,9 @@ section.sheet-bottom {
   cursor: pointer;
   background: #EBEBEB;
 }
+.mm3-rollpwr h4 {
+  line-height: 24px;
+}
 .mm3-rollpwr h4.flavor {
   box-shadow: none;
   background: url("../assets/fond.webp") #4E7FC8;
