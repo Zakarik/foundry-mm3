@@ -1,3 +1,7 @@
+## Version 1.39.2
+### Bugfix
+- Correction de problèmes de mises en page & de fonctionnalités suite à la mise à jour V13.
+
 ## Version 1.39.1
 ### Bugfix
 - Correction de problèmes de mises en page & de fonctionnalités suite à la mise à jour V13.
