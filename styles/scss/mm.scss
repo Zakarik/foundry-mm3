@@ -124,6 +124,7 @@ img#logo {
     min-width: 200px;
     left: calc(50% - 150px);
     top: -50px;
+    border: 0px;
 }
 
 #pause {
@@ -133,8 +134,12 @@ img#logo {
 div#interface {
     @each $bg in $bgs {
         &.#{$bg} {
+            aside#sidebar div#sidebar-content >section,
+            aside#sidebar nav#sidebar-tabs menu button,
+            div#chat-notifications textarea#chat-message,
+            aside#players div#players-active,
             div#sidebar,
-            aside#players {
+            aside#players.app {
                 background:url("../assets/menu/#{$bg}.png") repeat;
             }
         }

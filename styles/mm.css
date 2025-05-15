@@ -8972,6 +8972,9 @@ section.sheet-bottom {
   cursor: pointer;
   background: #EBEBEB;
 }
+.mm3-roll h4 {
+  line-height: 24px;
+}
 .mm3-roll h4.flavor {
   box-shadow: none;
   background: url("../assets/fond.webp") #4E7FC8;
@@ -9033,6 +9036,9 @@ section.sheet-bottom {
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
+.mm3-roll h4.bottom {
+  margin: 0px;
+}
 .mm3-roll h4.bottom::after {
   content: "";
   display: grid;
@@ -9049,6 +9055,7 @@ section.sheet-bottom {
   color: #0fb002;
 }
 .mm3-roll div.dice-tooltip {
+  grid-template-rows: auto;
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
@@ -9201,6 +9208,9 @@ section.sheet-bottom {
   text-align: center;
   margin: 0px;
 }
+.mm3-rollpwr h4.bottom {
+  margin: 0px;
+}
 .mm3-rollpwr h4.bottom::after {
   content: "";
   display: grid;
@@ -9217,6 +9227,7 @@ section.sheet-bottom {
   color: #0fb002;
 }
 .mm3-rollpwr div.dice-tooltip {
+  grid-template-rows: auto;
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
@@ -9317,6 +9328,9 @@ section.sheet-bottom {
   letter-spacing: 1px;
   margin: 0px;
   text-align: center;
+}
+.mm3-msgdata h4.bottom {
+  margin: 0px;
 }
 .mm3-msgdata h4.bottom::after {
   content: "";
@@ -10043,26 +10057,43 @@ img#logo {
   min-width: 200px;
   left: calc(50% - 150px);
   top: -50px;
+  border: 0px;
 }
 
 #pause {
   background: none;
 }
 
+div#interface.bleuclair aside#sidebar div#sidebar-content > section,
+div#interface.bleuclair aside#sidebar nav#sidebar-tabs menu button,
+div#interface.bleuclair div#chat-notifications textarea#chat-message,
+div#interface.bleuclair aside#players div#players-active,
 div#interface.bleuclair div#sidebar,
-div#interface.bleuclair aside#players {
+div#interface.bleuclair aside#players.app {
   background: url("../assets/menu/bleuclair.png") repeat;
 }
+div#interface.violetclair aside#sidebar div#sidebar-content > section,
+div#interface.violetclair aside#sidebar nav#sidebar-tabs menu button,
+div#interface.violetclair div#chat-notifications textarea#chat-message,
+div#interface.violetclair aside#players div#players-active,
 div#interface.violetclair div#sidebar,
-div#interface.violetclair aside#players {
+div#interface.violetclair aside#players.app {
   background: url("../assets/menu/violetclair.png") repeat;
 }
+div#interface.violet aside#sidebar div#sidebar-content > section,
+div#interface.violet aside#sidebar nav#sidebar-tabs menu button,
+div#interface.violet div#chat-notifications textarea#chat-message,
+div#interface.violet aside#players div#players-active,
 div#interface.violet div#sidebar,
-div#interface.violet aside#players {
+div#interface.violet aside#players.app {
   background: url("../assets/menu/violet.png") repeat;
 }
+div#interface.bleufonce aside#sidebar div#sidebar-content > section,
+div#interface.bleufonce aside#sidebar nav#sidebar-tabs menu button,
+div#interface.bleufonce div#chat-notifications textarea#chat-message,
+div#interface.bleufonce aside#players div#players-active,
 div#interface.bleufonce div#sidebar,
-div#interface.bleufonce aside#players {
+div#interface.bleufonce aside#players.app {
   background: url("../assets/menu/bleufonce.png") repeat;
 }
 

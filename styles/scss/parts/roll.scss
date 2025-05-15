@@ -3,6 +3,8 @@
     background:$fond;
 
     h4 {
+        line-height: 24px;
+
         &.flavor {
             box-shadow: none;
             background:$imgbg $blue;
@@ -70,6 +72,8 @@
         }
 
         &.bottom {
+            margin: 0px;
+
             &::after {
                 content: "";
                 display: grid;
@@ -91,6 +95,7 @@
 
     div {
         &.dice-tooltip {
+            grid-template-rows: auto;
             border-left:1px solid $black;
             border-right:1px solid $black;
 
@@ -271,6 +276,8 @@
         }
 
         &.bottom {
+            margin: 0px;
+
             &::after {
                 content: "";
                 display: grid;
@@ -292,6 +299,7 @@
 
     div {
         &.dice-tooltip {
+            grid-template-rows: auto;
             border-left:1px solid $black;
             border-right:1px solid $black;
 
@@ -413,6 +421,8 @@
         }
 
         &.bottom {
+            margin: 0px;
+
             &::after {
                 content: "";
                 display: grid;

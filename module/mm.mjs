@@ -847,7 +847,7 @@ function convertToProcessableCharacterData(parsedData){
       if(defenseBaseStat){
         cost.value =   defense.defenseNumber - defenseBaseStat.modified
         characterData.defenses.defense.push({name:defense.defenseType,  abbr: defense.defenseType, base: firstDefenseNumber, modified: secondDefenseNumber, impervious: 0, text: firstDefenseNumber+"/"+secondDefenseNumber, cost: cost});
-  
+
       }
 
 
@@ -1160,6 +1160,15 @@ Hooks.on('renderChatMessage', (message, html, data) => {
       $(toHide[i]).remove();
     }
   }
+  console.warn(html);
+  html.find('.mm3-roll div.dice-result').click(ev => {
+    const tgt = $(ev.currentTarget);
+
+    console.warn(tgt.find('div.dice-tooltip'))
+    tgt.find('div.dice-tooltip').toggle({
+        complete: () => {},
+    });
+  });
 
   html.find('button.btnRoll').click(async ev => {
       ev.stopPropagation();
@@ -1503,9 +1512,25 @@ async function RollMacroPwr(actorId, sceneId, tokenId, id, author, event) {
   rollPwr(actor, id, {shift:hasShift, alt:hasAlt});
 };
 
+Hooks.on("renderGamePause", function () {
+  const whatPause = game.settings.get("mutants-and-masterminds-3e", "pauselogo");
+  console.warn(whatPause);
+  if(whatPause !== 'default') {
+    $("#pause img").remove();
+    $("#pause figcaption").remove();
+
+    const pause = $("#pause video");
+
+    if(pause.length === 0) $("#pause").append(`<video width="300" height="200" loop autoplay="autoplay"><source src="systems/mutants-and-masterminds-3e/assets/pause/${whatPause}.webm" type="video/webm" /></video>`);
+    else $("#pause video").attr('src', `systems/mutants-and-masterminds-3e/assets/pause/${whatPause}.webm`);
+    $("#pause video")[0].load();
+    $("#pause video")[0].play();
+  }
+});
+
 Hooks.on("renderPause", function () {
   const whatPause = game.settings.get("mutants-and-masterminds-3e", "pauselogo");
-
+  console.warn(whatPause);
   if(whatPause !== 'default') {
     $("#pause img").remove();
     $("#pause figcaption").remove();
