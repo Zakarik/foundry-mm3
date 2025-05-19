@@ -1,3 +1,7 @@
+## Version 1.39.3
+### Bugfix
+- Correction d'un problème ne prenant plus en compte les modificateurs sur la V12 de Foundry.
+
 ## Version 1.39.2
 ### Bugfix
 - Correction de problèmes de mises en page & de fonctionnalités suite à la mise à jour V13.

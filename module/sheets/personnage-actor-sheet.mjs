@@ -41,8 +41,6 @@ export class PersonnageActorSheet extends ActorSheet {
 
     if(game.settings.get("mutants-and-masterminds-3e", "stackeddmg")) context.systemData.stackeddmg = true;
 
-    console.warn(context);
-
     return context;
   }
 

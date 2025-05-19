@@ -230,8 +230,8 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
             if(!this.actor) return;
             if(this.actor.permission !== 3) return;
             const actorToUpdate = [];
-            const actorItem = actor.effects.find(itm => (itm?.origin?.includes(this.item.id) ?? false) && itm.flags.variante === variante && itm.disabled !== nactive);
-            const actorItems = actor.effects.filter(itm => (itm?.origin?.includes(this.item._id) ?? false) && itm.flags.variante !== variante && itm.disabled !== true);
+            const actorItem = actor.effects.find(itm => (itm?.origin?.includes(this.item.id) ?? false) && itm.getFlag('mutants-and-masterminds-3e', 'variante') === variante && itm.disabled !== nactive);
+            const actorItems = actor.effects.filter(itm => (itm?.origin?.includes(this.item._id) ?? false) && itm.getFlag('mutants-and-masterminds-3e', 'variante') !== variante && itm.disabled !== true);
 
             if(actorItem !== undefined) actorToUpdate.push({"_id":actorItem.id, disabled:nactive});
 

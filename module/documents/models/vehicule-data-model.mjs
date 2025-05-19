@@ -316,7 +316,6 @@ export class VehiculeDataModel extends foundry.abstract.TypeDataModel {
 
         for(let r in ranks) {
             const itm = this.items.get(r);
-            console.warn(r);
 
             if(itm) {
                 ranksValue += itm.system.rang*ranks[r];

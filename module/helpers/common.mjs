@@ -647,7 +647,7 @@ export async function processPowers(actor, pouvoirs, createItm=true, special="st
           itm.system.cout.rang=0
         }
          if(isNaN(itm.system.cout.divers)){
-          itm.system.cout.divers=0 
+          itm.system.cout.divers=0
         }
         const itemCreate = await Item.create(itm, {parent: actor});
 
@@ -1393,8 +1393,6 @@ export async function processImport(actor, data, actorType='personnage') {
               }
             }
 
-            console.warn(afflictionechec)
-
             if(save !== 'robustesse') basedef = 10;
 
             listAttack[lengthAttack] = foundry.utils.mergeObject(foundry.utils.deepClone(CONFIG.MM3.StdAtk), {
@@ -1787,8 +1785,6 @@ export function getActor(item) {
 export function costCalculate(ranks, cost) {
   let r = ranks ? ranks : 1;
   let c = cost ? cost : 1;
-
-  console.warn(ranks, cost);
 
   const calc = Math.max(Math.floor(Number(r)/Number(c)), 1);
   const mod = Number(c)-(Number(r)*calc);
@@ -2377,8 +2373,6 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
   saveMsgData.flags = flags;
   const rMode = game.settings.get("core", "rollMode");
   const msgDataSave = ChatMessage.applyRollMode(saveMsgData, rMode);
-
-  console.warn(saveMsgData);
 
   await ChatMessage.create(msgDataSave, {
     rollMode:rMode
@@ -3628,8 +3622,6 @@ export function normalizeData(actor, force=false) {
       update[`system.version`] = 1;
     }
 
-    console.warn(update);
-
     if(!foundry.utils.isEmpty(update) && actor._id !== null) {
       actor.update(update);
     }
@@ -3759,7 +3751,6 @@ export function deleteEffects(item, id, name) {
   const actor = getActor(item);
 
   item.deleteEmbeddedDocuments('ActiveEffect', [id]);
-  console.warn(isVersion12());
   if(actor !== null && isVersion12()) {
     const getActorEffects = actor.effects.find(itm => itm.origin.includes(item._id) && itm.getFlag('mutants-and-masterminds-3e', 'variante') === name);
 

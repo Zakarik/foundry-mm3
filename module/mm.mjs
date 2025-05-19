@@ -1160,11 +1160,10 @@ Hooks.on('renderChatMessage', (message, html, data) => {
       $(toHide[i]).remove();
     }
   }
-  console.warn(html);
+
   html.find('.mm3-roll div.dice-result').click(ev => {
     const tgt = $(ev.currentTarget);
 
-    console.warn(tgt.find('div.dice-tooltip'))
     tgt.find('div.dice-tooltip').toggle({
         complete: () => {},
     });
@@ -1238,8 +1237,6 @@ Hooks.on('renderChatMessage', (message, html, data) => {
       };
       const rMode = game.settings.get("core", "rollMode");
       const msgDataSave = ChatMessage.applyRollMode(saveMsgData, rMode);
-
-      console.warn(saveMsgData);
 
       await ChatMessage.create(msgDataSave, {
         rollMode:rMode
@@ -1514,7 +1511,7 @@ async function RollMacroPwr(actorId, sceneId, tokenId, id, author, event) {
 
 Hooks.on("renderGamePause", function () {
   const whatPause = game.settings.get("mutants-and-masterminds-3e", "pauselogo");
-  console.warn(whatPause);
+
   if(whatPause !== 'default') {
     $("#pause img").remove();
     $("#pause figcaption").remove();
@@ -1530,7 +1527,7 @@ Hooks.on("renderGamePause", function () {
 
 Hooks.on("renderPause", function () {
   const whatPause = game.settings.get("mutants-and-masterminds-3e", "pauselogo");
-  console.warn(whatPause);
+
   if(whatPause !== 'default') {
     $("#pause img").remove();
     $("#pause figcaption").remove();
