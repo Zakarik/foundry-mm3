@@ -294,7 +294,7 @@ export class editAtk {
         if(selectedOptions.includes('affliction')) {
             allData.push({
                 type:'repeat',
-                object:'affliction',
+                css:'affliction',
                 class:type === 'affliction' || type === 'afflictiondmg' ? 'repeat' : 'repeat hidden',
                 label:game.i18n.localize('MM3.ROLL.TYPE.Affliction'),
                 selected:dataAtk?.save?.affliction?.type ?? 'volonte',
@@ -312,7 +312,7 @@ export class editAtk {
         if(selectedOptions.includes('dmg')) {
             allData.push({
                 type:'repeat',
-                object:'dmg',
+                css:'dmg',
                 class:type === 'dmg' || type === 'afflictiondmg' ? 'repeat' : 'repeat hidden',
                 label:game.i18n.localize('MM3.ROLL.TYPE.Degats'),
                 selected:dataAtk?.save?.dmg?.type ?? 'robustesse',

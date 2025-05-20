@@ -1,3 +1,7 @@
+## Version 1.39.4
+### Bugfix
+- Correction d'un bug avec l'édition des attaques.
+
 ## Version 1.39.3
 ### Bugfix
 - Correction d'un problème ne prenant plus en compte les modificateurs sur la V12 de Foundry.
