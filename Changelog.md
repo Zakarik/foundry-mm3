@@ -1,3 +1,7 @@
+## Version 1.39.5
+### Bugfix
+- Correction d'un bug de mise en page sur les attaques sans critique.
+
 ## Version 1.39.4
 ### Bugfix
 - Correction d'un bug avec l'édition des attaques.

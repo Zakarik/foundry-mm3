@@ -16,14 +16,14 @@
 
     {{#each systemData.attaque as | key att |}}
     <div class="reorderDrop" data-type="attaque" data-sort="{{att}}">
-        <span class="label {{#if key.settings.noatk}}large{{/if}}  {{#if key.settings.noCrit}}large{{/if}} {{#if key.settings.noatk}}{{#if key.settings.noCrit}}verylarge{{/if}}{{/if}}"></span>
+        <span class="label {{#if key.settings.noatk}}large{{/if}}  {{#if key.settings.nocrit}}large{{/if}} {{#if (and key.settings.noatk key.settings.nocrit)}}verylarge{{/if}}"></span>
         <span class="label {{#if key.settings.noatk}}hide{{/if}}">{{localize "MM3.Attaques"}}</span>
-        <span class="label {{#if key.settings.noCrit}}hide{{/if}}">{{localize "MM3.ROLL.Critique"}}</span>
+        <span class="label {{#if key.settings.nocrit}}hide{{/if}}">{{localize "MM3.ROLL.Critique"}}</span>
         <span class="label">{{localize "MM3.EFFET.Label"}}</span>
         <span class="label"></span>
         <span class="label"></span>
 
-        <a class="roll draggable {{#if key.settings.noatk}}large{{/if}} {{#if key.settings.noCrit}}large{{/if}} {{#if key.settings.noatk}}{{#if key.noCrit}}verylarge{{/if}}{{/if}}"
+        <a class="roll draggable {{#if key.settings.noatk}}large{{/if}} {{#if key.settings.nocrit}}large{{/if}} {{#if (and key.settings.noatk key.settings.nocrit)}}verylarge{{/if}}"
         data-type="attaque"
         data-name="{{key.label}}"
         data-total="{{key.attaque}}"
@@ -39,7 +39,7 @@
             <span class="score {{#if key.settings.noatk}}hide{{/if}}" title="{{localize "MM3.ATTAQUE.Label"}}">{{key.attaque}}</span>
         {{/unless}}
 
-        <input class="{{#if key.settings.noCrit}}hide{{/if}}" type="number" name="system.attaque.{{att}}.critique" value="{{key.critique}}" min="0" title="{{localize "MM3.ROLL.Critique"}}"/>
+        <input class="{{#if key.settings.nocrit}}hide{{/if}}" type="number" name="system.attaque.{{att}}.critique" value="{{key.critique}}" min="0" title="{{localize "MM3.ROLL.Critique"}}"/>
 
         {{#if (and (eq key.isAffliction true) (eq key.isDmg false))}}
             {{#unless (or key.links.pwr key.links.ability)}}
