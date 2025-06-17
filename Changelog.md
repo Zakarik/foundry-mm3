@@ -1,3 +1,7 @@
+## Version 1.39.6
+### Bugfix
+- Correction d'un bug ne prenant pas correctement le modificateur d'esquive pour les attaques de zone.
+
 ## Version 1.39.5
 ### Bugfix
 - Correction d'un bug de mise en page sur les attaques sans critique.

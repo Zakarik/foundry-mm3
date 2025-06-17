@@ -2597,7 +2597,7 @@ export async function rollTgt(actor, name, data, tgt) {
       typeAtk:'area',
       target:tgt,
       saveType:'esquive',
-      vs:dataCbt.pwr === "" ? Number(areaBase)+Number(dataStr.effet) : 10+Number(dataCbt.effet)+Number(dataStr.effet),
+      vs:dataCbt.pwr === "" ? Number(areaBase)+Number(dataStr.effet) : 10+Number(areaBase)+Number(dataCbt.effet)+Number(dataStr.effet),
     });
   }
 
