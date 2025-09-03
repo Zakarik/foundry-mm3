@@ -2209,27 +2209,27 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
         btn.push({
           typeAtk:'dmg',
           target:tgt,
-          saveType:saveType,
+          saveType:dataAtk.save.dmg.type,
           vs:Number(dataAtk.save.dmg.effet)+Number(dataStr.effet)+Number(dataAtk.save.dmg.defense),
         },
         {
           typeAtk:'affliction',
           target:tgt,
-          saveType:saveAffliction,
+          saveType:dataAtk.save.affliction.type,
           vs:Number(dataAtk.save.affliction.effet)+Number(dataStr.effet)+Number(dataAtk.save.affliction.defense),
         });
       } else if(isDmg) {
         btn.push({
           typeAtk:'dmg',
           target:tgt,
-          saveType:saveType,
+          saveType:dataAtk.save.dmg.type,
           vs:dataAtk.links.pwr === '' ? Number(dataAtk.save.dmg.effet)+Number(dataStr.effet)+Number(dataAtk.save.dmg.defense) : Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.save.dmg.defense),
         });
       } else if(isAffliction) {
         btn.push({
           typeAtk:'affliction',
           target:tgt,
-          saveType:saveType,
+          saveType:dataAtk.save.affliction.type,
           vs:dataAtk.links.pwr === '' ? Number(dataAtk.save.affliction.effet)+Number(dataStr.effet)+Number(dataAtk.save.affliction.defense) : Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.save.affliction.defense),
         });
       }
@@ -2564,7 +2564,6 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
     content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
     sound: CONFIG.sounds.dice
   };
-
   const rMode = game.settings.get("core", "rollMode");
   const msgData = ChatMessage.applyRollMode(rollMsgData, rMode);
 
@@ -3123,6 +3122,7 @@ export function commonHTML(html, origin, data={}) {
         await game.waitForTemplatePlacementLater();
       }
       const tgt = game.user.targets.ids[0];
+
       if(type === 'attaque' && tgt !== undefined && atk.settings.noatk) {
         for(let t of game.user.targets.ids) {
           rollTgt(origin, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, t);
