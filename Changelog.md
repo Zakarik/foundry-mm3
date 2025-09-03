@@ -1,3 +1,7 @@
+## Version 1.39.7
+### Bugfix
+- Correction d'un bug n'affichant plus le nom du bouton avec les attaques de zone.
+
 ## Version 1.39.6
 ### Bugfix
 - Correction d'un bug ne prenant pas correctement le modificateur d'esquive pour les attaques de zone.
