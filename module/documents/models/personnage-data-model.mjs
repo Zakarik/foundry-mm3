@@ -250,6 +250,10 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
         return version <= 12 ? true : false;
     }
 
+    get effects() {
+        return this.actor.statuses;
+    }
+
     prepareDerivedData() {
         this.#_strValue();
         this.#_carValue();
@@ -706,6 +710,9 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
     }
 
     #_defense() {
+        const actor = this.actor;
+        const effects = this.effects;
+
         let defense = this.defense;
         let ppDef = 0;
 
@@ -762,10 +769,30 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                 value: isAbs ? 0 : carac.total,
             });
 
+            if(effects.has('defenseless')) {
+                const def = actor.effects.find(itm => itm.origin === 'status' && itm.statuses.has('defenseless'));
+
+                for(let e of def.changes) {
+                    if(e.key === d) {
+                        Object.defineProperty(currentDefense, 'defenseless', {
+                            value: true,
+                        });
+                    }
+                }
+            }
+
             if(!currentDefense.defenseless) total = isSurcharge(Math.max(currentDefense.surcharge, surchargeRanksValue), defRang, currentDefense.carac, currentDefense.divers, mod, currentDefense.bonuses, ranksValue);
+
+            if(effects.has('vulnerability') && !currentDefense.defenseless) {
+                const vul = actor.effects.find(itm => itm.origin === 'status' && itm.statuses.has('vulnerability'));
+                for(let e of vul.changes) {
+                    if(e.key === d) total = total/e.value;
+                }
+            }
 
             if(d === 'esquive') Object.defineProperty(this, 'ddesquive', { value: 10+total });
             else if(d === 'parade') Object.defineProperty(this, 'ddparade', { value: 10+total });
+
 
             Object.defineProperty(currentDefense, 'total', {
                 value: total,

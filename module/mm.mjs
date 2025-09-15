@@ -64,7 +64,7 @@ import { parseInput, } from "./parse_simple_character.mjs";
 
 
 Hooks.once('init', async function() {
-
+  CONFIG.debug.hooks = true
 
   // Add utility classes to the global game object so that they're more easily
   // accessible in global contexts.
@@ -1296,23 +1296,18 @@ Hooks.on("applyActiveEffect", async (actor, change) => {
   let carac;
   let caracTotal;
   let defTotal;
+  //if(change.effect.getFlag("mutants-and-masterminds-3e", "accurate")) return;
 
   for(let eff of status) {
-    switch(eff) {
+    /*switch(eff) {
       case 'vulnerability':
-        defense = actor.system.defense[change.key];
-        carac = actor.system.caracteristique[getFullCarac(defense.car)];
-        caracTotal = carac.absente ? 0 : carac.base+carac.divers;
-        defTotal = defense.base+defense.divers+caracTotal;
-
-        defense.other = -Math.floor(defTotal/2);
         break;
 
       case 'defenseless':
         defense = actor.system.defense[change.key];
         defense.defenseless = true;
         break;
-    }
+    }*/
   }
 });
 

@@ -1,3 +1,7 @@
+## Version 1.39.8
+### Bugfix
+- Correction d'un bug ne prenant pas en compte la vulnérabilité et le sans défense.
+
 ## Version 1.39.7
 ### Bugfix
 - Correction d'un bug n'affichant plus le nom du bouton avec les attaques de zone.
