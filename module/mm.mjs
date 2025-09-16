@@ -1274,43 +1274,6 @@ Hooks.on('userConnected', (User, boolean) => {
   $("div#sidebar.app").addClass(whatMenu);
 });
 
-Hooks.on("applyActiveEffect", async (actor, change) => {
-  if(actor.type !== 'personnage' && this.permission !== 3) return;
-
-  /*const scene = game.canvas.scene;
-
-  const tp = [{
-    x:Math.floor(actor.token.x+(scene.grid.size/2)),
-    y:Math.floor(actor.token.y+(scene.grid.size/2)),
-    distance:5,
-    width:1,
-    height:1,
-  }];
-
-  game.canvas.scene.createEmbeddedDocuments("MeasuredTemplate", tp)*/
-
-  let status = "";
-
-  status = foundry.utils.getProperty(change.effect, "statuses");
-  let defense;
-  let carac;
-  let caracTotal;
-  let defTotal;
-  //if(change.effect.getFlag("mutants-and-masterminds-3e", "accurate")) return;
-
-  for(let eff of status) {
-    /*switch(eff) {
-      case 'vulnerability':
-        break;
-
-      case 'defenseless':
-        defense = actor.system.defense[change.key];
-        defense.defenseless = true;
-        break;
-    }*/
-  }
-});
-
 Hooks.on("deleteActiveEffect", async (effect) => {
   if(effect.parent.permission !== 3) return;
 

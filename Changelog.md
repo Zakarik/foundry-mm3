@@ -1,3 +1,9 @@
+## Version 1.39.9
+### Bugfix
+- Correction d'un bug sur le calcul des défenses sur les attaques de zone.
+- Correction d'un bug d'édition des attaques contenant afflictions & dégâts.
+- Correction d'un bug visuel sur l'icône de pause.
+
 ## Version 1.39.8
 ### Bugfix
 - Correction d'un bug ne prenant pas en compte la vulnérabilité et le sans défense.

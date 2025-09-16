@@ -2341,7 +2341,9 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
         typeAtk:'dmg',
         target:tgt,
         saveType:saveType,
-        vs:dataAtk.links.pwr === '' ? Math.max(Math.floor(Number(dataAtk.save.dmg.effet)+Number(dataStr.effet)+Number(dataAtk.save.dmg.defense)/2), 1) : Math.max(Math.floor(Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.save.dmg.defense)/2), 1),
+        vs:dataAtk.links.pwr === ''
+        ? Math.max(Math.floor((Number(dataAtk.save.dmg.effet) / 2) + Number(dataStr.effet) + Number(dataAtk.save.dmg.defense)), 1)
+        : Math.max(Math.floor((Number(dataAtk.effet) / 2) + Number(dataStr.effet) + Number(dataAtk.save.dmg.defense)), 1),
       });
     }
 
@@ -2350,7 +2352,9 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
         typeAtk:'affliction',
         target:tgt,
         saveType:saveAffliction,
-        vs:dataAtk.links.pwr === '' ? Math.max(Math.floor(Number(dataAtk.save.affliction.effet)+Number(dataStr.effet)+Number(dataAtk.save.affliction.defense)/2), 1) : Math.max(Math.floor(Number(dataAtk.effet)+Number(dataStr.effet)+Number(dataAtk.save.affliction.defense)/2), 1),
+        vs: dataAtk.links.pwr === ''
+          ? Math.max(Math.floor((Number(dataAtk.save.affliction.effet) / 2) + Number(dataStr.effet) + Number(dataAtk.save.affliction.defense)), 1)
+          : Math.max(Math.floor((Number(dataAtk.effet) / 2) + Number(dataStr.effet) + Number(dataAtk.save.affliction.defense)), 1),
       });
     }
 

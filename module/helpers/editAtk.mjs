@@ -300,7 +300,7 @@ export class editAtk {
                 selected:dataAtk?.save?.affliction?.type ?? 'volonte',
                 defenses:defenses,
                 basedefense:dataAtk?.save?.affliction?.defense ?? 10,
-                effet:dataAtk?.save?.dmg?.effet ?? 0,
+                effet:dataAtk?.save?.affliction?.effet ?? 0,
                 list:dataAtk.repeat.affliction.map(aff => ({
                     value:aff?.value ?? 0,
                     status:aff?.status ?? [],
@@ -328,6 +328,8 @@ export class editAtk {
         }
 
         options.data = allData;
+
+        console.error(options);
 
         return options;
     }
