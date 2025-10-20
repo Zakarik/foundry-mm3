@@ -99,24 +99,20 @@
                 <span class="header">{{localize "MM3.Carac"}}</span>
                 <span class="header">{{localize "MM3.Rang"}}</span>
                 <span class="header">{{localize "MM3.Autre"}}</span>
+                 <span></span>
 
-                {{#each systemData.competence.list as | key comp |}}
-                    <div class="list {{#if key.new}}reorderDrop{{/if}}" {{#if key.new}}data-type="basecompetence" data-sort="{{comp}}"{{/if}}>
+                {{#each systemData.competence.list as | key comp |}}                   
                         {{#if key.canAdd}}
-                            <span class="label">{{key.label}}</span>
-                            <span class="carac">{{translate 'caracteristiquesshort' key.car}}</span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-
-                            {{#each key.list as | kscomp subcomp |}}
-                            <div class="subcomp reorderDrop" data-type="competence" data-comp="{{comp}}" data-sort="{{subcomp}}">
-                                <a class="roll oneRoll draggable" data-what="{{comp}}" data-id="{{subcomp}}" data-type="competence" data-name="{{kscomp.label}}" data-total="{{kscomp.total}}">
+                        <div class="competence-h4">
+                            <h4>{{key.label}}</h4>                        
+                        </div>
+                        {{#each key.list as | kscomp subcomp |}}
+                        <div class="list {{#if key.new}}reorderDrop{{/if}}" {{#if key.new}}data-type="basecompetence" data-sort="{{subcomp}}"{{/if}}  data-comp="{{comp}}">
+                            
+                                <a class="roll twoRoll draggable" data-what="{{comp}}" data-id="{{subcomp}}" data-type="competence" data-name="{{kscomp.label}}" data-total="{{kscomp.total}}">
                                     <i class="fa-solid fa-dice-d20"></i>
+                                    <input type="text" name="system.competence.{{comp}}.list.{{subcomp}}.label" value="{{kscomp.label}}" />
                                 </a>
-                                <input type="text" name="system.competence.{{comp}}.list.{{subcomp}}.label" value="{{kscomp.label}}" />
                                 {{#if carCanChange}}
                                 <select name="system.competence.{{comp}}.list.{{subcomp}}.car">
                                     {{selectOptions (listcarac) selected=kscomp.car localize=true}}
@@ -131,19 +127,21 @@
                                 <div class="icons">
                                     <i class="fa-solid fa-arrows-up-down reorder" data-type="competence" data-comp="{{comp}}" data-sort="{{subcomp}}"></i>
                                     <i class="fa-solid fa-trash-xmark delete" data-id="{{subcomp}}" data-type="competence" data-what="{{comp}}"></i>
-                                </div>
+                                
                             </div>
-                            {{/each}}
+                        </div>
+                        {{/each}}
 
                             <a class="add" data-type="competence" data-what="{{comp}}">
                                 {{localize "MM3.BTN.Add"}}
                             </a>
                         {{else}}
+                         <div class="list {{#if key.new}}reorderDrop{{/if}}" {{#if key.new}}data-type="basecompetence" data-sort="{{comp}}"{{/if}}>
                             {{#if key.new}}
                             <a class="roll oneRoll draggable" data-what="{{comp}}" data-id="new" data-type="competence" data-name="{{key.label}}" data-total="{{key.total}}">
                                 <i class="fa-solid fa-dice-d20"></i>
+                                <input type="text" name="system.competence.{{comp}}.label" value="{{key.label}}" />
                             </a>
-                            <input type="text" name="system.competence.{{comp}}.label" value="{{key.label}}" />
                             {{else}}
                             <a class="roll twoRoll draggable" data-what="{{comp}}" data-type="competence" data-name="{{key.label}}" data-total="{{key.total}}">
                                 {{key.label}}
@@ -168,10 +166,10 @@
                             </div>
 
                             {{else}}
-                            <span></span>
+                           <div class="icons"></div>
                             {{/if}}
+                        </div>
                         {{/if}}
-                    </div>
                 {{/each}}
                 <a class="add" data-type="competence" data-what="new">
                     {{localize "MM3.BTN.AddCmp"}}
