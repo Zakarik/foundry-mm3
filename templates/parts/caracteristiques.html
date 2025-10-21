@@ -102,12 +102,12 @@
                  <span></span>
 
                 {{#each systemData.competence.list as | key comp |}}                   
-                        {{#if key.canAdd}}
+                    {{#if key.canAdd}}
                         <div class="competence-h4">
                             <h4>{{key.label}}</h4>                        
                         </div>
                         {{#each key.list as | kscomp subcomp |}}
-                        <div class="list {{#if key.new}}reorderDrop{{/if}}" {{#if key.new}}data-type="basecompetence" data-sort="{{subcomp}}"{{/if}}  data-comp="{{comp}}">
+                            <div class="list {{#if key.new}}reorderDrop{{/if}}" {{#if key.new}}data-type="basecompetence" data-sort="{{subcomp}}"{{/if}}  data-comp="{{comp}}">
                             
                                 <a class="roll twoRoll draggable" data-what="{{comp}}" data-id="{{subcomp}}" data-type="competence" data-name="{{kscomp.label}}" data-total="{{kscomp.total}}">
                                     <i class="fa-solid fa-dice-d20"></i>
@@ -118,7 +118,8 @@
                                     {{selectOptions (listcarac) selected=kscomp.car localize=true}}
                                 </select>
                                 {{else}}
-                                <span class="carac"></span>
+
+                                <span class="carac">{{translate 'caracteristiquesshort' key.car}}</span>
                                 {{/if}}
                                 <span class="score total">{{kscomp.total}}</span>
                                 <span class="score">{{kscomp.carac}}</span>
@@ -127,49 +128,55 @@
                                 <div class="icons">
                                     <i class="fa-solid fa-arrows-up-down reorder" data-type="competence" data-comp="{{comp}}" data-sort="{{subcomp}}"></i>
                                     <i class="fa-solid fa-trash-xmark delete" data-id="{{subcomp}}" data-type="competence" data-what="{{comp}}"></i>
-                                
+                                </div>
                             </div>
-                        </div>
                         {{/each}}
 
                             <a class="add" data-type="competence" data-what="{{comp}}">
                                 {{localize "MM3.BTN.Add"}}
                             </a>
+                    {{else}}
+                         
+                        {{#if key.new}}
+                            {{#each key.list as | kscomp subcomp |}}
+                                <div class="list" {{#if key.new}}data-type="basecompetence" data-sort="{{comp}}"{{/if}}>
+                                    <a class="roll twoRoll draggable" data-what="{{comp}}" data-id="new" data-type="competence" data-name="{{kscomp.label}}" data-total="{{kscomp.total}}">
+                                        <i class="fa-solid fa-dice-d20"></i>
+                                        <input type="text" name="system.competence.{{comp}}.list.{{subcomp}}.label"value="{{kscomp.label}}" />
+                                    </a>
+                                    <select name="system.competence.{{comp}}.list.{{subcomp}}.car">
+                                        {{selectOptions (listcarac) selected=kscomp.car localize=true}}
+                                    </select>
+                                    <span class="score total">{{kscomp.total}}</span>
+                                    <span class="score">{{kscomp.carac}}</span>
+                                    <input type="number" name="system.competence.{{comp}}.list.{{subcomp}}.rang" value="{{kscomp.rang}}" />
+                                    <input type="number" name="system.competence.{{comp}}.list.{{subcomp}}.autre" value="{{kscomp.autre}}" />
+                                    <div class="icons">
+                                        <i class="fa-solid fa-arrows-up-down reorder" data-type="competence" data-comp="{{comp}}" data-sort="{{subcomp}}"></i>
+                                        <i class="fa-solid fa-trash-xmark delete" data-id="{{subcomp}}" data-type="competence" data-what="{{comp}}"></i>
+                                    </div>
+                                </div>
+                            {{/each}}
                         {{else}}
-                         <div class="list {{#if key.new}}reorderDrop{{/if}}" {{#if key.new}}data-type="basecompetence" data-sort="{{comp}}"{{/if}}>
-                            {{#if key.new}}
-                            <a class="roll oneRoll draggable" data-what="{{comp}}" data-id="new" data-type="competence" data-name="{{key.label}}" data-total="{{key.total}}">
-                                <i class="fa-solid fa-dice-d20"></i>
-                                <input type="text" name="system.competence.{{comp}}.label" value="{{key.label}}" />
-                            </a>
-                            {{else}}
-                            <a class="roll twoRoll draggable" data-what="{{comp}}" data-type="competence" data-name="{{key.label}}" data-total="{{key.total}}">
-                                {{key.label}}
-                            </a>
-                            {{/if}}
-                            {{#if carCanChange}}
-                            <select name="system.competence.{{comp}}.car">
-                                {{selectOptions (listcarac) selected=key.car localize=true}}
-                            </select>
-                            {{else}}
-                            <span class="carac">{{translate 'caracteristiquesshort' key.car}}</span>
-                            {{/if}}
-                            <span class="score total">{{key.total}}</span>
-                            <span class="score">{{key.carac}}</span>
-                            <input type="number" name="system.competence.{{comp}}.rang" value="{{key.rang}}" />
-                            <input type="number" name="system.competence.{{comp}}.autre" value="{{key.autre}}" />
-
-                            {{#if key.new}}
-                            <div class="icons">
-                                <i class="fa-solid fa-arrows-up-down reorder" data-type="basecompetence" data-sort="{{comp}}"></i>
-                                <i class="fa-solid fa-trash-xmark delete" data-id="{{comp}}" data-type="competence" data-what="new"></i>
+                            <div class="list {{#if key.new}}reorderDrop{{/if}}" {{#if key.new}}data-type="basecompetence" data-sort="{{comp}}"{{/if}}>
+                                <a class="roll twoRoll draggable" data-what="{{comp}}" data-type="competence" data-name="{{key.label}}" data-total="{{key.total}}">
+                                    {{key.label}}
+                                </a>
+                                {{#if carCanChange}}
+                                    <select name="system.competence.{{comp}}.car">
+                                        {{selectOptions (listcarac) selected=key.car localize=true}}
+                                    </select>
+                                {{else}}
+                                    <span class="carac">{{translate 'caracteristiquesshort' key.car}}</span>
+                                {{/if}}
+                                <span class="score total">{{key.total}}</span>
+                                <span class="score">{{key.carac}}</span>
+                                <input type="number" name="system.competence.{{comp}}.rang" value="{{key.rang}}" />
+                                <input type="number" name="system.competence.{{comp}}.autre" value="{{key.autre}}" />
+                                <div class="icons"></div>
                             </div>
-
-                            {{else}}
-                           <div class="icons"></div>
-                            {{/if}}
-                        </div>
                         {{/if}}
+                    {{/if}}
                 {{/each}}
                 <a class="add" data-type="competence" data-what="new">
                     {{localize "MM3.BTN.AddCmp"}}
