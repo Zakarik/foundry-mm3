@@ -48,44 +48,11 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
         return this.parent;
     }
 
-    get effects() {
-        return this.item.effects;
-    }
-
-    get isVersion12() {
-        const version = game.version.split('.')[0];
-
-        return version <= 12 ? true : false;
-    }
-
-    prepareDerivedData() {
-        this.#_activate();
-        this.#_cout();
-        this.#_dyn();
-        this.#_effects();
-    }
-
-    #_activate() {
-        if(this.duree === 'permanent') {
-            Object.defineProperty(this, 'activate', {
-                value: true,
-            });
-        }
-    }
-
-    #_cout() {
+    get extraCost() {
         const extras = this.extras;
         const defauts = this.defauts;
         let modfixe = 0;
         let modrang = 0;
-        let cout = this.cout;
-        let coutParRang = 0;
-        let coutRang = 0;
-        let coutParRangTotal = 0;
-        let total = 0;
-        let trueTotal = 0;
-
-        if(this.special === 'dynamique') modfixe += 1;
 
         for(let e in extras) {
             const dataE = extras[e].data.cout;
@@ -101,8 +68,55 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
             else if(!dataD.fixe) modrang -= dataD.value;
         }
 
+        return {
+            fixe:modfixe,
+            rang:modrang,
+        }
+    }
+
+    get effects() {
+        return this.item.effects;
+    }
+
+    get isVersion12() {
+        const version = game.version.split('.')[0];
+
+        return version <= 12 ? true : false;
+    }
+
+    prepareBaseData() {
+        this.#_activate();
+        this.#_cout();
+    }
+
+    prepareDerivedData() {
+        this.#_dyn();
+        this.#_effects();
+    }
+
+    #_activate() {
+        if(this.duree === 'permanent') {
+            Object.defineProperty(this, 'activate', {
+                value: true,
+            });
+        }
+    }
+
+    #_cout() {
+        let modfixe = 0;
+        let cout = this.cout;
+        let coutParRang = 0;
+        let coutRang = 0;
+        let coutParRangTotal = 0;
+        let total = 0;
+        let trueTotal = 0;
+
+        if(this.special === 'dynamique') modfixe += 1;
+
+        modfixe += this.extraCost.fixe;
+
         Object.defineProperty(cout, 'modrang', {
-            value: modrang,
+            value: this.extraCost.rang,
         });
 
         Object.defineProperty(cout, 'modfixe', {
@@ -144,62 +158,60 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
     }
 
     #_dyn() {
+        const actor = this.actor;
+        const item = this.item;
         const link = this.link;
         const special = this.special;
         const cout = this.cout;
         const coutParRang = cout.parrang+cout.modrang;
+        const isDynamique = special === 'dynamique' ? true : false;
         let rangDynMax = 0;
+        let totalUsed = 0;
+        let rankCalc = 0;
 
-        if(link === "" && special === 'dynamique') rangDynMax = cout.rang;
-        else if(link !== "" && special === 'dynamique') {
-            const getItem = this.actor.items.get(link);
 
-            let dynCoupParRang = 0;
-            let dynCoutPrincipal = 0;
+        if((link === "" || !actor.items.get(link)) && isDynamique) {
+            Object.defineProperty(this, 'link', {
+                value: '',
+            });
 
-            if(getItem) {
-                if(coutParRang > 0) rangDynMax = Math.floor(getItem.system.cout.totalTheorique/(cout.parrangtotal+cout.divers+cout.modfixe-1));
-                else if(coutParRang === 0) {
-                    dynCoupParRang = 2;
-                    dynCoutPrincipal = getItem.system.special === 'dynamique' ? (getItem.system.cout.totalTheorique-1-cout.divers-cout.modfixe+1) : getItem.system.cout.totalTheorique-cout.divers-cout.modfixe+1;
+            totalUsed = this.calculateLinkedPwrCostUsed(item.id);
+            totalUsed += cout.modfixe;
+            totalUsed += cout.divers;
 
-                    rangDynMax = Math.floor(dynCoutPrincipal*dynCoupParRang);
-                } else if(coutParRang < 0) {
-                    dynCoupParRang = ((coutParRang*-1)+2);
-                    dynCoutPrincipal = getItem.system.special === 'dynamique' ? (getItem.system.cout.totalTheorique-1-cout.divers-cout.modfixe+1) : getItem.system.cout.totalTheorique-cout.divers-cout.modfixe+1;
+            rankCalc = this.calculatePwrRankAvailable(totalUsed);
 
-                    rangDynMax = Math.floor(dynCoutPrincipal*dynCoupParRang);
-                }
-            }
+            rangDynMax = Math.min(cout.rang, rankCalc);
+        }
+        else if(link !== "" && isDynamique) {
+            totalUsed = this.calculateLinkedPwrCostUsed(link, false);
+            totalUsed += cout.modfixe;
+            totalUsed += cout.divers;
+            rankCalc = this.calculatePwrRankAvailable(totalUsed);
+
+            rangDynMax = Math.min(cout.rang, rankCalc);
         }
 
         Object.defineProperty(this.cout, 'rangDynMax', {
             value: rangDynMax,
         });
 
-        if(this.actor !== null && this.special === 'dynamique') {
-            const parent = this.actor.system?.pwr?.[this.parent.id] ?? false;
+        if(actor && isDynamique) {
+            const parentId = item?.id ?? 0;
+            const rangDyn = actor.system?.pwr?.[parentId] ?? 0;
 
-            if(parent !== false) {
-                const rang = parent?.cout?.rang ?? 0;
+            if(rangDyn) {
+                const rang = Math.min(rangDyn?.cout?.rang ?? 0, rangDynMax);
 
-                if(coutParRang > 0) parent.cout.actuel = Number(rang)*cout.parrangtotal+cout.divers+cout.modfixe-1;
-                else if(coutParRang === 0) parent.cout.actuel = Math.floor((Number(rang)/2)+(cout.divers+cout.modfixe-1));
-                else if(coutParRang < 0) parent.cout.actuel = Math.floor((Number(rang)/((coutParRang*-1)+2))+(cout.divers+cout.modfixe-1));
+                if(coutParRang > 0) rangDyn.cout.actuel = (Number(rang)*cout.parrangtotal)+cout.divers+cout.modfixe-1;
+                else if(coutParRang === 0) rangDyn.cout.actuel = Math.floor((Number(rang)/2)+(cout.divers+cout.modfixe-1));
+                else if(coutParRang < 0) rangDyn.cout.actuel = Math.floor((Number(rang)/((coutParRang*-1)+2))+(cout.divers+cout.modfixe-1));
 
-                if(rang > cout.rangDynMax) {
-                    parent.cout.rang = cout.rangDynMax;
+                rangDyn.cout.rang = rang;
 
-                    Object.defineProperty(cout, 'rangDyn', {
-                        value: rangDynMax,
-                    });
-                } else {
-                    Object.defineProperty(cout, 'rangDyn', {
-                        value: rang,
-                    });
-                }
-
-
+                Object.defineProperty(cout, 'rangDyn', {
+                    value: rang,
+                });
             }
         }
     }
@@ -258,5 +270,41 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
         }
 
         await this.item.updateEmbeddedDocuments('ActiveEffect', effectsToUpdate);
+    }
+
+    calculateLinkedPwrCostUsed(id, excludeMain=true) {
+        const actor = this.actor;
+        const filter = excludeMain ? actor.items.filter(itm => itm.system.link === id) : actor.items.filter(itm => (itm.system.link === id || itm.id === id) && itm.id !== this.item.id);
+        const pwrById = actor.system?.pwr ?? {};
+        let totalUsed = 0;
+
+        for(let c in filter) {
+            const itm = filter[c];
+            const rank = pwrById[itm.id]?.cout?.rang ?? 0;
+            if(rank > 0) {
+                const cost = itm.system.cout
+                const extracost = itm.system.extraCost;
+
+                totalUsed += (rank*(cost?.parrang ?? 0) + extracost.rang);
+                totalUsed += cost?.divers ?? 0;
+                totalUsed += extracost.fixe;
+            }
+        }
+
+        return totalUsed;
+    }
+
+    calculatePwrRankAvailable(alreadyUsed) {
+        const cout = this.cout;
+        const costPerRank = cout.parrang+cout.modrang;
+        let calc = 0
+
+        if(costPerRank === 0) {
+           calc = Math.ceil(parseInt((cout.totalTheorique-alreadyUsed))*2);
+        } else if(costPerRank < 0) {
+            calc = Math.ceil((cout.totalTheorique-alreadyUsed)*((costPerRank*-1)+2));
+        } else calc += Math.floor((cout.totalTheorique-alreadyUsed)/cout.parrangtotal);
+
+        return calc;
     }
 }

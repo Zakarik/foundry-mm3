@@ -77,7 +77,7 @@
                 {{#if (isValue key.system.special 'dynamique')}}
                     <span>{{localize "MM3.Rang"}} : </span>
                     <input class="rangDyn" type="number" name="system.pwr.{{key._id}}.cout.rang" value="{{getPwr @root key._id 'rang'}}" min="0" max="{{key.system.cout.rangDynMax}}" />
-                    <span>({{localize "MM3.Max-short"}} {{key.system.cout.rangDynMax}}) / {{localize "MM3.Coutactuel"}} : {{getPwr @root key._id 'actuel'}}</span>
+                    <span>({{localize "MM3.Max-short"}} {{key.system.cout.rangDynMax}}) / {{localize "MM3.Coutactuel"}} : {{ifThen (gte (getPwr @root key._id 'rang') 1) (getPwr @root key._id 'actuel') '0'}}</span>
                 {{/if}}
                 </div>
             {{/if}}
@@ -420,7 +420,8 @@
                     {{#if (isValue kPA.system.special 'dynamique')}}
                         <span>{{localize "MM3.Rang"}} : </span>
                         <input class="rangDyn" type="number" name="system.pwr.{{kPA._id}}.cout.rang" value="{{getPwr @root kPA._id 'rang'}}" min="0" max="{{kPA.system.cout.rangDynMax}}" />
-                    <span>({{localize "MM3.Max-short"}} {{kPA.system.cout.rangDynMax}})  / {{localize "MM3.Coutactuel"}} : {{getPwr @root kPA._id 'actuel'}}</span>
+                        {{log (getPwr @root kPA._id 'rang')}}
+                    <span>({{localize "MM3.Max-short"}} {{kPA.system.cout.rangDynMax}})  / {{localize "MM3.Coutactuel"}} : {{ifThen (gte (getPwr @root kPA._id 'rang') 1) (getPwr @root kPA._id 'actuel') '0'}}</span>
                     {{/if}}
                     </div>
                 {{/if}}

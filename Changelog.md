@@ -1,3 +1,8 @@
+## Version 1.39.10
+### Bugfix
+- Correction de problèmes avec les compétences personnalisées.
+- Correction du calcul des effets alternatifs dynamiques.
+
 ## Version 1.39.9
 ### Bugfix
 - Correction d'un bug sur le calcul des défenses sur les attaques de zone.
