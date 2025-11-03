@@ -256,7 +256,7 @@ export class PersonnageActorSheet extends ActorSheet {
         new:isNew,
       }
 
-      if(canAdd) {
+      if(canAdd || isNew) {
         list[key].list = get?.list || {};
       }
     });

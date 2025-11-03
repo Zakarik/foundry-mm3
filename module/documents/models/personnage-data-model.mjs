@@ -36,12 +36,12 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                 autre:new NumberField({ initial: 0}),
                 total:new NumberField({ initial: 0}),
             };
-
             if(dataCmp.canAdd) {
                 if(dataCmp.carCanChange) {
                     competence[c] = new SchemaField({
                         canAdd:new BooleanField({ initial: true}),
                         modele:new SchemaField(foundry.utils.mergeObject({
+                            car:new StringField({ initial: dataCmp.car}),
                             carCanChange:new BooleanField({ initial: true}),
                             label:new StringField({ initial: ""}),
                             carac:new NumberField({ initial: 0}),
@@ -67,7 +67,27 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                         surchargeranks:new ObjectField(),
                     });
                 }
-            } else competence[c] = new SchemaField(foundry.utils.mergeObject({
+            }
+            else {            
+                if(c === "new"){
+                competence[c] = new SchemaField({
+                    modele:new SchemaField(foundry.utils.mergeObject({
+                        carCanChange:new BooleanField({ initial: true}),
+                        car:new StringField({ initial: dataCmp.car}),
+                        label:new StringField({ initial: ""}),
+                        carac:new NumberField({ initial: 0}),
+                    }, baseSchema)),
+                    list:new ObjectField(),
+                    bonuses:new NumberField({ initial: 0}),
+                    surcharge:new NumberField({ initial: 0}),
+                    ranks:new ObjectField(),
+                    surchargeranks:new ObjectField(),
+                    new: new BooleanField({ initial: true})
+
+                })
+            }
+            else{
+                competence[c] = new SchemaField(foundry.utils.mergeObject({
                 carac:new NumberField({ initial: 0}),
                 car:new StringField({ initial: dataCmp.car}),
                 bonuses:new NumberField({ initial: 0}),
@@ -76,6 +96,8 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                 surchargeranks:new ObjectField(),
             }, baseSchema));
         }
+    }
+}
 
         for(let d of CONFIG.MM3.LIST.Defenses) {
             defense[d] = new SchemaField({
@@ -674,8 +696,8 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                     }
                 }
             }
-
-            if(dataCmp.canAdd) {
+            console.log(currentCmp)
+            if(dataCmp.canAdd || currentCmp.new) {
                 const cList = currentCmp.list;
 
                 for(let list in cList) {

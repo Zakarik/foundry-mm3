@@ -292,4 +292,7 @@ export const RegisterHandlebars = function () {
 
         return foundry.utils.mergeObject(empty, data);
     });
+    Handlebars.registerHelper('log', function(element) {
+        console.log(element)
+    });
 }

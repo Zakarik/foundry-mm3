@@ -3107,6 +3107,7 @@ export function commonHTML(html, origin, data={}) {
 
   if(hasRoll) {
     html.find('a.roll').click(async ev => {
+      if (ev.target.localName !== "input"){
       const target = $(ev.currentTarget);
       const type = target.data('type');
       const name = target.data('name');
@@ -3138,7 +3139,9 @@ export function commonHTML(html, origin, data={}) {
       } else if(type === 'attaque' && tgt === undefined && !atk.settings.noatk) rollAtk(origin, name, total, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}}, {alt:hasAlt});
       else if(type === 'attaque' && atk.settings.noatk) rollWAtk(origin, name, {attaque:atk, strategie:{attaque:strattaque, effet:streffet}});
       else rollStd(origin, name, total, {shift:hasShift, alt:hasAlt});
+    }
     });
+  
   }
 
   if(hasAdd) {
@@ -3161,35 +3164,10 @@ export function commonHTML(html, origin, data={}) {
           break;
 
         case 'competence':
-          const comp = origin.system.competence[what];
+          const comp = origin.system.competence[what];        
           const dataComp = Object.keys(comp.list);
           const maxKeysComp = dataComp.length > 0 ? Math.max(...dataComp) : 0;
           const modele = comp.modele;
-
-          if(what === 'combatcontact' || what === 'combatdistance') {
-            const attaque = origin.system?.attaque || {};
-            const dataAttaque = Object.keys(attaque);
-            const maxKeysAtt = dataAttaque.length > 0 ? Math.max(...dataAttaque) : 0;
-            let randAtt = foundry.utils.randomID();
-            let randSkill = foundry.utils.randomID();
-
-            modele['idAtt'] = randAtt;
-            modele['_id'] = randSkill;
-            update[`system.attaque.${maxKeysAtt+1}`] = foundry.utils.mergeObject(foundry.utils.deepClone(CONFIG.MM3.StdAtk), {
-              _id:foundry.utils.randomID(),
-              label:game.i18n.localize('MM3.Adefinir'),
-              links:{
-                skill:randSkill,
-              },
-              save:{
-                passive:{
-                  type:what === 'combatcontact' ? 'parade' : 'esquive',
-                }
-              },
-              type:what,
-            });
-          }
-
           update[`system.competence.${what}.list.${maxKeysComp+1}`] = modele;
 
           origin.update(update);
@@ -3258,11 +3236,8 @@ export function commonHTML(html, origin, data={}) {
             if(indexAtt !== -1) update[`system.attaque.-=${keys[indexAtt]}`] = null;
 
             update[`system.competence.${what}.list.-=${id}`] = null;
-          } else if(what === 'new') {
-            label = origin.system.competence[id].label;
-
-            update[`system.competence.-=${id}`] = null;
-          } else {
+          } 
+          else {
             label = origin.system.competence[what].list[id].label;
 
             update[`system.competence.${what}.list.-=${id}`] = null;

@@ -1244,7 +1244,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.carac input
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.comp {
   display: grid;
-  grid-template-columns: 29px 1fr repeat(5, 42.55px) 12.25px;
+  grid-template-columns:  11em 1fr repeat(5, 35px) 12.25px;
   grid-template-rows: max-content;
   border: 2px solid black;
   padding: 0px 5px 5px;
@@ -1423,7 +1423,7 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.li
   display: grid;
   grid-column-start: 1;
   grid-column-end: 9;
-  grid-template-columns: 29px 1fr repeat(5, 42.55px) 12.25px;
+  grid-template-columns:  11em 1fr repeat(5, 35px) 12.25px;
   grid-template-rows: max-content;
   grid-gap: 5px;
 }
@@ -1563,6 +1563,13 @@ div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.ic
 div.personnage section.sheet-body div.caracteristiques div.inner div.comp div.icons i {
   font-size: 12px;
   text-align: center;
+}
+.competence-h4{
+    display: flex;
+    grid-column-start: 1;
+    grid-column-end: 9;
+    justify-content: center;
+    align-items: center;
 }
 div.personnage section.sheet-body div.caracteristiques div.inner div.etats {
   display: grid;

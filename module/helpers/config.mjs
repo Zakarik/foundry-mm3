@@ -8,7 +8,7 @@ MM3.LIST = {
     Base:['affiliation', 'base', 'genre', 'age', 'taille', 'poids', 'yeux', 'cheveux', 'etats'],
     Caracteristiques:['force', 'agilite', 'combativite', 'sensibilite', 'endurance', 'dexterite', 'intelligence', 'presence'],
     VehiculeCaracteristiques:['force', 'vitesse', 'defense', 'robustesse'],
-    Competences:['combatcontact', 'combatdistance', 'expertise', 'acrobaties', 'athletisme', 'duperie', 'perspicacite', 'intimidation', 'investigation', 'perception', 'persuasion', 'habilete', 'discretion', 'technologie', 'soins', 'vehicules'],
+    Competences:['combatcontact', 'combatdistance', 'expertise', 'acrobaties', 'athletisme', 'duperie', 'perspicacite', 'intimidation', 'investigation', 'perception', 'persuasion', 'habilete', 'discretion', 'technologie', 'soins', 'vehicules', 'new'],
     DataCompetences:{
         acrobaties:{
             car:'agi',
@@ -61,6 +61,10 @@ MM3.LIST = {
             car:'int',
             canAdd:true,
             carCanChange:true,
+        },
+        new:{
+            car:'int',
+            carCanChange:true
         }
     },
     Defenses:['esquive', 'parade', 'vigueur', 'robustesse', 'volonte'],
@@ -170,6 +174,7 @@ MM3.competences = {
     "technologie":"MM3.COMPETENCES.Technologie",
     "soins":"MM3.COMPETENCES.Soins",
     "vehicules":"MM3.COMPETENCES.Vehicules",
+    "new": "MM3.COMPETENCE.New"
 }
 
 MM3.defenses = {
