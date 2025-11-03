@@ -193,7 +193,7 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
         }
 
         Object.defineProperty(this.cout, 'rangDynMax', {
-            value: rangDynMax,
+            value: Math.max(rangDynMax, 0),
         });
 
         if(actor && isDynamique) {
@@ -207,10 +207,10 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
                 else if(coutParRang === 0) rangDyn.cout.actuel = Math.floor((Number(rang)/2)+(cout.divers+cout.modfixe-1));
                 else if(coutParRang < 0) rangDyn.cout.actuel = Math.floor((Number(rang)/((coutParRang*-1)+2))+(cout.divers+cout.modfixe-1));
 
-                rangDyn.cout.rang = rang;
+                rangDyn.cout.rang = Math.max(rang, 0);
 
                 Object.defineProperty(cout, 'rangDyn', {
-                    value: rang,
+                    value: Math.max(rang, 0),
                 });
             }
         }
