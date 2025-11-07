@@ -1,3 +1,8 @@
+## Version 1.39.12
+### Bugfix
+- Correction des boutons déplier tout / replier tout qui étaient inversés.
+- Correction du système de mesure (impérial / métrique)
+
 ## Version 1.39.11
 ### Bugfix
 - Hotfix suite à la dernière mise à jour :
