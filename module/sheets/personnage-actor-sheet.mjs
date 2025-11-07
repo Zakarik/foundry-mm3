@@ -35,7 +35,7 @@ export class PersonnageActorSheet extends ActorSheet {
 
     this._prepareCharacterItems(context);
     this._prepareSpeed(context);
-
+    this.__preparePhisicalDescription(context)
     context.systemData = context.data.system;
     this._prepareCompetences(context);
 
@@ -307,6 +307,66 @@ export class PersonnageActorSheet extends ActorSheet {
       else data[v].manuel = true;
     }
   }
+__preparePhisicalDescription(context) {
+  const mesureSystem = game.settings.get("mutants-and-masterminds-3e", "measuresystem");
+
+  // --- DEFAULT VALUES ---
+  if (!context.data.system.taille?.trim()) {
+    context.data.system.taille = mesureSystem === "metric" ? "1.80m" : "6'0";
+  }
+  if (!context.data.system.poids?.trim()) {
+    context.data.system.poids = mesureSystem === "metric" ? "90kg" : "200 lbs";
+  }
+
+  const heightStr = context.data.system.taille.trim().toLowerCase();
+  const weightStr = context.data.system.poids.trim().toLowerCase();
+
+  // --- HEIGHT PARSING ---
+  let heightMeters = 0;
+
+  if (heightStr.includes("'")) {
+    // format like 6'2
+    const parts = heightStr.split("'");
+    const feet = parseInt(parts[0]) || 0;
+    const inches = parseInt(parts[1]) || 0;
+    heightMeters = feet * 0.3048 + inches * 0.0254;
+  } else if (heightStr.endsWith("cm")) {
+    const cm = parseFloat(heightStr.replace(/[^\d.,]/g, '').replace(',', '.'));
+    heightMeters = cm / 100;
+  } else if (heightStr.endsWith("m")) {
+    heightMeters = parseFloat(heightStr.replace(/[^\d.,]/g, '').replace(',', '.'));
+  } else {
+    // fallback: assume number in meters
+    heightMeters = parseFloat(heightStr.replace(',', '.')) || 0;
+  }
+
+  // --- WEIGHT PARSING ---
+  let weightKg = 0;
+
+  if (weightStr.includes("lb")) {
+    const lbs = parseFloat(weightStr.replace(/[^\d.,]/g, '').replace(',', '.')) || 0;
+    weightKg = lbs * 0.45359237;
+  } else if (weightStr.endsWith("kg")) {
+    weightKg = parseFloat(weightStr.replace(/[^\d.,]/g, '').replace(',', '.')) || 0;
+  } else {
+    // fallback assume numeric already in kg
+    weightKg = parseFloat(weightStr.replace(',', '.')) || 0;
+  }
+
+  // --- OUTPUT BASED ON SYSTEM ---
+  if (mesureSystem === "metric") {
+    context.data.system.taille = `${heightMeters.toFixed(2)}m`;
+    context.data.system.poids = `${Math.round(weightKg)}kg`;
+  } else {
+    const totalInches = heightMeters / 0.0254;
+    const feet = Math.floor(totalInches / 12);
+    const inches = Math.round(totalInches % 12);
+    const lbs = Math.round(weightKg / 0.45359237);
+    context.data.system.taille = `${feet}'${inches}`;
+    context.data.system.poids = `${lbs} lbs`;
+  }
+}
+
 
   async _onItemCreate(event) {
     event.preventDefault();
