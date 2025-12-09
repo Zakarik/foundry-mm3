@@ -1,3 +1,7 @@
+## Version 1.39.13
+### Bugfix
+- Correction d'un bug empêchant de lier les compétences aux attaques.
+
 ## Version 1.39.12
 ### Bugfix
 - Correction des boutons déplier tout / replier tout qui étaient inversés.

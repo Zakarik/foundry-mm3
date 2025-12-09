@@ -3141,7 +3141,7 @@ export function commonHTML(html, origin, data={}) {
       else rollStd(origin, name, total, {shift:hasShift, alt:hasAlt});
     }
     });
-  
+
   }
 
   if(hasAdd) {
@@ -3164,11 +3164,11 @@ export function commonHTML(html, origin, data={}) {
           break;
 
         case 'competence':
-          const comp = origin.system.competence[what];        
+          const comp = origin.system.competence[what];
           const dataComp = Object.keys(comp.list);
           const maxKeysComp = dataComp.length > 0 ? Math.max(...dataComp) : 0;
           const modele = comp.modele;
-          update[`system.competence.${what}.list.${maxKeysComp+1}`] = modele;
+          update[`system.competence.${what}.list.${maxKeysComp+1}`] = foundry.utils.mergeObject(modele, {_id:foundry.utils.randomID()});
 
           origin.update(update);
           break;
@@ -3236,7 +3236,7 @@ export function commonHTML(html, origin, data={}) {
             if(indexAtt !== -1) update[`system.attaque.-=${keys[indexAtt]}`] = null;
 
             update[`system.competence.${what}.list.-=${id}`] = null;
-          } 
+          }
           else {
             label = origin.system.competence[what].list[id].label;
 

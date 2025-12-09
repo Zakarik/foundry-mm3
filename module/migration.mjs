@@ -3,7 +3,7 @@ import {
   } from "./helpers/common.mjs";
 
 export class MigrationMM3 {
-    static NEEDED_VERSION = "1.32.11";
+    static NEEDED_VERSION = "1.39.13";
 
     static needUpdate(version) {
         const currentVersion = game.settings.get("mutants-and-masterminds-3e", "systemVersion");
@@ -617,6 +617,38 @@ export class MigrationMM3 {
 
                 update[`system.attaque.${a}.save.other.defense`] = 15;
                 update[`system.attaque.${a}.links.ability`] = '';
+            }
+        }
+
+        if (options?.force || MigrationMM3.needUpdate("1.39.13")) {
+            const cmp = data.competence;
+            const cmpCC = cmp.combatcontact.list;
+            const cmpCD = cmp.combatdistance.list;
+            const cmpEx = cmp.expertise.list;
+            const cmpNe = cmp.new.list;
+
+            for(let c in cmpCC) {
+                const data = cmpCC[c];
+
+                if(!data._id) update[`system.competence.combatcontact.list.${c}._id`] = foundry.utils.randomID();
+            }
+
+            for(let c in cmpCD) {
+                const data = cmpCD[c];
+
+                if(!data._id) update[`system.competence.combatdistance.list.${c}._id`] = foundry.utils.randomID();
+            }
+
+            for(let c in cmpEx) {
+                const data = cmpEx[c];
+
+                if(!data._id) update[`system.competence.expertise.list.${c}._id`] = foundry.utils.randomID();
+            }
+
+            for(let c in cmpNe) {
+                const data = cmpNe[c];
+
+                if(!data._id) update[`system.competence.new.list.${c}._id`] = foundry.utils.randomID();
             }
         }
         return update;
