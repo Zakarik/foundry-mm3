@@ -2133,7 +2133,7 @@ export async function rollStd(actor, name, score, dataKey={}) {
       token: actor?.token?.id || null,
       alias: actor?.name || null,
     },
-    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+    style: CONST.CHAT_MESSAGE_STYLES.ROLL,
     rolls:[roll],
     content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
     sound: CONFIG.sounds.dice
@@ -2369,7 +2369,7 @@ export async function rollVs(actor, name, score, vs, data={}, dataKey={}) {
       token: actor?.token?.id || null,
       alias: actor?.name || null,
     },
-    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+    style: CONST.CHAT_MESSAGE_STYLES.ROLL,
     rolls:[save],
     content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRollSave),
     sound: CONFIG.sounds.dice
@@ -2563,7 +2563,7 @@ export async function rollAtkTgt(actor, name, score, data, tgt, dataKey={}) {
       token: actor?.token?.id || null,
       alias: actor?.name || null,
     },
-    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+    style: CONST.CHAT_MESSAGE_STYLES.ROLL,
     rolls:[roll],
     content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
     sound: CONFIG.sounds.dice
@@ -2640,7 +2640,7 @@ export async function rollTgt(actor, name, data, tgt) {
       token: actor?.token?.id || null,
       alias: actor?.name || null,
     },
-    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+    style: CONST.CHAT_MESSAGE_STYLES.ROLL,
     content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
     sound: CONFIG.sounds.dice
   };
@@ -2681,7 +2681,7 @@ export async function rollWAtk(actor, name, data) {
       token: actor?.token?.id || null,
       alias: actor?.name || null,
     },
-    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+    style: CONST.CHAT_MESSAGE_STYLES.ROLL,
     content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
     sound: CONFIG.sounds.dice
   };
@@ -2740,7 +2740,7 @@ export async function rollAtk(actor, name, score, data, dataKey={}) {
       token: actor?.token?.id || null,
       alias: actor?.name || null,
     },
-    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+    style: CONST.CHAT_MESSAGE_STYLES.ROLL,
     rolls:[roll],
     content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
     sound: CONFIG.sounds.dice
@@ -2808,7 +2808,7 @@ export async function rollPwr(actor, id, dataKey={}) {
       token: actor?.token?.id || null,
       alias: actor?.name || null,
     },
-    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+    style: CONST.CHAT_MESSAGE_STYLES.ROLL,
     rolls:[roll],
     content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/pwr.html', pRoll),
     sound: CONFIG.sounds.dice
@@ -2852,7 +2852,7 @@ export async function sendInChat(actor, itm) {
       token: actor?.token?.id || null,
       alias: actor?.name || null,
     },
-    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+    style: CONST.CHAT_MESSAGE_STYLES.ROLL,
     content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/msgdata.html', pData),
     sound: CONFIG.sounds.dice
   };

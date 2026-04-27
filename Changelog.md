@@ -1,3 +1,10 @@
+## Version 1.40.0
+### Améliorations
+- Compatibilité avec la V14.
+
+### Bugfix
+- Correction d'un problème de variantes pour les pouvoirs / talents.
+
 ## Version 1.39.13
 ### Bugfix
 - Correction d'un bug empêchant de lier les compétences aux attaques.

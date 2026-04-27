@@ -173,7 +173,7 @@ export class QGActorSheet extends ActorSheet {
     // Get the type of item to create.
     const type = header.dataset.type;
     // Grab any data associated with this control.
-    const data = duplicate(header.dataset);
+    const data = foundry.utils.duplicate(header.dataset);
     // Initialize a default name.
     const name = `${game.i18n.localize(`ITEM.Type${type.capitalize()}`)}`;
     // Prepare the item object.

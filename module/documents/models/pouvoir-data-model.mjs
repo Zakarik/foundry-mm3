@@ -85,6 +85,7 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
     }
 
     prepareBaseData() {
+        this.#_sanitize();
         this.#_activate();
         this.#_cout();
     }
@@ -306,5 +307,23 @@ export class PouvoirDataModel extends foundry.abstract.TypeDataModel {
         } else calc += Math.floor((cout.totalTheorique-alreadyUsed)/cout.parrangtotal);
 
         return calc;
+    }
+
+    #_sanitize() {
+        const variantes = this.listEffectsVariantes;
+        const effects = this.effects;
+
+        // Récupère toutes les variantes utilisées dans les effects
+        const usedVariantes = new Set(
+            effects.map(e => e.flags?.["mutants-and-masterminds-3e"]?.variante)
+                .filter(v => v) // enlève undefined/null
+        );
+
+        // Supprime les variantes non utilisées
+        for (const key of Object.keys(variantes)) {
+            if (!usedVariantes.has(key)) {
+                delete variantes[key];
+            }
+        }
     }
 }

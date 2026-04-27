@@ -38,7 +38,7 @@ export class MM3Actor extends Actor {
               break;
       }
     }
-    await super.create(data, options);
+    return await super.create(data, options);
   }
 
   /** @override */

@@ -34,7 +34,7 @@ export class MM3Item extends Item {
             }
         }
 
-        await super.create(data, options);
+        return await super.create(data, options);
     }
 
     prepareDerivedData() {}

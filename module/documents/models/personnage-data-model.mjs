@@ -68,7 +68,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                     });
                 }
             }
-            else {            
+            else {
                 if(c === "new"){
                 competence[c] = new SchemaField({
                     modele:new SchemaField(foundry.utils.mergeObject({
@@ -696,7 +696,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
                     }
                 }
             }
-            console.log(currentCmp)
+
             if(dataCmp.canAdd || currentCmp.new) {
                 const cList = currentCmp.list;
 

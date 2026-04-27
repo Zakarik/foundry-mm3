@@ -19,8 +19,6 @@ export class editAtk {
         this.atk = game.mm3.getAtk(actor, id);
         this.options = options;
         this.skills = [];
-
-        console.error(actor);
     }
 
     get allStatus() {
@@ -330,8 +328,6 @@ export class editAtk {
         }
 
         options.data = allData;
-
-        console.error(options);
 
         return options;
     }

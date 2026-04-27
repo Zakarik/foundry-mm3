@@ -41,6 +41,8 @@ export class PersonnageActorSheet extends ActorSheet {
 
     if(game.settings.get("mutants-and-masterminds-3e", "stackeddmg")) context.systemData.stackeddmg = true;
 
+    console.error(context);
+
     return context;
   }
 
@@ -374,7 +376,7 @@ __preparePhisicalDescription(context) {
     // Get the type of item to create.
     const type = header.dataset.type;
     // Grab any data associated with this control.
-    const data = duplicate(header.dataset);
+    const data = foundry.utils.duplicate(header.dataset);
     // Initialize a default name.
     const name = `${game.i18n.localize(`ITEM.Type${type.capitalize()}`)}`;
     // Prepare the item object.

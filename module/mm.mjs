@@ -1231,7 +1231,7 @@ Hooks.on('renderChatMessage', (message, html, data) => {
           token: token?.id || null,
           alias: token?.name || null,
         },
-        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+        style: CONST.CHAT_MESSAGE_STYLES.ROLL,
         content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pMsg),
         sound: CONFIG.sounds.dice
       };
