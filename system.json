@@ -50,8 +50,8 @@
     }
   ],
   "compatibility": {
-    "minimum": "12",
-    "verified": "13"
+    "minimum": "13",
+    "verified": "14"
   },
   "grid": {
     "distance": 1.5,
