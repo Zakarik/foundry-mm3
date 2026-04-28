@@ -367,6 +367,7 @@ export class MigrationMM3 {
                         name:name
                     });
 
+                    if(find) {
                     updateActEff.push({
                         "_id":find._id,
                         icon:'',
@@ -375,6 +376,7 @@ export class MigrationMM3 {
                         },
                         name:name
                     })
+                    }
                 }
 
                 await item.updateEmbeddedDocuments('ActiveEffect', updateEff);

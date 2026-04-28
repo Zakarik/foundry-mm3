@@ -1,3 +1,7 @@
+## Version 1.40.1
+### Bugfix
+- Correction d'un message d'erreur qui pouvait apparaitre dans certains cas.
+
 ## Version 1.40.0
 ### Améliorations
 - Compatibilité avec la V14.
