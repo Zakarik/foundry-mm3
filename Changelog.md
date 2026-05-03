@@ -1,3 +1,7 @@
+## Version 1.40.2
+### Bugfix
+- Correction d'un bug avec l'édition des attaques.
+
 ## Version 1.40.1
 ### Bugfix
 - Correction d'un message d'erreur qui pouvait apparaitre dans certains cas.
