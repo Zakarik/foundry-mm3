@@ -15,7 +15,7 @@
         </label>
 
         <select class="rtypedefense" title="{{localize 'MM3.DEFENSE.Label'}}">
-            {{selectOptions defenses selected=selected nameAttr="key" labelAttr="label"}}
+            {{selectOptions defenses selected=selected valueAttr="key" labelAttr="label"}}
         </select>
 
         <label class="rangeff">
@@ -42,7 +42,7 @@
             </div>
             <div class="add">
                 <select>
-                    {{selectOptions etats blank='' nameAttr="key" labelAttr="label" sort=sort localize=true}}
+                    {{selectOptions etats blank='' valueAttr="key" labelAttr="label" sort=sort localize=true}}
                 </select>
 
                 <a class="btn">{{localize "MM3.BTN.Add"}}</a>
