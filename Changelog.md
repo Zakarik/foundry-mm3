@@ -1,3 +1,7 @@
+## Version 1.40.5
+### Bugfix
+- Correction de quelques traductions qui avaient disparus.
+
 ## Version 1.40.4
 ### Bugfix
 - Correction de plusieurs bugs résiduels sous Foundry V14.

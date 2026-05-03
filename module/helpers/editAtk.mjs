@@ -633,6 +633,7 @@ export class editAtk {
 
         switch(result) {
             case 'Dead':
+            case 'dead':
                 result = `EFFECT.StatusDead`;
                 break;
 
@@ -686,6 +687,21 @@ export class editAtk {
 
             case 'Paralyzed':
                 result = `MM3.STATUS.Paralysis`;
+                break;
+
+            case 'Restrain':
+            case 'restrain':
+                result = `MM3.STATUS.Restrained`;
+                break;
+
+            case 'Sleep':
+            case 'sleep':
+                result = `MM3.STATUS.Asleep`;
+                break;
+
+            case 'Eye':
+            case 'eye':
+                result = `MM3.STATUS.Influenced`;
                 break;
 
             case 'Stun':

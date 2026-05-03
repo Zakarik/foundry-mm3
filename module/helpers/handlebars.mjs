@@ -244,6 +244,16 @@ export const RegisterHandlebars = function () {
                     result = `MM3.STATUS.Restrained`;
                     break;
 
+                case 'Sleep':
+                case 'sleep':
+                    result = `MM3.STATUS.Asleep`;
+                    break;
+
+                case 'Eye':
+                case 'eye':
+                    result = `MM3.STATUS.Influenced`;
+                    break;
+
                 case 'Stun':
                     result = `MM3.STATUS.Stunned`;
                     break;
