@@ -1,3 +1,7 @@
+## Version 1.40.4
+### Bugfix
+- Correction de plusieurs bugs résiduels sous Foundry V14.
+
 ## Version 1.40.3
 ### Bugfix
 - Correction d'un bug avec l'édition des attaques (encore).

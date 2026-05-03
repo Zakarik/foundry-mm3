@@ -301,11 +301,19 @@ export class editAtk {
                 defenses:defenses,
                 basedefense:dataAtk?.save?.affliction?.defense ?? 10,
                 effet:dataAtk?.save?.affliction?.effet ?? 0,
-                list:dataAtk.repeat.affliction.map(aff => ({
-                    value:aff?.value ?? 0,
-                    status:aff?.status ?? [],
-                    etats:etats.filter(etat => !aff.status.includes(etat.key)),
-                })),
+                list:(() => {
+                    const source = dataAtk.repeat.affliction ?? [];
+                    const minLength = 4;
+                    const filled = Array.from({ length: Math.max(source.length, minLength) }, (_, i) => {
+                        const aff = source[i];
+                        return {
+                            value: aff?.value ?? 0,
+                            status: aff?.status ?? [],
+                            etats: etats.filter(etat => !(aff?.status ?? []).includes(etat.key)),
+                        };
+                    });
+                    return filled;
+                })(),
             });
         }
 
@@ -319,11 +327,19 @@ export class editAtk {
                 defenses:defenses,
                 basedefense:dataAtk?.save?.dmg?.defense ?? 15,
                 effet:dataAtk?.save?.dmg?.effet ?? 0,
-                list:dataAtk.repeat.dmg.map(dmg => ({
-                    value:dmg?.value ?? 1,
-                    status:dmg?.status ?? [],
-                    etats:etats.filter(etat => !dmg.status.includes(etat.key)),
-                })),
+                list:(() => {
+                    const source = dataAtk.repeat.dmg ?? [];
+                    const minLength = 4;
+                    const filled = Array.from({ length: Math.max(source.length, minLength) }, (_, i) => {
+                        const dmg = source[i];
+                        return {
+                            value: dmg?.value ?? 1,
+                            status: dmg?.status ?? [],
+                            etats: etats.filter(etat => !(dmg?.status ?? []).includes(etat.key)),
+                        };
+                    });
+                    return filled;
+                })(),
             });
         }
 

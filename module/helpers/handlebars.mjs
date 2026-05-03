@@ -239,6 +239,11 @@ export const RegisterHandlebars = function () {
                     result = `MM3.STATUS.Paralysis`;
                     break;
 
+                case 'Restrain':
+                case 'restrain':
+                    result = `MM3.STATUS.Restrained`;
+                    break;
+
                 case 'Stun':
                     result = `MM3.STATUS.Stunned`;
                     break;

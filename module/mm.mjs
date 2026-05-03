@@ -129,32 +129,37 @@ Hooks.once('init', async function() {
 
   CONFIG.statusEffects = [{
     id:'dead',
+    name:'EFFECT.StatusDead',
     label:'EFFECT.StatusDead',
-    icon:'icons/svg/skull.svg',
+    img:'icons/svg/skull.svg',
     origin:'status'
   },
   {
     id:'downgrade',
+    name:'MM3.STATUS.Downgrade',
     label:'MM3.STATUS.Downgrade',
-    icon:"icons/svg/downgrade.svg",
+    img:"icons/svg/downgrade.svg",
     origin:'status'
   },
   {
     id:'controlled',
+    name:'MM3.STATUS.Controlled',
     label:'MM3.STATUS.Controlled',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/controlled.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/controlled.svg",
     origin:'status'
   },
   {
     id:'decreased',
+    name:'MM3.STATUS.Decreased',
     label:'MM3.STATUS.Decreased',
-    icon:"icons/svg/degen.svg",
+    img:"icons/svg/degen.svg",
     origin:'status'
   },
   {
     id:'tired',
+    name:'MM3.STATUS.Tired',
     label:'MM3.STATUS.Tired',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/tired.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/tired.svg",
     origin:'status',
     changes:[{
       key:'slow',
@@ -164,43 +169,50 @@ Hooks.once('init', async function() {
   },
   {
     id:'dazed',
+    name:'MM3.STATUS.Dazed',
     label:'MM3.STATUS.Dazed',
-    icon:"icons/svg/daze.svg",
+    img:"icons/svg/daze.svg",
     origin:'status'
   },
   {
     id:'stuck',
+    name:'MM3.STATUS.Stuck',
     label:'MM3.STATUS.Stuck',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/stuck.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/stuck.svg",
   },
   {
     id:'eye',
+    name:'MM3.STATUS.Influenced',
     label:'MM3.STATUS.Influenced',
-    icon:"icons/svg/eye.svg",
+    img:"icons/svg/eye.svg",
     origin:'status'
   },
   {
     id:'insensitive',
+    name:'MM3.STATUS.Insensitive',
     label:'MM3.STATUS.Insensitive',
-    icon:"icons/svg/invisible.svg",
+    img:"icons/svg/invisible.svg",
     origin:'status'
   },
   {
     id:'invalid',
+    name:'MM3.STATUS.Invalid',
     label:'MM3.STATUS.Invalid',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/invalid.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/invalid.svg",
     origin:'status'
   },
   {
     id:'slow',
+    name:'MM3.STATUS.Slow',
     label:'MM3.STATUS.Slow',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/slow.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/slow.svg",
     origin:'status'
   },
   {
     id:'defenseless',
+    name:'MM3.STATUS.Defenseless',
     label:'MM3.STATUS.Defenseless',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/defenseless.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/defenseless.svg",
     origin:'status',
     changes:[{
       key: `esquive`,
@@ -217,14 +229,16 @@ Hooks.once('init', async function() {
   },
   {
     id:'transformed',
+    name:'MM3.STATUS.Transformed',
     label:'MM3.STATUS.Transformed',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/transformed.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/transformed.svg",
     origin:'status'
   },
   {
     id:'vulnerability',
+    name:'MM3.STATUS.Vulnerability',
     label:'MM3.STATUS.Vulnerability',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/vulnerability.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/vulnerability.svg",
     origin:'status',
     changes:[{
       key: `esquive`,
@@ -241,8 +255,9 @@ Hooks.once('init', async function() {
   },
   {
     id:'prone',
+    name:'MM3.STATUS.Prone',
     label:'MM3.STATUS.Prone',
-    icon:"icons/svg/falling.svg",
+    img:"icons/svg/falling.svg",
     origin:'status',
     changes:[{
       key:'slow',
@@ -252,8 +267,9 @@ Hooks.once('init', async function() {
   },
   {
     id:'blind',
+    name:'MM3.STATUS.Blind',
     label:'MM3.STATUS.Blind',
-    icon:"icons/svg/blind.svg",
+    img:"icons/svg/blind.svg",
     origin:'status',
     changes:[{
       key:'slow',
@@ -273,8 +289,9 @@ Hooks.once('init', async function() {
   },
   {
     id:'chanceling',
+    name:'MM3.STATUS.Chanceling',
     label:'MM3.STATUS.Chanceling',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/chanceling.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/chanceling.svg",
     origin:'status',
     changes:[{
       key:'slow',
@@ -289,8 +306,9 @@ Hooks.once('init', async function() {
   },
   {
     id:'sleep',
+    name:'MM3.STATUS.Asleep',
     label:'MM3.STATUS.Asleep',
-    icon:"icons/svg/sleep.svg",
+    img:"icons/svg/sleep.svg",
     origin:'status',
     changes:[{
       key:'defenseless',
@@ -310,8 +328,9 @@ Hooks.once('init', async function() {
   },
   {
     id:'restrain',
+    name:'MM3.STATUS.Restrained',
     label:'MM3.STATUS.Restrained',
-    icon:"icons/svg/net.svg",
+    img:"icons/svg/net.svg",
     origin:'status',
     changes:[{
       key:'slow',
@@ -326,8 +345,9 @@ Hooks.once('init', async function() {
   },
   {
     id:'enthralled',
+    name:'MM3.STATUS.Enthralled',
     label:'MM3.STATUS.Enthralled',
-    icon:"icons/svg/sun.svg",
+    img:"icons/svg/sun.svg",
     origin:'status',
     changes:[{
       key:'stun',
@@ -337,8 +357,9 @@ Hooks.once('init', async function() {
   },
   {
     id:'exhausted',
+    name:'MM3.STATUS.Exhausted',
     label:'MM3.STATUS.Exhausted',
-    icon:"icons/svg/unconscious.svg",
+    img:"icons/svg/unconscious.svg",
     origin:'status',
     changes:[{
       key:'slow',
@@ -353,8 +374,9 @@ Hooks.once('init', async function() {
   },
   {
     id:'tied',
+    name:'MM3.STATUS.Tied',
     label:'MM3.STATUS.Tied',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/tied.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/tied.svg",
     origin:'status',
     changes:[{
       key:'defenseless',
@@ -374,8 +396,9 @@ Hooks.once('init', async function() {
   },
   {
     id:'dying',
+    name:'MM3.STATUS.Dying',
     label:'MM3.STATUS.Dying',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/dying.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/dying.svg",
     origin:'status',
     changes:[{
       key:'neutralized',
@@ -385,8 +408,9 @@ Hooks.once('init', async function() {
   },
   {
     id:'neutralized',
+    name:'MM3.STATUS.Neutralized',
     label:'MM3.STATUS.Neutralized',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/neutralized.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/neutralized.svg",
     origin:'status',
     changes:[{
       key:'defenseless',
@@ -406,8 +430,9 @@ Hooks.once('init', async function() {
   },
   {
     id:'paralysis',
+    name:'MM3.STATUS.Paralysis',
     label:'MM3.STATUS.Paralysis',
-    icon:"icons/svg/paralysis.svg",
+    img:"icons/svg/paralysis.svg",
     origin:'status',
     changes:[{
       key:'defenseless',
@@ -427,14 +452,16 @@ Hooks.once('init', async function() {
   },
   {
     id:'deaf',
+    name:'MM3.STATUS.Deaf',
     label:'MM3.STATUS.Deaf',
-    icon:"icons/svg/deaf.svg",
+    img:"icons/svg/deaf.svg",
     origin:'status'
   },
   {
     id:'surprised',
+    name:'MM3.STATUS.Surprised',
     label:'MM3.STATUS.Surprised',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/surprised.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/surprised.svg",
     origin:'status',
     changes:[{
       key:'vulnerability',
@@ -449,14 +476,16 @@ Hooks.once('init', async function() {
   },
   {
     id:'stun',
+    name:'MM3.STATUS.Stunned',
     label:'MM3.STATUS.Stunned',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/stunned.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/stunned.svg",
     origin:'status'
   },
   {
     id:'disabled',
+    name:'MM3.STATUS.Disabled',
     label:'MM3.STATUS.Disabled',
-    icon:"systems/mutants-and-masterminds-3e/assets/icons/disabled.svg",
+    img:"systems/mutants-and-masterminds-3e/assets/icons/disabled.svg",
     origin:'status'
   }];
 
