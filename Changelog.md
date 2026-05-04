@@ -1,3 +1,7 @@
+## Version 1.40.6
+### Bugfix
+- Correction de la mise en page dans le QG, qui ne permettait pas d'écrire les particularités !
+
 ## Version 1.40.5
 ### Bugfix
 - Correction de quelques traductions qui avaient disparus.

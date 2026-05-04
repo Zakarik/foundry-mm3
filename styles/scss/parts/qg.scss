@@ -40,7 +40,7 @@ div.qg {
                 text-align: center;
 
                 &::placeholder {
-                    color:$fond;                    
+                    color:$fond;
                 }
             }
 
@@ -134,7 +134,7 @@ div.qg {
                         margin-top:2px;
 
                         span {
-                        
+
                             &.label {
                                 grid-column:2;
                                 text-align: right;
@@ -216,11 +216,11 @@ div.qg {
                     border:1px solid $grey;
                     border-top-color:$black;
                     padding: 5px;
-            
+
                     img.profile-img {
                         object-fit: contain;
                     }
-            
+
                     div {
                         &.inner {
                             display:grid;
@@ -229,36 +229,36 @@ div.qg {
                             align-items: flex-start;
                             align-content: flex-start;
                         }
-            
+
                         &.block {
                             display:grid;
                             grid-template-columns: 100%;
                             grid-template-rows: max-content;
                             border:2px solid $black;
-            
+
                             >span {
                                 font-variant: small-caps;
                                 font-size: 15px;
                                 padding-left: 15px;
                             }
-            
+
                             div.editor {
                                 min-height:50px;
                                 border-top:1px solid;
                                 border-top-color: $color;
-            
+
                                 a.editor-edit {
                                     height: 30px;
                                     width: 30px;
                                     text-align: center;
                                 }
-            
+
                                 div {
                                     &.editor-content {
                                         padding-left: 5px;
                                         padding-right: 5px;
                                     }
-            
+
                                     &.tox-tinymce {
                                         min-height:300px;
                                     }
@@ -282,7 +282,7 @@ div.qg {
                             align-content: flex-start;
                         }
                     }
-                    
+
                 }
 
                 &.taille {
@@ -358,14 +358,14 @@ div.qg {
                     border:2px solid $black;
                     margin-left: 5px;
                     margin-right: 5px;
-    
+
                     span {
                         &.header {
                             font-variant: small-caps;
                             font-size: 15px;
                             padding-left: 15px;
                         }
-                        
+
                         &.label {
                             display:flex;
                             justify-content: right;
@@ -374,7 +374,7 @@ div.qg {
                             padding-right: 5px;
                             align-items: center;
                             align-content: center;
-                        }                        
+                        }
                     }
 
                     input {
@@ -390,26 +390,26 @@ div.qg {
                         border-right: 0px;
                         border-bottom: 0px;
                     }
-    
+
                     div.editor {
                         grid-column-start: 1;
                         grid-column-end: 4;
-                        min-height:50px;
+                        min-height:150px;
                         border-top:1px solid;
                         border-top-color: $color;
-    
+
                         a.editor-edit {
                             height: 30px;
                             width: 30px;
                             text-align: center;
                         }
-    
+
                         div {
                             &.editor-content {
                                 padding-left: 5px;
                                 padding-right: 5px;
                             }
-    
+
                             &.tox-tinymce {
                                 min-height:300px;
                             }
@@ -439,13 +439,13 @@ div.qg {
                         grid-column-start: 1;
                         grid-column-end: 3;
                         position:relative;
-    
+
                         span.deploy {
                             position: absolute;
                             top: 0px;
                             left: 10px;
                             z-index: 999;
-    
+
                             i {
                                 cursor:pointer;
                                 &::before {
@@ -458,13 +458,13 @@ div.qg {
                                     color: $black;
                                     height: 23px;
                                 }
-    
+
                                 &.plus {
                                     &::before {
                                         content: "+";
                                     }
                                 }
-    
+
                                 &.minus {
                                     &::before {
                                         content: "-";
@@ -472,7 +472,7 @@ div.qg {
                                 }
                             }
                         }
-    
+
                         h1 {
                             text-align: center;
                             border: 0px;
@@ -487,17 +487,17 @@ div.qg {
                         &.outerGrpPwr {
                             grid-column-start: 1;
                             grid-column-end: 3;
-    
+
                             grid-template-columns: 1fr 1fr;
                             align-items: flex-start;
                             align-content: flex-start;
                             grid-gap: 5px;
                         }
-                        
+
                         &.grpPwr {
                             grid-column-start: 1;
                             grid-column-end: 3;
-    
+
                             display:grid;
                             grid-template-columns: 1fr 1fr;
                             align-items: flex-start;
@@ -505,25 +505,25 @@ div.qg {
                             grid-gap: 5px;
                             padding: 5px;
                             border: 1px solid $grey;
-    
+
                             &:nth-of-type(even) {
                                 &>div.pwr {
                                     div.pwrheader {
                                         background:$imgbg $lightGreen;
                                     }
-    
+
                                     &::after {
                                         background:$imgbg $lightGreen;
                                     }
                                 }
                             }
-    
+
                             &:nth-of-type(odd) {
                                 &>div.pwr {
                                     div.pwrheader {
                                         background:$imgbg $darkBlue;
                                     }
-                                    
+
                                     &::after {
                                         background:$imgbg $darkBlue;
                                     }
@@ -534,7 +534,7 @@ div.qg {
                         &.grpPwrAlt {
                             grid-column-start: 1;
                             grid-column-end: 3;
-    
+
                             display:grid;
                             grid-template-columns: 1fr 1fr;
                             align-items: flex-start;
@@ -544,7 +544,7 @@ div.qg {
                             border: 1px solid $grey;
                         }
 
-                        &.pwr {                            
+                        &.pwr {
                             div.pwrheader {
                                 grid-column-start: 1;
                                 grid-column-end: 3;
@@ -565,13 +565,13 @@ div.qg {
                                     position:absolute;
                                     font-size: 1rem;
                                     color:$fond;
-                                    top: 8px;                                    
+                                    top: 8px;
                                     cursor:pointer;
 
                                     &.item-edit {
                                         right:25px;
                                     }
-                                    
+
                                     &.item-delete {
                                         right:5px;
                                     }
@@ -610,7 +610,7 @@ div.qg {
                                     margin-right: 50px;
                                     white-space: nowrap;
                                     align-items: center;
-                                    align-content: center;                                
+                                    align-content: center;
                                 }
                             }
 
@@ -622,7 +622,7 @@ div.qg {
                                 width:100%;
                                 grid-template-columns: 1fr;
                                 position:relative;
-            
+
                                 &::before {
                                     content: "";
                                 }
@@ -646,13 +646,13 @@ div.qg {
                                                 color: $fond;
                                                 height: 23px;
                                             }
-        
+
                                             &.plus {
                                                 &::before {
                                                     content: "+";
                                                 }
                                             }
-        
+
                                             &.minus {
                                                 &::before {
                                                     content: "-";
@@ -726,7 +726,7 @@ div.qg {
                             width:100%;
                             border-width: 2px;
                             border-radius: 0px 0px 15px 15px;
-                            
+
                             background-blend-mode: overlay, multiply;
 
                             &.col2 {
@@ -757,7 +757,7 @@ div.qg {
                         &.data {
                             grid-column-start: 1;
                             grid-column-end: 3;
-                            
+
                             display:grid;
                             grid-template-columns: repeat(3, max-content) 29px;
                             grid-gap: 5px;
@@ -831,7 +831,7 @@ div.qg {
                         &.dataSpecial {
                             grid-column-start: 1;
                             grid-column-end: 3;
-                            
+
                             display:grid;
                             grid-template-columns: 1fr 45px max-content;
                             grid-gap: 5px;
@@ -937,7 +937,7 @@ div.qg {
                                     background:$color;
                                 }
                             }
-                            
+
                         }
 
                         &.details {
@@ -1050,18 +1050,18 @@ div.qg {
 
                             &.borderLeft {
                                 border-left: 1px solid $color;
-                            }  
-                            
+                            }
+
                             &.borderRight {
                                 border-right: 1px solid $color;
-                            } 
+                            }
                             &.borderLightLeft {
                                 border-left: 1px solid var(--color-border-light-primary);
-                            }  
-                            
+                            }
+
                             &.borderLightRight {
                                 border-right: 1px solid var(--color-border-light-primary);
-                            }   
+                            }
                         }
 
                         &.descripteurs {
