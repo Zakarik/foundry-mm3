@@ -81,7 +81,7 @@ div {
 
                     &.comp {
                         display:grid;
-                        grid-template-columns: 29px 1fr repeat(5, 42.55px) 12.25px;
+                        grid-template-columns: 11em 1fr repeat(5, 35px) 12.25px;
                         grid-template-rows: max-content;
                         border:2px solid $black;
                         padding:0px 5px 5px;
@@ -234,7 +234,7 @@ div {
                             display:grid;
                             grid-column-start: 1;
                             grid-column-end: 9;
-                            grid-template-columns: 29px 1fr repeat(5, 42.55px) 12.25px;
+                            grid-template-columns: 11em 1fr repeat(5, 35px) 12.25px;
                             grid-template-rows: max-content;
                             grid-gap: 5px;
                             a.roll {
@@ -367,6 +367,14 @@ div {
                                     text-shadow: 0px 0px 3px;
                                 }
                             }
+                        }
+
+                        .competence-h4 {
+                            display: flex;
+                            grid-column-start: 1;
+                            grid-column-end: 9;
+                            justify-content: center;
+                            align-items: center;
                         }
 
                         div.icons {

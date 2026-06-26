@@ -1,3 +1,8 @@
+## Version 1.40.7
+### Bugfix
+- Correction de la mise en page des compétences
+- Correction d'un bug empêchant de faire les jets de dés en FoundryV14.
+
 ## Version 1.40.6
 ### Bugfix
 - Correction de la mise en page dans le QG, qui ne permettait pas d'écrire les particularités !

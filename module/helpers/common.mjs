@@ -2133,7 +2133,7 @@ export async function rollStd(actor, name, score, dataKey={}) {
       token: actor?.token?.id || null,
       alias: actor?.name || null,
     },
-    style: CONST.CHAT_MESSAGE_STYLES.ROLL,
+    style: CONST.CHAT_MESSAGE_STYLES.OTHER,
     rolls:[roll],
     content: await renderTemplate('systems/mutants-and-masterminds-3e/templates/roll/std.html', pRoll),
     sound: CONFIG.sounds.dice
