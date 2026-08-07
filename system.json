@@ -53,6 +53,19 @@
     "minimum": "13",
     "verified": "14"
   },
+  "documentTypes": {
+    "Actor": {
+      "personnage": {},
+      "vehicule": {},
+      "qg": {}
+    },
+    "Item": {
+      "pouvoir": {},
+      "modificateur": {},
+      "talent": {},
+      "equipement": {}
+    }
+  },
   "grid": {
     "distance": 1.5,
     "units": "m"
