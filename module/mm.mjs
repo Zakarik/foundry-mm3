@@ -1557,7 +1557,7 @@ Hooks.on('renderTokenHUD', (hud, html, actor) => {
   if(actor.bar1.attribute === 'blessure') toUpdate = 'bar1';
   if(actor.bar2.attribute === 'blessure') toUpdate = 'bar2';
 
-  if(toUpdate !== undefined) html.find(`input[name="${toUpdate}.value"]`).prop("type", "number");
+  if(toUpdate !== undefined) $(html).find(`input[name="${toUpdate}.value"]`).prop("type", "number");
 });
 
 Hooks.on("canvasInit", function () {

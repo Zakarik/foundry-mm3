@@ -738,6 +738,8 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
         let defense = this.defense;
         let ppDef = 0;
 
+        console.error(effects);
+
         for(let d of CONFIG.MM3.LIST.Defenses) {
             let currentDefense = defense[d];
             const ranks = currentDefense.ranks;
@@ -792,7 +794,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
             });
 
             if(effects.has('defenseless')) {
-                const def = actor.effects.find(itm => itm.origin === 'status' && itm.statuses.has('defenseless'));
+                const def = actor.effects.find(itm => itm.statuses.has('defenseless'));
 
                 for(let e of def.changes) {
                     if(e.key === d) {
@@ -806,7 +808,7 @@ export class PersonnageDataModel extends foundry.abstract.TypeDataModel {
             if(!currentDefense.defenseless) total = isSurcharge(Math.max(currentDefense.surcharge, surchargeRanksValue), defRang, currentDefense.carac, currentDefense.divers, mod, currentDefense.bonuses, ranksValue);
 
             if(effects.has('vulnerability') && !currentDefense.defenseless) {
-                const vul = actor.effects.find(itm => itm.origin === 'status' && itm.statuses.has('vulnerability'));
+                const vul = actor.effects.find(itm => itm.statuses.has('vulnerability'));
                 for(let e of vul.changes) {
                     if(e.key === d) total = total/e.value;
                 }

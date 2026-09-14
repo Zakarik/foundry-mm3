@@ -1,3 +1,8 @@
+## Version 1.40.8
+### Bugfix
+- Correction d'un bug suite à une mise à jour récente de FoundryVTT, qui pouvait cesser de faire les calculs de la fiche.
+- Correction d'un bug potentiel avec TokenHUD.
+
 ## Version 1.40.7
 ### Bugfix
 - Correction de la mise en page des compétences
